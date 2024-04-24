@@ -794,7 +794,7 @@ class PFFormField {
 			if ( $fullCargoField != null ) {
 				// It's inefficient to get these values via
 				// text parsing, but oh well.
-				list( $cargo_table, $cargo_field ) = explode( '|', $fullCargoField, 2 );
+				[ $cargo_table, $cargo_field ] = explode( '|', $fullCargoField, 2 );
 				$text .= Html::hidden( 'input_' . $wgPageFormsFieldNum . '_unique_cargo_table', $cargo_table );
 				$text .= Html::hidden( 'input_' . $wgPageFormsFieldNum . '_unique_cargo_field', $cargo_field );
 			}

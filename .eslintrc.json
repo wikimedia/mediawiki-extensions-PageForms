@@ -96,6 +96,7 @@
 		"es-x/no-block-scoped-variables": "warn",
 		"es-x/no-default-parameters": "warn",
 		"es-x/no-for-of-loops": "warn",
-		"es-x/no-string-prototype-includes": "warn"
+		"es-x/no-string-prototype-includes": "warn",
+		"es-x/no-resizable-and-growable-arraybuffers": "warn"
 	}
 }

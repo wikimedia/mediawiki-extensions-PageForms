@@ -78,7 +78,7 @@ class PFCreateForm extends SpecialPage {
 			# ignore variables that are not of the right form
 			if ( strpos( $var, "_" ) != false ) {
 				# get the template declarations and work from there
-				list( $action, $id ) = explode( "_", $var, 2 );
+				[ $action, $id ] = explode( "_", $var, 2 );
 				if ( $action == "template" ) {
 					// If the button was pressed to remove
 					// this template, just don't add it to

@@ -158,10 +158,8 @@ pf.spreadsheetAutocompleteWidget.prototype.getLookupRequest = function() {
 };
 
 /**
- *
  * @param {string} suggestion
  * @return {Mixed} HtmlSnipppet
- *
  */
 pf.spreadsheetAutocompleteWidget.prototype.highlightText = function( suggestion ) {
 	var searchTerm = this.getValue();
@@ -206,7 +204,6 @@ pf.spreadsheetAutocompleteWidget.prototype.getNoMatchesOOUIMenuOptionWidget = fu
  * @param {string} curValue
  *
  * @return {boolean}
- *
  */
 pf.spreadsheetAutocompleteWidget.prototype.checkIfAnyWordStartsWithInputValue = function( string, curValue ) {
 	var regex = new RegExp('\\b' + curValue.toLowerCase());
@@ -220,7 +217,6 @@ pf.spreadsheetAutocompleteWidget.prototype.checkIfAnyWordStartsWithInputValue = 
  * @param {string} data_y
  * @param {string} dep_on_field
  * @return {Object} dep_field_opts
- *
  */
 pf.spreadsheetAutocompleteWidget.prototype.getDependentFieldOpts = function( data_y, dep_on_field ) {
 	var dep_field_opts = {};

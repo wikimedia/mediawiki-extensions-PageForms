@@ -3,6 +3,9 @@
  * checkboxes or radiobuttons into a dynamic and collapsible tree of options
  * using the jsTree JS library.
  *
+ * @param $
+ * @param mw
+ * @param pf
  * @author Mathias Lidal
  * @author Yaron Koren
  * @author Priyanshu Varshney

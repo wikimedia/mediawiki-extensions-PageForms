@@ -347,7 +347,7 @@ class PFMappingUtils {
 	 * @return string
 	 */
 	private static function removeNSPrefixFromLabel( string $label ) {
-		$labelArr = explode( ':',  trim( $label ) );
+		$labelArr = explode( ':', trim( $label ) );
 		if ( count( $labelArr ) > 1 ) {
 			$prefix = array_shift( $labelArr );
 			$res = implode( ':', $labelArr );

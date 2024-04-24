@@ -302,54 +302,54 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		$warningHtml = '<h2>' . $this->msg( 'uploadwarning' )->escaped() . "</h2>\n"
 			. '<ul class="warningbox">';
 		foreach ( $warnings as $warning => $args ) {
-				// Unlike the other warnings, this one can be worked around.
-				if ( $warning == 'badfilename' ) {
-					$this->mDesiredDestName = Title::makeTitle( NS_FILE, $args )->getText();
-				}
+			// Unlike the other warnings, this one can be worked around.
+			if ( $warning == 'badfilename' ) {
+				$this->mDesiredDestName = Title::makeTitle( NS_FILE, $args )->getText();
+			}
 
-				if ( $warning == 'exists' ) {
-					$msg = self::getExistsWarning( $args );
-				} elseif ( $warning == 'no-change' ) {
-					$file = $args;
-					$filename = $file->getTitle()->getPrefixedText();
-					$msg = "\t<li>" . $this->msg( 'fileexists-no-change', $filename )->parse() . "</li>\n";
-				} elseif ( $warning == 'duplicate-version' ) {
-					$file = $args[0];
-					$count = count( $args );
-					$filename = $file->getTitle()->getPrefixedText();
-					$message = $this->msg( 'fileexists-duplicate-version' )
-						->params( $filename )
-						->numParams( $count );
-					$msg = "\t<li>" . $message->parse() . "</li>\n";
-				} elseif ( $warning == 'was-deleted' ) {
-					# If the file existed before and was deleted, warn the user of this
-					$ltitle = SpecialPage::getTitleFor( 'Log' );
-					$llink = $linkRenderer->makeKnownLink(
-						$ltitle,
-						$this->msg( 'deletionlog' )->text(),
-						[],
-						[
-							'type' => 'delete',
-							'page' => Title::makeTitle( NS_FILE, $args )->getPrefixedText(),
-						]
-					);
-					$msg = "\t<li>" . $this->msg( 'filewasdeleted' )->rawParams( $llink )->parse() . "</li>\n";
-				} elseif ( $warning == 'duplicate' ) {
-					$msg = $this->getDupeWarning( $args );
-				} elseif ( $warning == 'duplicate-archive' ) {
-					$msg = "\t<li>" . $this->msg(
-						'file-deleted-duplicate',
-						[ Title::makeTitle( NS_FILE, $args )->getPrefixedText() ]
-					)->parse() . "</li>\n";
-				} else {
-					if ( is_bool( $args ) ) {
-						$args = [];
-					} elseif ( !is_array( $args ) ) {
-						$args = [ $args ];
-					}
-					$msg = "\t<li>" . $this->msg( $warning, $args )->parse() . "</li>\n";
+			if ( $warning == 'exists' ) {
+				$msg = self::getExistsWarning( $args );
+			} elseif ( $warning == 'no-change' ) {
+				$file = $args;
+				$filename = $file->getTitle()->getPrefixedText();
+				$msg = "\t<li>" . $this->msg( 'fileexists-no-change', $filename )->parse() . "</li>\n";
+			} elseif ( $warning == 'duplicate-version' ) {
+				$file = $args[0];
+				$count = count( $args );
+				$filename = $file->getTitle()->getPrefixedText();
+				$message = $this->msg( 'fileexists-duplicate-version' )
+					->params( $filename )
+					->numParams( $count );
+				$msg = "\t<li>" . $message->parse() . "</li>\n";
+			} elseif ( $warning == 'was-deleted' ) {
+				# If the file existed before and was deleted, warn the user of this
+				$ltitle = SpecialPage::getTitleFor( 'Log' );
+				$llink = $linkRenderer->makeKnownLink(
+					$ltitle,
+					$this->msg( 'deletionlog' )->text(),
+					[],
+					[
+						'type' => 'delete',
+						'page' => Title::makeTitle( NS_FILE, $args )->getPrefixedText(),
+					]
+				);
+				$msg = "\t<li>" . $this->msg( 'filewasdeleted' )->rawParams( $llink )->parse() . "</li>\n";
+			} elseif ( $warning == 'duplicate' ) {
+				$msg = $this->getDupeWarning( $args );
+			} elseif ( $warning == 'duplicate-archive' ) {
+				$msg = "\t<li>" . $this->msg(
+					'file-deleted-duplicate',
+					[ Title::makeTitle( NS_FILE, $args )->getPrefixedText() ]
+				)->parse() . "</li>\n";
+			} else {
+				if ( is_bool( $args ) ) {
+					$args = [];
+				} elseif ( !is_array( $args ) ) {
+					$args = [ $args ];
 				}
-				$warningHtml .= $msg;
+				$msg = "\t<li>" . $this->msg( $warning, $args )->parse() . "</li>\n";
+			}
+			$warningHtml .= $msg;
 		}
 		$warningHtml .= "</ul>\n";
 		$warningHtml .= $this->msg( 'uploadwarning-text' )->parseAsBlock();

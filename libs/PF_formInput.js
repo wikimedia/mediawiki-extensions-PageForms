@@ -3,6 +3,8 @@
  *
  * JS handling for #forminput and Special:FormStart.
  *
+ * @param $
+ * @param mw
  * @author Yaron Koren
  */
 

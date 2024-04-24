@@ -174,7 +174,7 @@ class PFDateInput extends PFFormInput {
 				$month = $date['month'];
 				$day = $date['day'];
 			} else {
-				list( $year, $month, $day ) = self::parseDate( $date );
+				[ $year, $month, $day ] = self::parseDate( $date );
 			}
 		} else {
 			// Just keep everything at null.

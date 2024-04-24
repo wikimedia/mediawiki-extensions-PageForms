@@ -840,7 +840,9 @@ var dataValues = [];
 					allowInsertColumn: false,
 					allowDeletingAllRows: true,
 					oninsertrow: rowAdded,
-					contextMenu: function() { return false; },
+					contextMenu: function() {
+						return false;
+					},
 					tableHeight: "2500px",
 					pagination: (editMultiplePages === undefined ) ? false : 100,
 					search: (editMultiplePages !== undefined ),

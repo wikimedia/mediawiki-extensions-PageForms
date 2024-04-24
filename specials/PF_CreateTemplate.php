@@ -328,7 +328,7 @@ END;
 				if ( count( $var_elements ) != 2 ) {
 					continue;
 				}
-				list( $field_field, $id ) = $var_elements;
+				[ $field_field, $id ] = $var_elements;
 				if ( $field_field == 'name' && $id != 'starter' ) {
 					$field = PFTemplateField::create(
 						$val,

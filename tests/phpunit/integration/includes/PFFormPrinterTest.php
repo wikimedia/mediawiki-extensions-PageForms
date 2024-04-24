@@ -38,7 +38,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		$wgOut->getContext()->setTitle( $this->getTitle() );
 
-		list( $form_text, $page_text, $form_page_title, $generated_page_name ) =
+		[ $form_text, $page_text, $form_page_title, $generated_page_name ] =
 			$wgPageFormsFormPrinter->formHTML(
 				$form_def = $setup['form_definition'],
 				$form_submitted = true,
@@ -134,11 +134,11 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		$mockTitle->expects( $this->any() )
 			->method( 'getDBkey' )
-			->will( $this->returnValue( 'Sometitle' ) );
+			->willReturn( 'Sometitle' );
 
 		$mockTitle->expects( $this->any() )
 			->method( 'getNamespace' )
-			->will( $this->returnValue( PF_NS_FORM ) );
+			->willReturn( PF_NS_FORM );
 
 		return $mockTitle;
 	}

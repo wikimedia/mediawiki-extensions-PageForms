@@ -48,18 +48,18 @@ class PFPageSection {
 
 			if ( count( $sub_components ) === 2 ) {
 				switch ( $sub_components[0] ) {
-				case 'level':
-					$ps->mSectionLevel = $sub_components[1];
-					break;
-				case 'rows':
-				case 'cols':
-				case 'class':
-				case 'editor':
-				case 'placeholder':
-					$ps->mSectionArgs[$sub_components[0]] = $sub_components[1];
-					break;
-				default:
-					// Ignore unknown
+					case 'level':
+						$ps->mSectionLevel = $sub_components[1];
+						break;
+					case 'rows':
+					case 'cols':
+					case 'class':
+					case 'editor':
+					case 'placeholder':
+						$ps->mSectionArgs[$sub_components[0]] = $sub_components[1];
+						break;
+					default:
+						// Ignore unknown
 				}
 			}
 		}

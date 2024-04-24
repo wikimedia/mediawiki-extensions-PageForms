@@ -47,7 +47,7 @@ class PFFormLinker {
 		// Allow outside code to set/change the preloaded text.
 		MediaWikiServices::getInstance()->getHookContainer()->run( 'PageForms::EditFormPreloadText', [ &$preloadContent, $title, $formTitle ] );
 
-		list( $formText, $pageText, $formPageTitle, $generatedPageName ) =
+		[ $formText, $pageText, $formPageTitle, $generatedPageName ] =
 			$wgPageFormsFormPrinter->formHTML(
 				$formDefinition, false, false, null, $preloadContent,
 				'Some very long page name that will hopefully never get created ABCDEF123',

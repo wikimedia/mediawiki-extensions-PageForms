@@ -30,7 +30,7 @@ class PFDatePickerInput extends PFFormInput {
 	 */
 	public function __construct( $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
 		if ( $cur_value != '' ) {
-			list( $year, $month, $day ) = PFDateInput::parseDate( $cur_value );
+			[ $year, $month, $day ] = PFDateInput::parseDate( $cur_value );
 			$cur_value = sprintf( '%04d-%02d-%02d', $year, $month, $day );
 		}
 

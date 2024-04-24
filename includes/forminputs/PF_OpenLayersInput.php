@@ -278,7 +278,7 @@ class PFOpenLayersInput extends PFFormInput {
 		if ( count( $latAndLonStrings ) != 2 ) {
 			throw new MWException( "Error parsing coordinates string: \"$coordinatesString\"." );
 		}
-		list( $latString, $lonString ) = $latAndLonStrings;
+		[ $latString, $lonString ] = $latAndLonStrings;
 
 		// Handle strings one at a time.
 		$latIsNegative = false;

@@ -347,7 +347,7 @@ class PFHooks {
 			'<div id="pfForm" class="previewnote" style="font-weight: bold">' . $previewNote . "</div>\n<hr />\n";
 
 		$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $editpage->textbox1 );
-		list( $form_text, $data_text, $form_page_title, $generated_page_name ) =
+		[ $form_text, $data_text, $form_page_title, $generated_page_name ] =
 			$wgPageFormsFormPrinter->formHTML( $form_definition, null, false, null, null, "Page Forms form preview dummy title", null );
 
 		$parserOutput = PFUtils::getParser()->getOutput();

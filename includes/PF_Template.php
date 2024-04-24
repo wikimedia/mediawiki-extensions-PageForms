@@ -242,7 +242,7 @@ class PFTemplate {
 
 		// First, get the table name, and fields, declared for this
 		// template, if any.
-		list( $tableName, $tableSchema ) = $this->getCargoTableAndSchema( $templateTitle );
+		[ $tableName, $tableSchema ] = $this->getCargoTableAndSchema( $templateTitle );
 		if ( $tableName == null ) {
 			$fieldDescriptions = [];
 		} else {
@@ -365,7 +365,7 @@ class PFTemplate {
 		if ( $tableSchemaString === null ) {
 			// There's no declared table - but see if there's an
 			// attached table.
-			list( $tableName, $isDeclared ) = CargoUtils::getTableNameForTemplate( $templateTitle );
+			[ $tableName, $isDeclared ] = CargoUtils::getTableNameForTemplate( $templateTitle );
 			if ( $tableName == null ) {
 				return [ null, null ];
 			}

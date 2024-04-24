@@ -437,7 +437,6 @@
 	 * @param {HTMLElement} element
 	 *
 	 * @return {string}
-	 *
 	 */
 	pf.ComboBoxInput.prototype.nameAttr = function(element) {
 		return this.partOfMultiple(element) ? "origname" : "name";
@@ -449,7 +448,6 @@
 	 * @param {HTMLElement} element
 	 *
 	 * @return {boolean}
-	 *
 	 */
 	pf.ComboBoxInput.prototype.partOfMultiple = function(element) {
 		return element.attr("origname") !== undefined ? true : false;
@@ -460,7 +458,6 @@
 	 * then it returns its name.
 	 *
 	 * @return {string}
-	 *
 	 */
 	pf.ComboBoxInput.prototype.dependentOn = function() {
 		var input_id = "#" + this.getInputId();
@@ -484,7 +481,6 @@
 	 * @param {string} dep_on
 	 *
 	 * @return {Object} dep_field_opts
-	 *
 	 */
 	pf.ComboBoxInput.prototype.getDependentFieldOpts = function(dep_on) {
 		var input_id = "#" + this.getInputId();
@@ -514,7 +510,6 @@
 	 * @param {HTMLElement} element
 	 *
 	 * @return {Array} dependent_on_me (associative array)
-	 *
 	 */
 	pf.ComboBoxInput.prototype.dependentOnMe = function() {
 		var input_id = "#" + this.getInputId();

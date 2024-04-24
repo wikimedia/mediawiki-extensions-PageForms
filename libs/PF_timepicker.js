@@ -2,7 +2,6 @@
  * Javascript code to be used with input type timepicker.
  *
  * @author Stephan Gambke
- *
  */
 
 /**
@@ -14,7 +13,6 @@
  *		maxTime: (String) the maximum time to be shown (format hh:mm)
  *		interval: (String) the interval between selectable times in minutes
  *		format: (String) a format string (unused) (do we even need it?)
- *
  */
 window.PF_TP_init = function( inputID, params ) { // minTime, maxTime, interval, format
 
@@ -224,7 +222,9 @@ window.PF_TP_init = function( inputID, params ) { // minTime, maxTime, interval,
 	// hide timepicker when input loses focus
 	$inputShow
 	.blur(function() {
-		jQuery( '#' + inputID + '_tree ul' ).fadeOut( 'normal', function() { jQuery(this).hide(); });
+		jQuery( '#' + inputID + '_tree ul' ).fadeOut( 'normal', function() {
+			jQuery(this).hide();
+		});
 	});
 
 	if ( ! params.partOfDTP ) {

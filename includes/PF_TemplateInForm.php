@@ -78,7 +78,7 @@ class PFTemplateInForm {
 		$tif->mAddButtonText = wfMessage( 'pf_formedit_addanother' )->text();
 
 		if ( array_key_exists( $tif->mTemplateName, $wgPageFormsEmbeddedTemplates ) ) {
-			list( $tif->mEmbedInTemplate, $tif->mEmbedInField ) =
+			[ $tif->mEmbedInTemplate, $tif->mEmbedInField ] =
 				$wgPageFormsEmbeddedTemplates[$tif->mTemplateName];
 			$tif->mPlaceholder = PFFormPrinter::placeholderFormat( $tif->mEmbedInTemplate, $tif->mEmbedInField );
 		}
@@ -381,7 +381,7 @@ class PFTemplateInForm {
 			[ '<nowiki', 'nowiki>' ]
 		];
 		foreach ( $startAndEndTags as $tags ) {
-			list( $startTag, $endTag ) = $tags;
+			[ $startTag, $endTag ] = $tags;
 
 			$startTagLoc = -1;
 			while ( ( $startTagLoc + strlen( $startTag ) < strlen( $str ) ) &&

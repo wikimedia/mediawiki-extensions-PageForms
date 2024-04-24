@@ -51,7 +51,7 @@ class PFLeafletInput extends PFOpenLayersInput {
 			$imagePage = new ImagePage( $fileTitle );
 			$file = $imagePage->getDisplayedFile();
 			$filePath = $wgUploadDirectory . '/' . $file->getUrlRel();
-			list( $imageWidth, $imageHeight, $type, $attr ) = getimagesize( $filePath );
+			[ $imageWidth, $imageHeight, $type, $attr ] = getimagesize( $filePath );
 			if ( !array_key_exists( 'height', $other_args ) && !array_key_exists( 'width', $other_args ) ) {
 				// Scale down image if it's huge.
 				$maxDimension = max( $imageHeight, $imageWidth );

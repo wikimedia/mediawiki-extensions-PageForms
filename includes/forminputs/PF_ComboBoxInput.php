@@ -98,7 +98,7 @@ class PFComboBoxInput extends PFFormInput {
 				}
 			}
 		} else {
-			list( $autocompleteSettings, $remoteDataType, $delimiter ) = PFValuesUtils::setAutocompleteValues( $other_args, false );
+			[ $autocompleteSettings, $remoteDataType, $delimiter ] = PFValuesUtils::setAutocompleteValues( $other_args, false );
 			$autocompleteSettings = str_replace( "'", "\'", $autocompleteSettings );
 		}
 

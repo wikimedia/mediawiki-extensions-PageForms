@@ -661,7 +661,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 			if ( count( $arr ) == 3 ) {
 				$names_array = self::getValuesForCargoField( $arr[0], $arr[1], $arr[2] );
 			} else {
-				list( $table_name, $field_name ) = explode( '|', $source_name, 2 );
+				[ $table_name, $field_name ] = explode( '|', $source_name, 2 );
 				$names_array = self::getAllValuesForCargoField( $table_name, $field_name );
 			}
 			// Remove blank/null values from the array.
@@ -794,7 +794,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 	 * @return string[]
 	 */
 	public static function setAutocompleteValues( $field_args, $is_list ) {
-		list( $autocompleteFieldType, $autocompletionSource ) =
+		[ $autocompleteFieldType, $autocompletionSource ] =
 			self::getAutocompletionTypeAndSource( $field_args );
 		$autocompleteSettings = $autocompletionSource;
 		if ( $is_list ) {
@@ -912,7 +912,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 
 		$rawQuery = $rawQuery . "|named args=yes|link=none|limit=$wgPageFormsMaxAutocompleteValues|searchlabel=";
 		$rawQueryArray = explode( "|", $rawQuery );
-		list( $queryString, $processedParams, $printouts ) = SMWQueryProcessor::getComponentsFromFunctionParams( $rawQueryArray, false );
+		[ $queryString, $processedParams, $printouts ] = SMWQueryProcessor::getComponentsFromFunctionParams( $rawQueryArray, false );
 		SMWQueryProcessor::addThisPrintout( $printouts, $processedParams );
 		$processedParams = SMWQueryProcessor::getProcessedParams( $processedParams, $printouts );
 

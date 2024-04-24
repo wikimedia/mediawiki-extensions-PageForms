@@ -87,7 +87,7 @@ class PFRunQuery extends IncludableSpecialPage {
 		}
 
 		$form_context = $embedded ? PFFormPrinter::CONTEXT_EMBEDDED_QUERY : PFFormPrinter::CONTEXT_QUERY;
-		list( $form_text, $data_text, $form_page_title ) =
+		[ $form_text, $data_text, $form_page_title ] =
 			$wgPageFormsFormPrinter->formHTML(
 				$form_definition, $form_submitted, false, $form_title->getArticleID(),
 				$content, null, null, $form_context, [], $user

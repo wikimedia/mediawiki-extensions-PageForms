@@ -1,6 +1,8 @@
 /**
  * JavaScript for the Page Forms MediaWiki extension.
  *
+ * @param $
+ * @param mw
  * @license GNU GPL v3+
  * @author Jeroen De Dauw <jeroendedauw at gmail dot com>
  */

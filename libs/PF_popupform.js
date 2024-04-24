@@ -2,7 +2,6 @@
  * Javascript code to be used with extension PageForms for popup forms.
  *
  * @author Stephan Gambke
- *
  */
 /*global escape*/
 

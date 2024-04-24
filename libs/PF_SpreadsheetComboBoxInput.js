@@ -126,7 +126,6 @@ pf.SpreadsheetComboBoxInput.prototype.setValues = function() {
 	}
 }
 /**
- *
  * @param {string} suggestion
  * @return HtmlSnippet
  */

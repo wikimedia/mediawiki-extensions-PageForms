@@ -33,7 +33,7 @@ class PFTemplateParams {
 
 		$fieldData = [];
 		foreach ( $params as $param ) {
-			list( $fieldName, $fieldParams ) = self::parseWikitextString( $param );
+			[ $fieldName, $fieldParams ] = self::parseWikitextString( $param );
 			if ( $fieldName !== '' ) {
 				$fieldData[$fieldName] = $fieldParams;
 			}

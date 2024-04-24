@@ -940,7 +940,7 @@ class PFAutoeditAPI extends ApiBase {
 			$wgRequest = new FauxRequest( $this->mOptions, true, $session );
 			// Call PFFormPrinter::formHTML() to get at the form
 			// HTML of the existing page.
-			list( $formHTML, $targetContent, $form_page_title, $generatedTargetNameFormula ) =
+			[ $formHTML, $targetContent, $form_page_title, $generatedTargetNameFormula ] =
 				$wgPageFormsFormPrinter->formHTML(
 					// Special handling for autoedit edits -
 					// otherwise, multi-instance templates
@@ -976,7 +976,7 @@ class PFAutoeditAPI extends ApiBase {
 			// Spoof $wgRequest for PFFormPrinter::formHTML().
 			$session = RequestContext::getMain()->getRequest()->getSession();
 			$wgRequest = new FauxRequest( $this->mOptions, true, $session );
-			list( $formHTML, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
+			[ $formHTML, $targetContent, $generatedFormName, $generatedTargetNameFormula ] =
 				$wgPageFormsFormPrinter->formHTML(
 					$formContent, $isFormSubmitted, $pageExists,
 					$formArticleId, $preloadContent, $targetName, $targetNameFormula,
