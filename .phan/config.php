@@ -26,6 +26,9 @@ $cfg['exclude_analysis_directory_list'] = array_merge(
 $cfg['null_casts_as_any_type'] = true;
 $cfg['scalar_implicit_cast'] = true;
 
+// Ignored to allow upgrading Phan, to be fixed later.
+$cfg['suppress_issue_types'][] = 'MediaWikiNoEmptyIfDefined';
+
 $cfg['suppress_issue_types'] = array_merge(
 	$cfg['suppress_issue_types'],
 	// NOTE: New issues should NOT be added here, but suppressed inline instead
