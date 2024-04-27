@@ -151,7 +151,9 @@ class PFFormLink {
 		// The page doesn't exist, so if 'create page' was
 		// specified, create the page now.
 		if ( $className == 'PFFormRedLink' &&
-			$inCreatePage && $inTargetName != '' ) {
+			$inCreatePage && $inTargetName != '' &&
+			// Skip if we're not looking at the current revision of this page.
+			$parser->getRevisionRecordObject()->isCurrent() ) {
 			$targetTitle = Title::newFromText( $inTargetName );
 			PFFormLinker::createPageWithForm( $targetTitle, $inFormName, $inQueryArr );
 		}
