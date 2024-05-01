@@ -235,11 +235,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		# Add footer to form
 		if ( !$this->msg( 'uploadfooter' )->isDisabled() ) {
 			$output = $this->getOutput();
-			if ( method_exists( $output, 'parseAsInterface' ) ) {
-				$uploadFooter = $output->parseAsInterface( $this->msg( 'uploadfooter' )->plain() );
-			} else {
-				$uploadFooter = $output->parse( $this->msg( 'uploadfooter' )->plain() );
-			}
+			$uploadFooter = $output->parseAsInterface( $this->msg( 'uploadfooter' )->plain() );
 			$form->addPostText( '<div id="mw-upload-footer-message">' . $uploadFooter . "</div>\n" );
 		}
 
@@ -389,11 +385,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		$status = $this->mUpload->fetchFile();
 		$output = $this->getOutput();
 		if ( !$status->isOK() ) {
-			if ( method_exists( $output, 'parseAsInterface' ) ) {
-				$statusText = $output->parseAsInterface( $status->getWikiText() );
-			} else {
-				$statusText = $output->parse( $status->getWikiText() );
-			}
+			$statusText = $output->parseAsInterface( $status->getWikiText() );
 			return $this->showUploadForm( $this->getUploadForm( $statusText ) );
 		}
 
@@ -435,11 +427,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		}
 		$status = $this->mUpload->performUpload( $this->mComment, $pageText, $this->mWatchThis, $this->getUser() );
 		if ( !$status->isGood() ) {
-			if ( method_exists( $output, 'parseAsInterface' ) ) {
-				$statusText = $output->parseAsInterface( $status->getWikiText() );
-			} else {
-				$statusText = $output->parse( $status->getWikiText() );
-			}
+			$statusText = $output->parseAsInterface( $status->getWikiText() );
 			return $this->uploadError( $statusText );
 		}
 

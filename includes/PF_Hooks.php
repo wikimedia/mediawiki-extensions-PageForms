@@ -351,11 +351,7 @@ class PFHooks {
 			$wgPageFormsFormPrinter->formHTML( $form_definition, null, false, null, null, "Page Forms form preview dummy title", null );
 
 		$parserOutput = PFUtils::getParser()->getOutput();
-		if ( method_exists( $wgOut, 'addParserOutputMetadata' ) ) {
-			$wgOut->addParserOutputMetadata( $parserOutput );
-		} else {
-			$wgOut->addParserOutputNoText( $parserOutput );
-		}
+		$wgOut->addParserOutputMetadata( $parserOutput );
 
 		PFUtils::addFormRLModules();
 		$editpage->previewTextAfterContent .=
