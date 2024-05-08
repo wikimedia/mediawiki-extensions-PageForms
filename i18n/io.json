@@ -18,6 +18,7 @@
 	"pf_formedit_none": "Nula",
 	"pf-simpleupload": "Kargar",
 	"pf_deletionlog": "Registro pri efaci",
+	"right-viewedittab": "Vidar separilo \"{{int:edit}}\" por pagini editebla uzanta formulario",
 	"pf-datepicker-close": "Klozez",
 	"pf-datepicker-prev": "Antea"
 }
