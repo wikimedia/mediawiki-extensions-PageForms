@@ -133,32 +133,17 @@ class PFFormUtils {
 			$user = RequestContext::getMain()->getUser();
 			$services = MediaWikiServices::getInstance();
 			$userOptionsLookup = $services->getUserOptionsLookup();
-			if ( method_exists( \MediaWiki\Watchlist\WatchlistManager::class, 'isWatched' ) ) {
-				// MediaWiki 1.37+
-				$watchlistManager = $services->getWatchlistManager();
-				if ( $userOptionsLookup->getOption( $user, 'watchdefault' ) ) {
-					# Watch all edits
-					$is_checked = true;
-				} elseif ( $userOptionsLookup->getOption( $user, 'watchcreations' ) &&
-					!$wgTitle->exists() ) {
-					# Watch creations
-					$is_checked = true;
-				} elseif ( $watchlistManager->isWatched( $user, $wgTitle ) ) {
-					# Already watched
-					$is_checked = true;
-				}
-			} else {
-				if ( $userOptionsLookup->getOption( $user, 'watchdefault' ) ) {
-					# Watch all edits
-					$is_checked = true;
-				} elseif ( $userOptionsLookup->getOption( $user, 'watchcreations' ) &&
-					!$wgTitle->exists() ) {
-					# Watch creations
-					$is_checked = true;
-				} elseif ( $user->isWatched( $wgTitle ) ) {
-					# Already watched
-					$is_checked = true;
-				}
+			$watchlistManager = $services->getWatchlistManager();
+			if ( $userOptionsLookup->getOption( $user, 'watchdefault' ) ) {
+				# Watch all edits
+				$is_checked = true;
+			} elseif ( $userOptionsLookup->getOption( $user, 'watchcreations' ) &&
+				!$wgTitle->exists() ) {
+				# Watch creations
+				$is_checked = true;
+			} elseif ( $watchlistManager->isWatched( $user, $wgTitle ) ) {
+				# Already watched
+				$is_checked = true;
 			}
 		}
 		if ( $label == null ) {

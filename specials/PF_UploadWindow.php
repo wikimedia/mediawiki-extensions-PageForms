@@ -555,13 +555,8 @@ END;
 		if ( $local && $local->exists() ) {
 			// We're uploading a new version of an existing file.
 			// No creation, so don't watch it if we're not already.
-			if ( method_exists( \MediaWiki\Watchlist\WatchlistManager::class, 'isWatched' ) ) {
-				// MediaWiki 1.37+
-				return MediaWikiServices::getInstance()->getWatchlistManager()
-					->isWatched( $this->getUser(), $local->getTitle() );
-			} else {
-				return $this->getUser()->isWatched( $local->getTitle() );
-			}
+			return MediaWikiServices::getInstance()->getWatchlistManager()
+				->isWatched( $this->getUser(), $local->getTitle() );
 		}
 		// New page should get watched if that's our option.
 		return MediaWikiServices::getInstance()->getUserOptionsLookup()
