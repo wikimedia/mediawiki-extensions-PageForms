@@ -544,23 +544,26 @@ END;
 	 * @return bool
 	 */
 	protected function watchCheck() {
-		if ( MediaWikiServices::getInstance()->getUserOptionsLookup()
-			->getOption( $this->getUser(), 'watchdefault' ) ) {
+		$services = MediaWikiServices::getInstance();
+		$lookup = $services->getUserOptionsLookup();
+		$user = $this->getUser();
+
+		if ( $lookup->getOption( $user, 'watchdefault' ) ) {
 			// Watch all edits!
 			return true;
 		}
 
-		$local = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo()
+		$local = $services->getRepoGroup()->getLocalRepo()
 			->newFile( $this->mDesiredDestName );
 		if ( $local && $local->exists() ) {
 			// We're uploading a new version of an existing file.
 			// No creation, so don't watch it if we're not already.
-			return MediaWikiServices::getInstance()->getWatchlistManager()
-				->isWatched( $this->getUser(), $local->getTitle() );
+			return $services->getWatchlistManager()
+				->isWatched( $user, $local->getTitle() );
 		}
+
 		// New page should get watched if that's our option.
-		return MediaWikiServices::getInstance()->getUserOptionsLookup()
-			->getOption( $this->getUser(), 'watchcreations' );
+		return $lookup->getOption( $user, 'watchcreations' );
 	}
 
 	/**
