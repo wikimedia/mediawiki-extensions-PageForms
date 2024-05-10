@@ -654,7 +654,7 @@ class PFAutoeditAPI extends ApiBase {
 		if ( $this->mStatus === 200 ) {
 			if ( array_key_exists( 'ok text', $this->mOptions ) ) {
 				$targetTitle = Title::newFromText( $this->mOptions['target'] );
-				$responseText = $this->getMessageCache()->parse( $this->mOptions['error text'], $targetTitle )->getText();
+				$responseText = $this->getMessageCache()->parse( $this->mOptions['ok text'], $targetTitle )->getText();
 			} elseif ( $this->mAction === self::ACTION_SAVE ) {
 				// We turn this into a link of the form [[:A|A]]
 				// so that pages in the File: namespace won't
