@@ -654,7 +654,8 @@ class PFAutoeditAPI extends ApiBase {
 		if ( $this->mStatus === 200 ) {
 			if ( array_key_exists( 'ok text', $this->mOptions ) ) {
 				$targetTitle = Title::newFromText( $this->mOptions['target'] );
-				$responseText = $this->getMessageCache()->parse( $this->mOptions['ok text'], $targetTitle )->getText();
+				$messageCache = MediaWikiServices::getInstance()->getMessageCache();
+				$responseText = $messageCache->parse( $this->mOptions['ok text'], $targetTitle )->getText();
 			} elseif ( $this->mAction === self::ACTION_SAVE ) {
 				// We turn this into a link of the form [[:A|A]]
 				// so that pages in the File: namespace won't
@@ -668,7 +669,8 @@ class PFAutoeditAPI extends ApiBase {
 			// get errortext (or use default)
 			if ( array_key_exists( 'error text', $this->mOptions ) ) {
 				$targetTitle = Title::newFromText( $this->mOptions['target'] );
-				$responseText = $this->getMessageCache()->parse( $this->mOptions['error text'], $targetTitle )->getText();
+				$messageCache = MediaWikiServices::getInstance()->getMessageCache();
+				$responseText = $messageCache->parse( $this->mOptions['error text'], $targetTitle )->getText();
 			} elseif ( $this->mAction === self::ACTION_SAVE ) {
 				$targetText = ':' . $this->mOptions['target'] . '|' . $this->mOptions['target'];
 				$responseText = $this->msg( 'pf_autoedit_fail', $targetText )->parse();
@@ -1230,14 +1232,6 @@ class PFAutoeditAPI extends ApiBase {
 				array_push( $array, $value );
 			}
 		}
-	}
-
-	/**
-	 * Get a MessageCache depending on mediawiki version
-	 * @return MessageCache
-	 */
-	private function getMessageCache() {
-		return MediaWikiServices::getInstance()->getMessageCache();
 	}
 
 	/**

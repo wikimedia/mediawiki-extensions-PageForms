@@ -93,7 +93,9 @@ class PFUtils {
 		if ( $namespace !== '' ) {
 			$namespace .= ':';
 		}
-		if ( self::isCapitalized( $title->getNamespace() ) ) {
+		$isCapitalized = MediaWikiServices::getInstance()->getNamespaceInfo()
+			->isCapitalized( $title->getNamespace() );
+		if ( $isCapitalized ) {
 			return $namespace . self::getContLang()->ucfirst( $title->getPartialURL() );
 		} else {
 			return $namespace . $title->getPartialURL();
@@ -455,12 +457,6 @@ END;
 		}
 
 		return false;
-	}
-
-	public static function isCapitalized( $index ) {
-		return MediaWikiServices::getInstance()
-			->getNamespaceInfo()
-			->isCapitalized( $index );
 	}
 
 	public static function getCanonicalName( $index ) {
