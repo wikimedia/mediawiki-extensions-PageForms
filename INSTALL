@@ -1,4 +1,4 @@
-[[Page Forms 5.8-alph]]
+[[Page Forms 5.8-alpha]]
 
 Contents:
 * Disclaimer
@@ -17,7 +17,7 @@ For a proper legal disclaimer, see the file "COPYING".
 
 == Requirements ==
 
-The extension requires MediaWiki 1.37 or greater.
+The extension requires MediaWiki 1.38 or greater.
 
 == Installation ==
 

@@ -335,14 +335,6 @@ input.pfComboBoxActual {
 	border: 1px solid #ddd !important;
 }
 
-/**
- * The box-sizing in the DateTimeInputWidget is incorrectly set to
- * "border-box" for MW versions before 1.38, which leads to too-narrow inputs.
- */
-.mw-widgets-datetime-dateTimeInputWidget-field {
-	box-sizing: content-box !important;
-}
-
 /* The standard MediaWiki editOptions class lacks a top border. */
 div.editOptions {
 	border: 1px solid #c8ccd1;
