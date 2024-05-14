@@ -519,15 +519,14 @@ class PFAutoeditAPI extends ApiBase {
 				// Give extensions a chance to modify URL query on create
 				$sectionanchor = null;
 				$extraQuery = null;
-				MediaWikiServices::getInstance()->getHookContainer()->run( 'ArticleUpdateBeforeRedirect', [ $editor->getArticle(), &$sectionanchor, &$extraQuery ] );
+				$services->getHookContainer()->run( 'ArticleUpdateBeforeRedirect', [ $editor->getArticle(), &$sectionanchor, &$extraQuery ] );
 
 				// @phan-suppress-next-line PhanImpossibleCondition
 				if ( $extraQuery ) {
-					if ( $query ) {
-						$query .= '&' . $extraQuery;
-					} else {
-						$query .= $extraQuery;
+					if ( $query !== '' ) {
+						$query .= '&';
 					}
+					$query .= $extraQuery;
 				}
 
 				$redirect = $title->getFullURL( $query ) . $anchor;
@@ -536,7 +535,7 @@ class PFAutoeditAPI extends ApiBase {
 				$reload = $this->getRequest()->getText( 'reload' );
 				if ( $returnto !== null ) {
 					// Purge the returnto page
-					$returntoPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $returnto );
+					$returntoPage = $services->getWikiPageFactory()->newFromTitle( $returnto );
 					if ( $returntoPage->exists() && $reload ) {
 						$returntoPage->doPurge();
 					}
@@ -550,11 +549,10 @@ class PFAutoeditAPI extends ApiBase {
 			case EditPage::AS_SUCCESS_UPDATE:
 				// Article successfully updated
 				$extraQuery = '';
-				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
-				$sectionanchor = $resultDetails['sectionanchor'];
+				$sectionanchor = $resultDetails['sectionanchor'] ?? null;
 
 				// Give extensions a chance to modify URL query on update
-				MediaWikiServices::getInstance()->getHookContainer()->run( 'ArticleUpdateBeforeRedirect', [ $editor->getArticle(), &$sectionanchor, &$extraQuery ] );
+				$services->getHookContainer()->run( 'ArticleUpdateBeforeRedirect', [ $editor->getArticle(), &$sectionanchor, &$extraQuery ] );
 
 				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 				if ( $resultDetails['redirect'] ) {
@@ -572,7 +570,7 @@ class PFAutoeditAPI extends ApiBase {
 				$reload = $this->getRequest()->getText( 'reload' );
 				if ( $returnto !== null ) {
 					// Purge the returnto page
-					$returntoPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $returnto );
+					$returntoPage = $services->getWikiPageFactory()->newFromTitle( $returnto );
 					if ( $returntoPage->exists() && $reload ) {
 						$returntoPage->doPurge();
 					}
@@ -603,8 +601,7 @@ class PFAutoeditAPI extends ApiBase {
 
 			case EditPage::AS_SPAM_ERROR:
 				// summary contained spam according to one of the regexes in $wgSummarySpamRegex
-				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
-				$match = $resultDetails['spam'];
+				$match = $resultDetails['spam'] ?? '';
 				if ( is_array( $match ) ) {
 					$match = $this->getLanguage()->listToText( $match );
 				}
