@@ -515,7 +515,19 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 	public static function getAllPagesForNamespace( $namespaceStr, $substring = null ) {
 		global $wgLanguageCode, $wgPageFormsUseDisplayTitle;
 
-		$namespaceNames = explode( ',', $namespaceStr );
+		if ( $namespaceStr === '_contentNamespaces' ) {
+			global $wgContentNamespaces;
+			$queriedNamespaces = $wgContentNamespaces;
+			$namespaceConditions = array_map( static function ( $ns ) {
+				return "page_namespace = $ns";
+			}, $queriedNamespaces );
+			$namespaceNames = [];
+		} else {
+			$namespaceNames = explode( ',', $namespaceStr );
+			$queriedNamespaces = [];
+			$namespaceConditions = [];
+
+		}
 
 		$allNamespaces = PFUtils::getContLang()->getNamespaces();
 
@@ -523,9 +535,6 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 			$englishLang = MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( 'en' );
 			$allEnglishNamespaces = $englishLang->getNamespaces();
 		}
-
-		$queriedNamespaces = [];
-		$namespaceConditions = [];
 
 		foreach ( $namespaceNames as $namespace_name ) {
 			$namespace_name = self::standardizeNamespace( $namespace_name );
@@ -567,7 +576,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		$conditions[] = implode( ' OR ', $namespaceConditions );
 		$tables = [ 'page' ];
 		$columns = [ 'page_title' ];
-		if ( count( $namespaceNames ) > 1 ) {
+		if ( count( $namespaceConditions ) > 1 ) {
 			$columns[] = 'page_namespace';
 		}
 		if ( $wgPageFormsUseDisplayTitle ) {
@@ -708,6 +717,9 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		} elseif ( array_key_exists( 'values from namespace', $field_args ) ) {
 			$autocompleteFieldType = 'namespace';
 			$autocompletionSource = $field_args['values from namespace'];
+		} elseif ( array_key_exists( 'values from content namespaces', $field_args ) ) {
+			$autocompleteFieldType = 'namespace';
+			$autocompletionSource = "_contentNamespaces";
 		} elseif ( array_key_exists( 'values from url', $field_args ) ) {
 			$autocompleteFieldType = 'external_url';
 			$autocompletionSource = $field_args['values from url'];
