@@ -201,7 +201,7 @@
 	"pf_formedit_remove": "Видалити цей екземпляр",
 	"pf_formedit_addanotherabove": "Додати ще один зразок над ним",
 	"pf_formedit_addanother": "Додати іншу",
-	"pf_formedit_none": "Нічого",
+	"pf_formedit_none": "Немає/невідомо",
 	"pf_formedit_emptytitle": "Помилка: вставлені дані опинилися у порожній назві сторінки.",
 	"pf_formedit_hookerror": "Помилка: Розширення MediaWiki запобігло зміні цільової сторінки.",
 	"pf_formedit_saveandcontinueediting": "Зберегти і продовжити",
