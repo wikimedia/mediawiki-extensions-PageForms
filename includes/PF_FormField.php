@@ -449,9 +449,11 @@ class PFFormField {
 			// the exact page name - and if these values come from
 			// "values from namespace", the namespace prefix was
 			// not included, so we need to add it now.
-			if ( $valuesSourceType == 'namespace' && $valuesSource != '' && $valuesSource != 'Main' ) {
-				foreach ( $f->mPossibleValues as $index => &$value ) {
-					$value = $valuesSource . ':' . $value;
+			if ( $valuesSourceType == 'namespace' ) {
+				if ( $valuesSource != '' && $valuesSource != 'Main' ) {
+					foreach ( $f->mPossibleValues as $index => &$value ) {
+						$value = $valuesSource . ':' . $value;
+					}
 				}
 				// Has to be set to false to not mess up the
 				// handling.
