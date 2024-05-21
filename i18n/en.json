@@ -207,7 +207,6 @@
 	"pf_autoedit_invalidtargetspecified": "The specified target page '''$1''' is invalid.",
 	"pf_autoedit_invalidform": "'''$1''' is not a valid form.",
 	"pf_autoedit_redirectlimitexeeded": "The maximum redirect limit for form $1 was exceeded.",
-	"pf_autoedit_invalidredirecttarget": "$1 is an invalid redirect target for form $2.",
 	"pf_autoedit_invalidpreloadspecified": "The specified preload page $1 is invalid.",
 	"pf_autoedit_redlinkexists": "$1 already exists.",
 	"pf_autoedit_noformfound": "No form specified.",

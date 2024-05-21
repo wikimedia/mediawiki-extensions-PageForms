@@ -226,7 +226,6 @@
 	"pf_autoedit_invalidtargetspecified": "An error message sent when the specified target page name is invalid as a wiki page name.\n\nParameters:\n* $1 - target page title",
 	"pf_autoedit_invalidform": "An error message sent when an invalid form was specified.\n\nParameters:\n* $1 - form name",
 	"pf_autoedit_redirectlimitexeeded": "An error message sent when the redirect limit was exeeded for the form page.\n\nParameters:\n* $1 - form name",
-	"pf_autoedit_invalidredirecttarget": "An error message sent when the form page redirects to an invalid target.\n\nParameters:\n* $1 - target page title\n* $2 - form name",
 	"pf_autoedit_invalidpreloadspecified": "An error message sent when an invalid preload page was specified.\n\nParameters:\n* $1 - preload page title",
 	"pf_autoedit_redlinkexists": "An error message sent when the page was started on a redlink but on submit already exists.\n\nParameters:\n* $1 - empty string",
 	"pf_autoedit_noformfound": "An error message sent when no suitable form could be found to edit the given target page.",

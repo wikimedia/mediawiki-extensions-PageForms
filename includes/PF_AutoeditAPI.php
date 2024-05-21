@@ -291,17 +291,11 @@ class PFAutoeditAPI extends ApiBase {
 			$this->logMessage( 'Form ' . $this->mOptions['form'] . ' is a redirect. Finding target.', self::DEBUG );
 
 			$formWikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $formTitle );
-			$formTitle = $formWikiPage->getContent( RevisionRecord::RAW )->getUltimateRedirectTarget();
+			$formTitle = $formWikiPage->getContent( RevisionRecord::RAW )->getRedirectTarget();
 
-			// if we exceeded $wgMaxRedirects or encountered an invalid redirect target, give up
+			// If it's a double-redirect, give up.
 			if ( $formTitle->isRedirect() ) {
-				$newTitle = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $formTitle )->getRedirectTarget();
-
-				if ( $newTitle instanceof Title && $newTitle->isValidRedirectTarget() ) {
-					throw new MWException( $this->msg( 'pf_autoedit_redirectlimitexeeded', $this->mOptions['form'] )->parse() );
-				} else {
-					throw new MWException( $this->msg( 'pf_autoedit_invalidredirecttarget', $newTitle->getFullText(), $this->mOptions['form'] )->parse() );
-				}
+				throw new MWException( $this->msg( 'pf_autoedit_redirectlimitexeeded', $this->mOptions['form'] )->parse() );
 			}
 		}
 
