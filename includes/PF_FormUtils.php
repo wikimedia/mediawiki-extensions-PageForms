@@ -47,7 +47,7 @@ class PFFormUtils {
 		global $wgPageFormsTabIndex;
 
 		if ( $label == null ) {
-			$label = wfMessage( 'summary' )->text();
+			$label = wfMessage( 'summary' )->parse();
 		}
 
 		$wgPageFormsTabIndex++;
@@ -71,7 +71,7 @@ class PFFormUtils {
 			new OOUI\TextInputWidget( $attr ),
 			[
 				'align' => 'top',
-				'label' => $label
+				'label' => new OOUI\HtmlSnippet( $label )
 			]
 		);
 
