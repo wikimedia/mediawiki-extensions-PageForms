@@ -153,7 +153,6 @@
 	"pf_autoedit_invalidtargetspecified": "Podata cilowa strona '''$1''' je njepłaćiwa.",
 	"pf_autoedit_invalidform": "'''$1''' płaćiwy formular njeje.",
 	"pf_autoedit_redirectlimitexeeded": "Maksimalny dalesposrědkowanski limit za formular $1 je so překročił.",
-	"pf_autoedit_invalidredirecttarget": "$1 je njepłaćiwy dalesposrědkowanski cil za formular $2.",
 	"pf_autoedit_invalidpreloadspecified": "Podata strona $1, kotraž ma so najprjedy začitać, je njepłaćiwa.",
 	"pf_autoedit_redlinkexists": "$1 hižo eksistuje.",
 	"pf_autoedit_noformfound": "Žadyn formular podaty.",

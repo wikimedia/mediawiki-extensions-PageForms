@@ -167,7 +167,6 @@
 	"pf_autoedit_invalidtargetspecified": "Valitu kohdesivu $1 on väärä.",
 	"pf_autoedit_invalidform": "'''$1''' ei ole kelvollinen lomake.",
 	"pf_autoedit_redirectlimitexeeded": "Lomakkeen $1 ohjausten enimmäismäärä ylitettiin.",
-	"pf_autoedit_invalidredirecttarget": "$1 ei ole sallittu ohjauksen kohde lomakkeelle $2.",
 	"pf_autoedit_invalidpreloadspecified": "Määritetty esilaattava sivu $1 ei ole sallittu.",
 	"pf_autoedit_redlinkexists": "$1 on jo olemassa.",
 	"pf_autoedit_noformfound": "Lomaketta ei ole määritetty.",

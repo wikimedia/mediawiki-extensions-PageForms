@@ -202,7 +202,6 @@
 	"pf_autoedit_invalidtargetspecified": "निर्दिष्ट लक्ष्य पृष्ठ '''$1''' अमान्य है।",
 	"pf_autoedit_invalidform": "'''$1''' को मान्य फ़ॉर्म नहीं है।",
 	"pf_autoedit_redirectlimitexeeded": "फ़ॉर्म $1 के लिए अनुप्रेषणों की अधिकतम सीमा पार हो गई।",
-	"pf_autoedit_invalidredirecttarget": "$1, $2 के लिए एक अमान्य अनुप्रेषण पृष्ठ है।",
 	"pf_autoedit_invalidpreloadspecified": "निर्दिष्ट प्रीलोड पृष्ठ $1 अमान्य है।",
 	"pf_autoedit_redlinkexists": "$1 पहले से मौजूद है।",
 	"pf_autoedit_noformfound": "कोई फ़ॉर्म निर्दिष्ट नहीं किया गया।",

@@ -207,7 +207,6 @@
 	"pf_autoedit_invalidtargetspecified": "Le pagina de destination '''$1''' non es valide.",
 	"pf_autoedit_invalidform": "'''$1''' non es un formulario valide.",
 	"pf_autoedit_redirectlimitexeeded": "Le limite maxime de redirectiones pro le formulario $1 ha essite excedite.",
-	"pf_autoedit_invalidredirecttarget": "$1 non es un redirection valide pro le formulario $2.",
 	"pf_autoedit_invalidpreloadspecified": "Le pagina de precargamento specificate, $1, non es valide.",
 	"pf_autoedit_redlinkexists": "$1 ja existe.",
 	"pf_autoedit_noformfound": "Nulle formulario specificate.",

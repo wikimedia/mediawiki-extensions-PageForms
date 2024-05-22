@@ -212,7 +212,6 @@
 	"pf_autoedit_invalidtargetspecified": "الصفحة المستهدفة المحددة '''$1''' غير صالحة.",
 	"pf_autoedit_invalidform": "'''$1''' ليس نموذجا صالحا.",
 	"pf_autoedit_redirectlimitexeeded": "تم تجاوز الحد الأقصى للتحويل للنموذج $1.",
-	"pf_autoedit_invalidredirecttarget": "يمثل $1 هدفا غير صالح للتحويل للنموذج $2.",
 	"pf_autoedit_invalidpreloadspecified": "صفحة التحميل المسبق المحددة $1 غير صالحة.",
 	"pf_autoedit_redlinkexists": "$1 موجود بالفعل.",
 	"pf_autoedit_noformfound": "لا يوجد نموذج محدد.",

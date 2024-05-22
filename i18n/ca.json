@@ -200,7 +200,6 @@
 	"pf_autoedit_invalidtargetspecified": "La pàgina de destinació especificada '''$1''' no és vàlida.",
 	"pf_autoedit_invalidform": "'''$1''' no és un formulari vàlid.",
 	"pf_autoedit_redirectlimitexeeded": "S'ha excedit el límit màxim de redireccions del formulari $1.",
-	"pf_autoedit_invalidredirecttarget": "$1 és una destinació de redirecció no vàlida per al formulari $2.",
 	"pf_autoedit_invalidpreloadspecified": "La pàgina de precàrrega especificada $1 no és vàlida.",
 	"pf_autoedit_redlinkexists": "$1 ja existeix.",
 	"pf_autoedit_noformfound": "No s'ha especificat cap formulari.",

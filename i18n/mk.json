@@ -207,7 +207,6 @@
 	"pf_autoedit_invalidtargetspecified": "Укажаната целна страница '''$1''' е погрешна.",
 	"pf_autoedit_invalidform": "'''$1''' не претставува важечки образец.",
 	"pf_autoedit_redirectlimitexeeded": "Достигнат е максималниот дозволен број на пренасочувања за образецот $1.",
-	"pf_autoedit_invalidredirecttarget": "$1 е неважечка цел на пренасочување за образецот $2.",
 	"pf_autoedit_invalidpreloadspecified": "Укажаната претвчитана страница $1 е погрешна.",
 	"pf_autoedit_redlinkexists": "$1 веќе постои.",
 	"pf_autoedit_noformfound": "Нема наведено образец",

@@ -239,7 +239,6 @@
 	"pf_autoedit_invalidtargetspecified": "La page cible spécifiée « $1 » n’est pas valide.",
 	"pf_autoedit_invalidform": "« $1 » n’est pas un formulaire valide.",
 	"pf_autoedit_redirectlimitexeeded": "La limite maximale des redirections pour le formulaire « $1 » a été dépassée.",
-	"pf_autoedit_invalidredirecttarget": "« $1 » est un lien de redirection non valide pour le formulaire « $2 ».",
 	"pf_autoedit_invalidpreloadspecified": "La page de préchargement spécifiée « $1 » n’est pas valide.",
 	"pf_autoedit_redlinkexists": "La page « $1 » existe déjà.",
 	"pf_autoedit_noformfound": "Aucun formulaire spécifié.",

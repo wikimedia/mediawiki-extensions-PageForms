@@ -140,7 +140,6 @@
 	"pf_autoedit_invalidtargetspecified": "La pàgina ëd destinassion specificà $1 a l'é pa bon-a.",
 	"pf_autoedit_invalidform": "'''$1''' a l'é pa un formolari bon.",
 	"pf_autoedit_redirectlimitexeeded": "Ël lìmit màssim ëd ridiression për ël formolari $1 a l'é stàit sorpassà.",
-	"pf_autoedit_invalidredirecttarget": "$1 a l'é na destinassion ëd ridiression ch'a va nen bin për ël formolari $2.",
 	"pf_autoedit_invalidpreloadspecified": "La pàgina ëd precariagi specificà $1 a l'é pa bon-a.",
 	"pf_autoedit_redlinkexists": "$1 a esist già.",
 	"pf_autoedit_noformfound": "Gnun formolari specificà.",

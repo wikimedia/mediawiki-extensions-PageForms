@@ -157,7 +157,6 @@
 	"pf_autoedit_fail": "[[$1]] の変更に失敗しました。",
 	"pf_autoedit_invalidform": "'''$1''' は有効なフォームではありません。",
 	"pf_autoedit_redirectlimitexeeded": "フォーム $1 がリダイレクト回数の上限に達しました。",
-	"pf_autoedit_invalidredirecttarget": "$1 はフォーム $2 のリダイレクト先として無効です。",
 	"pf_autoedit_invalidpreloadspecified": "指定したプリロードページ $1 は無効です。",
 	"pf_autoedit_redlinkexists": "$1 は既に存在します。",
 	"pf_autoedit_noformfound": "フォームが指定されていません。",

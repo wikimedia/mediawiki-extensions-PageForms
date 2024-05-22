@@ -218,7 +218,6 @@
 	"pf_autoedit_invalidtargetspecified": "指定的目標頁面 '''$1''' 無效。",
 	"pf_autoedit_invalidform": "'''$1''' 不是有效的表單。",
 	"pf_autoedit_redirectlimitexeeded": "表單 $1 已超出重新導向上限。",
-	"pf_autoedit_invalidredirecttarget": "表單 $2 的 $1 為無效的重新導向目標。",
 	"pf_autoedit_invalidpreloadspecified": "指定預先載入的頁面 $1 無效。",
 	"pf_autoedit_redlinkexists": "$1 已存在。",
 	"pf_autoedit_noformfound": "未指定表單。",

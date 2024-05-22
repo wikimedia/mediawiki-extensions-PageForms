@@ -195,7 +195,6 @@
 	"pf_autoedit_invalidtargetspecified": "La páxina de destín especificada, '''$1''', ye inválida.",
 	"pf_autoedit_invalidform": "'''$1''' nun ye un formulariu válidu.",
 	"pf_autoedit_redirectlimitexeeded": "Superóse'l la llende máxima de redireiciones pal formulariu \"$1\".",
-	"pf_autoedit_invalidredirecttarget": "$1 ye un destín de redireición inválidu pal formulariu $2.",
 	"pf_autoedit_invalidpreloadspecified": "La páxina de precarga especificada, $1, ye inválida.",
 	"pf_autoedit_redlinkexists": "$1 yá esiste.",
 	"pf_autoedit_noformfound": "Nun s'especificó nengún formulariu.",

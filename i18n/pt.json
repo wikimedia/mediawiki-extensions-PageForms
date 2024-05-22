@@ -214,7 +214,6 @@
 	"pf_autoedit_invalidtargetspecified": "A página de destino especificada '''$1''' não é válida.",
 	"pf_autoedit_invalidform": "'''$1''' não é um formulário válido.",
 	"pf_autoedit_redirectlimitexeeded": "Foi excedido o limite máximo de redirecionamentos para o formulário $1.",
-	"pf_autoedit_invalidredirecttarget": "$1 é um destino de redirecionamento inválido para o formulário $2.",
 	"pf_autoedit_invalidpreloadspecified": "A página de pré-carregamento especificada $1 é inválida.",
 	"pf_autoedit_redlinkexists": "$1 já existe.",
 	"pf_autoedit_noformfound": "Não foi especificado um formulário.",

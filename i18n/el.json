@@ -207,7 +207,6 @@
 	"pf_autoedit_invalidtargetspecified": "Η σελίδα προορισμού '''$1''' που καθορίζεται δεν είναι έγκυρη.",
 	"pf_autoedit_invalidform": "Η '''$1''' δεν είναι έγκυρη φόρμα.",
 	"pf_autoedit_redirectlimitexeeded": "Έχετε υπερβεί το μέγιστο όριο ανακατευθύνσεων για τη φόρμα $1.",
-	"pf_autoedit_invalidredirecttarget": "Η σελίδα $1 δεν αποτελεί έγκυρο προορισμό ανακατεύθυνσης για τη φόρμα $2.",
 	"pf_autoedit_invalidpreloadspecified": "Η σελίδα προφόρτωσης $1 που καθορίζεται δεν είναι έγκυρη.",
 	"pf_autoedit_redlinkexists": "Η σελίδα $1 υπάρχει ήδη.",
 	"pf_autoedit_noformfound": "Δεν έχει οριστεί φόρμα.",

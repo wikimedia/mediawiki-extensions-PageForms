@@ -206,7 +206,6 @@
 	"pf_autoedit_invalidtargetspecified": "Zadaná cílová stránka '''$1''' je neplatná.",
 	"pf_autoedit_invalidform": "'''$1''' není platný formulář.",
 	"pf_autoedit_redirectlimitexeeded": "Byl překročen maximální počet přesměrování pro formulář $1.",
-	"pf_autoedit_invalidredirecttarget": "$1 je neplatný cíl přesměrování pro formulář $2.",
 	"pf_autoedit_invalidpreloadspecified": "Zadaná předem nahraná stránka $1 je neplatná.",
 	"pf_autoedit_redlinkexists": "$1 již existuje.",
 	"pf_autoedit_noformfound": "Není zadán žádný formulář.",

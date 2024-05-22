@@ -232,7 +232,6 @@
 	"pf_autoedit_invalidtargetspecified": "指定的目标页面'''$1'''无效。",
 	"pf_autoedit_invalidform": "'''$1'''不是有效的表单。",
 	"pf_autoedit_redirectlimitexeeded": "超过了表单$1的最大重定向限制。",
-	"pf_autoedit_invalidredirecttarget": "$1是表单$2的无效重定向目标。",
 	"pf_autoedit_invalidpreloadspecified": "指定的预加载页面$1无效。",
 	"pf_autoedit_redlinkexists": "$1已经存在。",
 	"pf_autoedit_noformfound": "没有指定表单。",

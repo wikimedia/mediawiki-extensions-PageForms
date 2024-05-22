@@ -224,7 +224,6 @@
 	"pf_autoedit_invalidtargetspecified": "De opgegeven doelpagina '''$1''' is ongeldig.",
 	"pf_autoedit_invalidform": "'''$1''' is geen geldig formulier.",
 	"pf_autoedit_redirectlimitexeeded": "De drempelwaarde voor doorverwijzigen voor het formulier $1 is bereikt.",
-	"pf_autoedit_invalidredirecttarget": "$1 is een ongeldig doel voor doorverwijzing voor het formulier $2.",
 	"pf_autoedit_invalidpreloadspecified": "De opgegeven vooraf te laden pagina $1 is ongeldig.",
 	"pf_autoedit_redlinkexists": "$1 bestaat al.",
 	"pf_autoedit_noformfound": "Geen formulier opgegeven.",
