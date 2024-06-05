@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			555,
 			"Athena in Wonderland",
 			"Hamilton Abreu",
 			"Imperadeiro98",
@@ -13,8 +14,7 @@
 			"SandroHc",
 			"Vitorvicentevalente",
 			"Waldir",
-			"Waldyrious",
-			555
+			"Waldyrious"
 		]
 	},
 	"pageforms-desc": "Formulários para criar e editar páginas da wiki",
