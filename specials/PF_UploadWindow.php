@@ -226,17 +226,17 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		if ( !$this->mTokenOk && !$this->mCancelUpload
 			&& ( $this->mUpload && $this->mUploadClicked )
 		) {
-			$form->addPreText( $this->msg( 'session_fail_preview' )->parse() );
+			$form->addPreHtml( $this->msg( 'session_fail_preview' )->parse() );
 		}
 
 		# Add upload error message
-		$form->addPreText( $message );
+		$form->addPreHtml( $message );
 
 		# Add footer to form
 		if ( !$this->msg( 'uploadfooter' )->isDisabled() ) {
 			$output = $this->getOutput();
 			$uploadFooter = $output->parseAsInterface( $this->msg( 'uploadfooter' )->plain() );
-			$form->addPostText( '<div id="mw-upload-footer-message">' . $uploadFooter . "</div>\n" );
+			$form->addPostHtml( '<div id="mw-upload-footer-message">' . $uploadFooter . "</div>\n" );
 		}
 
 		return $form;
