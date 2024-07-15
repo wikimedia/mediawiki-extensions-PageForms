@@ -4,7 +4,8 @@
 			"Aefgh39622",
 			"Octahedron80",
 			"Passawuth",
-			"RidJasper"
+			"RidJasper",
+			"Ekminarin"
 		]
 	},
 	"createproperty": "สร้างคุณสมบัติ",
@@ -28,6 +29,7 @@
 	"createclass": "สร้างคลาส",
 	"pf_createclass_create": "สร้าง",
 	"formedit": "แก้ไขด้วยแบบฟอร์ม",
+	"pf_viewform": "ดูแบบฟอร์ม",
 	"pf_editsource": "แก้ไขต้นฉบับ",
 	"pf_formedit_none": "ไม่มี/ไม่ทราบ",
 	"pf-datepicker-today": "วันนี้"
