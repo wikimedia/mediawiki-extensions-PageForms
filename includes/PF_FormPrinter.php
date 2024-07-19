@@ -1101,10 +1101,10 @@ END;
 					if ( count( $tag_components ) > 1 ) {
 						throw new MWException( '<div class="error">Error in form definition: \'end template\' tag cannot contain any additional parameters.</div>' );
 					}
-					if ( $source_is_page && !$is_autoedit ) {
+					if ( $source_is_page ) {
 						// Add any unhandled template fields
 						// in the page as hidden variables.
-						$form_text .= PFFormUtils::unhandledFieldsHTML( $tif );
+						$form_text .= PFFormUtils::unhandledFieldsHTML( $tif, $is_autoedit );
 					}
 					// Remove this tag from the $section variable.
 					$section = substr_replace( $section, '', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );

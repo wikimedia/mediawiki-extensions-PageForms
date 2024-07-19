@@ -21,9 +21,10 @@ class PFFormUtils {
 	 * Add a hidden input for each field in the template call that's
 	 * not handled by the form itself
 	 * @param PFTemplateInForm|null $template_in_form
+	 * @param bool $is_autoedit
 	 * @return string
 	 */
-	static function unhandledFieldsHTML( $template_in_form ) {
+	static function unhandledFieldsHTML( $template_in_form, $is_autoedit = false ) {
 		// This shouldn't happen, but sometimes this value is null.
 		// @TODO - fix the code that calls this function so the
 		// value is never null.
@@ -35,10 +36,20 @@ class PFFormUtils {
 		$templateName = str_replace( ' ', '_', $template_in_form->getTemplateName() );
 		$text = "";
 		foreach ( $template_in_form->getValuesFromPage() as $key => $value ) {
-			if ( $key !== null && !is_numeric( $key ) ) {
-				$key = urlencode( $key );
-				$text .= Html::hidden( '_unhandled_' . $templateName . '_' . $key, $value );
+			if ( $key === null || is_numeric( $key ) ) {
+				continue;
 			}
+			// Handle the special case of #autoedit - we ignore
+			// blank values, because we don't want a case like
+			// {{#autoedit:...|City={{{City|}}}...}} (within a
+			// template) to blank the value of "City", if the user
+			// didn't enter anything.
+			if ( $is_autoedit && $value === '' ) {
+				continue;
+			}
+
+			$key = urlencode( $key );
+			$text .= Html::hidden( '_unhandled_' . $templateName . '_' . $key, $value );
 		}
 		return $text;
 	}
