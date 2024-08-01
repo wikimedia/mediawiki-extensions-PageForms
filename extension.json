@@ -465,6 +465,7 @@
 				"libs/PF_ComboBoxInput.js"
 			],
 			"dependencies": [
+				"ext.pageforms",
 				"oojs-ui-core",
 				"oojs-ui-widgets"
 			],
