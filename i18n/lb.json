@@ -139,7 +139,7 @@
 	"pf_deletionlog": "Logbuch vum Läschen",
 	"pf-preview-note": "Sou gesäit de Formulaire aus wann e benotzt gëtt:",
 	"pf-pageschemas-createtitle": "Numm vum Formulaire fir nei Säiten:",
-	"pf-pageschemas-edittitle": "Numm vum Formulaire fir Säiten déi et scho gëtt:",
+	"pf-pageschemas-edittitle": "Numm vum Formulaire fir Säiten, déi et scho gëtt:",
 	"pf_property_linkstoform": "Et ass mat Säite verlinkt déi de Formulaire $1 benotzen.",
 	"pf_property_allowedvals": "{{PLURAL:$1|Den erlaabte Wäert fir dës Eegeschaft ass|Déi erlaabt Wäerter fir dës Eegeschaft sinn}}:",
 	"pf_template_docu": "Dëst ass d''$1'-Schabloun.\nSi soll an dësem Format opgeruff ginn:",

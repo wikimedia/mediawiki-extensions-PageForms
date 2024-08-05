@@ -1,0 +1,29 @@
+{
+	"@metadata": {
+		"authors": [
+			"IJzeren Jan"
+		]
+	},
+	"pageforms-desc": "Formulare za tvorjenje i pravjenje viki-stranic",
+	"specialpages-group-pf_group": "Formulare stranic",
+	"apihelp-pfautocomplete-summary": "Avtomatično zapolnjenje, upotrěbjajemo razširjenjem «Formulare stranic».",
+	"createproperty": "Stvoriti svojstvo",
+	"pf-createproperty-with-name": "Tvorjenje svojstva: $1",
+	"pf_createproperty_editsummary": "Stvorjeno svojstvo tipa $1",
+	"createtemplate": "Stvoriti šablon",
+	"pf-createtemplate-with-name": "Tvorjenje šablona: $1",
+	"forms": "Formulare",
+	"pf-calendar-createevent": "Stvoriti sobytje",
+	"createform": "Stvoriti formular",
+	"pf-createform-with-name": "Tvorjenje formulara: $1",
+	"createcategory": "Stvoriti kategoriju",
+	"pf-createcategory-with-name": "Tvorjenje kategorije: $1",
+	"pf_createclass_success": "Ukazane stranice budut stvorjene.",
+	"pf_createclass_create": "Stvoriti",
+	"formstart": "Dodati stranicu s formularem",
+	"pf_formstart_createoredit": "Stvoriti ili praviti",
+	"pf-formedit-selectform": "Izberite formular za stvorjenje tutoj stranice:",
+	"pf-formedit-donotuseform": "Stvoriti stranicu bez formulara.",
+	"runquery": "Zapustiti zapyt",
+	"pf_runquery_title": "Zapuščenje zapyta: $1"
+}
