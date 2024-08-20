@@ -595,7 +595,7 @@ class PFFormField {
 		}
 	}
 
-	function getCurrentValue( $template_instance_query_values, $form_submitted, $source_is_page, $all_instances_printed, &$val_modifier = null ) {
+	function getCurrentValue( $template_instance_query_values, $form_submitted, $source_is_page, $all_instances_printed, &$val_modifier = null, $is_autoedit = false ) {
 		// Get the value from the request, if
 		// it's there, and if it's not an array.
 		$field_name = $this->template_field->getFieldName();
@@ -683,7 +683,7 @@ class PFFormField {
 							$cur_values[$key] = $val;
 						}
 					}
-					return PFFormPrinter::getStringFromPassedInArray( $cur_values, $delimiter );
+					return PFFormPrinter::getStringFromPassedInArray( $cur_values, $delimiter, $is_autoedit );
 				} else {
 					$field_query_val = trim( $field_query_val );
 					if ( $map_field && $this->mPossibleValues !== null ) {

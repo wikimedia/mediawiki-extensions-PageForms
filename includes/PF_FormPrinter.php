@@ -697,9 +697,10 @@ END;
 	 * or date input - in that case, convert it into a string.
 	 * @param array $value
 	 * @param string $delimiter
+	 * @param bool $is_autoedit
 	 * @return string
 	 */
-	static function getStringFromPassedInArray( $value, $delimiter ) {
+	static function getStringFromPassedInArray( $value, $delimiter, $is_autoedit = false ) {
 		// If it's just a regular list, concatenate it.
 		// This is needed due to some strange behavior
 		// in PF, where, if a preload page is passed in
@@ -715,7 +716,14 @@ END;
 		// - this handling will have to get more complex if other
 		// possibilities get added
 		if ( count( $value ) == 1 ) {
-			return PFUtils::getWordForYesOrNo( false );
+			// If this is part of an internal form created to
+			// do autoedit, treat a blank value as a true null,
+			// rather than as false.
+			// @TODO - it's certainly possible that this function
+			// doesn't need to be called at all, if @is_autoedit
+			// is true - and the value should simply be blank if
+			// it's an array.
+			return $is_autoedit ? '' : PFUtils::getWordForYesOrNo( false );
 		} elseif ( count( $value ) == 2 ) {
 			return PFUtils::getWordForYesOrNo( true );
 		// if it's 3 or greater, assume it's a date or datetime
@@ -1147,7 +1155,7 @@ END;
 						$values_from_query = $autocreate_query[$tif->getTemplateName()] ?? [];
 						$cur_value = $form_field->getCurrentValue( $values_from_query, $form_submitted, $source_is_page, $tif->allInstancesPrinted(), $val_modifier );
 					} else {
-						$cur_value = $form_field->getCurrentValue( $tif->getValuesFromSubmit(), $form_submitted, $source_is_page, $tif->allInstancesPrinted(), $val_modifier );
+						$cur_value = $form_field->getCurrentValue( $tif->getValuesFromSubmit(), $form_submitted, $source_is_page, $tif->allInstancesPrinted(), $val_modifier, $is_autoedit );
 					}
 					$delimiter = $form_field->getFieldArg( 'delimiter' );
 					if ( $form_field->holdsTemplate() ) {
