@@ -1096,7 +1096,7 @@ END;
 						$tif->setFieldValuesFromSubmit();
 					}
 
-					$tif->checkIfAllInstancesPrinted( $form_submitted, $source_is_page );
+					$tif->checkIfAllInstancesPrinted( $form_submitted, $source_is_page, $is_autoedit );
 
 					if ( !$tif->allInstancesPrinted() ) {
 						$wiki_page->addTemplate( $tif );
