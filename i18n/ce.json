@@ -7,7 +7,7 @@
 		]
 	},
 	"pageforms-desc": "Cемантикийн хаамаш тӀетуху а, нисбо а кепаш",
-	"createproperty": "Кхолла билгало",
+	"createproperty": "Кхолла башхалла",
 	"pf-createproperty-with-name": "Кхолла хӀума: $1",
 	"pf_createproperty_propname": "Къастаман цӀе:",
 	"pf_createproperty_proptype": "Тайп:",
@@ -21,7 +21,7 @@
 	"pf_createtemplate_templatefields": "Кепан байш",
 	"pf_createtemplate_fieldname": "Байн цӀе",
 	"pf_createtemplate_displaylabel": "Гуш долу куьг:",
-	"pf_createtemplate_semanticproperty": "Семантикийн хӀума:",
+	"pf_createtemplate_semanticproperty": "Семантикин башхалла:",
 	"pf_createtemplate_aggregation": "ТӀетасялар",
 	"pf_createtemplate_aggregationlabel": "МогӀаман корта:",
 	"pf_createtemplate_outputformat": "Арадакхаран тайп:",
