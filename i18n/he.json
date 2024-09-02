@@ -173,7 +173,7 @@
 	"pf_createclass_create": "יצירה",
 	"pf_createclass_ishierarchy": "הייררכיה?",
 	"pf-spreadsheet-addrow": "הוספת שורה",
-	"pf-spreadsheet-addrowinstructions": "באפשרותך להוסיף שורה חדשה באמצעות הקשת מקש אנטר בשורה האחרונה.",
+	"pf-spreadsheet-addrowinstructions": "באפשרותך להוסיף שורה חדשה באמצעות הקשת מקש Enter בשורה האחרונה.",
 	"formstart": "הוספת דף עם טופס",
 	"pf_formstart_badform": "שגיאה: לא נמצא דף טופס ב־$1",
 	"pf_formstart_badtitle": "שגיאה: \"$1\" היא כותרת דף בלתי־תקינה.",
