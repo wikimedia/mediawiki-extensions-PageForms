@@ -574,9 +574,9 @@ END;
 
 		// Topmost part of table depends on format.
 		if ( !$this->mTemplateFormat ) {
-			$this->mTemplateFormat = 'standard';
+			$this->mTemplateFormat = 'table';
 		}
-		if ( $this->mTemplateFormat == 'standard' ) {
+		if ( $this->mTemplateFormat == 'table' ) {
 			$tableText = '{| class="wikitable"' . "\n";
 		} elseif ( $this->mTemplateFormat == 'infobox' ) {
 			// A CSS style can't be used, unfortunately, since most
@@ -615,7 +615,7 @@ END;
 
 			// Header/field label column
 			if ( $fieldDisplay === null ) {
-				if ( $this->mTemplateFormat == 'standard' || $this->mTemplateFormat == 'infobox' ) {
+				if ( $this->mTemplateFormat == 'table' || $this->mTemplateFormat == 'infobox' ) {
 					if ( $i > 0 ) {
 						$tableText .= "|-\n";
 					}
@@ -630,7 +630,7 @@ END;
 					$tableText .= "\n";
 				}
 				$tableText .= '{{#if:' . $fieldParam . '|';
-				if ( $this->mTemplateFormat == 'standard' || $this->mTemplateFormat == 'infobox' ) {
+				if ( $this->mTemplateFormat == 'table' || $this->mTemplateFormat == 'infobox' ) {
 					if ( $i > 0 ) {
 						$tableText .= "\n{{!}}-\n";
 					}
@@ -647,7 +647,7 @@ END;
 				// If it's 'hidden', do nothing
 			}
 			// Value column
-			if ( $this->mTemplateFormat == 'standard' || $this->mTemplateFormat == 'infobox' ) {
+			if ( $this->mTemplateFormat == 'table' || $this->mTemplateFormat == 'infobox' ) {
 				if ( $fieldDisplay == 'hidden' ) {
 				} elseif ( $fieldDisplay == 'nonempty' ) {
 					// $tableText .= "{{!}} ";
@@ -695,7 +695,7 @@ END;
 					$setText .= $fieldProperty . '=' . $fieldString . '|';
 				}
 			} elseif ( $fieldDisplay == 'nonempty' ) {
-				if ( $this->mTemplateFormat == 'standard' || $this->mTemplateFormat == 'infobox' ) {
+				if ( $this->mTemplateFormat == 'table' || $this->mTemplateFormat == 'infobox' ) {
 					$tableText .= '{{!}} ';
 				}
 				$tableText .= $this->createTextForField( $field ) . "\n}}\n";
@@ -707,7 +707,7 @@ END;
 		// Add an inline query to the output text, for
 		// aggregation, if a property was specified.
 		if ( $this->mAggregatingProperty !== null && $this->mAggregatingProperty !== '' ) {
-			if ( $this->mTemplateFormat == 'standard' || $this->mTemplateFormat == 'infobox' ) {
+			if ( $this->mTemplateFormat == 'table' || $this->mTemplateFormat == 'infobox' ) {
 				if ( count( $this->mTemplateFields ) > 0 ) {
 					$tableText .= "|-\n";
 				}
@@ -722,14 +722,14 @@ END;
 			}
 			$tableText .= "{{#ask:[[" . $this->mAggregatingProperty . "::{{SUBJECTPAGENAME}}]]|format=list}}\n";
 		}
-		if ( $this->mTemplateFormat == 'standard' || $this->mTemplateFormat == 'infobox' ) {
+		if ( $this->mTemplateFormat == 'table' || $this->mTemplateFormat == 'infobox' ) {
 			$tableText .= "|}";
 		}
 		// Leave out newlines if there's an internal property
 		// set here (which would mean that there are meant to be
 		// multiple instances of this template.)
 		if ( $internalObjText === null ) {
-			if ( $this->mTemplateFormat == 'standard' || $this->mTemplateFormat == 'infobox' ) {
+			if ( $this->mTemplateFormat == 'table' || $this->mTemplateFormat == 'infobox' ) {
 				$tableText .= "\n";
 			}
 		} else {
