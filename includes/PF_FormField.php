@@ -767,6 +767,12 @@ class PFFormField {
 				}
 			}
 		}
+
+		// Most form input types expect a string, and not an array.
+		if ( count( $labels ) == 1 ) {
+			return $labels[0];
+		}
+
 		return $labels;
 	}
 
