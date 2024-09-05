@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Cekli829",
-			"NMW03"
+			"NMW03",
+			"Nemoralis"
 		]
 	},
 	"pf_createproperty_proptype": "Tipi:",
@@ -10,7 +11,7 @@
 	"pf_createform_template": "Şablon:",
 	"pf_createform_hidden": "(Gizli)",
 	"pf_createform_add": "Əlavə et",
-	"pf_formedit_none": "Heç biri",
+	"pf_formedit_none": "Heç biri/bilinmir",
 	"pf_deletionlog": "Silmə jurnalı",
 	"pf-datepicker-next": "Növbəti",
 	"pf-datepicker-today": "Bu gün"

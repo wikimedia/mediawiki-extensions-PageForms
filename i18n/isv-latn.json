@@ -12,6 +12,8 @@
 	"pf_createproperty_editsummary": "Stvorjeno svojstvo tipa $1",
 	"createtemplate": "Stvoriti šablon",
 	"pf-createtemplate-with-name": "Tvorjenje šablona: $1",
+	"pf_createtemplate_namelabel": "Nazva šablona:",
+	"pf_createtemplate_multipleinstance": "Tutoj šablon može byti vključeny mnogokratno na stranici.",
 	"forms": "Formulare",
 	"pf-calendar-createevent": "Stvoriti sobytje",
 	"createform": "Stvoriti formular",
