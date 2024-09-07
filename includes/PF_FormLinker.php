@@ -61,7 +61,7 @@ class PFFormLinker {
 		$userID = 1;
 		global $wgPageFormsAutoCreateUser;
 		if ( $wgPageFormsAutoCreateUser !== null ) {
-			$user = User::newFromName( $wgPageFormsAutoCreateUser );
+			$user = MediaWikiServices::getInstance()->getUserFactory()->newFromName( $wgPageFormsAutoCreateUser );
 			if ( $user !== null ) {
 				$userID = $user->getId();
 			}

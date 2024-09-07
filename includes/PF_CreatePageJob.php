@@ -46,7 +46,7 @@ class PFCreatePageJob extends Job {
 		} else {
 			$editSummary = '';
 		}
-		$user = User::newFromId( $this->params['user_id'] );
+		$user = MediaWikiServices::getInstance()->getUserFactory()->newFromId( $this->params['user_id'] );
 
 		self::createOrModifyPage( $wikiPage, $pageText, $editSummary, $user );
 
