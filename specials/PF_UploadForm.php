@@ -251,7 +251,7 @@ class PFUploadForm extends HTMLForm {
 */
 			'License' => [
 				'type' => 'select',
-				'class' => 'Licenses',
+				'class' => Licenses::class,
 				'section' => 'upload-description',
 				'id' => 'wpLicense',
 				'label-message' => 'license',
