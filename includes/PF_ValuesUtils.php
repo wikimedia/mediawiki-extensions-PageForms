@@ -863,7 +863,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 			return wfMessage( 'pf-blankexturl' );
 		}
 		$url = str_replace( '<substr>', urlencode( $substring ), $url );
-		$page_contents = MediaWikiServices::getInstance()->getHttpRequestFactory()->get( $url );
+		$page_contents = MediaWikiServices::getInstance()->getHttpRequestFactory()->get( $url, [], __METHOD__ );
 		if ( empty( $page_contents ) ) {
 			return wfMessage( 'pf-externalpageempty' );
 		}
