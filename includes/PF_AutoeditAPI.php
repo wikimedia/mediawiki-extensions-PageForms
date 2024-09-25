@@ -329,7 +329,7 @@ class PFAutoeditAPI extends ApiBase {
 		$data = array_merge(
 			[
 				'wpTextbox1' => $targetContent,
-				'wpUnicodeCheck' => 'ℳ𝒲♥𝓊𝓃𝒾𝒸ℴ𝒹ℯ',
+				'wpUnicodeCheck' => 'â„³ð’²â™¥ð“Šð“ƒð’¾ð’¸â„´ð’¹â„¯',
 				'wpSummary' => '',
 				'wpStarttime' => wfTimestampNow(),
 				'wpEditToken' => isset( $this->mOptions[ 'token' ] ) ? $this->mOptions[ 'token' ] : $this->getUser()->getEditToken(),
@@ -406,6 +406,8 @@ class PFAutoeditAPI extends ApiBase {
 	}
 
 	protected function doStore( EditPage $editor ) {
+		global $wgPageFormsDelayReload;
+
 		$title = $editor->getTitle();
 
 		// If they used redlink=1 and the page exists, redirect to the main article and send notice
@@ -533,7 +535,11 @@ class PFAutoeditAPI extends ApiBase {
 					if ( $returntoPage->exists() && $reload ) {
 						$returntoPage->doPurge();
 					}
-					$redirect = $returnto->getFullURL();
+					if ( $wgPageFormsDelayReload ) {
+						$redirect = $returnto->getFullURL( [ 'forceReload' => 'true' ] );
+					} else {
+						$redirect = $returnto->getFullURL();
+					}
 				}
 
 				$this->getOutput()->redirect( $redirect );
@@ -568,7 +574,11 @@ class PFAutoeditAPI extends ApiBase {
 					if ( $returntoPage->exists() && $reload ) {
 						$returntoPage->doPurge();
 					}
-					$redirect = $returnto->getFullURL();
+					if ( $wgPageFormsDelayReload ) {
+						$redirect = $returnto->getFullURL( [ 'forceReload' => 'true' ] );
+					} else {
+						$redirect = $returnto->getFullURL();
+					}
 				}
 
 				$this->getOutput()->redirect( $redirect );

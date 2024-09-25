@@ -128,7 +128,7 @@ class PFHooks {
 		global $wgPageFormsGridValues, $wgPageFormsGridParams;
 		global $wgPageFormsCalendarValues, $wgPageFormsCalendarParams, $wgPageFormsCalendarHTML;
 		global $wgPageFormsContLangYes, $wgPageFormsContLangNo, $wgPageFormsContLangMonths;
-		global $wgPageFormsHeightForMinimizingInstances;
+		global $wgPageFormsHeightForMinimizingInstances, $wgPageFormsDelayReload;
 		global $wgPageFormsShowOnSelect, $wgPageFormsScriptPath;
 		global $edgValues, $wgPageFormsEDSettings;
 		global $wgAmericanDates;
@@ -148,6 +148,7 @@ class PFHooks {
 		$vars['wgPageFormsContLangNo'] = $wgPageFormsContLangNo;
 		$vars['wgPageFormsContLangMonths'] = $wgPageFormsContLangMonths;
 		$vars['wgPageFormsHeightForMinimizingInstances'] = $wgPageFormsHeightForMinimizingInstances;
+		$vars['wgPageFormsDelayReload'] = $wgPageFormsDelayReload;
 		$vars['wgPageFormsShowOnSelect'] = $wgPageFormsShowOnSelect;
 		$vars['wgPageFormsScriptPath'] = $wgPageFormsScriptPath;
 		if ( method_exists( 'EDParserFunctions', 'getAllValues' ) ) {
@@ -389,6 +390,36 @@ class PFHooks {
 		$postEditKey = EditPage::POST_EDIT_COOKIE_KEY_PREFIX . $revisionRecord->getID();
 		$response = RequestContext::getMain()->getRequest()->response();
 		$response->setCookie( $postEditKey, 'saved', time() + EditPage::POST_EDIT_COOKIE_DURATION );
+	}
+
+	/**
+	 * Called by the BeforePageDisplay hook.
+	 *
+	 * Reload the page if "forceReload=true" exists in the URL query string.
+	 * This is a @hack done so that the $wgPageFormsDelayReload setting
+	 * (itself a hack) can take effect - in some cases, having a #formlink
+	 * call with "returnto=" and "reload" both set does not actually
+	 * refresh the queries on the original page in time, so we use this to
+	 * then reload the original page, which does seem to work. There may
+	 * well be a better solution for this, though.
+	 *
+	 * @param MediaWiki\Output\OutputPage $out
+	 * @param Skin $skin
+	 */
+	public static function handleForceReload( $out, Skin $skin ) {
+		global $wgRequest, $wgPageFormsScriptPath;
+
+		if ( $wgRequest->getVal( 'forceReload' ) !== 'true' ) {
+			return;
+		}
+
+		$out->clearHTML();
+		$loadingImage = Html::element( 'img', [ 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ] );
+		$text = "\t" . Html::rawElement( 'p', [ 'style' => "position: absolute; left: 45%; top: 45%;" ], $loadingImage );
+		$reloadURL = $out->getTitle()->getFullURL();
+		$text .= Html::element( 'meta', [ 'http-equiv' => 'refresh', 'content' => "0; url=$reloadURL" ] );
+
+		$out->addHTML( $text );
 	}
 
 }

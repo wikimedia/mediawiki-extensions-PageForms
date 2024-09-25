@@ -1,5 +1,5 @@
 /**
- * Javascript handler for the autoedit parser function
+ * JavaScript handler for the #autoedit parser function.
  *
  * @author Stephan Gambke
  */
@@ -41,7 +41,13 @@
 				if ( result.status === 200 ) {
 
 					if ( reload ) {
-						window.location.reload();
+						if ( mw.config.get( 'wgPageFormsDelayReload' ) == true ) {
+							setTimeout( function() {
+								window.location.reload()
+							}, 500 );
+						} else {
+							window.location.reload();
+						}
 					}
 
 					$jresult.removeClass( 'autoedit-result-wait' ).addClass( 'autoedit-result-ok' );
