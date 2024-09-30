@@ -329,7 +329,7 @@ class PFAutoeditAPI extends ApiBase {
 		$data = array_merge(
 			[
 				'wpTextbox1' => $targetContent,
-				'wpUnicodeCheck' => 'â„³ð’²â™¥ð“Šð“ƒð’¾ð’¸â„´ð’¹â„¯',
+				'wpUnicodeCheck' => 'ℳ𝒲♥𝓊𝓃𝒾𝒸ℴ𝒹ℯ',
 				'wpSummary' => '',
 				'wpStarttime' => wfTimestampNow(),
 				'wpEditToken' => isset( $this->mOptions[ 'token' ] ) ? $this->mOptions[ 'token' ] : $this->getUser()->getEditToken(),
