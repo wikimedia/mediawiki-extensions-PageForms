@@ -834,17 +834,18 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 	 *
 	 * @param string[]|string $value
 	 * @param string $delimiter
-	 * @param bool $formatWithDisplayTitles
 	 * @return string[]
 	 */
-	public static function getValuesArray( $value, $delimiter, $formatWithDisplayTitles = false ) {
+	public static function getValuesArray( $value, $delimiter ) {
+		global $wgPageFormsUseDisplayTitle;
+
 		if ( is_array( $value ) ) {
 			return $value;
 		} elseif ( $value == null ) {
 			return [];
 		} else {
 			$values = array_map( 'trim', explode( $delimiter, $value ) );
-			return $formatWithDisplayTitles
+			return $wgPageFormsUseDisplayTitle
 				? array_values( PFMappingUtils::getLabelsForTitles( $values ) )
 				: $values;
 		}
