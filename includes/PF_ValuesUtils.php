@@ -929,7 +929,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		global $wgPageFormsMaxAutocompleteValues;
 		global $wgPageFormsUseDisplayTitle;
 
-		$rawQuery = $rawQuery . "|named args=yes|link=none|limit=$wgPageFormsMaxAutocompleteValues|searchlabel=";
+		$rawQuery .= "|named args=yes|link=none|limit=$wgPageFormsMaxAutocompleteValues|searchlabel=";
 		$rawQueryArray = explode( "|", $rawQuery );
 		[ $queryString, $processedParams, $printouts ] = SMWQueryProcessor::getComponentsFromFunctionParams( $rawQueryArray, false );
 		SMWQueryProcessor::addThisPrintout( $printouts, $processedParams );
