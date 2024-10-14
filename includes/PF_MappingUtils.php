@@ -265,10 +265,22 @@ class PFMappingUtils {
 		$labels = [];
 		$pageNamesForValues = [];
 		$allTitles = [];
-		foreach ( $values as $value ) {
+		foreach ( $values as $k => $value ) {
 			if ( trim( $value ) === "" ) {
 				continue;
 			}
+
+			// In some (rare) cases the provided key is the actual page name, resulting
+			// in errors when saving the form (since the display title was only shown).
+			if ( is_string( $k ) ) {
+				$titleFromKey = Title::newFromText( $k );
+				if ( $titleFromKey instanceof Title && $titleFromKey->exists() ) {
+					$allTitles[] = $titleFromKey;
+					$pageNamesForValues[$k] = $titleFromKey->getPrefixedText();
+					continue;
+				}
+			}
+
 			if ( $doReverseLookup ) {
 				// The regex matches every 'real' page inside the last brackets; for example
 				//  'Privacy (doel) (Privacy (doel)concept)',
