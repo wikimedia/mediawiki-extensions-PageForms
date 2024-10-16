@@ -3,11 +3,14 @@
 		"authors": [
 			"Babanwalia",
 			"Sony dandiwal",
-			"Cabal"
+			"Cabal",
+			"Kuldeepburjbhalaike"
 		]
 	},
-	"pf-formedit-mainforms": "ਮੁੱਢਲਾ ਫਾਰਮ:",
+	"templates": "ਫਰਮੇ",
+	"pf-formedit-mainforms": "ਮੁੱਖ ਰੂਪ:",
 	"pf-formedit-otherforms": "ਹੋਰ ਫਾਰਮ:",
 	"pf_editsource": "ਸਰੋਤ ਸੋਧੋ",
-	"pf_blank_namespace": "ਮੁੱਢਲਾ"
+	"pf_blank_namespace": "ਮੁੱਖ",
+	"pf-datepicker-weekstart": "ਹਫ਼ਤੇ ਦਾ ਪਹਿਲਾ ਦਿਨ (0 - ਐਤਵਾਰ, 1 - ਸੋਮਵਾਰ, ...)।"
 }
