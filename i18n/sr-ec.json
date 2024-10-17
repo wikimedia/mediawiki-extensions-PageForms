@@ -102,6 +102,7 @@
 	"uploadwindow": "Прозор за отпремање",
 	"pf_deletionlog": "Дневник брисања",
 	"pf_form_freetextlabel": "Слободан текст",
+	"right-viewedittab": "види картицу „{{int:edit}}” за странице које су уредиве путем обрасца",
 	"right-multipageedit": "уређивање више страница користећи унакрсну табелу",
 	"action-editrestrictedfields": "уређујете ограничења из поља",
 	"action-viewedittab": "прегледате картицу „{{int:edit}}” за странице које су уредиве путем обрасца",
