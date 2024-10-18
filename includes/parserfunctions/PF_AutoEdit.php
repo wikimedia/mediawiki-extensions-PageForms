@@ -74,6 +74,12 @@ class PFAutoEdit {
 				case 'confirm':
 					$confirmEdit = true;
 					break;
+				case 'confirm text':
+					$confirmEdit = true;
+					$value = $parser->recursiveTagParse( $value );
+					$arr = [ 'confirmtext' => $value ];
+					$inQueryArr = PFUtils::arrayMergeRecursiveDistinct( $inQueryArr, $arr );
+					break;
 				case 'query string':
 					$inQueryArr = self::convertQueryString( $value, $inQueryArr );
 					break;
