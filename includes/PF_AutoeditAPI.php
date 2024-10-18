@@ -208,6 +208,7 @@ class PFAutoeditAPI extends ApiBase {
 			}
 		} else {
 			$this->mOptions['target'] = '';
+			$this->mOptions['blankTarget'] = true;
 		}
 
 		// Normalize form and target names
@@ -662,7 +663,12 @@ class PFAutoeditAPI extends ApiBase {
 				// so that pages in the File: namespace won't
 				// cause the actual image to be displayed.
 				$targetText = ':' . $this->mOptions['target'] . '|' . $this->mOptions['target'];
-				$responseText = $this->msg( 'pf_autoedit_success', $targetText, $this->mOptions['form'] )->parse();
+				if ( array_key_exists( 'blankTarget', $this->mOptions ) ) {
+					$successMsg = 'pf_autoedit_newpagesuccess';
+				} else {
+					$successMsg = 'pf_autoedit_success';
+				}
+				$responseText = $this->msg( $successMsg, $targetText, $this->mOptions['form'] )->parse();
 			} else {
 				$responseText = null;
 			}

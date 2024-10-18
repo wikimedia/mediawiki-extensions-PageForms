@@ -270,7 +270,8 @@
 			"messages": [
 				"pf-autoedit-wait",
 				"pf_autoedit_anoneditwarning",
-				"pf_autoedit_confirm"
+				"pf_autoedit_confirm",
+				"pf_autoedit_confirmcreate"
 			],
 			"targets": [
 				"desktop",
@@ -289,7 +290,8 @@
 			"messages": [
 				"pf-autoedit-wait",
 				"pf_autoedit_anoneditwarning",
-				"pf_autoedit_confirm"
+				"pf_autoedit_confirm",
+				"pf_autoedit_confirmcreate"
 			],
 			"targets": [
 				"desktop",
