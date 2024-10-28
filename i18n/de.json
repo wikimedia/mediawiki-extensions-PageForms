@@ -19,7 +19,8 @@
 			"Pill",
 			"Purodha",
 			"The Evil IP address",
-			"Umherirrender"
+			"Umherirrender",
+			"Brettchenweber"
 		]
 	},
 	"pageforms-name": "Page Forms",
@@ -75,7 +76,7 @@
 	"pf_createtemplate_hierarchystructureplaceholder": "*Hierarchiewerte\n**in\n***einem\n***Format\n**wie\n*diesem\n**eingeben",
 	"pf_createproperty_allowedvalsforhierarchy": "Erlaubte Formate für die Hierarchie:",
 	"pf_createtemplate_delimiter": "Trennzeichen:",
-	"pf_createtemplate_aggregation": "Zusammenrechnung",
+	"pf_createtemplate_aggregation": "Zusammenführung",
 	"pf_createtemplate_aggregationdesc": "Es ist möglich auf allen Seiten, die diese Vorlage benutzen, alle Seiten aufzulisten, die über ein bestimmtes Attribut verfügen, das auf diese Seite verweist. Hierzu muss dass entsprechende Attribut angegeben werden:",
 	"pf_createtemplate_aggregationlabel": "Name für die Liste:",
 	"pf_createtemplate_outputformat": "Darstellung als:",
