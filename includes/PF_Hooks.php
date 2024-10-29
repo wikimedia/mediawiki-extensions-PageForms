@@ -164,7 +164,6 @@ class PFHooks {
 	public static function registerPageSchemasClass() {
 		global $wgPageSchemasHandlerClasses;
 		$wgPageSchemasHandlerClasses[] = 'PFPageSchemas';
-		return true;
 	}
 
 	public static function addToAdminLinks( &$admin_links_tree ) {
