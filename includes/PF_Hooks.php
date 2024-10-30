@@ -106,6 +106,11 @@ class PFHooks {
 		$wgNamespacesWithSubpages[PF_NS_FORM_TALK] = true;
 	}
 
+	/**
+	 * Called by the ParserFirstCallInit hook.
+	 *
+	 * @param Parser $parser
+	 */
 	static function registerFunctions( Parser $parser ) {
 		$parser->setFunctionHook( 'default_form', [ 'PFDefaultForm', 'run' ] );
 		$parser->setFunctionHook( 'forminput', [ 'PFFormInputParserFunction', 'run' ] );
@@ -121,6 +126,11 @@ class PFHooks {
 		$parser->setFunctionHook( 'template_display', [ 'PFTemplateDisplay', 'run' ], Parser::SFH_OBJECT_ARGS );
 	}
 
+	/**
+	 * Called by the MakeGlobalVariablesScript hook.
+	 *
+	 * @param array &$vars
+	 */
 	static function setGlobalJSVariables( &$vars ) {
 		global $wgPageFormsTargetName;
 		global $wgPageFormsAutocompleteValues, $wgPageFormsAutocompleteOnAllChars;
@@ -161,11 +171,19 @@ class PFHooks {
 		$vars['wgAmericanDates'] = $wgAmericanDates;
 	}
 
+	/**
+	 * Called by the PageSchemasRegisterHandlers hook.
+	 */
 	public static function registerPageSchemasClass() {
 		global $wgPageSchemasHandlerClasses;
 		$wgPageSchemasHandlerClasses[] = 'PFPageSchemas';
 	}
 
+	/**
+	 * Called by the AdminLinks hook.
+	 *
+	 * @param ALTree &$admin_links_tree
+	 */
 	public static function addToAdminLinks( &$admin_links_tree ) {
 		$data_structure_label = wfMessage( 'pf-adminlinks-datastructure' )->escaped();
 		$data_structure_section = $admin_links_tree->getSection( $data_structure_label );
@@ -193,6 +211,12 @@ class PFHooks {
 		$pf_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateCategory' ), 'SMWAdmin' );
 	}
 
+	/**
+	 * Called by the CargoTablesSetAllowedActions hook.
+	 *
+	 * @param SpecialPage $cargoTablesPage
+	 * @param array &$allowedActions
+	 */
 	public static function addToCargoTablesColumns( $cargoTablesPage, &$allowedActions ) {
 		if ( !$cargoTablesPage->getUser()->isAllowed( 'multipageedit' ) ) {
 			return;
@@ -306,6 +330,8 @@ class PFHooks {
 	}
 
 	/**
+	 * Called by the TinyMCEDisable hook.
+	 *
 	 * Disable TinyMCE if this is a form definition page, or a form-editable page.
 	 *
 	 * @param Title $title The page Title object
@@ -324,6 +350,12 @@ class PFHooks {
 		return true;
 	}
 
+	/**
+	 * Called by the EditPage::importFormData hook.
+	 *
+	 * @param EditPage $editpage
+	 * @param WebRequest $request
+	 */
 	public static function showFormPreview( EditPage $editpage, WebRequest $request ) {
 		global $wgOut, $wgPageFormsFormPrinter;
 
