@@ -39,6 +39,14 @@ class PFHooks {
 			$GLOBALS['smwgEnabledSpecialPage'][] = 'RunQuery';
 		}
 
+		// @TODO - rename this variable to something like $wgPageFormsEDValues.
+		// (This was formerly an External Data global variable.)
+		if ( method_exists( 'EDParserFunctions', 'getAllValues' ) ) {
+			$GLOBALS['edgValues'] = EDParserFunctions::getAllValues();
+		} else {
+			$GLOBALS['edgValues'] = [];
+		}
+
 		// Allow for popup windows for file upload
 		$GLOBALS['wgEditPageFrameOptions'] = 'SAMEORIGIN';
 	}
@@ -161,12 +169,7 @@ class PFHooks {
 		$vars['wgPageFormsDelayReload'] = $wgPageFormsDelayReload;
 		$vars['wgPageFormsShowOnSelect'] = $wgPageFormsShowOnSelect;
 		$vars['wgPageFormsScriptPath'] = $wgPageFormsScriptPath;
-		if ( method_exists( 'EDParserFunctions', 'getAllValues' ) ) {
-			// External Data 2.3+
-			$vars['edgValues'] = EDParserFunctions::getAllValues();
-		} else {
-			$vars['edgValues'] = $edgValues;
-		}
+		$vars['edgValues'] = $edgValues;
 		$vars['wgPageFormsEDSettings'] = $wgPageFormsEDSettings;
 		$vars['wgAmericanDates'] = $wgAmericanDates;
 	}
