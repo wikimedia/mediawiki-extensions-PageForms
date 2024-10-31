@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Psubhashish"
+		]
+	},
+	"templates": "ଛାଞ୍ଚସବୁ",
+	"pf_forminputs_checkboxes_select_all": "ସବୁ ବାଛନ୍ତୁ",
+	"pf-wizard-back": "ପଛକୁ",
+	"pf-wizard-continue": "ଚାଲୁରଖନ୍ତୁ",
+	"pf-simpleupload": "ଅପଲୋଡ଼",
+	"pf-pageschemas-header": "ଫର୍ମ",
+	"pf-datepicker-close": "ବନ୍ଦକରନ୍ତୁ",
+	"pf-datepicker-prev": "ପୂର୍ବ",
+	"pf-datepicker-next": "ପର",
+	"pf-datepicker-today": "ଆଜି"
+}
