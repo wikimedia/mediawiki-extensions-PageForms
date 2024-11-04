@@ -162,7 +162,8 @@
 		"PFWikiPageTemplateParam": "includes/wikipage/PF_WikiPageTemplateParam.php",
 		"PFWikiPageSection": "includes/wikipage/PF_WikiPageSection.php",
 		"PFWikiPageFreeText": "includes/wikipage/PF_WikiPageFreeText.php",
-		"PFCreatePageJob": "includes/PF_CreatePageJob.php"
+		"PFCreatePageJob": "includes/PF_CreatePageJob.php",
+		"PFDateInputWidget": "includes/widgets/PFDateInputWidget.php"
 	},
 	"ResourceModules": {
 		"ext.pageforms.main": {
@@ -354,7 +355,7 @@
 		"ext.pageforms.datepicker": {
 			"scripts": "libs/PF_datepicker.js",
 			"dependencies": [
-				"mediawiki.widgets.DateInputWidget",
+				"ext.pageforms.widgets.PFDateInputWidget",
 				"ext.pageforms"
 			],
 			"targets": [
@@ -379,6 +380,12 @@
 			"targets": [
 				"desktop",
 				"mobile"
+			]
+		},
+		"ext.pageforms.widgets.PFDateInputWidget": {
+			"scripts": "libs/widgets/mw.widgets.PFDateInputWidget.js",
+			"dependencies": [
+				"mediawiki.widgets.DateInputWidget"
 			]
 		},
 		"ext.pageforms.regexp": {
@@ -685,6 +692,7 @@
 		"BeforePageDisplay": "PFHooks::handleForceReload"
 	},
 	"config": {
+		"PageFormsDefaultDateFormat": "YYYY-MM-DD;YYYY-MM;YYYY",
 		"PageFormsVisualEditorMaxHeight": 400,
 		"PageFormsUseDisplayTitle": true,
 		"PageFormsShowExpandAllLink": false,

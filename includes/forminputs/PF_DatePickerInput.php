@@ -9,7 +9,6 @@
  */
 
 use MediaWiki\Html\Html;
-use MediaWiki\Widget\DateInputWidget;
 
 class PFDatePickerInput extends PFFormInput {
 
@@ -28,7 +27,15 @@ class PFDatePickerInput extends PFFormInput {
 	public function __construct( $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
 		if ( $cur_value != '' ) {
 			[ $year, $month, $day ] = PFDateInput::parseDate( $cur_value );
-			$cur_value = sprintf( '%04d-%02d-%02d', $year, $month, $day );
+			if ( !$month ) {
+				// Special handling for "YYYY" formats
+				$cur_value = sprintf( '%04d', $year );
+			} elseif ( !$day ) {
+				// Special handling for "MM-YYYY" formats
+				$cur_value = sprintf( '%04d-%02d', $year, $month );
+			} else {
+				$cur_value = sprintf( '%04d-%02d-%02d', $year, $month, $day );
+			}
 		}
 
 		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
@@ -93,7 +100,7 @@ class PFDatePickerInput extends PFFormInput {
 			'classes' => [ 'pfDatePicker', 'pfPicker' ],
 			'infusable' => true
 		] );
-		$widget = new DateInputWidget( $options );
+		$widget = new PFDateInputWidget( $options );
 		$widget->setDisabled( $this->mIsDisabled );
 		$text = $widget->toString();
 
@@ -111,9 +118,18 @@ class PFDatePickerInput extends PFFormInput {
 		$params = $this->mOtherArgs;
 		$options = [];
 		if ( isset( $params[ 'date format' ] ) ) {
-			$options[ 'inputFormat' ] = $this->getConvertedFormat();
-			$options[ 'displayFormat' ] = $this->getConvertedFormat();
+			$dateFormat = $this->getConvertedFormat( $params[ 'date format' ] );
+		} else {
+			$config = RequestContext::getMain()->getConfig();
+			$dateFormat = $config->get( 'PageFormsDefaultDateFormat' );
 		}
+		$convertedDateFormat = [];
+		foreach ( explode( ';', $dateFormat ) as $explodedDateFormat ) {
+			$convertedDateFormat[] = $this->getConvertedFormat( $explodedDateFormat );
+		}
+		$implodedDateFormat = implode( ';', $convertedDateFormat );
+		$options[ 'inputFormat' ] = $implodedDateFormat;
+		$options[ 'displayFormat' ] = $implodedDateFormat;
 		if ( isset( $params[ 'first date' ] ) ) {
 			$options[ 'mustBeAfter' ] = str_replace( "/", "-", $params[ 'first date' ] );
 		}
@@ -136,8 +152,7 @@ class PFDatePickerInput extends PFFormInput {
 		return $options;
 	}
 
-	private function getConvertedFormat() {
-		$oldFormat = $this->mOtherArgs['date format'];
+	private function getConvertedFormat( $oldFormat ) {
 		$j = 0;
 		$newFormat = [];
 		for ( $i = 0; $i < strlen( $oldFormat ); $i++ ) {
@@ -191,13 +206,12 @@ class PFDatePickerInput extends PFFormInput {
 				// If the letter is "y" and it is the last letter.
 				$newFormat[$j] = "YY";
 			} else {
-				// Any another letters, or special characters.
+				// Any other letters, or special characters.
 				$newFormat[$j] = $oldFormat[$i];
 				$j++;
 			}
 		}
-		$newFormat = implode( $newFormat );
-		return $newFormat;
+		return implode( $newFormat );
 	}
 
 	/**
