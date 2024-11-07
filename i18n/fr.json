@@ -35,7 +35,8 @@
 			"Weft",
 			"Wladek92",
 			"Wyz",
-			"Zebulon84"
+			"Zebulon84",
+			"Mahabarata"
 		]
 	},
 	"pageforms-name": "Formulaires de page",
@@ -223,6 +224,7 @@
 	"pf_formedit_remove": "Retirer cette instance",
 	"pf_formedit_addanotherabove": "Ajouter une autre instance au-dessus de celle-ci",
 	"pf_formedit_addanother": "Ajouter un autre",
+	"pf-formedit-nodata": "Aucune donnée",
 	"pf_formedit_none": "Aucun / inconnu",
 	"pf_formedit_emptytitle": "Erreur : les données insérées entraînent un titre de page vide.",
 	"pf_formedit_hookerror": "Erreur : une extension de MediaWiki a empêché la modification de la page cible.",
