@@ -35,7 +35,8 @@
 			"Weft",
 			"Wladek92",
 			"Wyz",
-			"Zebulon84"
+			"Zebulon84",
+			"Mahabarata"
 		]
 	},
 	"pageforms-name": "Formulaires de page",
@@ -223,6 +224,7 @@
 	"pf_formedit_remove": "Retirer cette instance",
 	"pf_formedit_addanotherabove": "Ajouter une autre instance au-dessus de celle-ci",
 	"pf_formedit_addanother": "Ajouter un autre",
+	"pf-formedit-nodata": "Aucune donnée",
 	"pf_formedit_none": "Aucun / inconnu",
 	"pf_formedit_emptytitle": "Erreur : les données insérées entraînent un titre de page vide.",
 	"pf_formedit_hookerror": "Erreur : une extension de MediaWiki a empêché la modification de la page cible.",
@@ -234,6 +236,7 @@
 	"pf-autoedit-invalidnamespace": "Erreur : #autoedit ne peut pas être appelé sur les pages dans l’espace de noms « $1 » sur ce wiki.",
 	"pf_autoedit_anoneditwarning": "Attention : vous n’êtes pas identifié{{GENDER:||e}}. Votre adresse IP sera enregistrée dans l’historique des modifications de cette page.",
 	"pf_autoedit_success": "[[$1]] modifié en utilisant le formulaire $2.",
+	"pf_autoedit_newpagesuccess": "[[$1]] a été créé en utilisant le formulaire $2 .",
 	"pf_autoedit_fail": "La modification de [[$1]] a échoué.",
 	"pf_autoedit_notargetspecified": "Aucune page cible spécifiée.",
 	"pf_autoedit_invalidtargetspecified": "La page cible spécifiée « $1 » n’est pas valide.",
@@ -248,6 +251,7 @@
 	"pf_autoedit_summary": "Modifié automatiquement depuis la page $1.",
 	"pf-autoedit-wait": "Patientez...",
 	"pf_autoedit_confirm": "Êtes-vous sûr{{GENDER:||e}} de vouloir modifier « $1 » ?",
+	"pf_autoedit_confirmcreate": "Etes-vous sûr de vouloir créer une nouvelle page avec le formulaire « $1 » ?",
 	"pf_autoedit_notsettogether": "« $1 » et « $2 » ne peuvent pas être définis simultanément dans la même fonction.",
 	"runquery": "Exécuter la requête",
 	"pf_runquery_badurl": "Vous devez spécifier un nom de formulaire dans l’URL ;\ncela doit se présenter sous la forme « Special:RunQuery/<nom du formulaire> ».",
