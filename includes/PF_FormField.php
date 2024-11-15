@@ -1028,7 +1028,7 @@ class PFFormField {
 	 * @param array|null $default_args
 	 * @return array
 	 */
-	function getArgumentsForInputCall( array $default_args = null ) {
+	function getArgumentsForInputCall( ?array $default_args = null ) {
 		$parser = PFUtils::getParser();
 
 		// start with the arguments array already defined
