@@ -464,7 +464,6 @@ class PFAutoeditAPI extends ApiBase {
 		}
 
 		$resultDetails = [];
-		$isBot = $user->isAllowed( 'bot' );
 
 		$request = $editor->pfFauxRequest;
 		if ( $this->tokenOk( $request ) ) {
@@ -476,7 +475,7 @@ class PFAutoeditAPI extends ApiBase {
 			// @todo Make a real fix for this.
 			// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 			@$ctx->setTitle( $title );
-			$status = $editor->internalAttemptSave( $resultDetails, $isBot );
+			$status = $editor->attemptSave( $resultDetails );
 			// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 			@$ctx->setTitle( $tempTitle );
 		} else {
