@@ -11,7 +11,6 @@
  */
 
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
 
 /**
@@ -21,17 +20,13 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	/**
 	 * Constructor : initialise object
 	 * Get data POSTed through the form and assign them to the object
-	 * @param WebRequest|null $request Data posted.
 	 */
-	public function __construct( $request = null ) {
+	public function __construct() {
 		parent::__construct( 'UploadWindow', 'upload' );
-		$this->loadRequest( $request instanceof WebRequest ? $request : $this->getRequest() );
+		$this->loadRequest();
 	}
 
 	/** Misc variables */
-
-	/** @var WebRequest|FauxRequest The request this form is supposed to handle */
-	public $mRequest;
 	public $mSourceType;
 
 	/** @var UploadBase */
@@ -75,11 +70,9 @@ class PFUploadWindow extends UnlistedSpecialPage {
 
 	/**
 	 * Initialize instance variables from request and create an Upload handler
-	 *
-	 * @param WebRequest $request The request to extract variables from
 	 */
-	protected function loadRequest( $request ) {
-		$this->mRequest = $request;
+	protected function loadRequest() {
+		$request = $this->getRequest();
 		$this->mSourceType	= $request->getVal( 'wpSourceType', 'file' );
 		$this->mUpload	    = UploadBase::createFromRequest( $request );
 		$this->mUploadClicked     = $request->wasPosted()
