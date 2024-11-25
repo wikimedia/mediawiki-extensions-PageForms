@@ -975,12 +975,7 @@ END;
 				Html::element( 'a', [ 'href' => '#' ], 'Expand all collapsed parts of the form' ) ) . "\n";
 		}
 
-		if ( method_exists( ParserFactory::class, 'getInstance' ) ) {
-			// MW 1.39+
-			$parser = $services->getParserFactory()->getInstance();
-		} else {
-			$parser = PFUtils::getParser()->getFreshParser();
-		}
+		$parser = $services->getParserFactory()->getInstance();
 		if ( !$parser->getOptions() ) {
 			$parser->setOptions( ParserOptions::newFromUser( $user ) );
 		}
