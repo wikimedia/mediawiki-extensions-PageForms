@@ -10,7 +10,7 @@
  */
 
 use MediaWiki\Html\Html;
-use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Title\Title;
 
 /**
@@ -18,8 +18,16 @@ use MediaWiki\Title\Title;
  */
 class PFCreateClass extends SpecialPage {
 
-	public function __construct() {
+	private JobQueueGroup $jobQueueGroup;
+	private WikiPageFactory $wikiPageFactory;
+
+	public function __construct(
+		JobQueueGroup $jobQueueGroup,
+		WikiPageFactory $wikiPageFactory
+	) {
 		parent::__construct( 'CreateClass', 'createclass' );
+		$this->jobQueueGroup = $jobQueueGroup;
+		$this->wikiPageFactory = $wikiPageFactory;
 	}
 
 	public function doesWrites() {
@@ -151,7 +159,7 @@ class PFCreateClass extends SpecialPage {
 		$full_text = $pfTemplate->createText();
 
 		$template_title = Title::makeTitleSafe( NS_TEMPLATE, $template_name );
-		$template_page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $template_title );
+		$template_page = $this->wikiPageFactory->newFromTitle( $template_title );
 		$edit_summary = '';
 		PFCreatePageJob::createOrModifyPage( $template_page, $full_text, $edit_summary, $user );
 
@@ -199,7 +207,7 @@ class PFCreateClass extends SpecialPage {
 			$jobs[] = new PFCreatePageJob( $category_title, $params );
 		}
 
-		MediaWikiServices::getInstance()->getJobQueueGroup()->push( $jobs );
+		$this->jobQueueGroup->push( $jobs );
 
 		$out->addWikiMsg( 'pf_createclass_success' );
 	}

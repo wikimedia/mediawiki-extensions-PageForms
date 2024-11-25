@@ -60,12 +60,33 @@
 		"Templates": "PFTemplates",
 		"MultiPageEdit": "PFMultiPageEdit",
 		"CreateTemplate": "PFCreateTemplate",
-		"CreateClass": "PFCreateClass",
+		"CreateClass": {
+			"class": "PFCreateClass",
+			"services": [
+				"JobQueueGroup",
+				"WikiPageFactory"
+			]
+		},
 		"CreateCategory": "PFCreateCategory",
-		"FormStart": "PFFormStart",
+		"FormStart": {
+			"class": "PFFormStart",
+			"services": [
+				"WikiPageFactory"
+			]
+		},
 		"FormEdit": "PFFormEdit",
 		"RunQuery": "PFRunQuery",
-		"UploadWindow": "PFUploadWindow"
+		"UploadWindow": {
+			"class": "PFUploadWindow",
+			"services": [
+				"HookContainer",
+				"LinkRenderer",
+				"ReadOnlyMode",
+				"RepoGroup",
+				"UserOptionsLookup",
+				"WatchlistManager"
+			]
+		}
 	},
 	"JobClasses": {
 		"pageFormsCreatePage": "PFCreatePageJob"

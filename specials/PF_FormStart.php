@@ -10,7 +10,7 @@
  */
 
 use MediaWiki\Html\Html;
-use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Title\Title;
 
 /**
@@ -18,8 +18,13 @@ use MediaWiki\Title\Title;
  */
 class PFFormStart extends SpecialPage {
 
-	function __construct() {
+	private WikiPageFactory $wikiPageFactory;
+
+	function __construct(
+		WikiPageFactory $wikiPageFactory
+	) {
 		parent::__construct( 'FormStart' );
+		$this->wikiPageFactory = $wikiPageFactory;
 	}
 
 	function execute( $query ) {
@@ -149,7 +154,7 @@ END;
 		if ( $page_title->exists() ) {
 			// It exists - see if page is a redirect; if
 			// it is, edit the target page instead.
-			$content = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $page_title )->getContent();
+			$content = $this->wikiPageFactory->newFromTitle( $page_title )->getContent();
 			if ( $content && $content->getRedirectTarget() ) {
 				$page_title = $content->getRedirectTarget();
 				$page_name = PFUtils::titleURLString( $page_title );

@@ -10,19 +10,42 @@
  * @ingroup PF
  */
 
-use MediaWiki\MediaWikiServices;
+use MediaWiki\HookContainer\HookContainer;
+use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Title\Title;
+use MediaWiki\User\UserOptionsLookup;
+use MediaWiki\Watchlist\WatchlistManager;
 
 /**
  * @ingroup PFSpecialPages
  */
 class PFUploadWindow extends UnlistedSpecialPage {
+	private HookContainer $hookContainer;
+	private LinkRenderer $linkRenderer;
+	private ReadOnlyMode $readOnlyMode;
+	private RepoGroup $repoGroup;
+	private UserOptionsLookup $userOptionsLookup;
+	private WatchlistManager $watchlistManager;
+
 	/**
 	 * Constructor : initialise object
 	 * Get data POSTed through the form and assign them to the object
 	 */
-	public function __construct() {
+	public function __construct(
+		HookContainer $hookContainer,
+		LinkRenderer $linkRenderer,
+		ReadOnlyMode $readOnlyMode,
+		RepoGroup $repoGroup,
+		UserOptionsLookup $userOptionsLookup,
+		WatchlistManager $watchlistManager
+	) {
 		parent::__construct( 'UploadWindow', 'upload' );
+		$this->hookContainer = $hookContainer;
+		$this->linkRenderer = $linkRenderer;
+		$this->readOnlyMode = $readOnlyMode;
+		$this->repoGroup = $repoGroup;
+		$this->userOptionsLookup = $userOptionsLookup;
+		$this->watchlistManager = $watchlistManager;
 		$this->loadRequest();
 	}
 
@@ -146,7 +169,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		}
 
 		# Check whether we actually want to allow changing stuff
-		if ( MediaWikiServices::getInstance()->getReadOnlyMode()->isReadOnly() ) {
+		if ( $this->readOnlyMode->isReadOnly() ) {
 			throw new ReadOnlyError();
 		}
 
@@ -166,7 +189,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 			# Backwards compatibility hook
 			// Avoid PHP 7.1 warning from passing $this by reference
 			$page = $this;
-			if ( !MediaWikiServices::getInstance()->getHookContainer()->run( 'UploadForm:initial', [ &$page ] ) ) {
+			if ( !$this->hookContainer->run( 'UploadForm:initial', [ &$page ] ) ) {
 				wfDebug( "Hook 'UploadForm:initial' broke output of the upload form" );
 				return;
 			}
@@ -299,7 +322,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 			}
 
 			if ( $warning == 'exists' ) {
-				$msg = self::getExistsWarning( $args );
+				$msg = $this->getExistsWarning( $args );
 			} elseif ( $warning == 'no-change' ) {
 				$file = $args;
 				$filename = $file->getTitle()->getPrefixedText();
@@ -384,10 +407,9 @@ class PFUploadWindow extends UnlistedSpecialPage {
 			return $this->showUploadForm( $this->getUploadForm( $statusText ) );
 		}
 
-		$hookContainer = MediaWikiServices::getInstance()->getHookContainer();
 		// Avoid PHP 7.1 warning from passing $this by reference
 		$page = $this;
-		if ( !$hookContainer->run( 'UploadForm:BeforeProcessing', [ &$page ] ) ) {
+		if ( !$this->hookContainer->run( 'UploadForm:BeforeProcessing', [ &$page ] ) ) {
 			wfDebug( "Hook 'UploadForm:BeforeProcessing' broke processing the file.\n" );
 			// This code path is deprecated. If you want to break upload processing
 			// do so by hooking into the appropriate hooks in UploadBase::verifyUpload
@@ -492,7 +514,7 @@ END;
 
 		// Avoid PHP 7.1 warning from passing $this by reference
 		$page = $this;
-		$hookContainer->run( 'SpecialUploadComplete', [ &$page ] );
+		$this->hookContainer->run( 'SpecialUploadComplete', [ &$page ] );
 	}
 
 	/**
@@ -539,26 +561,24 @@ END;
 	 * @return bool
 	 */
 	protected function watchCheck() {
-		$services = MediaWikiServices::getInstance();
-		$lookup = $services->getUserOptionsLookup();
 		$user = $this->getUser();
 
-		if ( $lookup->getOption( $user, 'watchdefault' ) ) {
+		if ( $this->userOptionsLookup->getOption( $user, 'watchdefault' ) ) {
 			// Watch all edits!
 			return true;
 		}
 
-		$local = $services->getRepoGroup()->getLocalRepo()
+		$local = $this->repoGroup->getLocalRepo()
 			->newFile( $this->mDesiredDestName );
 		if ( $local && $local->exists() ) {
 			// We're uploading a new version of an existing file.
 			// No creation, so don't watch it if we're not already.
-			return $services->getWatchlistManager()
+			return $this->watchlistManager
 				->isWatched( $user, $local->getTitle() );
 		}
 
 		// New page should get watched if that's our option.
-		return $lookup->getOption( $user, 'watchcreations' );
+		return $this->userOptionsLookup->getOption( $user, 'watchcreations' );
 	}
 
 	/**
@@ -645,7 +665,7 @@ END;
 	 * @return string Empty string if there is no warning or an HTML fragment
 	 * consisting of one or more <li> elements if there is a warning.
 	 */
-	public static function getExistsWarning( $exists ) {
+	private function getExistsWarning( $exists ) {
 		if ( !$exists ) {
 			return '';
 		}
@@ -677,8 +697,7 @@ END;
 		} elseif ( $exists['warning'] == 'was-deleted' ) {
 			# If the file existed before and was deleted, warn the user of this
 			$ltitle = SpecialPage::getTitleFor( 'Log' );
-			$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
-			$llink = $linkRenderer->makeKnownLink(
+			$llink = $this->linkRenderer->makeKnownLink(
 				$ltitle,
 				wfMessage( 'deletionlog' )->escaped(),
 				[],
