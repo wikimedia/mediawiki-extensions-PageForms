@@ -2089,7 +2089,7 @@ END;
 	 * @param string &$text
 	 */
 	private function addTranslatableInput( $form_field, $cur_value, &$text ) {
-		if ( PFUtils::isTranslateEnabled() || !$form_field->hasFieldArg( 'translatable' ) || !$form_field->getFieldArg( 'translatable' ) ) {
+		if ( !PFUtils::isTranslateEnabled() || !$form_field->hasFieldArg( 'translatable' ) || !$form_field->getFieldArg( 'translatable' ) ) {
 			return;
 		}
 
@@ -2107,7 +2107,7 @@ END;
 	}
 
 	private function createFormFieldTranslateTag( &$template, &$tif, &$form_field, &$cur_value ) {
-		if ( PFUtils::isTranslateEnabled() || !$form_field->hasFieldArg( 'translatable' ) || !$form_field->getFieldArg( 'translatable' ) ) {
+		if ( !PFUtils::isTranslateEnabled() || !$form_field->hasFieldArg( 'translatable' ) || !$form_field->getFieldArg( 'translatable' ) ) {
 			return;
 		}
 
