@@ -2082,7 +2082,8 @@ END;
 	}
 
 	/**
-	 * for translatable fields, this function add an hidden input containing the translate tags
+	 * If a field is "translatable", add a hidden input containing the "<!--T:X-->"
+	 * translate tag.
 	 *
 	 * @param PFFormField $form_field
 	 * @param string $cur_value
