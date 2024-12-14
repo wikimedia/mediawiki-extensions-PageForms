@@ -28,6 +28,7 @@ $cfg['scalar_implicit_cast'] = true;
 
 // Ignored to allow upgrading Phan, to be fixed later.
 $cfg['suppress_issue_types'][] = 'MediaWikiNoEmptyIfDefined';
+$cfg['suppress_issue_types'][] = 'MediaWikiNoIssetIfDefined';
 
 $cfg['suppress_issue_types'] = array_merge(
 	$cfg['suppress_issue_types'],
