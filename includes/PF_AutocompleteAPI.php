@@ -233,6 +233,8 @@ class PFAutocompleteAPI extends ApiBase {
 		$baseValue = null
 	) {
 		$db = PFUtils::getReadDB();
+		$tables = [];
+		$joinConds = [];
 		$sqlOptions = [
 			'LIMIT' => PFValuesUtils::getMaxValuesToRetrieve( $substring )
 		];
@@ -248,24 +250,27 @@ class PFAutocompleteAPI extends ApiBase {
 			$isFixedProperty = false;
 		}
 
-		$idsTable = $db->tableName( 'smw_object_ids' );
+		$idsTable = 'smw_object_ids';
+		$tables['p_ids'] = $idsTable;
 
 		if ( $isFixedProperty ) {
-			$propsTable = $db->tableName( $propertyTableId );
+			$propsTable = $propertyTableId;
 		} else {
 			$conditions = [ 'p_ids.smw_title' => $property_name ];
 			if ( $propertyHasTypePage ) {
-				$propsTable = $db->tableName( 'smw_di_wikipage' );
+				$propsTable = 'smw_di_wikipage';
 			} else {
-				$propsTable = $db->tableName( 'smw_di_blob' );
+				$propsTable = 'smw_di_blob';
 			}
 
 		}
-		$fromClause = "$propsTable p JOIN $idsTable p_ids ON p.p_id = p_ids.smw_id";
+		$tables['p'] = $propsTable;
+		$joinConds['p_ids'] = [ 'JOIN', 'p.p_id = p_ids.smw_id' ];
 
 		if ( $propertyHasTypePage ) {
+			$tables['o_ids'] = $idsTable;
+			$joinConds['o_ids'] = [ 'JOIN', 'p.o_id = o_ids.smw_id' ];
 			$valueField = 'o_ids.smw_title';
-			$fromClause .= " JOIN $idsTable o_ids ON p.o_id = o_ids.smw_id";
 		} else {
 			$valueField = 'p.o_hash';
 		}
@@ -277,28 +282,32 @@ class PFAutocompleteAPI extends ApiBase {
 			$basePropertyName = str_replace( ' ', '_', $basePropertyName );
 			$conditions['base_p_ids.smw_title'] = $basePropertyName;
 			if ( $basePropertyHasTypePage ) {
-				$propsTable = $db->tableName( 'smw_di_wikipage' );
-				$fromClause .= " JOIN $propsTable p_base ON p.s_id = p_base.s_id";
-				$fromClause .= " JOIN $idsTable base_p_ids ON p_base.p_id = base_p_ids.smw_id JOIN $idsTable base_o_ids ON p_base.o_id = base_o_ids.smw_id";
+				$propsTable = 'smw_di_wikipage';
 				$baseValue = str_replace( ' ', '_', $baseValue );
-				$conditions['base_o_ids.smw_title'] = $baseValue;
 			} else {
-				$propsTable = $db->tableName( 'smw_di_blob' );
-				$fromClause .= " JOIN $propsTable p_base ON p.s_id = p_base.s_id";
-				$fromClause .= " JOIN $idsTable base_p_ids ON p_base.p_id = base_p_ids.smw_id";
+				$propsTable = 'smw_di_blob';
 				$conditions['p_base.o_hash'] = $baseValue;
+			}
+			$tables['p_base'] = $propsTable;
+			$joinConds['p_base'] = [ 'JOIN', 'p.s_id = p_base.s_id' ];
+			$tables['base_p_ids'] = $idsTable;
+			$joinConds['base_p_ids'] = [ 'JOIN', 'p_base.p_id = base_p_ids.smw_id' ];
+			if ( $basePropertyHasTypePage ) {
+				$tables['base_o_ids'] = $idsTable;
+				$joinConds['base_o_ids'] = [ 'JOIN', 'p_base.o_id = base_o_ids.smw_id' ];
+				$conditions['base_o_ids.smw_title'] = $baseValue;
 			}
 		}
 
 		if ( $substring !== null ) {
-			// "Page" type property valeus are stored differently
+			// "Page" type property values are stored differently
 			// in the DB, i.e. underlines instead of spaces.
 			$conditions[] = PFValuesUtils::getSQLConditionForAutocompleteInColumn( $valueField, $substring, $propertyHasTypePage );
 		}
 
 		$sqlOptions['ORDER BY'] = $valueField;
-		$res = $db->select( $fromClause, "DISTINCT $valueField",
-			$conditions, __METHOD__, $sqlOptions );
+		$res = $db->select( $tables, "DISTINCT $valueField",
+			$conditions, __METHOD__, $sqlOptions, $joinConds );
 
 		$values = [];
 		while ( $row = $res->fetchRow() ) {
