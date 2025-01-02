@@ -252,7 +252,6 @@ class PFAutocompleteAPI extends ApiBase {
 
 		if ( $isFixedProperty ) {
 			$propsTable = $db->tableName( $propertyTableId );
-			$fromClause = "$propsTable p JOIN $idsTable p_ids ON p.s_id = p_ids.smw_id";
 		} else {
 			$conditions = [ 'p_ids.smw_title' => $property_name ];
 			if ( $propertyHasTypePage ) {
@@ -261,8 +260,8 @@ class PFAutocompleteAPI extends ApiBase {
 				$propsTable = $db->tableName( 'smw_di_blob' );
 			}
 
-			$fromClause = "$propsTable p JOIN $idsTable p_ids ON p.p_id = p_ids.smw_id";
 		}
+		$fromClause = "$propsTable p JOIN $idsTable p_ids ON p.p_id = p_ids.smw_id";
 
 		if ( $propertyHasTypePage ) {
 			$valueField = 'o_ids.smw_title';
@@ -278,19 +277,16 @@ class PFAutocompleteAPI extends ApiBase {
 			$basePropertyName = str_replace( ' ', '_', $basePropertyName );
 			$conditions['base_p_ids.smw_title'] = $basePropertyName;
 			if ( $basePropertyHasTypePage ) {
-				$idsTable = $db->tableName( 'smw_object_ids' );
 				$propsTable = $db->tableName( 'smw_di_wikipage' );
 				$fromClause .= " JOIN $propsTable p_base ON p.s_id = p_base.s_id";
 				$fromClause .= " JOIN $idsTable base_p_ids ON p_base.p_id = base_p_ids.smw_id JOIN $idsTable base_o_ids ON p_base.o_id = base_o_ids.smw_id";
 				$baseValue = str_replace( ' ', '_', $baseValue );
 				$conditions['base_o_ids.smw_title'] = $baseValue;
 			} else {
-				$baseValueField = 'p_base.o_hash';
-				$idsTable = $db->tableName( 'smw_object_ids' );
 				$propsTable = $db->tableName( 'smw_di_blob' );
 				$fromClause .= " JOIN $propsTable p_base ON p.s_id = p_base.s_id";
 				$fromClause .= " JOIN $idsTable base_p_ids ON p_base.p_id = base_p_ids.smw_id";
-				$conditions[$baseValueField] = $baseValue;
+				$conditions['p_base.o_hash'] = $baseValue;
 			}
 		}
 
