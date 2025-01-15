@@ -2107,6 +2107,10 @@ END;
 			return;
 		}
 
+		if ( $cur_value == null ) {
+			return;
+		}
+
 		// If translatable, add translatable tags when saving, or remove them for displaying form.
 		if ( preg_match( '#^<translate>(.*)</translate>$#', $cur_value, $matches ) ) {
 			$cur_value = $matches[1];
