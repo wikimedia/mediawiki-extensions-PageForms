@@ -191,7 +191,7 @@
 	"pf_formedit_altformsonly": "Bu sayfaya eklemek için aşağıdaki formlardan birisini seçiniz:",
 	"pf_formcreate": "Form ile oluştur",
 	"pf_viewform": "Formu gör",
-	"pf_editsource": "Kaynağı değiştir",
+	"pf_editsource": "Kaynağı düzenle",
 	"pf_formedit_edittitle": "Değiştir $1: $2",
 	"pf_formedit_morethanoneform": "'''Uyarı:''' Bu sayfa için birden fazla varsayılan form tanımlanmış.",
 	"pf_formedit_formwarning": "Uyarı: Bu sayfa [[$1|zaten var]], ancak bu formu kullanmıyor.",
