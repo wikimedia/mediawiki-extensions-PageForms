@@ -584,9 +584,6 @@ END;
 				$this->recoverableUploadError( $this->msg( 'illegalfilename',
 					$details['filtered'] )->parse() );
 				break;
-			case UploadBase::OVERWRITE_EXISTING_FILE:
-				$this->recoverableUploadError( $this->msg( $details['overwrite'] )->parse() );
-				break;
 			case UploadBase::FILETYPE_MISSING:
 				$this->recoverableUploadError( $this->msg( 'filetype-missing' )->parse() );
 				break;
