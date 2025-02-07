@@ -227,7 +227,7 @@
 	"pf-pageschemas-createtitle": "Títulu del formulariu pa les páxines nueves:",
 	"pf-pageschemas-edittitle": "Títulu del formulariu pa les páxines esistentes:",
 	"pf-pageschemas-inputtype": "Tipu d'entrada (dexar balero pa definir el predetermináu):",
-	"pf-pageschemas-otherparams": "Escribi los nomes de los parámetros y los sos valores como pares clave=valor, separaos por comes (si un valor contien una coma, trócala por \"\\,\"). Por exemplu: $1",
+	"pf-pageschemas-otherparams": "Escribi los nomes de los parámetros y los sos valores como pares clave=valor, separaos por comes (si un valor contién una coma, trócala por \"\\,\"). Por exemplu: $1",
 	"pf_property_isproperty": "Esta ye una propiedá de tipu $1.",
 	"pf_property_linkstoform": "Enllaza a páxines qu'usen el formulariu $1.",
 	"pf_property_allowedvals": "{{PLURAL:$1|El valor permitíu|Los valores permitíos}} pa esta propiedá {{PLURAL:$1|ye|son}}:",
