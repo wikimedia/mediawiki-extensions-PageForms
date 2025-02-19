@@ -133,7 +133,7 @@
 	"pf_category_hasdefaultform": "Ar rummad-mañ a implij ar furmskrid $1.",
 	"pf_category_desc": "Ar rummad $1 eo hemañ.",
 	"pf_blank_namespace": "Pennañ",
-	"right-viewedittab": "Gwelet an ivinell \"kemmañ\" evit ar pajennoù kemmus dre ur furmskrid",
+	"right-viewedittab": "Gwelet an ivinell \"{{int:edit}}\" evit ar pajennoù kemmus dre ur furmskrid",
 	"right-editrestrictedfields": "Aozañ maeziennoù strishaet ar furmskridoù",
 	"pf-autocomplete-searching": "O klask...",
 	"pf-autocomplete-input-too-short": "Merkit $1 arouezenn pe vuioc'h.",
