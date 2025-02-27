@@ -17,27 +17,27 @@ class PFValuesUtils {
 	 * @param Store $store
 	 * @param Title $subject
 	 * @param string $propID
-	 * @param SMWRequestOptions|null $requestOptions
+	 * @param \SMW\RequestOptions|null $requestOptions
 	 * @return array
 	 * @suppress PhanUndeclaredTypeParameter For Store
 	 */
 	public static function getSMWPropertyValues( $store, $subject, $propID, $requestOptions = null ) {
 		// If SMW is not installed, exit out.
-		if ( !class_exists( 'SMWDIWikiPage' ) ) {
+		if ( !class_exists( '\SMW\DIWikiPage' ) ) {
 			return [];
 		}
 		if ( $subject === null ) {
 			$page = null;
 		} else {
-			$page = SMWDIWikiPage::newFromTitle( $subject );
+			$page = \SMW\DIWikiPage::newFromTitle( $subject );
 		}
-		$property = SMWDIProperty::newFromUserLabel( $propID );
+		$property = \SMW\DIProperty::newFromUserLabel( $propID );
 		$res = $store->getPropertyValues( $page, $property, $requestOptions );
 		$values = [];
 		foreach ( $res as $value ) {
 			if ( $value instanceof SMWDIUri ) {
 				$values[] = $value->getURI();
-			} elseif ( $value instanceof SMWDIWikiPage ) {
+			} elseif ( $value instanceof \SMW\DIWikiPage ) {
 				$realValue = str_replace( '_', ' ', $value->getDBKey() );
 				if ( $value->getNamespace() != 0 ) {
 					$realValue = PFUtils::getCanonicalName( $value->getNamespace() ) . ":$realValue";
@@ -115,7 +115,7 @@ class PFValuesUtils {
 		if ( $store == null ) {
 			return [];
 		}
-		$requestoptions = new SMWRequestOptions();
+		$requestoptions = new \SMW\RequestOptions();
 		$requestoptions->limit = self::getMaxValuesToRetrieve();
 		$values = self::getSMWPropertyValues( $store, null, $property_name, $requestoptions );
 		sort( $values );
@@ -427,9 +427,9 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		}
 
 		global $wgPageFormsUseDisplayTitle;
-		$conceptDI = SMWDIWikiPage::newFromTitle( $conceptTitle );
-		$desc = new SMWConceptDescription( $conceptDI );
-		$printout = new SMWPrintRequest( SMWPrintRequest::PRINT_THIS, "" );
+		$conceptDI = \SMW\DIWikiPage::newFromTitle( $conceptTitle );
+		$desc = new \SMW\Query\Language\ConceptDescription( $conceptDI );
+		$printout = new \SMW\Query\PrintRequest( \SMW\Query\PrintRequest::PRINT_THIS, "" );
 		$desc->addPrintRequest( $printout );
 		$query = new SMWQuery( $desc );
 		$query_result = $store->getQueryResult( $query );
