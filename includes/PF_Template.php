@@ -10,6 +10,7 @@
  */
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 
 class PFTemplate {
 	private $mTemplateName;

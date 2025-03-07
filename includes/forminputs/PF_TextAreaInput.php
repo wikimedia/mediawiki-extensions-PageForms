@@ -5,6 +5,8 @@
  * @ingroup PF
  */
 
+use MediaWiki\Html\Html;
+
 /**
  * @ingroup PFFormInput
  */

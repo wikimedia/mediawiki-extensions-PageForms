@@ -4,6 +4,8 @@
  * @ingroup PF
  */
 
+use MediaWiki\Language\RawMessage;
+
 /**
  * Adds and handles the 'pfautocomplete' action to the MediaWiki API.
  *

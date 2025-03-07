@@ -8,8 +8,12 @@
  * @ingroup PF
  */
 
+use MediaWiki\EditPage\EditPage;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\ResourceLoader\ResourceLoader;
+use MediaWiki\StubObject\StubObject;
+use MediaWiki\Title\Title;
 
 class PFHooks {
 

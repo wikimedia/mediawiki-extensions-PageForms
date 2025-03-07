@@ -8,6 +8,9 @@
  * @author Amr El-Absy
  */
 
+use MediaWiki\Html\Html;
+use MediaWiki\Title\Title;
+
 /**
  * @ingroup PFFormInput
  */

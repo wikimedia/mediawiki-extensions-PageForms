@@ -1,4 +1,7 @@
 <?php
+
+use MediaWiki\Title\Title;
+
 /**
  * Defines a class, PFTemplateField, that represents a field in a template,
  * including any possible Cargo or SMW storage it may have. Used in both

@@ -1,7 +1,10 @@
 <?php
 
+use MediaWiki\CommentStore\CommentStore;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RenderedRevision;
+use MediaWiki\Title\Title;
 use OOUI\ButtonInputWidget;
 
 /**

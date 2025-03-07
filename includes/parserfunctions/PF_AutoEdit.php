@@ -11,13 +11,15 @@
  * 'query string' variable.
  *
  * The parameters of #autoedit are called in the same format as those
- * of #formlink. T The two additions are:
+ * of #formlink. The two additions are:
  * 'minor' - sets this to be a "minor edit"
  * 'reload' - causes the page to reload after the user clicks the button
  * or link.
  */
 
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 
 class PFAutoEdit {
 	public static function run( Parser $parser ) {

@@ -8,10 +8,7 @@
  * @ingroup PF
  */
 
-/**
- * @ingroup PF
- */
-
+use MediaWiki\Html\Html;
 use MediaWiki\Widget\DateInputWidget;
 
 class PFDatePickerInput extends PFFormInput {

@@ -6,6 +6,7 @@
  */
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 
 /**
  * Background job to create a new page, for use by the 'CreateClass' special

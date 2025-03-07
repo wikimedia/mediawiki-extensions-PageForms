@@ -1,5 +1,7 @@
 <?php
+
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 
 /**
  * '#formlink' is called as:

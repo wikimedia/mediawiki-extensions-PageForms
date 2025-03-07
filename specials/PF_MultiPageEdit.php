@@ -12,7 +12,9 @@
  * @author Yaron Koren
  */
 
+use MediaWiki\Html\Html;
 use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Title\Title;
 
 /**
  * @ingroup PFSpecialPages

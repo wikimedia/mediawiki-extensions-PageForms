@@ -9,6 +9,8 @@
  * it specifies that the relevant page(s) should have no form.
  */
 
+use MediaWiki\Title\Title;
+
 class PFDefaultForm {
 	public static function run( Parser $parser ) {
 		$curTitle = $parser->getTitle();

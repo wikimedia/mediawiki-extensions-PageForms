@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Title\Title;
 use OOUI\BlankTheme;
 
 /**
@@ -127,7 +128,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	 * @return Title
 	 */
 	private function getTitle() {
-		$mockTitle = $this->getMockBuilder( 'Title' )
+		$mockTitle = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 

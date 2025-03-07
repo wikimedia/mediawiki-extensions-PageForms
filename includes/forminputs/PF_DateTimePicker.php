@@ -8,10 +8,7 @@
  * @ingroup PageForms
  */
 
-/**
- * @ingroup PageForms
- */
-
+use MediaWiki\Html\Html;
 use MediaWiki\Widget\DateTimeInputWidget;
 
 class PFDateTimePicker extends PFFormInput {

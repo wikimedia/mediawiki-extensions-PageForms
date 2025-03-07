@@ -33,6 +33,7 @@
  * |query string=namespace=User&preload=UserStub}}
  */
 
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 
 class PFFormInputParserFunction {

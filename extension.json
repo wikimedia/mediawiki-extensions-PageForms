@@ -1,7 +1,7 @@
 {
 	"name": "PageForms",
 	"namemsg": "pageforms-name",
-	"version": "5.9.1",
+	"version": "6.0-alpha",
 	"author": [
 		"Yaron Koren",
 		"Stephan Gambke",
@@ -30,7 +30,7 @@
 		"PFHooks::initialize"
 	],
 	"requires": {
-		"MediaWiki": ">= 1.39.0"
+		"MediaWiki": ">= 1.40"
 	},
 	"GroupPermissions": {
 		"*": {
