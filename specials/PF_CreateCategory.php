@@ -9,6 +9,7 @@
  */
 
 use MediaWiki\Html\Html;
+use MediaWiki\Title\Title;
 
 /**
  * @ingroup PFSpecialPages

@@ -8,6 +8,8 @@
  * @ingroup PF
  */
 
+use MediaWiki\EditPage\EditPage;
+use MediaWiki\Extension\ConfirmEdit\Hooks;
 use MediaWiki\Html\Html;
 use MediaWiki\Title\Title;
 
@@ -217,7 +219,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 	 * @param Title $targetTitle
 	 */
 	protected function showCaptcha( $targetTitle ) {
-		if ( !method_exists( 'ConfirmEditHooks', 'getInstance' ) ) {
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'ConfirmEdit' ) ) {
 			// ConfirmEdit extension is not installed.
 			return;
 		}
@@ -230,7 +232,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 		$article = new Article( $targetTitle );
 		$fakeEditPage = new EditPage( $article );
 
-		$captcha = ConfirmEditHooks::getInstance();
+		$captcha = Hooks::getInstance();
 		$captcha->editShowCaptcha( $fakeEditPage );
 	}
 
