@@ -107,7 +107,7 @@
 		}
 	};
 
-	jQuery( document ).ready( function( $ ) {
+	$( function() {
 		$( '.autoedit-trigger' ).click( autoEditHandler );
 	} );
 

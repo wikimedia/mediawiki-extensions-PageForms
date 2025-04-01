@@ -109,14 +109,13 @@
 			} );
 	};
 
-	jQuery( document )
-		.ready( function( $ ) {
-			$( this )
-				.find( '.pfRating' )
-				.each( function() {
-					$( this )
-						.applyRatingInput();
-				} )
-		} );
+	$( function() {
+		$( this )
+			.find( '.pfRating' )
+			.each( function() {
+				$( this )
+					.applyRatingInput();
+			} )
+	} );
 
 }( jQuery, mediaWiki ) );

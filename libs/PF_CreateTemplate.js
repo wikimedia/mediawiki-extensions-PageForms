@@ -151,7 +151,7 @@ function validateHierarchyStructure() {
 	return true;
 }
 
-jQuery( document ).ready( function() {
+$( function() {
 	var el = document.getElementById('fieldsList');
 	var sortable = Sortable.create(el, {
 		handle: '.instanceRearranger',

@@ -21,7 +21,7 @@ function toggleAllowedValues( property_type ) {
 	}
 }
 
-jQuery( document ).ready( function() {
+$( function() {
 	jQuery( "#property_dropdown" ).change( function() {
 		toggleDefaultForm( this.value );
 		toggleAllowedValues( this.value );
