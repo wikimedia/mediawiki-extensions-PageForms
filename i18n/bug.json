@@ -4,5 +4,7 @@
 			"Rdwnnr"
 		]
 	},
+	"templates": "Accuwang",
+	"pf_createform_template": "Accuwang:",
 	"pf_createform_add": "Tambai"
 }
