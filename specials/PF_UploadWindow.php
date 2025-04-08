@@ -608,10 +608,6 @@ END;
 				$code = array_shift( $details['details'] );
 				$this->uploadError( $this->msg( $code, $details['details'] )->parse() );
 				break;
-			case UploadBase::HOOK_ABORTED:
-				$error = $details['error'];
-				$this->uploadError( $this->msg( $error )->parse() );
-				break;
 			default:
 				throw new MWException( __METHOD__ . ": Unknown value `{$details['status']}`" );
 		}
