@@ -41,6 +41,7 @@
 	"pf_forminputs_numstars": "ਦਿਖਾਉਣ ਲਈ ਤਾਰਿਆਂ ਦੀ ਗਿਣਤੀ",
 	"pf_createform_template": "ਫਰਮਾ:",
 	"pf_createform_field": "ਖੇਤਰ:",
+	"pf_createform_fieldpropunknowntype": "ਇਹ ਖੇਤਰ ਦੱਸੀ ਨਹੀਂ ਗਈ ਕਿਸਮ ਦੀ ਵਿਸ਼ੇਸ਼ਤਾ $1 ਨੂੰ ਦੱਸਦਾ ਹੈ।",
 	"pf_createform_inputtypedefault": "(ਮੂਲ)",
 	"pf_createform_hidden": "(ਲੁਕਵਾਂ)",
 	"pf_createform_removetemplate": "ਫਰਮੇ ਹਟਾਓ",
