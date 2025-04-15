@@ -554,22 +554,10 @@ END;
 		// Before text
 		$text .= $this->mTemplateStart;
 
-		// $internalObjText can be either a call to #set_internal
-		// or to #subobject (or null); which one we go with
-		// depends on whether Semantic Internal Objects is installed,
-		// and on the SMW version.
-		// Thankfully, the syntaxes of #set_internal and #subobject
-		// are quite similar, so we don't need too much extra logic.
+		// $internalObjText can be either a call to #subobject, or null.
 		$internalObjText = null;
 		if ( $this->mConnectingProperty ) {
-			global $smwgDefaultStore;
-			if ( defined( 'SIO_VERSION' ) ) {
-				$useSubobject = false;
-				$internalObjText = '{{#set_internal:' . $this->mConnectingProperty;
-			} elseif ( $smwgDefaultStore == "SMWSQLStore3" ) {
-				$useSubobject = true;
-				$internalObjText = '{{#subobject:-|' . $this->mConnectingProperty . '={{PAGENAME}}';
-			}
+			$internalObjText = '{{#subobject:-|' . $this->mConnectingProperty . '={{PAGENAME}}';
 		}
 		$setText = '';
 
@@ -681,11 +669,7 @@ END;
 				}
 				$tableText .= "\n";
 				if ( $field->isList() ) {
-					if ( $useSubobject ) {
-						$internalObjText .= '|' . $fieldProperty . '=' . $fieldString . '|+sep=,';
-					} else {
-						$internalObjText .= '|' . $fieldProperty . '#list=' . $fieldString;
-					}
+					$internalObjText .= '|' . $fieldProperty . '=' . $fieldString . '|+sep=,';
 				} else {
 					$internalObjText .= '|' . $fieldProperty . '=' . $fieldString;
 				}
