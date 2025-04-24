@@ -10,7 +10,8 @@
 			"Priviet",
 			"Revi",
 			"Ykhwong",
-			"아라"
+			"아라",
+			"YeBoy371"
 		]
 	},
 	"pageforms-name": "문서 폼",
@@ -91,7 +92,7 @@
 	"pf_forminputs_showonselect": "특정 값을 선택했을 경우에만 표시할 문서 요소 (예: \"value1=>div1;value2=>div2\")",
 	"pf_forminputs_listboxsize": "이 목록 상자의 행 단위 높이",
 	"pf_forminputs_includetimezone": "시간대에 대한 입력을 포함",
-	"pf_forminputs_topcategory": "카테고리 집합의 부모 분류",
+	"pf_forminputs_topcategory": "카테고리 집합의 상위 분류",
 	"pf_forminputs_structure": "위키텍스트에 순서 없이 정렬된 값 목록으로 완료된 수동 값 목록",
 	"pf_forminputs_hideroot": "상위 분류 숨기기",
 	"pf_forminputs_depth": "처음 보여줄 분류의 수준 수",
