@@ -12,8 +12,8 @@
 ( function( $, mw ) {
 	$.fn.initializeSimpleUpload = function() {
 
-		var inputSpan = this.parent();
-		var uploadWidget = new OO.ui.SelectFileInputWidget( {
+		const inputSpan = this.parent();
+		const uploadWidget = new OO.ui.SelectFileInputWidget( {
 			button: {
 				flags: [
 					'progressive'
@@ -24,7 +24,7 @@
 			classes: [ 'simpleUpload' ]
 		} );
 
-		var removeButton = new OO.ui.ButtonWidget( {
+		const removeButton = new OO.ui.ButtonWidget( {
 			label: mw.message( 'htmlform-cloner-delete' ).text(),
 			flags: [
 				'destructive'
@@ -33,14 +33,14 @@
 			classes: [ 'simpleupload_rmv_btn' ]
 		} );
 
-		var buttonRow = new OO.ui.HorizontalLayout( {
+		const buttonRow = new OO.ui.HorizontalLayout( {
 			items: [
 				uploadWidget,
 				removeButton
 			]
 		} );
 
-		var input,
+		let input,
 			cur_value = '',
 			loadingImage = inputSpan.find('img.loading');
 
@@ -81,8 +81,8 @@
 		}
 
 		if ( cur_value !== '' && typeof cur_value !== 'undefined' ) {
-			var previewURL = mw.config.get('wgArticlePath').replace('$1', 'Special:Redirect/file/' + encodeURIComponent( cur_value ) );
-			previewURL += ( previewURL.indexOf('?') < 0 ) ? '?' : '&';
+			let previewURL = mw.config.get('wgArticlePath').replace('$1', 'Special:Redirect/file/' + encodeURIComponent( cur_value ) );
+			previewURL += ( !previewURL.includes('?') ) ? '?' : '&';
 			previewURL += 'width=100';
 			inputSpan.prepend($('<img class="simpleupload_prv" src="' + previewURL + '">'));
 
@@ -90,18 +90,18 @@
 			removeButton.$element.show();
 		}
 
-		removeButton.$element.find('a').click( function () {
+		removeButton.$element.find('a').click( () => {
 			inputSpan.find('img.simpleupload_prv').remove();
 			cur_value = '';
 			input.val('');
 			removeButton.$element.hide();
 		});
 
-		inputSpan.find('span.simpleUploadInterface').find('input[type="file"]').change( function(event) {
-			var fileToUpload = event.target.files[0]; // get (first) File
-			var fileName = event.target.files[0].name;
+		inputSpan.find('span.simpleUploadInterface').find('input[type="file"]').change( (event) => {
+			const fileToUpload = event.target.files[0]; // get (first) File
+			const fileName = event.target.files[0].name;
 
-			var formdata = new FormData(); // see https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
+			const formdata = new FormData(); // see https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
 			formdata.append("action", "upload");
 			formdata.append("format", "json");
 			formdata.append("ignorewarnings", "true");
@@ -126,8 +126,8 @@
 						input.val(fileName);
 
 						inputSpan.find('img.simpleupload_prv').remove();
-						var imagePreviewURL = mw.config.get('wgArticlePath').replace( '$1', 'Special:Redirect/file/' + encodeURIComponent( cur_value ) );
-						imagePreviewURL += ( imagePreviewURL.indexOf('?') === -1 ) ? '?' : '&';
+						let imagePreviewURL = mw.config.get('wgArticlePath').replace( '$1', 'Special:Redirect/file/' + encodeURIComponent( cur_value ) );
+						imagePreviewURL += ( !imagePreviewURL.includes('?') ) ? '?' : '&';
 						imagePreviewURL += 'width=100';
 						inputSpan.prepend('<img class="simpleupload_prv" src="' + imagePreviewURL + '">');
 						loadingImage.hide();

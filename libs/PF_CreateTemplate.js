@@ -1,6 +1,6 @@
 
-var fieldNum = 1;
-var hierarchyPlaceholder =  mediaWiki.msg( 'pf_createtemplate_hierarchystructureplaceholder' );
+let fieldNum = 1;
+const hierarchyPlaceholder =  mediaWiki.msg( 'pf_createtemplate_hierarchystructureplaceholder' );
 
 function toggleCargoInputs() {
 	if (jQuery('#use_cargo_toggle').attr('aria-checked') == 'true') {
@@ -25,8 +25,8 @@ function toggleCargoInputs() {
 
 jQuery.fn.createTemplateAddField = function( addAboveCurInstance ) {
 	fieldNum++;
-	var $newField = jQuery( '#starterField' ).clone().css( 'display', '' ).removeAttr( 'id' );
-	var newHTML = $newField.html().replace(/starter/g, fieldNum);
+	const $newField = jQuery( '#starterField' ).clone().css( 'display', '' ).removeAttr( 'id' );
+	const newHTML = $newField.html().replace(/starter/g, fieldNum);
 	$newField.html( newHTML );
 	$newField.find( ".removeButton" ).click( function() {
 		// Remove the encompassing div for this instance.
@@ -52,7 +52,7 @@ jQuery.fn.createTemplateAddField = function( addAboveCurInstance ) {
 	$newField.find( ".hierarchy_structure" ).blur( function() {
 		setHierarchyPlaceholder( $( this ) );
 	} );
-	var combobox = new pf.ComboBoxInput();
+	const combobox = new pf.ComboBoxInput();
 	$newField.find( '.pfComboBox' ).each( function() {
 		combobox.apply( $( this ) );
 	} );
@@ -65,8 +65,8 @@ jQuery.fn.createTemplateAddField = function( addAboveCurInstance ) {
 }
 
 function validateCreateTemplateForm() {
-	var blankTemplateName = ( jQuery( 'input[name="template_name"]' ).val() === '' );
-	var blankCargoTableName = ( jQuery( '#use_cargo_toggle' ).attr('aria-checked') == 'true' &&
+	const blankTemplateName = ( jQuery( 'input[name="template_name"]' ).val() === '' );
+	const blankCargoTableName = ( jQuery( '#use_cargo_toggle' ).attr('aria-checked') == 'true' &&
 		jQuery( 'input[name="cargo_table"]' ).val() === '' );
 	if ( blankTemplateName || blankCargoTableName || !validateHierarchyStructure() ) {
 		scroll( 0, 0 );
@@ -116,19 +116,19 @@ function removeHierarchyPlaceholder( textareaElement ) {
 }
 
 function validateHierarchyStructure() {
-	var $hierarchyTextAreas = jQuery("textarea[name*='hierarchy_structure_']");
-	for (var i = 0; i < $hierarchyTextAreas.length; i++) {
-		var structure = $hierarchyTextAreas[i].value.trim();
+	const $hierarchyTextAreas = jQuery("textarea[name*='hierarchy_structure_']");
+	for (let i = 0; i < $hierarchyTextAreas.length; i++) {
+		const structure = $hierarchyTextAreas[i].value.trim();
 		if (structure !== "") {
-			var nodes = structure.split(/\n/);
-			var matches = nodes[0].match(/^([*]*)[^*]*/i);
+			const nodes = structure.split(/\n/);
+			let matches = nodes[0].match(/^([*]*)[^*]*/i);
 			if (matches[1].length !== 1) {
 				alert("Error: The first entry of hierarchy values should start with exactly one \'*\'; the entry \"" +
 					nodes[0] + "\" has " + matches[1].length + " \'*\'");
 				return false;
 			}
-			var level = 0;
-			for (var j = 0; j < nodes.length; j++) {
+			let level = 0;
+			for (let j = 0; j < nodes.length; j++) {
 				matches = nodes[j].match(/^([*]*)( *)(.*)/i);
 				if (matches[1].length < 1) {
 					alert("Error: Each entry of hierarchy values should start with at least one \'*\'; the entry \"" +
@@ -151,16 +151,16 @@ function validateHierarchyStructure() {
 	return true;
 }
 
-$( function() {
-	var el = document.getElementById('fieldsList');
-	var sortable = Sortable.create(el, {
+$( () => {
+	const el = document.getElementById('fieldsList');
+	const sortable = Sortable.create(el, {
 		handle: '.instanceRearranger',
 	});
-	var toggleSwitch = new OO.ui.ToggleSwitchWidget( {
+	const toggleSwitch = new OO.ui.ToggleSwitchWidget( {
 		id: 'use_cargo_toggle',
 		value: true,
 	} );
-	var fullWikiSwitch = new OO.ui.ToggleSwitchWidget( {
+	const fullWikiSwitch = new OO.ui.ToggleSwitchWidget( {
 		id: 'use_fullwikitext_toggle',
 		value: false
 	} );
@@ -176,12 +176,12 @@ $( function() {
 	jQuery( "label.hierarchy_structure_input" ).css( 'display', 'none' );
 	jQuery( "div.hierarchy_structure" ).css( 'display', 'none' );
 	jQuery( 'form#createTemplateForm' ).removeAttr('style');
-	jQuery( '#use_cargo_toggle' ).click( function() {
+	jQuery( '#use_cargo_toggle' ).click( () => {
 		toggleCargoInputs();
 	} );
 	jQuery( '#fullwikitext_toggle' ).prepend( fullWikiSwitch.$element );
 	jQuery( '#use_fullwikitext_toggle' ).attr( 'name', 'use_fullwikitext_toggle' );
-	jQuery( '#use_fullwikitext_toggle' ).click( function() {
+	jQuery( '#use_fullwikitext_toggle' ).click( () => {
 		if (jQuery('#use_fullwikitext_toggle').attr('aria-checked') == 'true') {
 			jQuery('input[name="use_fullwikitext"]').attr('value', '1');
 		} else {
@@ -215,7 +215,5 @@ $( function() {
 	jQuery( ".hierarchy_structure" ).blur( function() {
 		setHierarchyPlaceholder( jQuery( this ) );
 	} );
-	jQuery( '#createTemplateForm' ).submit( function() {
-		return validateCreateTemplateForm();
-	} );
+	jQuery( '#createTemplateForm' ).submit( () => validateCreateTemplateForm() );
 } );

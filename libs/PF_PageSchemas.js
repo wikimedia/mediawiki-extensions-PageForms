@@ -9,7 +9,7 @@ jQuery.fn.toggleFormDataDisplay = function() {
 	return this;
 };
 
-$( function() {
+$( () => {
 	jQuery('#pf-two-step-process')
 		.toggleFormDataDisplay()
 		.click( function() {

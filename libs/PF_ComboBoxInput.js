@@ -17,7 +17,7 @@
  * @author Dennis Groenewegen
  */
 (function($, mw, pf) {
-	var apiRequest = null;
+	let apiRequest = null;
 
 	pf.ComboBoxInput = function(config) {
 		this.config = config || {}
@@ -31,12 +31,12 @@
 	 * @param {HTMLElement} element
 	 */
 	pf.ComboBoxInput.prototype.apply = function(element) {
-		var curVal = element.val(); // 'value'
-		var curOptionLabel = element.find('option:selected').text();
-		var curLabel = (curOptionLabel !== undefined) ? curOptionLabel : curVal;
+		const curVal = element.val(); // 'value'
+		const curOptionLabel = element.find('option:selected').text();
+		const curLabel = (curOptionLabel !== undefined) ? curOptionLabel : curVal;
 
 		// Add hidden input containing the value
-		var hiddenInput = new OO.ui.HiddenInputWidget({
+		const hiddenInput = new OO.ui.HiddenInputWidget({
 			id: element.attr('id') + '-hidden',
 			name: element.attr('name'),
 			value: curVal
@@ -62,19 +62,19 @@
 		if (this.config.autocompletesettings == 'external data') {
 			// this is especially set for dependent on settings
 			// when the source field has external data autocompletion
-			var input_id = "#" + this.getInputId();
-			var name = $(input_id).attr(this.nameAttr($(input_id)));
-			var positionOfBracket = name.indexOf('[');
-			var sliceFirst = name.slice(0, Math.max(0, positionOfBracket));
+			const input_id = "#" + this.getInputId();
+			const name = $(input_id).attr(this.nameAttr($(input_id)));
+			const positionOfBracket = name.indexOf('[');
+			const sliceFirst = name.slice(0, Math.max(0, positionOfBracket));
 			// Previously using substring() :
-			var sliceSecond = name.slice(positionOfBracket + 1, name.length - 1);
-			var data_autocomplete = sliceFirst + '|' + sliceSecond;
+			const sliceSecond = name.slice(positionOfBracket + 1, name.length - 1);
+			const data_autocomplete = sliceFirst + '|' + sliceSecond;
 			this.setInputAttribute('data-autocomplete', data_autocomplete);
 		}
 
 		this.bindEvents();
 
-		var $loadingIcon = $('<img>').attr( {
+		const $loadingIcon = $('<img>').attr( {
 			src: mw.config.get( 'wgPageFormsScriptPath' ) + '/skins/loading.gif',
 			id: 'loading-' + this.getInputId()
 		} );
@@ -88,9 +88,9 @@
 	 */
 	pf.ComboBoxInput.prototype.bindEvents = function() {
 
-		this.$input.blur(function() {
-			var presentLabel = this.$input.val().trim();
-			var selectedLabel = this.$input.attr('data-label').trim();
+		this.$input.blur(() => {
+			const presentLabel = this.$input.val().trim();
+			const selectedLabel = this.$input.attr('data-label').trim();
 			if (presentLabel !== selectedLabel && this.config['existingvaluesonly']) {
 				//Disallows non-existing value
 				this.setValueAndLabel("", "");
@@ -102,29 +102,29 @@
 				// Just resize input according to the value
 				this.adjustWidth();
 			}
-		}.bind(this));
+		});
 
-		this.$input.focus( function() {
+		this.$input.focus( () => {
 			this.setValues();
-		}.bind(this));
+		});
 
-		this.$input.keyup( function(event) {
+		this.$input.keyup( (event) => {
 			if (event.keyCode !== 38 && event.keyCode !== 40 && event.keyCode !== 37 && event.keyCode !== 39) {
 				this.setValues(false);
 			}
-		}.bind(this));
+		});
 
 		// Mouseup - click input
-		this.$element.mouseup( function(event) {
+		this.$element.mouseup( (event) => {
 			// Avoid re-fetching values if the user clicks on the scrollbar.
 			if ( $( event.target ).hasClass( 'oo-ui-labelElement-label' ) ) {
 				this.setValues( false );
 			}
-		}.bind(this));
+		});
 
-		this.$element.focusout( function() {
+		this.$element.focusout( () => {
 			$( '.combobox_map_feed' ).val( this.$input.val() );
-		}.bind(this));
+		});
 
 	};
 
@@ -134,7 +134,7 @@
 	 * @param {boolean} showAllValues
 	 */
 	pf.ComboBoxInput.prototype.setValues = function( showAllValues = true ) {
-		var input_id = "#" + this.getInputId(),
+		let input_id = "#" + this.getInputId(),
 			values = [],
 			dep_on = this.dependentOn(),
 			self = this,
@@ -145,17 +145,17 @@
 			wgPageFormsAutocompleteOnAllChars = mw.config.get( 'wgPageFormsAutocompleteOnAllChars' );
 
 		// First, handle "show on select" stuff.
-		var $parentSpan = $(input_id).closest('span');
+		const $parentSpan = $(input_id).closest('span');
 		if ( $parentSpan.hasClass('pfShowIfSelected') ) {
 			mw.hook('pf.comboboxChange').fire($parentSpan);
 		}
 
 		this.itemFound = false;
 		if (this.config.autocompletedatatype !== undefined) {
-			var data_source = this.config.autocompletesettings,
+			let data_source = this.config.autocompletesettings,
 				data_type = this.config.autocompletedatatype;
 			curValue = this.getValue(); // current label or substring being typed
-			var curHiddenVal = this.getHiddenInputValue(); //submitted
+			const curHiddenVal = this.getHiddenInputValue(); //submitted
 
 			if (curValue.length == 0) {
 				values.push({
@@ -170,7 +170,7 @@
 			my_server = mw.util.wikiScript( 'api' );
 			// Cargo field, wikidata, ...
 			if (data_type === 'cargo field') {
-				var table_and_field = data_source.split('|');
+				const table_and_field = data_source.split('|');
 				my_server += "?action=pfautocomplete&format=json&cargo_table=" + table_and_field[0] + "&cargo_field=" + table_and_field[1] + "&substr=" + curValue;
 				if ( table_and_field.length > 2 ) {
 					my_server += '&cargo_where=' + table_and_field[2];
@@ -178,12 +178,12 @@
 			} else {
 				if ( data_type === 'wikidata' ) {
 					// Support for getting query values from an existing field in the form
-					var terms = data_source.split( "&" );
-					terms.forEach( function(element) {
-						var subTerms = element.split( "=" );
-						var matches = subTerms[1].match( /\[(.*?)\]/ );
+					const terms = data_source.split( "&" );
+					terms.forEach( (element) => {
+						const subTerms = element.split( "=" );
+						const matches = subTerms[1].match( /\[(.*?)\]/ );
 						if ( matches ) {
-							var dep_value = $( '[name="' + subTerms[1] + '"]' ).val();
+							const dep_value = $( '[name="' + subTerms[1] + '"]' ).val();
 							if ( dep_value && dep_value.trim().length ) {
 								data_source = data_source.replace( subTerms[1], dep_value );
 							}
@@ -195,12 +195,12 @@
 				my_server += "?action=pfautocomplete&format=json&" + data_type + "=" + data_source + "&substr=" + curValue;
 
 				// Mapping property (Semantic MediaWiki)
-				var mappingProperty = this.$input.attr('mappingproperty');
+				const mappingProperty = this.$input.attr('mappingproperty');
 				if (typeof mappingProperty !== 'undefined' && mappingProperty !== false) {
 					my_server += "&mappingproperty=" + mappingProperty;
 				}
 				// Mapping template (exclusive to autocompletion?)
-				var mappingTemplate = this.$input.attr('mappingtemplate');
+				const mappingTemplate = this.$input.attr('mappingtemplate');
 				if (typeof mappingTemplate !== 'undefined' && mappingTemplate !== false) {
 					my_server += "&mappingtemplate=" + mappingTemplate;
 				}
@@ -228,12 +228,12 @@
 							});
 						} else {
 							for ( i = 0; i < Data.length; i++ ) {
-								var optionVal = Data[i].title;
-								var optionLabel = (Data[i].displaytitle !== undefined) ? Data[i].displaytitle : Data[i].title;
+								const optionVal = Data[i].title;
+								const optionLabel = (Data[i].displaytitle !== undefined) ? Data[i].displaytitle : Data[i].title;
 								if (optionLabel == curValue) {
 									self.itemFound = true;
 								}
-								var item = {
+								const item = {
 									data: optionVal,
 									label: optionLabel,
 									highlighted: self.highlightText(optionLabel),
@@ -261,15 +261,15 @@
 					if ( showAllValues ) {
 						curValue = "";
 					}
-					var name = $(input_id).attr(this.nameAttr($(input_id)));
-					var wgPageFormsEDSettings = mw.config.get('wgPageFormsEDSettings');
-					var edgValues = mw.config.get('edgValues');
+					const name = $(input_id).attr(this.nameAttr($(input_id)));
+					const wgPageFormsEDSettings = mw.config.get('wgPageFormsEDSettings');
+					const edgValues = mw.config.get('edgValues');
 					data = {};
 					if (wgPageFormsEDSettings[name].title !== undefined && wgPageFormsEDSettings[name].title !== "") {
 						data.title = edgValues[wgPageFormsEDSettings[name].title];
 						if (data.title !== undefined && data.title !== null) {
 							i = 0;
-							data.title.forEach(function() {
+							data.title.forEach(() => {
 								if ( data.title[i] == curValue ) {
 									self.itemFound = true;
 								}
@@ -296,17 +296,17 @@
 					}
 				} else {
 					// Local autocompletion, not dependent, not external data
-					var wgPageFormsAutocompleteValues = mw.config.get('wgPageFormsAutocompleteValues');
+					const wgPageFormsAutocompleteValues = mw.config.get('wgPageFormsAutocompleteValues');
 					data = wgPageFormsAutocompleteValues[this.config['autocompletesettings']];
 					curValue = this.getValue();
 					if ( showAllValues ) {
 						curValue = "";
 					}
-					var arrayType = (Array.isArray(data)) ? 'indexed' : 'associative';
+					const arrayType = (Array.isArray(data)) ? 'indexed' : 'associative';
 					if (Array.isArray(data) || typeof data == 'object') {
-						for (let key in data) {
-							var optionVal = (arrayType == 'indexed') ? data[key] : key;
-							var optionLabel = data[key];
+						for (const key in data) {
+							const optionVal = (arrayType == 'indexed') ? data[key] : key;
+							const optionLabel = data[key];
 							if (optionLabel == curValue) {
 								self.itemFound = true;
 							}
@@ -325,25 +325,25 @@
 				}
 			} else {
 				// Dependent field autocompletion (dep_on is not null)
-				var dep_field_opts = this.getDependentFieldOpts(dep_on);
+				const dep_field_opts = this.getDependentFieldOpts(dep_on);
 				my_server = mw.config.get('wgScriptPath') + "/api.php";
 				my_server += "?action=pfautocomplete&format=json";
 				// URL depends on whether Cargo or Semantic MediaWiki
 				// is being used.
 				if (dep_field_opts.prop !== undefined && dep_field_opts.base_prop !== undefined && dep_field_opts.base_value !== undefined) {
-					if (dep_field_opts.prop.indexOf('|') === -1) {
+					if (!dep_field_opts.prop.includes('|')) {
 						// SMW
 						my_server += "&property=" + dep_field_opts.prop + "&baseprop=" + dep_field_opts.base_prop + "&basevalue=" + dep_field_opts.base_value;
 					} else {
 						// Cargo
-						var cargoTableAndFieldStr = dep_field_opts.prop;
-						var cargoTableAndField = cargoTableAndFieldStr.split('|');
-						var cargoTable = cargoTableAndField[0];
-						var cargoField = cargoTableAndField[1];
-						var baseCargoTableAndFieldStr = dep_field_opts.base_prop;
-						var baseCargoTableAndField = baseCargoTableAndFieldStr.split('|');
-						var baseCargoTable = baseCargoTableAndField[0];
-						var baseCargoField = baseCargoTableAndField[1];
+						const cargoTableAndFieldStr = dep_field_opts.prop;
+						const cargoTableAndField = cargoTableAndFieldStr.split('|');
+						const cargoTable = cargoTableAndField[0];
+						const cargoField = cargoTableAndField[1];
+						const baseCargoTableAndFieldStr = dep_field_opts.base_prop;
+						const baseCargoTableAndField = baseCargoTableAndFieldStr.split('|');
+						const baseCargoTable = baseCargoTableAndField[0];
+						const baseCargoField = baseCargoTableAndField[1];
 						my_server += "&cargo_table=" + cargoTable + "&cargo_field=" + cargoField + "&base_cargo_table=" + baseCargoTable + "&base_cargo_field=" + baseCargoField + "&basevalue=" + dep_field_opts.base_value;
 					}
 
@@ -360,7 +360,7 @@
 								});
 								return values;
 							}
-							response.pfautocomplete.forEach(function(item) {
+							response.pfautocomplete.forEach((item) => {
 								curValue = self.getValue();
 								if ( item.displaytitle == curValue || item.title == curValue ) {
 									self.itemFound = true;
@@ -460,13 +460,13 @@
 	 * @return {string}
 	 */
 	pf.ComboBoxInput.prototype.dependentOn = function() {
-		var input_id = "#" + this.getInputId();
-		var name_attr = this.nameAttr($(input_id));
-		var name = $(input_id).attr(name_attr);
+		const input_id = "#" + this.getInputId();
+		const name_attr = this.nameAttr($(input_id));
+		const name = $(input_id).attr(name_attr);
 
-		var wgPageFormsDependentFields = mw.config.get('wgPageFormsDependentFields');
-		for (var i = 0; i < wgPageFormsDependentFields.length; i++) {
-			var dependentFieldPair = wgPageFormsDependentFields[i];
+		const wgPageFormsDependentFields = mw.config.get('wgPageFormsDependentFields');
+		for (let i = 0; i < wgPageFormsDependentFields.length; i++) {
+			const dependentFieldPair = wgPageFormsDependentFields[i];
 			if (dependentFieldPair[1] === name) {
 				return dependentFieldPair[0];
 			}
@@ -483,9 +483,9 @@
 	 * @return {Object} dep_field_opts
 	 */
 	pf.ComboBoxInput.prototype.getDependentFieldOpts = function(dep_on) {
-		var input_id = "#" + this.getInputId();
-		var dep_field_opts = {};
-		var $baseElement;
+		const input_id = "#" + this.getInputId();
+		const dep_field_opts = {};
+		let $baseElement;
 		if (this.partOfMultiple($(input_id))) {
 			$baseElement = $(input_id).closest(".multipleTemplateInstance")
 				.find('[origname ="' + dep_on + '" ]');
@@ -512,13 +512,13 @@
 	 * @return {Array} dependent_on_me (associative array)
 	 */
 	pf.ComboBoxInput.prototype.dependentOnMe = function() {
-		var input_id = "#" + this.getInputId();
-		var name_attr = this.nameAttr($(input_id));
-		var name = $(input_id).attr(name_attr);
-		var dependent_on_me = [];
-		var wgPageFormsDependentFields = mw.config.get('wgPageFormsDependentFields');
-		for (var i = 0; i < wgPageFormsDependentFields.length; i++) {
-			var dependentFieldPair = wgPageFormsDependentFields[i];
+		const input_id = "#" + this.getInputId();
+		const name_attr = this.nameAttr($(input_id));
+		const name = $(input_id).attr(name_attr);
+		const dependent_on_me = [];
+		const wgPageFormsDependentFields = mw.config.get('wgPageFormsDependentFields');
+		for (let i = 0; i < wgPageFormsDependentFields.length; i++) {
+			const dependentFieldPair = wgPageFormsDependentFields[i];
 			if (dependentFieldPair[0] === name) {
 				dependent_on_me.push(dependentFieldPair[1]);
 			}
@@ -528,13 +528,13 @@
 	};
 
 	pf.ComboBoxInput.prototype.highlightText = function(suggestion) {
-		var searchTerm = this.getValue();
-		var searchRegexp = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
+		const searchTerm = this.getValue();
+		const searchRegexp = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
 			searchTerm.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") +
 			")(?![^<>]*>)(?![^&;]+;)", "gi");
-		var itemLabel = suggestion.toString();
-		var loc = itemLabel.search(searchRegexp);
-		var t;
+		const itemLabel = suggestion.toString();
+		const loc = itemLabel.search(searchRegexp);
+		let t;
 
 		if (loc >= 0) {
 			t = itemLabel.slice(0, Math.max(0, loc)) +
@@ -547,17 +547,15 @@
 	};
 
 	pf.ComboBoxInput.prototype.checkIfAnyWordStartsWithInputValue = function(string, curValue) {
-		let wordSeparators = [
+		const wordSeparators = [
 			'/', '(', ')', '|', 's'
-		].map(function(p) {
-			return "\\" + p
-		}).concat('^', '-', "'", '"');
-		let regex = new RegExp('(' + wordSeparators.join('|') + ')' + curValue.toLowerCase());
+		].map((p) => "\\" + p).concat('^', '-', "'", '"');
+		const regex = new RegExp('(' + wordSeparators.join('|') + ')' + curValue.toLowerCase());
 		return string.toString().toLowerCase().match(regex) !== null;
 	};
 
 	pf.ComboBoxInput.prototype.getConditionForAutocompleteOnAllChars = function(str, curStr) {
-		var containsSubstr = str.toLowerCase().indexOf(curStr.toLowerCase()) !== -1;
+		const containsSubstr = str.toLowerCase().includes(curStr.toLowerCase());
 		return containsSubstr;
 	};
 
@@ -575,9 +573,9 @@
 	 * @param {OO.ui.MenuOptionWidget} item Selected item
 	 */
 	pf.ComboBoxInput.prototype.onMenuChoose = function(item) {
-		var inputVal = item.getData();
-		var inputLabel = item.getTitle();
-		var inputId = this.getInputId();
+		const inputVal = item.getData();
+		const inputLabel = item.getTitle();
+		const inputId = this.getInputId();
 		this.$input.attr("data-input-id", inputId);
 		this.setValueAndLabel(inputVal, inputLabel);
 		this.adjustWidth();
@@ -590,13 +588,13 @@
 	 * @return {HTMLElement}
 	 */
 	pf.ComboBoxInput.prototype.getHiddenInput = function() {
-		var inputId = this.getInputId();
+		const inputId = this.getInputId();
 		return this.$input.closest('.comboboxSpan').find('#' + inputId + '-hidden');
 	};
 
 	pf.ComboBoxInput.prototype.getHiddenInputValue = function() {
-		var inputId = this.getInputId();
-		var $hiddenInput = this.$input.closest('.comboboxSpan').find('#' + inputId + '-hidden');
+		const inputId = this.getInputId();
+		const $hiddenInput = this.$input.closest('.comboboxSpan').find('#' + inputId + '-hidden');
 		return $hiddenInput.val();
 	};
 
@@ -607,13 +605,13 @@
 	 * @param {string} label
 	 */
 	pf.ComboBoxInput.prototype.setValueAndLabel = function(val, label) {
-		var hiddenInput = this.getHiddenInput();
+		const hiddenInput = this.getHiddenInput();
 		$(hiddenInput).val(val);
 		this.setValue(label);
 		this.setTitle(label);
 		this.$input.attr('data-value', val); // required as reference
 		this.$input.attr('data-label', label); // required as reference
-		var stringType = (val == label) ? 'value' : 'label';
+		const stringType = (val == label) ? 'value' : 'label';
 		this.updateStringType(stringType);
 	};
 
@@ -627,10 +625,10 @@
 	pf.ComboBoxInput.prototype.setOptions = function(options) {
 		this.getMenu()
 			.clearItems()
-			.addItems(options.map(function(opt) {
-				var isDisabled = (opt.disabled !== undefined) ? opt.disabled : false;
-				var label = (opt.label !== undefined) ? opt.label : opt.data;
-				var highlighted = (opt.highlighted !== undefined) ? opt.highlighted : label;
+			.addItems(options.map((opt) => {
+				const isDisabled = (opt.disabled !== undefined) ? opt.disabled : false;
+				const label = (opt.label !== undefined) ? opt.label : opt.data;
+				const highlighted = (opt.highlighted !== undefined) ? opt.highlighted : label;
 				return new OO.ui.MenuOptionWidget({
 					data: opt.data,
 					label: highlighted,
@@ -650,7 +648,7 @@
 	 * @param {string} newType
 	 */
 	pf.ComboBoxInput.prototype.updateStringType = function(newType) {
-		var className = 'pf-string-type--' + newType;
+		const className = 'pf-string-type--' + newType;
 		// The following classes are used here:
 		// * pf-string-type--label
 		// * pf-string-type--value
@@ -659,10 +657,10 @@
 	};
 
 	pf.ComboBoxInput.prototype.adjustWidth = function() {
-		var suggWidth = this.getValue().length * 11;
+		const suggWidth = this.getValue().length * 11;
 		this.$element.css("width", "100%");
-		var maxWidth = parseInt(this.$element.css("width"));
-		var newWidth = (suggWidth >= maxWidth) ? maxWidth : suggWidth;
+		const maxWidth = parseInt(this.$element.css("width"));
+		const newWidth = (suggWidth >= maxWidth) ? maxWidth : suggWidth;
 		this.$element.css("width", newWidth);
 	};
 

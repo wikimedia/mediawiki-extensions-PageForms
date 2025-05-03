@@ -2,8 +2,8 @@
 	'use strict';
 
 	jQuery.fn.applyRatingInput = function( fromCalendar ) {
-		var starWidth = $(this).attr('data-starwidth');
-		var curValue = '';
+		const starWidth = $(this).attr('data-starwidth');
+		let curValue = '';
 		if ( starWidth === undefined ) {
 			// This is probably because we're in a multple-instance
 			// template "starter", but, in any case, just exit.
@@ -18,10 +18,10 @@
 		if ( curValue === '' || curValue === undefined ) {
 			curValue = 0;
 		}
-		var numStars = $(this).attr('data-numstars');
-		var allowsHalf = $(this).attr('data-allows-half');
-		var disabled = $(this).attr('disabled');
-		var ratingsSettings = {
+		const numStars = $(this).attr('data-numstars');
+		const allowsHalf = $(this).attr('data-allows-half');
+		const disabled = $(this).attr('disabled');
+		const ratingsSettings = {
 			normalFill: '#ddd',
 			starWidth: starWidth,
 			numStars: numStars,

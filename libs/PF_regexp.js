@@ -17,9 +17,9 @@
  */
 window.PF_RE_validate = function( inputId, params ) { //input_number, retext, inverse, message, multiple
 
-	var match;
-	var message;
-	var $curInput = jQuery( '#' + inputId );
+	let match;
+	let message;
+	const $curInput = jQuery( '#' + inputId );
 
 	// Ignore blank fields.
 	if ( $curInput.val() == '' ) {
@@ -27,7 +27,7 @@ window.PF_RE_validate = function( inputId, params ) { //input_number, retext, in
 	}
 
 	try {
-		var re = new RegExp( params.retext );
+		const re = new RegExp( params.retext );
 		match = re.test( $curInput.val() );
 		message = params.message;
 	} catch (e) {

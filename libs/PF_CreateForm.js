@@ -1,5 +1,5 @@
 jQuery.fn.displayInputParams = function () {
-	var inputParamsDiv = this.closest( '.formField' ).find( '.otherInputParams' );
+	const inputParamsDiv = this.closest( '.formField' ).find( '.otherInputParams' );
 	jQuery.ajax( {
 		url: mw.util.wikiScript() + '?title=' + mw.config.get('wgPageName') +
 			'&showinputtypeoptions=' + encodeURIComponent( $(this).find('select').val() ) +
@@ -11,25 +11,25 @@ jQuery.fn.displayInputParams = function () {
 	});
 };
 
-jQuery( function () {
+jQuery( () => {
 	jQuery( '.inputTypeSelector' ).change( function () {
 		jQuery( this ).displayInputParams();
 	} );
 
-	jQuery( 'span#pfAddTemplateButton' ).click( function() {
+	jQuery( 'span#pfAddTemplateButton' ).click( () => {
 		jQuery( 'button[name="add_field"]' ).attr( 'value', 'true' );
 	} );
 
-	jQuery( 'span#pfAddSectionButton' ).click( function( event ) {
+	jQuery( 'span#pfAddSectionButton' ).click( ( event ) => {
 		if( jQuery( 'input[name="sectionname"]' ).val() === '' ) {
 			event.preventDefault();
 			jQuery( '#section_error' ).remove();
-			var errorMessage = new OO.ui.MessageWidget( {
+			const errorMessage = new OO.ui.MessageWidget( {
 				type: 'error',
 				inline: true,
 				label: mediaWiki.msg( 'pf_blank_error' )
 			} )
-			var errorSpan = '<span class="error" id="section_error"></span>';
+			const errorSpan = '<span class="error" id="section_error"></span>';
 			jQuery( 'div#sectionerror' ).append(errorSpan);
 			jQuery( 'span#section_error' ).append( errorMessage.$element );
 		} else {
@@ -37,11 +37,11 @@ jQuery( function () {
 		}
 	} );
 
-	jQuery( 'span#pfRemoveTemplateButton' ).click( function() {
+	jQuery( 'span#pfRemoveTemplateButton' ).click( () => {
 		jQuery( 'span#pfRemoveTemplateButton' ).find( 'button' ).attr( 'value', 'true' );
 	} );
 
-	jQuery( 'span#pfRemoveSectionButton' ).click( function() {
+	jQuery( 'span#pfRemoveSectionButton' ).click( () => {
 		jQuery( 'span#pfRemoveSectionButton' ).find( 'button' ).attr( 'value', 'true' );
 	} );
 
@@ -55,7 +55,7 @@ jQuery( function () {
 	} );
 } );
 
-jQuery( "input,select" ).keypress( function ( event ) {
+jQuery( "input,select" ).keypress( ( event ) =>
 	// Don't submit the form if enter is pressed on a text input box or a select.
-	return event.keyCode !== 13;
-} );
+	 event.keyCode !== 13
+ );

@@ -15,10 +15,10 @@ const upIcon = '<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement
 const downIcon = '<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement oo-ui-iconElement-icon oo-ui-icon-downTriangle oo-ui-labelElement-invisible oo-ui-iconWidget" aria-disabled="false" title="' + 'Lower' + '"></span>';
 const deleteIcon = '<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement oo-ui-iconElement-icon oo-ui-icon-trash oo-ui-labelElement-invisible oo-ui-iconWidget" aria-disabled="false" title="' + mw.msg( 'delete' ) + '"></span>';
 const manageColumnTitle = '\u2699';
-var dataValues = [];
+const dataValues = [];
 
 ( function( jexcel, mw ) {
-	var baseUrl = mw.config.get( 'wgScriptPath' );
+	const baseUrl = mw.config.get( 'wgScriptPath' );
 	mw.spreadsheets = {};
 
 	// Handle any possible Boolean values from the wiki page.
@@ -34,16 +34,16 @@ var dataValues = [];
 		if ( typeof value === 'string' ) {
 			value = value.toLowerCase();
 		}
-		var possibleYesMessages = [
+		const possibleYesMessages = [
 			mw.config.get( 'wgPageFormsContLangYes' ).toLowerCase(),
 			// Add in '1', and some hardcoded English.
 			'1', 'yes', 'true'
 		];
-		return ( possibleYesMessages.indexOf( value ) >= 0 );
+		return ( possibleYesMessages.includes(value) );
 	};
 
 	jexcel.prototype.getjExcelValue = function( mwValue, columnAttributes ) {
-		var date,
+		let date,
 			monthNum;
 		if ( mwValue == null ) {
 			return null;
@@ -57,7 +57,7 @@ var dataValues = [];
 			// can't have spaces around them. So we have to
 			// modify the current value for it to be handled
 			// correctly.
-			var individualValues = mwValue.split( columnAttributes['delimiter'] );
+			const individualValues = mwValue.split( columnAttributes['delimiter'] );
 			return $.map( individualValues, $.trim ).join(';');
 		} else if ( columnAttributes['type'] == 'date' ) {
 			date = new Date( mwValue );
@@ -81,7 +81,7 @@ var dataValues = [];
 	}
 
 	jexcel.prototype.getMWValueFromCell = function( $cell, columnAttributes ) {
-		var jExcelValue;
+		let jExcelValue;
 		if ( columnAttributes['type'] == 'checkbox' ) {
 			jExcelValue = $cell.find('input').prop( 'checked' );
 		} else {
@@ -100,24 +100,24 @@ var dataValues = [];
 				mw.config.get( 'wgPageFormsContLangYes' ) :
 				mw.config.get( 'wgPageFormsContLangNo' );
 		} else if ( columnAttributes['list'] == true ) {
-			var delimiter = columnAttributes['delimiter'] + ' ';
+			const delimiter = columnAttributes['delimiter'] + ' ';
 			return jExcelValue.replace(/;/g, delimiter);
 		} else if ( columnAttributes['type'] == 'date' || columnAttributes['type'] == 'datetime' ) {
 			return jExcelValue;
 		} else {
-			var mwValue = jExcelValue.replace( /\<br\>/g, "\n" );
+			const mwValue = jExcelValue.replace( /\<br\>/g, "\n" );
 			return mwValue;
 		}
 	}
 
 	jexcel.prototype.generateQueryStringForSave = function( formName, templateName, pageName, rowValues, columns ) {
-		var queryString = 'form=' + formName + '&target=' + encodeURIComponent( pageName );
-		var curColumn;
-		for ( var columnName in rowValues ) {
+		let queryString = 'form=' + formName + '&target=' + encodeURIComponent( pageName );
+		let curColumn;
+		for ( const columnName in rowValues ) {
 			if ( columnName == 'page' ) {
 				continue;
 			}
-			for ( var columnNum in columns ) {
+			for ( const columnNum in columns ) {
 				if ( columns[columnNum]['title'] == columnName ) {
 					curColumn = columns[columnNum];
 					break;
@@ -131,9 +131,9 @@ var dataValues = [];
 
 	jexcel.prototype.saveChanges = function( spreadsheetID, templateName, pageName, newPageName, formName, rowNum, rowValues, columns, editMultiplePages ) {
 		$("div#" + spreadsheetID + " table.jexcel td[data-y = " + rowNum + "]").not(".jexcel_row").each( function() {
-			var columnNum = $(this).attr("data-x");
-			var curColumn = columns[columnNum]['title'];
-			var curValue = rowValues[curColumn];
+			const columnNum = $(this).attr("data-x");
+			const curColumn = columns[columnNum]['title'];
+			const curValue = rowValues[curColumn];
 			if ( rowValues[curColumn] !== undefined ) {
 				mw.spreadsheets[spreadsheetID].setValue( this, curValue );
 			}
@@ -143,7 +143,7 @@ var dataValues = [];
 			return;
 		}
 
-		var data = {
+		const data = {
 			action: 'pfautoedit',
 			format: 'json',
 			query: jexcel.prototype.generateQueryStringForSave( formName, templateName, pageName, rowValues, columns )
@@ -162,16 +162,16 @@ var dataValues = [];
 	}
 
 	jexcel.prototype.getToken = function() {
-		var url = baseUrl + '/api.php?action=query&format=json&meta=tokens&type=csrf';
+		const url = baseUrl + '/api.php?action=query&format=json&meta=tokens&type=csrf';
 		return $.post( url );
 	}
 
 	jexcel.prototype.movePage = function( fromPage, toPage ) {
-		return $.when( jexcel.prototype.getToken() ).then( function successHandler( postResult ){
-			var data = {
+		return $.when( jexcel.prototype.getToken() ).then( ( postResult ) => {
+			const data = {
 				token: postResult.query.tokens.csrftoken
 			};
-			var query = 'from=' + encodeURIComponent( fromPage ) + "&to=" + encodeURIComponent( toPage ) + "&movetalk&noredirect";
+			const query = 'from=' + encodeURIComponent( fromPage ) + "&to=" + encodeURIComponent( toPage ) + "&movetalk&noredirect";
 			return $.ajax( {
 				type: 'POST',
 				url: baseUrl + '/api.php?action=move&format=json&' + query,
@@ -183,8 +183,8 @@ var dataValues = [];
 
 	jexcel.prototype.cancelChanges = function( spreadsheetID, rowValues, rowNum, columnNames ) {
 		$("div#" + spreadsheetID + " table.jexcel td[data-y = " + rowNum + "]").not(".jexcel_row").each( function() {
-			var columnNum = $(this).attr("data-x");
-			var curColumn = columnNames[columnNum];
+			const columnNum = $(this).attr("data-x");
+			const curColumn = columnNames[columnNum];
 			if ( rowValues[curColumn] !== undefined ) {
 				mw.spreadsheets[spreadsheetID].setValue( this, rowValues[curColumn] );
 			} else {
@@ -200,9 +200,9 @@ var dataValues = [];
 
 	// Add a new page.
 	jexcel.prototype.saveNewRow = function( spreadsheetID, templateName, formName, rowNum, pageName, rowValues, columns, editMultiplePages ) {
-		var $manageCell = $( "div#" + spreadsheetID + " td[data-y=" + rowNum + "]" ).last();
+		const $manageCell = $( "div#" + spreadsheetID + " td[data-y=" + rowNum + "]" ).last();
 
-		var spanContents = '<a href="#" class="save-changes">' + saveIcon + '</a> | ' +
+		const spanContents = '<a href="#" class="save-changes">' + saveIcon + '</a> | ' +
 			'<a href="#" class="cancel-changes">' + cancelIcon + '</a>';
 
 		$manageCell.children('span.save-or-cancel')
@@ -215,7 +215,7 @@ var dataValues = [];
 			return;
 		}
 
-		var data = {
+		const data = {
 			action: 'pfautoedit',
 			format: 'json',
 			query: jexcel.prototype.generateQueryStringForSave( formName, templateName, pageName, rowValues, columns )
@@ -241,16 +241,16 @@ var dataValues = [];
 	}
 
 	jexcel.prototype.getAutocompleteAttributes = function( cell ) {
-		var autocompletedatatype = jQuery(cell).attr('data-autocomplete-data-type');
-		var autocompletesettings = jQuery(cell).attr('data-autocomplete-settings');
+		let autocompletedatatype = jQuery(cell).attr('data-autocomplete-data-type');
+		let autocompletesettings = jQuery(cell).attr('data-autocomplete-settings');
 		if ( autocompletedatatype == undefined || autocompletesettings == undefined ) {
 			// that means we are in Special:MultipageEdit
 			// here we take attributes from the column head,
 			// to use other types of autocompletion( apart from
 			// "cargo field" and "property" ), the attributes in
 			// each cell can also be set.
-			var data_x = jQuery(cell).attr('data-x');
-			var $table = jQuery(cell).parents().find('table');
+			const data_x = jQuery(cell).attr('data-x');
+			const $table = jQuery(cell).parents().find('table');
 			autocompletedatatype = jQuery($table).find('thead td[data-x="'+data_x+'"]').attr('data-autocomplete-data-type');
 			autocompletesettings = jQuery($table).find('thead td[data-x="'+data_x+'"]').attr('data-autocomplete-settings');
 		}
@@ -262,9 +262,9 @@ var dataValues = [];
 	// If a field is dependent on some other field in the form
 	// then it returns its name.
 	jexcel.prototype.dependenton = function(origname) {
-		var wgPageFormsDependentFields = mw.config.get('wgPageFormsDependentFields');
-			for (var i = 0; i < wgPageFormsDependentFields.length; i++) {
-				var dependentFieldPair = wgPageFormsDependentFields[i];
+		const wgPageFormsDependentFields = mw.config.get('wgPageFormsDependentFields');
+			for (let i = 0; i < wgPageFormsDependentFields.length; i++) {
+				const dependentFieldPair = wgPageFormsDependentFields[i];
 				if (dependentFieldPair[1] === origname) {
 					return dependentFieldPair[0];
 				}
@@ -272,10 +272,10 @@ var dataValues = [];
 	};
 
 	jexcel.prototype.getEditorForAutocompletion = function( inputType, x, y, autocompletedatatype, autocompletesettings, cell, type ) {
-		var editor;
-		var pfSpreadsheetAutocomplete = false,
+		let editor;
+		let pfSpreadsheetAutocomplete = false,
 			widget;
-		var config = {
+		const config = {
 			data_x: x,
 			data_y: y,
 			autocompletedatatype: autocompletedatatype,
@@ -291,7 +291,7 @@ var dataValues = [];
 			}
 		} else if ( autocompletedatatype == 'dep_on' ) {
 			// values dependent on
-			var dep_on_field = jexcel.prototype.dependenton(cell.getAttribute('origname'));
+			const dep_on_field = jexcel.prototype.dependenton(cell.getAttribute('origname'));
 			if ( dep_on_field !== null ) {
 				pfSpreadsheetAutocomplete = true;
 				config['autocompletesettings'] = cell.getAttribute('name');
@@ -351,7 +351,7 @@ var dataValues = [];
 	}
 
 	jexcel.prototype.setAutocompleteAttributesOfCells = function( table, templateName, data_x, cell ) {
-		var autocompletedatatype = $(table).find('thead td[data-x="'+data_x+'"]').attr('data-autocomplete-data-type'),
+		const autocompletedatatype = $(table).find('thead td[data-x="'+data_x+'"]').attr('data-autocomplete-data-type'),
 			autocompletesettings = $(table).find('thead td[data-x="'+data_x+'"]').attr('data-autocomplete-settings');
 		$(cell).attr({
 			'name': templateName +'|'+$(table).find('thead td[data-x="'+data_x+'"]').attr('title'),
@@ -364,23 +364,23 @@ var dataValues = [];
 })( jexcel, mediaWiki );
 
 ( function( $, mw, pf ) {
-	var baseUrl = mw.config.get( 'wgScriptPath' ),
+	const baseUrl = mw.config.get( 'wgScriptPath' ),
 		gridParams = mw.config.get( 'wgPageFormsGridParams' ),
 		gridValues = mw.config.get( 'wgPageFormsGridValues' );
 
 	$( '.pfSpreadsheet' ).each( function() {
-		var table = this;
-		var templateName = $(this).attr( 'data-template-name' ),
+		const table = this;
+		let templateName = $(this).attr( 'data-template-name' ),
 			formName = $(this).attr( 'data-form-name' ),
 			spreadsheetID = $(this).attr( 'id' ),
 			editMultiplePages = $(this).attr( 'editMultiplePages' );
-		var columns = [];
+		const columns = [];
 
 		// Somewhat crude attempt at setting reasonable column widths,
 		// based on the browser width and the number of columns, with
 		// built-in maximum and minimum widths.
-		var numColumns = Object.keys(gridParams[templateName]).length;
-		var columnWidth = ( $('#content').width() - 150 ) / numColumns;
+		const numColumns = Object.keys(gridParams[templateName]).length;
+		let columnWidth = ( $('#content').width() - 150 ) / numColumns;
 		if ( isNaN(columnWidth) ) {
 			columnWidth = 200;
 		}
@@ -390,12 +390,12 @@ var dataValues = [];
 			columnWidth = 400;
 		}
 
-		var columnName;
-		for ( var templateParam of gridParams[templateName] ) {
+		let columnName;
+		for ( const templateParam of gridParams[templateName] ) {
 			columnName = templateParam['name'];
-			var columnType = templateParam['type'];
-			var jExcelType = 'text';
-			var columnAttributes = {
+			const columnType = templateParam['type'];
+			let jExcelType = 'text';
+			const columnAttributes = {
 				title: columnName,
 				width: columnWidth + "px"
 			};
@@ -413,7 +413,7 @@ var dataValues = [];
 					format: 'YYYY-MM-DD HH:MI'
 				}
 			}
-			var allowedValues = templateParam['values'];
+			const allowedValues = templateParam['values'];
 			if ( allowedValues !== undefined ) {
 				jExcelType = 'dropdown';
 				columnAttributes['source'] = allowedValues;
@@ -436,16 +436,16 @@ var dataValues = [];
 			readOnly: true
 		} );
 
-		var columnNames = [];
-		for ( var column of columns ) {
+		const columnNames = [];
+		for ( const column of columns ) {
 			columnNames.push( column.title );
 		}
 
-		var pageIDs = [];
-		var pagesData = [];
-		var myData = [];
-		var newPageNames = [];
-		var modifiedDataValues = [];
+		const pageIDs = [];
+		const pagesData = [];
+		const myData = [];
+		const newPageNames = [];
+		const modifiedDataValues = [];
 
 		if ( editMultiplePages == undefined ) {
 			populateSpreadsheet();
@@ -454,7 +454,7 @@ var dataValues = [];
 		}
 
 		function getPagesForTemplate( templateNamed, continueStr ) {
-			var apiUrl = baseUrl + '/api.php?action=query&format=json&list=embeddedin&eilimit=500&eititle=Template:' + templateNamed;
+			let apiUrl = baseUrl + '/api.php?action=query&format=json&list=embeddedin&eilimit=500&eititle=Template:' + templateNamed;
 			if ( continueStr !== null ) {
 				apiUrl += "&eicontinue=" + continueStr;
 			}
@@ -467,8 +467,8 @@ var dataValues = [];
 				async: false,
 				headers: { 'Api-User-Agent': 'Example/1.0' },
 				success: function( data ) {
-					var pageObjects = data.query.embeddedin;
-					for ( var i = 0; i < pageObjects.length; i++ ) {
+					const pageObjects = data.query.embeddedin;
+					for ( let i = 0; i < pageObjects.length; i++ ) {
 						pageIDs.push(pageObjects[i].pageid);
 					}
 					if ( data.continue !== undefined ) {
@@ -486,8 +486,8 @@ var dataValues = [];
 		// Recursive function to get the contents of each page from
 		// the API, some number of pages at a time.
 		function getAllPageDataAndPopulateSpreadsheet( offset ) {
-			var curPageIDs = pageIDs.slice(offset, offset + numPagesToQuery);
-			var pageIDsStr = curPageIDs.join('|');
+			const curPageIDs = pageIDs.slice(offset, offset + numPagesToQuery);
+			const pageIDsStr = curPageIDs.join('|');
 			$.ajax({
 				url: baseUrl + '/api.php?action=query&format=json&prop=revisions&rvprop=content&rvslots=main&formatversion=2&pageids=' + pageIDsStr,
 				dataType: 'json',
@@ -499,9 +499,9 @@ var dataValues = [];
 						populateSpreadsheet();
 						return;
 					}
-					for ( var pageNum = 0; pageNum < data.query.pages.length; pageNum++ ) {
-						var curRevision = data.query.pages[pageNum].revisions[0];
-						var pageContents = curRevision.slots.main.content;
+					for ( let pageNum = 0; pageNum < data.query.pages.length; pageNum++ ) {
+						const curRevision = data.query.pages[pageNum].revisions[0];
+						const pageContents = curRevision.slots.main.content;
 						pagesData.push( {
 							title: data.query.pages[pageNum].title,
 							contents: pageContents
@@ -518,22 +518,22 @@ var dataValues = [];
 
 		function getTemplateCalls( pageContent, pageName ) {
 			// Match all the template calls and their contents
-			var startDelimiter = '{{' + templateName.toLowerCase() + '\\b';
-			var endDelimiter = '}}';
-			var regex = new RegExp( startDelimiter, 'g' );
-			var contents = [];
-			var contentStart, contentEnd;
+			const startDelimiter = '{{' + templateName.toLowerCase() + '\\b';
+			const endDelimiter = '}}';
+			const regex = new RegExp( startDelimiter, 'g' );
+			const contents = [];
+			let contentStart, contentEnd;
 			contentStart = contentEnd = 0;
-			var match;
+			let match;
 			// Parse contents of individual templates
 			while ( ( match = regex.exec( pageContent.toLowerCase() ) ) !== null ) {
 				contentStart = match['index'];
-				var content = '';
-				var numOpenCurlyBracketPairs = 1;
-				var curPos = contentStart + startDelimiter.length - 2;
+				let content = '';
+				let numOpenCurlyBracketPairs = 1;
+				let curPos = contentStart + startDelimiter.length - 2;
 				var curPair;
 				do {
-					var curChar = pageContent.charAt(curPos);
+					const curChar = pageContent.charAt(curPos);
 					curPair = curChar + pageContent.charAt(curPos + 1);
 					if ( curPair == '{{' ) {
 						numOpenCurlyBracketPairs++;
@@ -558,17 +558,17 @@ var dataValues = [];
 		}
 
 		function getTemplateParams( templateText ) {
-			var params = [];
+			const params = [];
 			if ( templateText == '' ) {
 				return params;
 			}
 
-			var numOpenCurlyBrackets = 0;
-			var numOpenSquareBrackets = 0;
-			var curReturnValue = '';
+			let numOpenCurlyBrackets = 0;
+			let numOpenSquareBrackets = 0;
+			let curReturnValue = '';
 
-			for ( var i = 0; i < templateText.length; i++ ) {
-				var curChar = templateText.charAt(i);
+			for ( let i = 0; i < templateText.length; i++ ) {
+				const curChar = templateText.charAt(i);
 				if ( curChar == '{' ) {
 					numOpenCurlyBrackets++;
 				} else if ( curChar == '}' ) {
@@ -593,7 +593,7 @@ var dataValues = [];
 		}
 
 		//(function getData () {
-			var page = "";
+			let page = "";
 
 			// Called whenever the user makes a change to the data.
 			function editMade( instance, cell, x, y, value ) {
@@ -610,7 +610,7 @@ var dataValues = [];
 					if ( modifiedDataValues[spreadsheetID] === undefined ) {
 						modifiedDataValues[spreadsheetID] = {};
 					}
-					var pageName = $(this).parent().attr("id").replace("page-span-", "");
+					const pageName = $(this).parent().attr("id").replace("page-span-", "");
 					if ( modifiedDataValues[spreadsheetID][y] === undefined ) {
 						// Hacky way to do a "deep copy".
 						modifiedDataValues[spreadsheetID][y] = JSON.parse(JSON.stringify(dataValues[spreadsheetID][y]));
@@ -681,18 +681,18 @@ var dataValues = [];
 				if ( dataValues[spreadsheetID] == undefined ) {
 					dataValues[spreadsheetID] = [];
 				}
-				var templateCalls = [];
-				var numRows = pagesData.length;
-				var columnNum;
-				for (var j = 0; j < numRows; j++) {
+				let templateCalls = [];
+				const numRows = pagesData.length;
+				let columnNum;
+				for (let j = 0; j < numRows; j++) {
 					templateCalls = getTemplateCalls(pagesData[j].contents, pagesData[j].title);
 					for (const templateCall of templateCalls) {
-						var fieldArray = getTemplateParams( templateCall );
-						var fieldValueObject = {};
+						const fieldArray = getTemplateParams( templateCall );
+						const fieldValueObject = {};
 						for (const field of fieldArray) {
-							var equalPos = field.indexOf('=');
-							var fieldLabel = field.slice(0, Math.max(0, equalPos));
-							var fieldValue = field.slice(Math.max(0, equalPos + 1));
+							const equalPos = field.indexOf('=');
+							let fieldLabel = field.slice(0, Math.max(0, equalPos));
+							const fieldValue = field.slice(Math.max(0, equalPos + 1));
 							fieldLabel = fieldLabel.trim();
 							fieldValueObject[fieldLabel] = fieldValue.trim();
 						}
@@ -703,12 +703,12 @@ var dataValues = [];
 				if ( editMultiplePages == undefined ) {
 					dataValues[spreadsheetID] = gridValues[templateName];
 				}
-				for ( var rowNum = 0; rowNum < dataValues[spreadsheetID].length; rowNum++ ) {
-					var rowValues = dataValues[spreadsheetID][rowNum];
+				for ( let rowNum = 0; rowNum < dataValues[spreadsheetID].length; rowNum++ ) {
+					const rowValues = dataValues[spreadsheetID][rowNum];
 					var pageName;
 					for ( columnNum = 0; columnNum < columnNames.length; columnNum++ ) {
 						columnName = columnNames[columnNum];
-						var curValue = rowValues[columnName];
+						const curValue = rowValues[columnName];
 						if ( myData[rowNum] == undefined ) {
 							myData[rowNum] = [];
 						}
@@ -718,11 +718,11 @@ var dataValues = [];
 						}
 
 						if ( curValue !== undefined ) {
-							var jExcelValue = jexcel.prototype.getjExcelValue( curValue, gridParams[templateName][columnNum] );
+							const jExcelValue = jexcel.prototype.getjExcelValue( curValue, gridParams[templateName][columnNum] );
 							myData[rowNum].push( jExcelValue );
 							dataValues[spreadsheetID][rowNum][columnName] = jExcelValue;
 						} else if ( columnName === manageColumnTitle ) {
-							var cellContents = '<span class="save-or-cancel" style="display: none" id="page-span-' + pageName + '">' +
+							let cellContents = '<span class="save-or-cancel" style="display: none" id="page-span-' + pageName + '">' +
 								'<a href="#" class="save-changes">' + saveIcon + '</a> | ' +
 								'<a href="#" class="cancel-changes">' + cancelIcon + '</a>' +
 								'</span>';
@@ -743,24 +743,24 @@ var dataValues = [];
 
 				// Called after a new row is added.
 				function rowAdded(instance) {
-					var $instance = $(instance);
-					var spreadsheetId = $instance.attr('id');
+					const $instance = $(instance);
+					const spreadsheetId = $instance.attr('id');
 					rowAdded2( $instance, spreadsheetId );
 				}
 
 				function rowAdded2( $instance, spreadsheetId ) {
-					var $newRow = $instance.find("tr").last();
-					var columnParams = gridParams[templateName];
+					const $newRow = $instance.find("tr").last();
+					const columnParams = gridParams[templateName];
 					for ( columnNum = 0; columnNum < columnParams.length; columnNum++ ) {
-						var defaultValue = columnParams[columnNum]['default'];
+						const defaultValue = columnParams[columnNum]['default'];
 						if ( defaultValue == undefined ) {
 							continue;
 						}
-						var realDefaultValue = defaultValue;
+						let realDefaultValue = defaultValue;
 						// Special handling for some default values.
 						if ( defaultValue == 'now' ) {
-							var date = new Date();
-							var monthNum = date.getMonth() + 1;
+							const date = new Date();
+							const monthNum = date.getMonth() + 1;
 							realDefaultValue = date.getFullYear() + '-' + monthNum + '-' + date.getDate() +
 								' ' + date.getHours() + ':' + date.getMinutes();
 						} else if ( defaultValue == 'current user' ) {
@@ -768,11 +768,11 @@ var dataValues = [];
 						} else if ( defaultValue == 'uuid' ) {
 							realDefaultValue = window.pfGenerateUUID();
 						}
-						var $curCell = $newRow.find("td:nth-child(" + ( columnNum + 2 ) + ")");
+						const $curCell = $newRow.find("td:nth-child(" + ( columnNum + 2 ) + ")");
 						$curCell.html(realDefaultValue);
 					}
-					var $cell = $newRow.find("td").last();
-					var manageCellContents = '';
+					const $cell = $newRow.find("td").last();
+					let manageCellContents = '';
 
 					if ( editMultiplePages === undefined ) {
 						manageCellContents = '<span class="mit-row-icons">' +
@@ -791,27 +791,27 @@ var dataValues = [];
 					// yet, because the row doesn't have a
 					// page name.
 					// @TODO - should the icon even be there?
-					$cell.find("a.cancel-adding").click( function( event ) {
+					$cell.find("a.cancel-adding").click( ( event ) => {
 						event.preventDefault();
 						jexcel.prototype.deleteRow(spreadsheetId, dataValues[spreadsheetId].length);
 					} );
 					if ( editMultiplePages === undefined ) {
-						$cell.find("a.delete-row").click( function( event ) {
-							var y = $cell.attr("data-y");
+						$cell.find("a.delete-row").click( ( event ) => {
+							const y = $cell.attr("data-y");
 							event.preventDefault();
 							jexcel.prototype.deleteRow( spreadsheetId, y );
 							//dataValues[spreadsheetId].splice(y, 1);
 						} );
-						$cell.find("a.raise-row").click( function( event ) {
-							var y = $cell.attr("data-y");
+						$cell.find("a.raise-row").click( ( event ) => {
+							const y = $cell.attr("data-y");
 							event.preventDefault();
 							if ( y > 0 ) {
 								mw.spreadsheets[spreadsheetId].moveRow( y, y - 1 );
 							}
 						} );
-						$cell.find("a.lower-row").click( function( event ) {
-							var curSpreadsheet = mw.spreadsheets[spreadsheetId];
-							var y = parseInt( $cell.attr("data-y") );
+						$cell.find("a.lower-row").click( ( event ) => {
+							const curSpreadsheet = mw.spreadsheets[spreadsheetId];
+							const y = parseInt( $cell.attr("data-y") );
 							event.preventDefault();
 							if ( y + 1 < curSpreadsheet.getData().length ) {
 								curSpreadsheet.moveRow( y, y + 1 );
@@ -822,7 +822,7 @@ var dataValues = [];
 					// Providing the autocomplete attributes whenever a new row is added
 					if ( editMultiplePages === undefined ) {
 						$(table).find('tbody td').not('.jexcel_row').each(function() {
-							var data_x = $(this).attr('data-x');
+							const data_x = $(this).attr('data-x');
 							jexcel.prototype.setAutocompleteAttributesOfCells( table, templateName, data_x, this );
 						});
 					}
@@ -852,9 +852,9 @@ var dataValues = [];
 					}
 				} );
 				// Set the "label" for columns that have a label defined.
-				var columnParams = gridParams[templateName];
+				const columnParams = gridParams[templateName];
 				for ( columnNum = 0; columnNum < columnParams.length; columnNum++ ) {
-					var columnLabel = columnParams[columnNum]['label'];
+					const columnLabel = columnParams[columnNum]['label'];
 					if ( columnLabel == undefined ) {
 						continue;
 					}
@@ -862,7 +862,7 @@ var dataValues = [];
 				}
 
 				if ( editMultiplePages !== undefined ) {
-					var numberOfColumns = $(table).find('thead tr:first td').not('.jexcel_selectall').length,
+					let numberOfColumns = $(table).find('thead tr:first td').not('.jexcel_selectall').length,
 						fieldNum = 0;
 					// Provide the autocomplete attributes to each column of the spreadsheet
 					// which is populated at the starting.
@@ -875,7 +875,7 @@ var dataValues = [];
 					} );
 				}
 
-				var addRowButton = new OO.ui.FieldLayout( new OO.ui.ButtonWidget( {
+				const addRowButton = new OO.ui.FieldLayout( new OO.ui.ButtonWidget( {
 					classes: [ 'add-row' ],
 					icon: 'add',
 					label: mw.msg( 'pf-spreadsheet-addrow' )
@@ -884,33 +884,33 @@ var dataValues = [];
 				$(table).append(addRowButton.$element);
 
 				$('div#' + spreadsheetID + ' span.add-row').click( function( event ) {
-					var curSpreadsheet = mw.spreadsheets[spreadsheetID];
+					const curSpreadsheet = mw.spreadsheets[spreadsheetID];
 					event.preventDefault();
 					if ( curSpreadsheet.getData().length > 0 ) {
 						curSpreadsheet.insertRow();
 					} else {
 						curSpreadsheet.setData([ ' ' ]);
-						var $curSpreadsheetDiv = $(this).closest('.pfSpreadsheet');
+						const $curSpreadsheetDiv = $(this).closest('.pfSpreadsheet');
 						rowAdded2($curSpreadsheetDiv, spreadsheetID);
 					}
 				} );
 				$('div#' + spreadsheetID + ' a.raise-row').click( function( event ) {
-					var y = $(this).parents('td').attr("data-y");
+					const y = $(this).parents('td').attr("data-y");
 					event.preventDefault();
 					if ( y > 0 ) {
 						mw.spreadsheets[spreadsheetID].moveRow( y, y - 1 );
 					}
 				} );
 				$('div#' + spreadsheetID + ' a.lower-row').click( function( event ) {
-					var curSpreadsheet = mw.spreadsheets[spreadsheetID];
-					var y = parseInt( $(this).parents('td').attr("data-y") );
+					const curSpreadsheet = mw.spreadsheets[spreadsheetID];
+					const y = parseInt( $(this).parents('td').attr("data-y") );
 					event.preventDefault();
 					if ( y + 1 < curSpreadsheet.getData().length ) {
 						mw.spreadsheets[spreadsheetID].moveRow( y, y + 1 );
 					}
 				} );
 				$('div#' + spreadsheetID + ' a.delete-row').click( function( event ) {
-					var y = $(this).parents('td').attr("data-y");
+					const y = $(this).parents('td').attr("data-y");
 					event.preventDefault();
 					jexcel.prototype.deleteRow( spreadsheetID, y );
 					//dataValues[spreadsheetID].splice(y, 1);
@@ -923,11 +923,11 @@ var dataValues = [];
 	});
 
 	$('.pfSpreadsheet').each( function() {
-		var templateName = $(this).attr( 'data-template-name' ),
+		let templateName = $(this).attr( 'data-template-name' ),
 			table = this,
 			fieldNum = 0,
 			editMultiplePages = $(this).attr('editmultiplepages');
-		var numberOfColumns = $(table).find('thead tr:first td').not('.jexcel_selectall').length;
+		const numberOfColumns = $(table).find('thead tr:first td').not('.jexcel_selectall').length;
 
 		if ( editMultiplePages == undefined ) {
 			// Provide the autocomplete attributes to each column of the spreadsheet
@@ -941,7 +941,7 @@ var dataValues = [];
 			} );
 			// Providing "name" and "origname" and autocomplete attributes to every cell of the spreadsheet
 			$(table).find('tbody td').not('.jexcel_row').each(function() {
-				var data_x = $(this).attr('data-x');
+				const data_x = $(this).attr('data-x');
 				jexcel.prototype.setAutocompleteAttributesOfCells( table, templateName, data_x, this );
 			});
 		}
@@ -950,9 +950,9 @@ var dataValues = [];
 	// If this is a spreadsheet display within a form, create hidden
 	// inputs for every cell when the form is submitted, so that all the
 	// data will actually get submitted.
-	$( "#pfForm" ).submit(function( event ) {
+	$( "#pfForm" ).submit(( event ) => {
 		$( '.pfSpreadsheet' ).each( function() {
-			var $grid = $(this),
+			const $grid = $(this),
 				templateName = $(this).attr( 'data-template-name' ),
 				formName = $(this).attr( 'data-form-name' ),
 				editMultiplePages = $(this).attr( 'editMultiplePages' );
@@ -964,15 +964,15 @@ var dataValues = [];
 			}
 
 			$grid.find( "td" ).not('.readonly').each( function() {
-				var rowNum = $(this).attr('data-y');
-				var columnNum = $(this).attr('data-x');
+				const rowNum = $(this).attr('data-y');
+				const columnNum = $(this).attr('data-x');
 				if ( rowNum == undefined || columnNum == undefined ) {
 					return;
 				}
 
-				var mwValue = jexcel.prototype.getMWValueFromCell( $(this), gridParams[templateName][columnNum] );
-				var paramName = gridParams[templateName][columnNum].name;
-				var inputName = templateName + '[' + ( rowNum + 1 ) + '][' + paramName + ']';
+				const mwValue = jexcel.prototype.getMWValueFromCell( $(this), gridParams[templateName][columnNum] );
+				const paramName = gridParams[templateName][columnNum].name;
+				const inputName = templateName + '[' + ( rowNum + 1 ) + '][' + paramName + ']';
 				$('<input>').attr( 'type', 'hidden' ).attr( 'name', inputName ).attr( 'value', mwValue ).appendTo( '#pfForm' );
 			});
 		});

@@ -10,25 +10,25 @@
 
 	'use strict';
 
-	var $form;
-	var $previewpane;
-	var previewHeight;
+	let $form;
+	let $previewpane;
+	let previewHeight;
 
 	/**
 	 * Called when the content is loaded into the preview pane
 	 *
 	 * @return {Mixed}
 	 */
-	var loadFrameHandler = function handleLoadFrame() {
+	const loadFrameHandler = function handleLoadFrame() {
 
-		var $iframe = $( this );
-		var $iframecontents = $iframe.contents();
+		const $iframe = $( this );
+		const $iframecontents = $iframe.contents();
 
 		// find div containing the preview
-		var $content = $iframecontents.find( '#wikiPreview' );
+		let $content = $iframecontents.find( '#wikiPreview' );
 
-		var $iframebody = $content.closest( 'body' );
-		var $iframedoc = $iframebody.parent();
+		const $iframebody = $content.closest( 'body' );
+		const $iframedoc = $iframebody.parent();
 		$iframedoc.height( 'auto' );
 
 		// this is not a normal MW page (or it uses an unknown skin)
@@ -53,13 +53,13 @@
 
 		// and attach event handler to adjust frame size every time the window
 		// size changes
-		$( window ).resize( function() {
+		$( window ).resize( () => {
 			$iframe.height( $iframedoc.height() );
 		} );
 
 		$previewpane.show();
 
-		var newPreviewHeight = $iframedoc.height();
+		const newPreviewHeight = $iframedoc.height();
 
 		$iframe.height( newPreviewHeight );
 
@@ -71,7 +71,7 @@
 
 		previewHeight = newPreviewHeight;
 
-		$( function() {
+		$( () => {
 			window.dispatchEvent( new Event( 'resize' ) ); // It fixes form preview
 		} );
 
@@ -83,11 +83,11 @@
 	 *
 	 * @param {Mixed} result
 	 */
-	var resultReceivedHandler = function handleResultReceived( result ) {
+	const resultReceivedHandler = function handleResultReceived( result ) {
 
-		var htm = result.result;
+		const htm = result.result;
 
-		var $iframe = $previewpane.children();
+		let $iframe = $previewpane.children();
 
 		if ( $iframe.length === 0 ) {
 
@@ -106,8 +106,8 @@
 
 		}
 
-		var ifr = $iframe[0];
-		var doc = ifr.contentDocument || ifr.contentWindow.document || ifr.Document;
+		const ifr = $iframe[0];
+		const doc = ifr.contentDocument || ifr.contentWindow.document || ifr.Document;
 
 		doc.open();
 		doc.write( htm );
@@ -118,14 +118,14 @@
 	/**
 	 * Called when the preview button was clicked
 	 */
-	var previewButtonClickedHandler = function handlePreviewButtonClicked() {
+	const previewButtonClickedHandler = function handlePreviewButtonClicked() {
 
 		if ( !validateAll() ) {
 			return;
 		}
 
 		// data array to be sent to the server
-		var data = {
+		const data = {
 			action: 'pfautoedit',
 			format: 'json'
 		};
@@ -140,8 +140,8 @@
 		} else if ( mw.config.get( 'wgCanonicalNamespace' ) === 'Special' && mw.config.get( 'wgCanonicalSpecialPageName' ) === 'FormEdit' ) {
 
 			// get the pagename and split it into parts
-			var pageName = mw.config.get( 'wgPageName' );
-			var parts = pageName.split( '/' );
+			const pageName = mw.config.get( 'wgPageName' );
+			const parts = pageName.split( '/' );
 
 			if ( mw.util.getParamValue( 'form' ) ) {
 				data.form = mw.util.getParamValue( 'form' );
@@ -200,14 +200,14 @@
 		return this;
 	};
 
-	$( function() {
+	$( () => {
 		if ( mw.config.get( 'wgAction' ) === 'formedit' ||
 			mw.config.get( 'wgCanonicalSpecialPageName' ) === 'FormEdit' ) {
 			$( '#wpPreview' ).pfAjaxPreview();
-			$( document ).on( 'VEForAllLoaded', function() {
+			$( document ).on( 'VEForAllLoaded', () => {
 				if ( $('.visualeditor').length > 0 ) {
-					$( '#wpPreview' ).off('click', previewButtonClickedHandler).on('click', function( event ) {
-						mw.pageFormsActivateVEFields( function() {
+					$( '#wpPreview' ).off('click', previewButtonClickedHandler).on('click', ( event ) => {
+						mw.pageFormsActivateVEFields( () => {
 							previewButtonClickedHandler( event );
 						});
 					});

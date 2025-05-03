@@ -12,14 +12,14 @@
  pf.SpreadsheetComboBoxInput = function( config ) {
 	this.config = config || {};
 	OO.ui.ComboBoxInputWidget.call( this, config );
-	this.$input.focus( function() {
+	this.$input.focus( () => {
 		this.setValues();
-	}.bind(this));
-	this.$input.keyup( function(event) {
+	});
+	this.$input.keyup( (event) => {
 		if (event.keyCode !== 38 && event.keyCode !== 40 && event.keyCode !== 37 && event.keyCode !== 39) {
 			this.setValues();
 		}
-	}.bind(this));
+	});
 }
 OO.inheritClass( pf.SpreadsheetComboBoxInput, OO.ui.ComboBoxInputWidget );
 /**
@@ -27,7 +27,7 @@ OO.inheritClass( pf.SpreadsheetComboBoxInput, OO.ui.ComboBoxInputWidget );
  * A function for setting the options for combobox whenever something is typed
  */
 pf.SpreadsheetComboBoxInput.prototype.setValues = function() {
-	var data_source = this.config.autocompletesettings,
+	let data_source = this.config.autocompletesettings,
 		data_type = this.config.autocompletedatatype,
 		curValue = this.getValue(),
 		self = this,
@@ -40,7 +40,7 @@ pf.SpreadsheetComboBoxInput.prototype.setValues = function() {
 		curValue = curValue.slice(1);
 	}
 	if ( data_type == 'external data' ) { // External Data Autocompletion
-		var	wgPageFormsEDSettings = mw.config.get( 'wgPageFormsEDSettings' ),
+		const	wgPageFormsEDSettings = mw.config.get( 'wgPageFormsEDSettings' ),
 			name = data_source,
 			edgValues = mw.config.get( 'edgValues' ),
 			data = {};
@@ -48,8 +48,8 @@ pf.SpreadsheetComboBoxInput.prototype.setValues = function() {
 			data.title = edgValues[ wgPageFormsEDSettings[ name ].title ];
 			if ( data.title !== undefined && data.title !== null ) {
 				var i = 0;
-				data.title.forEach( function() {
-					var wgPageFormsAutocompleteOnAllChars = mw.config.get( 'wgPageFormsAutocompleteOnAllChars' );
+				data.title.forEach( () => {
+					const wgPageFormsAutocompleteOnAllChars = mw.config.get( 'wgPageFormsAutocompleteOnAllChars' );
 					if ( wgPageFormsAutocompleteOnAllChars ) {
 						var valueFilter = self.getConditionForAutocompleteOnAllChars( data.title[i], curValue.toLowerCase() )
 					} else {
@@ -79,24 +79,24 @@ pf.SpreadsheetComboBoxInput.prototype.setValues = function() {
 			this.setOptions(values);
 			return;
 		}
-		var my_server = mw.util.wikiScript( 'api' );
+		let my_server = mw.util.wikiScript( 'api' );
 		my_server += "?action=pfautocomplete&format=json";
 		if ( data_type == 'cargo field' ) {
-			var table_and_field = data_source.split('|');
+			const table_and_field = data_source.split('|');
 			my_server += "&cargo_table=" + table_and_field[0] + "&cargo_field=" + table_and_field[1] + "&substr=" + curValue;
 		} else if ( data_type == 'dep_on' ) {
-			var dep_field_opts = this.getDependentFieldOpts( this.config.data_y, this.config.dep_on_field );
-			if (dep_field_opts.prop.indexOf('|') === -1) {
+			const dep_field_opts = this.getDependentFieldOpts( this.config.data_y, this.config.dep_on_field );
+			if (!dep_field_opts.prop.includes('|')) {
 				my_server += "&property=" + dep_field_opts.prop + "&baseprop=" + dep_field_opts.base_prop + "&basevalue=" + dep_field_opts.base_value + "&substr=" + curValue;
 			} else {
-				var cargoTableAndFieldStr = dep_field_opts.prop;
-				var cargoTableAndField = cargoTableAndFieldStr.split('|');
-				var cargoTable = cargoTableAndField[0];
-				var cargoField = cargoTableAndField[1];
-				var baseCargoTableAndFieldStr = dep_field_opts.base_prop;
-				var baseCargoTableAndField = baseCargoTableAndFieldStr.split('|');
-				var baseCargoTable = baseCargoTableAndField[0];
-				var baseCargoField = baseCargoTableAndField[1];
+				const cargoTableAndFieldStr = dep_field_opts.prop;
+				const cargoTableAndField = cargoTableAndFieldStr.split('|');
+				const cargoTable = cargoTableAndField[0];
+				const cargoField = cargoTableAndField[1];
+				const baseCargoTableAndFieldStr = dep_field_opts.base_prop;
+				const baseCargoTableAndField = baseCargoTableAndFieldStr.split('|');
+				const baseCargoTable = baseCargoTableAndField[0];
+				const baseCargoField = baseCargoTableAndField[1];
 				my_server += "&cargo_table=" + cargoTable + "&cargo_field=" + cargoField + "&base_cargo_table=" + baseCargoTable + "&base_cargo_field=" + baseCargoField + "&basevalue=" + dep_field_opts.base_value + "&substr=" + curValue;
 			}
 		} else {
@@ -130,16 +130,16 @@ pf.SpreadsheetComboBoxInput.prototype.setValues = function() {
  * @return HtmlSnippet
  */
 pf.SpreadsheetComboBoxInput.prototype.highlightText = function( suggestion ) {
-	var searchTerm = this.getValue();
+	let searchTerm = this.getValue();
 	if ( searchTerm[0] == ' ' ) {
 		searchTerm = searchTerm.slice(1);
 	}
-	var searchRegexp = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
+	const searchRegexp = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
 		searchTerm.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") +
 			")(?![^<>]*>)(?![^&;]+;)", "gi");
-	var itemLabel = suggestion;
-	var loc = itemLabel.search(searchRegexp);
-	var t;
+	const itemLabel = suggestion;
+	const loc = itemLabel.search(searchRegexp);
+	let t;
 	if (loc >= 0) {
 		t = itemLabel.slice(0, Math.max(0, loc)) +
 			'<strong>' + itemLabel.substr(loc, searchTerm.length) + '</strong>' +
@@ -169,7 +169,7 @@ pf.SpreadsheetComboBoxInput.prototype.getNoMatchesOption = function() {
  * @return {boolean}
  */
 pf.SpreadsheetComboBoxInput.prototype.checkIfAnyWordStartsWithInputValue = function( string, curValue ) {
-	var regex = new RegExp('\\b' + curValue.toLowerCase());
+	const regex = new RegExp('\\b' + curValue.toLowerCase());
 	return string.toLowerCase().match(regex) !== null;
 }
 /**
@@ -191,8 +191,8 @@ pf.SpreadsheetComboBoxInput.prototype.getConditionForAutocompleteOnAllChars = fu
  * @return {Object} dep_field_opts
  */
 pf.SpreadsheetComboBoxInput.prototype.getDependentFieldOpts = function( data_y, dep_on_field ) {
-	var dep_field_opts = {};
-	var baseElement;
+	const dep_field_opts = {};
+	let baseElement;
 	baseElement = $('td[data-y="'+data_y+'"][origname="'+dep_on_field+'"]');
 	dep_field_opts.base_value = baseElement.html();
 	dep_field_opts.base_prop = mw.config.get('wgPageFormsFieldProperties')[dep_on_field] ||

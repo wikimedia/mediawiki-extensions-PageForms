@@ -15,13 +15,13 @@
 
 		function insertSwitch( switchesWrapper, label, checked  ) {
 			// create a link element that will trigger the selection of all checkboxes
-			var $link = $( '<a href="#">' + label + '</a>' );
+			const $link = $( '<a href="#">' + label + '</a>' );
 
 			// will be initialized only when the event is triggered to avoid lag during page loading
-			var $checkboxes;
+			let $checkboxes;
 
 			// attach an event handler
-			$link.click( function ( event ) {
+			$link.click( ( event ) => {
 				event.preventDefault();
 
 				// store checkboxes during first method call so the DOM is not searched on every click on the link
@@ -31,14 +31,14 @@
 			} );
 
 			// wrap the link into a span to simplify styling
-			var $switchWrapper = $('<span class="checkboxSwitch">' ).append( $link );
+			const $switchWrapper = $('<span class="checkboxSwitch">' ).append( $link );
 
 			// insert the complete switch into the DOM
 			switchesWrapper.append( $switchWrapper );
 		}
 
-		this.each( function ( index, element ) {
-			var $switchesWrapper = $( '<span class="checkboxSwitches">' ).prependTo( element );
+		this.each( ( index, element ) => {
+			const $switchesWrapper = $( '<span class="checkboxSwitches">' ).prependTo( element );
 			insertSwitch( $switchesWrapper, mw.message( 'pf_forminputs_checkboxes_select_all' ).escaped(), true );
 			insertSwitch( $switchesWrapper, mw.message( 'pf_forminputs_checkboxes_select_none' ).escaped(), false );
 		} );
@@ -46,7 +46,7 @@
 		return this;
 	};
 
-	$( function () {
+	$( () => {
 		$( '.checkboxesSpan.select-all' ).appendSelectionSwitches();
 	} );
 

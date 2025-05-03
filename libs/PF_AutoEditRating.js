@@ -2,14 +2,14 @@
 	'use strict';
 
 	function sendData( $jtrigger ) {
-		var $jautoedit = $jtrigger.closest( '.autoedit' );
-		var $jresult = $jautoedit.find( '.autoedit-result' );
+		const $jautoedit = $jtrigger.closest( '.autoedit' );
+		const $jresult = $jautoedit.find( '.autoedit-result' );
 
 		$jresult.attr( 'class', 'autoedit-result autoedit-result-wait' );
 		$jresult.text( mw.msg( 'pf-autoedit-wait' ) );
 
 		// data array to be sent to the server
-		var data = {
+		const data = {
 			action: 'pfautoedit',
 			format: 'json'
 		};
@@ -34,10 +34,10 @@
 				}
 			}, // function to be called if the request succeeds
 			error: function( jqXHR ) {
-					var result = jQuery.parseJSON( jqXHR.responseText );
-					var text = result.responseText;
+					const result = jQuery.parseJSON( jqXHR.responseText );
+					let text = result.responseText;
 
-					for ( var i = 0; i < result.errors.length; i++ ) {
+					for ( let i = 0; i < result.errors.length; i++ ) {
 						text += ' ' + result.errors[ i ].message;
 					}
 
@@ -54,16 +54,16 @@
 			!confirm( mw.msg( 'pf_autoedit_anoneditwarning' ) ) ) {
 			return;
 		}
-		var $jautoedit = $jtrigger.closest( '.autoedit' );
-		var $jeditdata = $jautoedit.find( 'form.autoedit-data' );
+		const $jautoedit = $jtrigger.closest( '.autoedit' );
+		const $jeditdata = $jautoedit.find( 'form.autoedit-data' );
 		$jeditdata.find( '#ratingInput' )
 			.attr( "value", value );;
-		var targetpage = $jeditdata.find( 'input[name=target]' )
+		const targetpage = $jeditdata.find( 'input[name=target]' )
 			.val();
-		var confirmEdit = $jeditdata.hasClass( 'confirm-edit' );
+		const confirmEdit = $jeditdata.hasClass( 'confirm-edit' );
 		if ( confirmEdit ) {
 			OO.ui.confirm( mw.msg( 'pf_autoedit_confirm', targetpage ) )
-				.done( function(confirmed) {
+				.done( (confirmed) => {
 					if ( confirmed ) {
 						sendData( $jtrigger );
 					}
@@ -74,20 +74,20 @@
 	};
 
 	jQuery.fn.applyRatingInput = function( fromCalendar ) {
-		var starWidth = $( this )
+		const starWidth = $( this )
 			.attr( 'data-starwidth' );
-		var curValue = $( this )
+		let curValue = $( this )
 			.attr( 'data-curvalue' );;
-		var numStars = $( this )
+		const numStars = $( this )
 			.attr( 'data-numstars' );
-		var allowsHalf = $( this )
+		const allowsHalf = $( this )
 			.attr( 'data-allows-half' );
 
 		if ( curValue === '' || curValue === undefined ) {
 			curValue = 0;
 		}
 
-		var ratingsSettings = {
+		const ratingsSettings = {
 			normalFill: '#ddd',
 			starWidth: starWidth,
 			numStars: numStars,

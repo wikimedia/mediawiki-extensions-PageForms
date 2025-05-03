@@ -14,50 +14,50 @@
 
 		// This counter is used to assign unique ids to the calendar events.
 		// If the event is deleted, we lose that unique id and can't be used gain.
-		var counter = 0;
-		var monthNames = mw.config.get('monthMessages');
+		let counter = 0;
+		const monthNames = mw.config.get('monthMessages');
 		// Stuff from PF_FormPrinter.php
-		var calendarParams = mw.config.get( 'wgPageFormsCalendarParams' );
-		var calendarGridValues = mw.config.get( 'wgPageFormsCalendarValues' );
-		var calendarHTML = mw.config.get('wgPageFormsCalendarHTML');
+		const calendarParams = mw.config.get( 'wgPageFormsCalendarParams' );
+		const calendarGridValues = mw.config.get( 'wgPageFormsCalendarValues' );
+		const calendarHTML = mw.config.get('wgPageFormsCalendarHTML');
 
-		var $fcDiv = $( this );
-		var calendarId = $fcDiv.attr( 'id' );
-		var templateName = $fcDiv.attr( 'template-name' );
-		var eventTitleField = $fcDiv.attr( 'title-field' );
-		var eventDateField = $fcDiv.attr( 'event-date-field' );
-		var eventStartDateField = $fcDiv.attr( 'event-start-date-field' );
-		var eventEndDateField = $fcDiv.attr( 'event-end-date-field' );
-		var flagOneDayEvent = true;
-		var pageLoaded = false;
-		var isEventEndDateTime = false;
-		var isEventStartTime = false;
+		const $fcDiv = $( this );
+		const calendarId = $fcDiv.attr( 'id' );
+		const templateName = $fcDiv.attr( 'template-name' );
+		const eventTitleField = $fcDiv.attr( 'title-field' );
+		const eventDateField = $fcDiv.attr( 'event-date-field' );
+		const eventStartDateField = $fcDiv.attr( 'event-start-date-field' );
+		const eventEndDateField = $fcDiv.attr( 'event-end-date-field' );
+		let flagOneDayEvent = true;
+		let pageLoaded = false;
+		let isEventEndDateTime = false;
+		let isEventStartTime = false;
 
 		if( eventDateField === undefined ) {
 
 			flagOneDayEvent = false;
 		}
 
-		var fieldType=[];
-		var englishMonthNames = [ 'January', 'February',
+		const fieldType=[];
+		const englishMonthNames = [ 'January', 'February',
 			'March', 'April', 'May', 'June', 'July',
 			'August', 'September', 'October', 'November',
 			'December' ];
 
 		// From here the game begins - getting the form HTML to be used as the popup form -
 		// for the calendar interface
-		var formHtml = calendarHTML[templateName];
-		var popup = '<form id="popupForm">';
-		var deleteButton = '<button id="event_delete" class = "delete-event-button" name="data" type="button" >' + mw.msg('pf-calendar-deleteevent') + '</button>';
-		var createButton = '<button id="form_submit" class = "submit-event-button" name="data" type="button" >' + mw.msg('pf-calendar-createevent') + '</button>';
-		var updateButton = '<button id="form_submit" class = "submit-event-button" name="data" type="button" >' + mw.msg('pf-calendar-updateevent') + '</button>';
+		const formHtml = calendarHTML[templateName];
+		let popup = '<form id="popupForm">';
+		const deleteButton = '<button id="event_delete" class = "delete-event-button" name="data" type="button" >' + mw.msg('pf-calendar-deleteevent') + '</button>';
+		const createButton = '<button id="form_submit" class = "submit-event-button" name="data" type="button" >' + mw.msg('pf-calendar-createevent') + '</button>';
+		const updateButton = '<button id="form_submit" class = "submit-event-button" name="data" type="button" >' + mw.msg('pf-calendar-updateevent') + '</button>';
 		popup += formHtml;
-		var createEventPopup = popup + createButton;
-		var updateEventPopup = popup + updateButton;
-		var suitableForCalendar = true;
-		var calendarIdSelector = '#' + calendarId;
-		var events = [], data = [], dateFields = [], dateStartFields = [], dateEndFields = [], eventsNoDate = [], checkboxesNum = [];
-		var segment, dateSegment, yearFC, monthFC, dateFC,
+		const createEventPopup = popup + createButton;
+		const updateEventPopup = popup + updateButton;
+		let suitableForCalendar = true;
+		const calendarIdSelector = '#' + calendarId;
+		let events = [], data = [], dateFields = [], dateStartFields = [], dateEndFields = [], eventsNoDate = [], checkboxesNum = [];
+		let segment, dateSegment, yearFC, monthFC, dateFC,
 			timeSegment, hourFC, minuteFC, secondFC, ampm24h,
 			dateEntry, monthEntry, yearEntry, hourEntry,
 			minuteEntry, secondEntry, ampm24hEntry, regularEntry,
@@ -66,13 +66,13 @@
 			eventStartDate, eventEndDate , eventDateMinute, eventDateSecond, eventDateAmPm24h, reserveDate, idForm,
 			eventStartDateDay, eventStartDateYear, eventStartDateMonth, eventStartDateHour,
 			eventStartDateMinute, eventStartDateSecond, eventStartDateAmPm24;
-		var currentEndDateMoment;
-		var checkboxesValues = [];
-		var listboxValues = [];
-		var tokensProto, comboboxProto, result, eventTemplateName, parameterName, eventContents, allEvents,
+		let currentEndDateMoment;
+		let checkboxesValues = [];
+		let listboxValues = [];
+		let tokensProto, comboboxProto, result, eventTemplateName, parameterName, eventContents, allEvents,
 			dateElement, nextDate, formatted, i, j;
 
-		var autoFillDay = templateName + '[cf][' + eventDateField + '][day]',
+		const autoFillDay = templateName + '[cf][' + eventDateField + '][day]',
 			autoFillMonth = templateName + '[cf][' + eventDateField + '][month]',
 			autoFillYear = templateName + '[cf][' + eventDateField + '][year]',
 			autoFillHour = templateName+'[cf]['+ eventDateField + '][hour]',
@@ -190,7 +190,7 @@
 		// don't allow the user to submit
 		function checkAndSave( flag ) {
 			if( flag === 'single' ) {
-				$( ':input' ).on('keyup',function() {
+				$( ':input' ).on('keyup',() => {
 					if(
 						$( ':input[name="' + autoFillDay + '"]' ).val() === '' ||
 						$( ':input[name="' + autoFillYear + '"]' ).val() === '' ||
@@ -202,7 +202,7 @@
 					}
 				});
 			} else if ( flag === 'multiple' ) {
-				$( ':input' ).on('keyup',function() {
+				$( ':input' ).on('keyup',() => {
 					if(
 						$( ':input[name="' + autoFillStartDay + '"]' ).val() === '' ||
 						$( ':input[name="' + autoFillEndDay + '"]' ).val() === '' ||
@@ -213,7 +213,7 @@
 					) {
 						$("#form_submit").attr("disabled", "disabled").css({'background-color':'#c8ccd1','color':'#fff'});
 					} else {
-						var date1, date2;
+						let date1, date2;
 						if( mw.config.get('wgAmericanDates') ) {
 							date1 = $( ':input[name="' + autoFillStartYear + '"]' ).val() + '-' +
 							padNumber(englishMonthNames.indexOf($( ':input[name="' + autoFillStartMonth + '"]' ).val())) + '-' +
@@ -337,19 +337,19 @@
 		// events, and they will be stored in eventsNoDate.
 		function isValidDate(dateString) {
 			if( mw.config.get( 'wgAmericanDates' ) ) {
-				var reg = /^(January?|February?|March?|April?|May|June?|July?|August?|September?|October?|November?|December?)\s\d{1,2},\s\d{4}$/;
+				const reg = /^(January?|February?|March?|April?|May|June?|July?|August?|September?|October?|November?|December?)\s\d{1,2},\s\d{4}$/;
 				if(!dateString.match(reg)) {
 					return false;
 				}
 			} else {
 				dateString = dateString.replace('/','-');
 				dateString = dateString.replace('/','-');
-				var regEx = /^\d{4}-\d{2}-\d{2}$/;
+				const regEx = /^\d{4}-\d{2}-\d{2}$/;
 				if(!dateString.match(regEx)) {
 					return false;
 				} // Invalid format
-				var d = new Date(dateString);
-				var dNum = d.getTime();
+				const d = new Date(dateString);
+				const dNum = d.getTime();
 				if(!dNum && dNum !== 0) {
 					return false;
 				} // NaN value, Invalid date
@@ -359,14 +359,14 @@
 
 		function dateTimeValidation(dateString) {
 			if( mw.config.get( 'wgAmericanDates' ) ) {
-				var reg = /^(January?|February?|March?|April?|May|June?|July?|August?|September?|October?|November?|December?)\s\d{1,2},\s\d{4}\s\d{2}:\d{2}:\d{2}$/;
+				const reg = /^(January?|February?|March?|April?|May|June?|July?|August?|September?|October?|November?|December?)\s\d{1,2},\s\d{4}\s\d{2}:\d{2}:\d{2}$/;
 				if ( !dateString.match( reg ) ) {
 					return false;
 				}
 			} else {
 				dateString = dateString.replace('/','-');
 				dateString = dateString.replace('/','-');
-				var regEx = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
+				const regEx = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
 				if ( !dateString.match( regEx ) ) {
 					return false;
 				} // Invalid format
@@ -379,7 +379,7 @@
 		}
 
 		function padNumber(number) {
-			var string = '' + number;
+			let string = '' + number;
 			string = string.length < 2 ? '0' + string : string;
 			return string;
 		}
@@ -400,7 +400,7 @@
 
 			// Populate the calendar with the already saved events - if any
 			events: function( start, end, timezone, callback ) {
-				var calendarValues = calendarGridValues[templateName];
+				const calendarValues = calendarGridValues[templateName];
 				for( i = 0; i < calendarValues.length; i++ ) {
 					data = [];
 					eventData = calendarValues[i];
@@ -658,7 +658,7 @@
 					}
 					checkAndSave( 'single' );
 					// Save all the data of the popup form and set the title, event date and the unique ID of the event
-					$( "#form_submit" ).click(function( event ) {
+					$( "#form_submit" ).click(( event ) => {
 						saveData( 'single' );
 						resetDateAndTime();
 						setDateAndTime( dateFields );
@@ -697,7 +697,7 @@
 					}
 
 					checkAndSave( 'multiple' );
-					$( "#form_submit" ).click(function( event ) {
+					$( "#form_submit" ).click(( event ) => {
 						saveData( 'multiple' );
 						resetDateAndTime();
 						setDateAndTime( dateStartFields, '1' );
@@ -733,11 +733,11 @@
 
 			// // Edit an event placed on the calendar by simply clicking on it
 			eventClick: function( info ) {
-				var content = $( calendarIdSelector ).fullCalendar( 'clientEvents', info.id );
-				var formContents = content[0].contents;
-				var ratingArr = [];
+				const content = $( calendarIdSelector ).fullCalendar( 'clientEvents', info.id );
+				const formContents = content[0].contents;
+				const ratingArr = [];
 				checkboxesValues = [];
-				var paramName, rateSample = 0;
+				let paramName, rateSample = 0;
 				// Open the popup form and populate it with the values to allow editing
 				$.fancybox.open( updateEventPopup + deleteButton + '</form>' );
 				$("[class|='fancybox-close-small']").attr("type", "button");
@@ -753,7 +753,7 @@
 					// If there is a month field, set according to the date format
 					if ( temp.includes('month') ) {
 						if ( mw.config.get('wgAmericanDates') ) { //check for date-style format.
-							if ( englishMonthNames.indexOf( formContents[i].value ) !== - 1 ) {
+							if ( englishMonthNames.includes(formContents[i].value) ) {
 								$(':input[name="'+temp+'"]').val( formContents[i].value );
 							} else {
 								$(':input[name="'+temp+'"]').val( englishMonthNames[ parseInt(formContents[i].value) - 1] );
@@ -772,14 +772,14 @@
 								temp = temp.replace('[value]','');
 								temp = temp.replace('[is_checkbox]','');
 								temp+='[is_checkbox]';
-								var checkId1 = ($(':hidden[name="'+temp+'"]')[0].nextElementSibling.id);
+								const checkId1 = ($(':hidden[name="'+temp+'"]')[0].nextElementSibling.id);
 								$('#'+ checkId1).prop('checked',formContents[i].value);
 								$(':hidden[name="'+temp+'"]').attr('value',0);
 							}
 							if( fieldType[paramName] === 'checkboxes' && !temp.includes('[is_list]')) {
 								if( formContents[i].value.includes(',') ) {
 									checkboxesValues = formContents[i].value.split(', ');
-									for( var p = 0; p<checkboxesValues.length; p++ ) {
+									for( let p = 0; p<checkboxesValues.length; p++ ) {
 										$(':input[value="' + checkboxesValues[p] + '"]').attr('checked',true);
 									}
 								} else {
@@ -790,7 +790,7 @@
 							if( fieldType[paramName] === 'listbox' && !temp.includes('[is_list]')) {
 								if( formContents[i].value.includes(',') ) {
 									listboxValues = formContents[i].value.split(', ');
-									for( var list = 0; list<listboxValues.length; list++ ) {
+									for( let list = 0; list<listboxValues.length; list++ ) {
 										$('option[value="' + listboxValues[list] + '"]').attr("selected", "selected");
 									}
 								} else {
@@ -836,7 +836,7 @@
 				// 	}
 				// });
 				// Delete button for the existing event
-				$( "#event_delete" ).click(function( event ) {
+				$( "#event_delete" ).click(( event ) => {
 					$( calendarIdSelector ).fullCalendar('removeEvents',info.id);
 					$( '.fancybox-close-small' ).click();
 				});
@@ -845,7 +845,7 @@
 					// Check if the date fields are left empty or not
 					checkAndSave( 'single' );
 					// Save everything again once the submit button is pressed
-					$( "#form_submit" ).click(function( event ) {
+					$( "#form_submit" ).click(( event ) => {
 						saveData( 'single' );
 						resetDateAndTime();
 						setDateAndTime( dateFields );
@@ -858,10 +858,10 @@
 						$( calendarIdSelector ).fullCalendar( 'updateEvent' , info , true );
 					});
 				} else {
-					var end = info.end;
-					var start = info.start;
+					const end = info.end;
+					const start = info.start;
 					checkAndSave( 'multiple' );
-					$( "#form_submit" ).click(function( event ) {
+					$( "#form_submit" ).click(( event ) => {
 						saveData( 'multiple' );
 						resetDateAndTime();
 						setDateAndTime( dateStartFields , '1' );
@@ -945,7 +945,7 @@
 			},
 
 			eventDrop: function( event, delta, revertFunc ) {
-				var oldEvent = $( calendarIdSelector ).fullCalendar( 'clientEvents', event.id );
+				const oldEvent = $( calendarIdSelector ).fullCalendar( 'clientEvents', event.id );
 				$( calendarIdSelector ).fullCalendar('removeEvents',oldEvent[0].id);
 				event.start._i = event.start.format();
 
@@ -1058,22 +1058,22 @@
 		$('#fullCalendarLoading').css("display", "none");
 
 		// Handle the "Save page" button
-		$( "#pfForm" ).submit(function( event ) {
+		$( "#pfForm" ).submit(( event ) => {
 			allEvents = $( calendarIdSelector ).fullCalendar('clientEvents');
-			var dateValue = '';
-			var day = '';
-			var month = '';
-			var year = '';
-			var hour = '';
-			var minute = '';
-			var second = '';
+			let dateValue = '';
+			let day = '';
+			let month = '';
+			let year = '';
+			let hour = '';
+			let minute = '';
+			let second = '';
 			ampm24h = ' ';
 			for( i =0;i<allEvents.length;i++ ) {
-				var eventContent = allEvents[i].contents;
-				var finalFieldValues = [];
-				for( var ii=0; ii < calendarParams[templateName].length; ii++ ) {
+				const eventContent = allEvents[i].contents;
+				const finalFieldValues = [];
+				for( let ii=0; ii < calendarParams[templateName].length; ii++ ) {
 					parameterName = calendarParams[templateName][ii].name;
-					var inputValue = '';
+					let inputValue = '';
 					if( fieldType[parameterName] === "date" ) {
 						dateValue = '';
 						day = '';
@@ -1093,7 +1093,7 @@
 						if ( mw.config.get('wgAmericanDates') ) {
 							if( englishMonthNames.indexOf(month) ) {
 								dateValue = month + ' ' + day + ', ' + year;
-							} else if ( englishMonthNames.indexOf(month) === -1 ) {
+							} else if ( !englishMonthNames.includes(month) ) {
 								dateValue = englishMonthNames[ parseInt(month) - 1 ] + ' ' + day + ', ' + year;
 							}
 						} else {
@@ -1142,7 +1142,7 @@
 						if ( mw.config.get('wgAmericanDates') ) {
 							if( englishMonthNames.indexOf(month) ) {
 								dateValue = month + ' ' + day + ', ' + year + ' ' + padNumber(hour) + ':' + padNumber(minute) + ':' + padNumber(second) + ' ' + ampm24h;
-							} else if ( englishMonthNames.indexOf(month) === -1 ) {
+							} else if ( !englishMonthNames.includes(month) ) {
 								dateValue = englishMonthNames[ parseInt(month) - 1 ] + ' ' + day + ', ' + year + ' ' + padNumber(hour) + ':' + padNumber(minute) + ':' + padNumber(second) + ' ' + ampm24h;
 							}
 						} else {
@@ -1150,7 +1150,7 @@
 						}
 						inputValue = dateValue;
 					} else {
-						var checkboxesFinal = '';
+						let checkboxesFinal = '';
 						checkboxesNum= [];
 						if ( fieldType[parameterName] === 'checkboxes' || fieldType[parameterName] === 'listbox' ) {
 							for ( j = 0; j < eventContent.length; j++ ) {
@@ -1158,7 +1158,7 @@
 									checkboxesNum.push(eventContent[j].value);
 								}
 							}
-							for ( var t = 0; t < checkboxesNum.length; t++ ) {
+							for ( let t = 0; t < checkboxesNum.length; t++ ) {
 								if( t < checkboxesNum.length -1 ) {
 									checkboxesFinal += checkboxesNum[t] + ', ';
 								} else {
@@ -1174,16 +1174,16 @@
 							}
 						}
 					}
-					var inputName = templateName + '['+ (i+1) +'][' + parameterName + ']';
+					const inputName = templateName + '['+ (i+1) +'][' + parameterName + ']';
 					finalFieldValues[inputName] = inputValue;
 					$('<input>').attr( 'type', 'hidden' ).attr( 'name', inputName ).attr( 'value',finalFieldValues[inputName] ).appendTo( '#pfForm' );
 				}
 			}
-			for ( var k = 0; k < eventsNoDate.length; k++ ) {
-				var index = i+1;
-				for( var jj = 0; jj < calendarParams[templateName].length; jj++ ) {
+			for ( let k = 0; k < eventsNoDate.length; k++ ) {
+				const index = i+1;
+				for( let jj = 0; jj < calendarParams[templateName].length; jj++ ) {
 					parameterName = calendarParams[templateName][jj].name;
-					var entryName = templateName + '['+ (index) +'][' + parameterName + ']';
+					const entryName = templateName + '['+ (index) +'][' + parameterName + ']';
 					$('<input>').attr( 'type', 'hidden' ).attr( 'name', entryName ).attr( 'value',eventsNoDate[k][parameterName] ).appendTo( '#pfForm' );
 				}
 			}

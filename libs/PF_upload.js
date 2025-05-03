@@ -21,15 +21,15 @@
 /* global Uint8Array */
 
 //( function( $, jQuery, mw ) {
-	var uploadWarning, $license = $( '#wpLicense' );
+	let uploadWarning, $license = $( '#wpLicense' );
 
-	$( function() {
+	$( () => {
 		// fillDestFile setup
 		//mw.config.get( 'wgUploadSourceIds' ).forEach( function( sourceId ) {
-		var sourceIDs = [ 'wpUploadFile' ];
-		sourceIDs.forEach( function( sourceId ) {
+		const sourceIDs = [ 'wpUploadFile' ];
+		sourceIDs.forEach( ( sourceId ) => {
 			$( '#' + sourceId ).on( 'change', function() {
-				var path, slash, backslash, fname;
+				let path, slash, backslash, fname;
 				// Remove any previously flagged errors
 				$( '#mw-upload-permitted, #mw-upload-prohibited' ).removeClass();
 

@@ -2,14 +2,12 @@
 ( function () {
 
 	mw.widgets.PFDateInputWidget = function PFDateInputWidget(config ) {
-		var inputFormat;
+		let inputFormat;
 
 		if ( config.inputFormat ) {
 			inputFormat = config.inputFormat.split( ';' );
 			if ( inputFormat.length > 1 ) {
-				config.inputFormat = inputFormat.sort( function( a, b ) {
-					return a.length - b.length;
-				} );
+				config.inputFormat = inputFormat.sort( ( a, b ) => a.length - b.length );
 			}
 		}
 
@@ -25,12 +23,15 @@
 
 	/**
 	 *  There is a bug in DateInputWidget, it calls this function for internal date
-	 * this.getValue() in this.getValidity() function and entered date
-	 * this.textInput.getValue() in this.onTextInputChange()
-	 * but they can have different formats
+	 *  this.getValue() in this.getValidity() function and entered date
+	 *  this.textInput.getValue() in this.onTextInputChange()
+	 *  but they can have different formats
+	 *
+	 * @param date
+	 * @param format
 	 */
 	mw.widgets.PFDateInputWidget.prototype.isValidDate = function ( date, format ) {
-		var
+		const
 			mom = moment( date, format || this.getInternalFormat( true ) ),
 			flags = mom.parsingFlags();
 
@@ -38,7 +39,7 @@
 	};
 
 	mw.widgets.PFDateInputWidget.prototype.onTextInputChange = function () {
-		var mom,
+		let mom,
 			inputFormat = this.getInputFormat(),
 			value = this.textInput.getValue(),
 			valid = this.isValidDate( value, inputFormat );
@@ -56,7 +57,7 @@
 	};
 
 	mw.widgets.PFDateInputWidget.prototype.getInternalFormat = function ( mom ) {
-		var internalFormats = [
+		const internalFormats = [
 			'YYYY',
 			'YYYY-MM',
 			'YYYY-MM-DD',
@@ -71,7 +72,7 @@
 	};
 
 	mw.widgets.PFDateInputWidget.prototype.updateUI = function () {
-		var moment,
+		let moment,
 			format,
 			parsedDatePartsLength,
 			inputFormat = this.getInputFormat();
@@ -88,7 +89,7 @@
 		} else {
 			// Maximum length of the input format by default
 			format = inputFormat[inputFormat.length - 1];
-			if ( parsedDatePartsLength === 2 && format.indexOf( 'D' ) !== -1 ) {
+			if ( parsedDatePartsLength === 2 && format.includes('D') ) {
 				// Use shorter format when day is not in moment but format has day
 				format = inputFormat[inputFormat.length - 2];
 			}

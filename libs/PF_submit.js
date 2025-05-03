@@ -10,8 +10,8 @@
 
 	'use strict';
 
-	var $sacButtons;
-	var $form;
+	let $sacButtons;
+	let $form;
 
 	function setChanged( event ) {
 		$sacButtons
@@ -25,7 +25,7 @@
 
 	// Prevent multiple submission of form
 	jQuery.fn.preventDoubleSubmission = function() {
-		$( this ).on( 'submit', function(e) {
+		$( this ).on( 'submit', (e) => {
 			if ( $form.data('submitted') === true ) {
 				// Previously submitted - don't submit again
 				e.preventDefault();
@@ -46,9 +46,9 @@
 	 * @param {Mixed} textStatus
 	 * @param {Mixed} jqXHR
 	 */
-	var resultReceivedHandler = function handleResultReceived( result, textStatus, jqXHR ) {
+	const resultReceivedHandler = function handleResultReceived( result, textStatus, jqXHR ) {
 		// Store the target name
-		var $target = $form.find( 'input[name="target"]' );
+		let $target = $form.find( 'input[name="target"]' );
 
 		if ( $target.length === 0 ) {
 			$target = $( '<input type="hidden" name="target">' );
@@ -74,8 +74,8 @@
 
 	};
 
-	var resultReceivedErrorHandler = function handleError( jqXHR ){
-		var errors = $.parseJSON( jqXHR.responseText ).errors;
+	const resultReceivedErrorHandler = function handleError( jqXHR ){
+		const errors = $.parseJSON( jqXHR.responseText ).errors;
 
 		$sacButtons
 		.addClass( 'pf-save_and_continue-error' )
@@ -86,7 +86,7 @@
 
 
 		if ( errors.length > 0 ){
-			var i;
+			let i;
 			for ( i = 0; i < errors.length; i += 1 ) {
 				if ( errors[i].level < 2 ) { // show errors and warnings
 					$( '#contentSub' )
@@ -101,13 +101,13 @@
 	};
 
 	function collectData() {
-		var $summaryfield = jQuery( '#wpSummary', $form );
-		var saveAndContinueSummary = mw.msg( 'pf_formedit_saveandcontinue_summary', mw.msg( 'pf_formedit_saveandcontinueediting' ) );
-		var params;
+		const $summaryfield = jQuery( '#wpSummary', $form );
+		const saveAndContinueSummary = mw.msg( 'pf_formedit_saveandcontinue_summary', mw.msg( 'pf_formedit_saveandcontinueediting' ) );
+		let params;
 
 		if ( $summaryfield.length > 0 ) {
 
-			var oldsummary = $summaryfield.attr( 'value' );
+			const oldsummary = $summaryfield.attr( 'value' );
 
 			if ( oldsummary !== '' ) {
 				$summaryfield.attr( 'value', oldsummary + ' (' + saveAndContinueSummary + ')' );
@@ -126,10 +126,10 @@
 		if ( mw.config.get( 'wgAction' ) === 'formedit' ) {
 			params += '&target=' + encodeURIComponent( mw.config.get( 'wgPageName' ) );
 		} else if ( mw.config.get( 'wgCanonicalSpecialPageName' ) === 'FormEdit' ) {
-			var url = mw.config.get( 'wgPageName' );
+			const url = mw.config.get( 'wgPageName' );
 
-			var start = url.indexOf( '/' ) + 1; // find start of subpage
-			var stop;
+			let start = url.indexOf( '/' ) + 1; // find start of subpage
+			let stop;
 
 			if ( start >= 0 ) {
 				stop = url.indexOf( '/', start ); // find end of first subpage
@@ -158,7 +158,7 @@
 		event.stopImmediatePropagation();
 
 		// remove old error messages
-		var el = document.getElementById( 'form_error_header' );
+		const el = document.getElementById( 'form_error_header' );
 
 		if ( el ) {
 			el.parentNode.removeChild( el );
@@ -171,9 +171,9 @@
 			.addClass( 'pf-save_and_continue-wait' )
 			.removeClass( 'pf-save_and_continue-changed' );
 
-			var $form = $( '#pfForm' );
+			const $form = $( '#pfForm' );
 
-			var data = {
+			const data = {
 				action: 'pfautoedit',
 				format: 'json',
 				query: collectData() // add form values to the data
@@ -196,13 +196,13 @@
 	}
 
 	mw.pageFormsActivateVEFields = function( callback ) {
-		var visualEditors = $.fn.getVEInstances();
+		const visualEditors = $.fn.getVEInstances();
 		if ( visualEditors.length > 0 ) {
-			var savingQueue = [];
-			$(visualEditors).each( function( i, ve ) {
+			const savingQueue = [];
+			$(visualEditors).each( ( i, ve ) => {
 				savingQueue.push( ve.target.updateContent() );
 			});
-			$.when.apply( $, savingQueue ).then( function() {
+			$.when.apply( $, savingQueue ).then( () => {
 				callback();
 			});
 		} else {
@@ -211,13 +211,13 @@
 	};
 
 	if ( mw.config.get( 'wgAction' ) === 'formedit' || mw.config.get( 'wgCanonicalSpecialPageName' ) === 'FormEdit' ) {
-		$(function() { // Wait until DOM is loaded.
+		$(() => { // Wait until DOM is loaded.
 			$form = $( '#pfForm' );
 			$sacButtons = $( '.pf-save_and_continue', $form );
 			$sacButtons.click( handleSaveAndContinue );
 
 			$form
-			.on( 'keyup', 'input,select,textarea', function( event ) {
+			.on( 'keyup', 'input,select,textarea', ( event ) => {
 				if ( event.which < 32 ){
 					return true;
 				}
@@ -229,19 +229,19 @@
 			.on( 'mousedown', '.instanceRearranger,.removeButton', setChanged );
 
 			// Run only when VEForAll extension is present
-			$( document ).on( 'VEForAllLoaded', function() {
+			$( document ).on( 'VEForAllLoaded', () => {
 				// Special submit form & other actions handling when VEForAll editor is present
 				if ( $('.visualeditor').length > 0 ) {
 					// Interrupt "Save page", "Show preview" and "Show changes" actions
-					var $formButtons = $( '#wpSave, #wpPreview, #wpDiff' );
-					var canSubmit = false;
+					const $formButtons = $( '#wpSave, #wpPreview, #wpDiff' );
+					let canSubmit = false;
 
 					if ( $formButtons.length > 0 ) {
-						$formButtons.each( function( i, button ) {
-							$( button ).on( 'click', function( event ) {
+						$formButtons.each( ( i, button ) => {
+							$( button ).on( 'click', ( event ) => {
 								if ( !canSubmit ) {
 									event.preventDefault();
-									mw.pageFormsActivateVEFields( function() {
+									mw.pageFormsActivateVEFields( () => {
 										if ( validateAll() ) {
 											canSubmit = true;
 											$( button ).find("[type='submit']").click();
@@ -252,8 +252,8 @@
 						} );
 					}
 					// Interrupt "Save and continue" action
-					$sacButtons.off('click', handleSaveAndContinue).click( function( event ) {
-						mw.pageFormsActivateVEFields( function() {
+					$sacButtons.off('click', handleSaveAndContinue).click( ( event ) => {
+						mw.pageFormsActivateVEFields( () => {
 							handleSaveAndContinue( event );
 						});
 					});

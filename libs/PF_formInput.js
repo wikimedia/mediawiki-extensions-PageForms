@@ -11,28 +11,28 @@
 ( function( $, mw ) {
 
 	$.fn.displayPFFormInput = function() {
-		var formLayouts = [];
-		var autocompleteWidgetConfig = {};
-		var possibleFormsStr = this.attr('data-possible-forms');
-		var menuOptions = [],
+		const formLayouts = [];
+		const autocompleteWidgetConfig = {};
+		const possibleFormsStr = this.attr('data-possible-forms');
+		let menuOptions = [],
 			layout;
 		if ( possibleFormsStr !== undefined ) {
-			var possibleForms = possibleFormsStr.split('|');
-			for ( var possibleForm of possibleForms ) {
+			const possibleForms = possibleFormsStr.split('|');
+			for ( const possibleForm of possibleForms ) {
 				menuOptions.push( {
 					data: possibleForm,
 					label: possibleForm
 				} );
 			}
-			var formChooserText = new OO.ui.LabelWidget( {
+			const formChooserText = new OO.ui.LabelWidget( {
 				label: this.attr('data-form-label')
 			} )
-			var formChooserDropdown = new OO.ui.DropdownInputWidget( {
+			const formChooserDropdown = new OO.ui.DropdownInputWidget( {
 				name: 'form',
 				options: menuOptions,
 				classes: [ 'pfFormChooserDropdown' ]
 			} );
-			var formChooserHorizontalLayout = new OO.ui.HorizontalLayout( {
+			const formChooserHorizontalLayout = new OO.ui.HorizontalLayout( {
 				items: [ formChooserText,  formChooserDropdown ],
 			} );
 			formLayouts.push(formChooserHorizontalLayout);
@@ -62,36 +62,36 @@
 		if ( this.attr('data-size') !== undefined ) {
 			autocompleteWidgetConfig['size'] = this.attr('data-size');
 		}
-		var createOrEditButton = new OO.ui.ButtonInputWidget( {
+		const createOrEditButton = new OO.ui.ButtonInputWidget( {
 			type: 'submit',
 			label: this.attr('data-button-label'),
 			value: 'Submit',
 			classes: [ 'pfCreateOrEditButton' ]
 		} );
-		var possibleNamespacesStr = this.attr('data-possible-namespaces');
+		const possibleNamespacesStr = this.attr('data-possible-namespaces');
 		if ( possibleNamespacesStr !== undefined ) {
 			// Special, non-OOUI-standard handling so that the
 			// namespace and page name inputs can be on the same
 			// line, replicating a full page name.
-			var pageWithNamespaceItems = [];
+			const pageWithNamespaceItems = [];
 			autocompleteWidgetConfig['classes'] = [ 'pfPageNameWithNamespace' ];
-			let pageNameInput = new pf.AutocompleteWidget( autocompleteWidgetConfig );
+			const pageNameInput = new pf.AutocompleteWidget( autocompleteWidgetConfig );
 
-			var possibleNamespaces = possibleNamespacesStr.split('|');
+			const possibleNamespaces = possibleNamespacesStr.split('|');
 			menuOptions = [];
-			for ( var possibleNamespace of possibleNamespaces ) {
+			for ( const possibleNamespace of possibleNamespaces ) {
 				menuOptions.push( {
 					data: possibleNamespace,
 					label: possibleNamespace
 				} );
 			}
-			var namespaceDropdown = new OO.ui.DropdownInputWidget( {
+			const namespaceDropdown = new OO.ui.DropdownInputWidget( {
 				name: 'namespace',
 				options: menuOptions,
 				classes: [ 'pfNamespaceDropdown' ]
 			} );
 			pageWithNamespaceItems.push( namespaceDropdown );
-			var colonLabel = new OO.ui.LabelWidget( {
+			const colonLabel = new OO.ui.LabelWidget( {
 				label: ":"
 			} );
 			pageWithNamespaceItems.push( colonLabel );
@@ -103,13 +103,13 @@
 			} );
 		} else {
 			autocompleteWidgetConfig['classes'] = [ 'pfPageNameWithoutNamespace' ];
-			let pageNameInput = new pf.AutocompleteWidget( autocompleteWidgetConfig );
+			const pageNameInput = new pf.AutocompleteWidget( autocompleteWidgetConfig );
 			layout = new OO.ui.HorizontalLayout( {
 				items: [ pageNameInput, createOrEditButton ]
 			} );
 		}
 		formLayouts.push(layout);
-		var fieldset = new OO.ui.FieldsetLayout( {
+		const fieldset = new OO.ui.FieldsetLayout( {
 			items: formLayouts
 		} );
 
@@ -120,7 +120,7 @@
 		// needed, so we'll leave that to the PHP to do.
 	};
 
-	$( function() {
+	$( () => {
 		$( '.pfFormInputWrapper' ).each( function() {
 			$(this).displayPFFormInput();
 		});

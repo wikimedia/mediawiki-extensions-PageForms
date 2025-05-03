@@ -24,9 +24,9 @@ function pfShowFieldsetContent($obj){
 
 jQuery.fn.pfMakeCollapsible = function(){
 	this.each(function(){
-		var $fieldset = jQuery(this);
+		const $fieldset = jQuery(this);
 
-		$fieldset.children('legend').click( function() {
+		$fieldset.children('legend').click( () => {
 			if ($fieldset.hasClass('pfCollapsedFieldset')) {
 				pfShowFieldsetContent($fieldset);
 			} else {
@@ -37,6 +37,6 @@ jQuery.fn.pfMakeCollapsible = function(){
 	});
 };
 
-$(function() {
+$(() => {
 	jQuery('.pfCollapsibleFieldset').pfMakeCollapsible();
 });

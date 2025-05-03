@@ -12,7 +12,7 @@
 ( function( $, oo, mw, pf ) {
 	'use strict';
 
-	var localeOptions = {
+	const localeOptions = {
 		timeZoneName: 'long',
 		year: 'numeric',
 		month: 'long',
@@ -23,9 +23,9 @@
 
 	jQuery.fn.applyDateTimePicker = function() {
 		return this.each( function() {
-			var widget = oo.ui.infuse( this );
-			var $localDatetimeLabel = $( '<label>' );
-			var $localDatetime = $( '<strong>' );
+			const widget = oo.ui.infuse( this );
+			const $localDatetimeLabel = $( '<label>' );
+			const $localDatetime = $( '<strong>' );
 			// Add the label even when there isn't going to be a displayed date, to make sure it takes up vertical
 			// space and avoid the form layout shifting when a date is selected.
 			$localDatetimeLabel.append( mw.msg( 'pf-datetimepicker-localtime' ), ' ', $localDatetime );
@@ -37,8 +37,8 @@
 					$localDatetime.text( '' );
 					return;
 				}
-				var date = new Date( Date.parse( newDatetimeVal ) );
-				var localDatetime = date.toLocaleString( [], localeOptions );
+				const date = new Date( Date.parse( newDatetimeVal ) );
+				const localDatetime = date.toLocaleString( [], localeOptions );
 				$localDatetime.text( localDatetime );
 			} } );
 			// Also fire the change handler once when instantiating, to operate on the default value.

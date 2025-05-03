@@ -6,7 +6,7 @@
 /*global escape*/
 
 // initialise
-jQuery( function() {
+jQuery( () => {
 
 	// register eventhandlers on 'edit' links and buttons
 
@@ -33,24 +33,24 @@ if ( typeof( window.ext ) === "undefined" ) {
 }
 
 window.ext.popupform = ( function() {
-	var $wrapper;
-	var $background;
-	var container;
-	var $innerContainer;
-	var $iframe;
-	var $content;
-	var $waitIndicator;
-	var instance = 0;
+	let $wrapper;
+	let $background;
+	let container;
+	let $innerContainer;
+	let $iframe;
+	let $content;
+	let $waitIndicator;
+	let instance = 0;
 
-	var timer;
-	var needsRender = true;
+	let timer;
+	let needsRender = true;
 
-	var doc;
+	let doc;
 
-	var brokenBrowser, brokenChrome;
+	let brokenBrowser, brokenChrome;
 
-	var padding = 20;
-	var reload;
+	const padding = 20;
+	let reload;
 	function fadeOut($elem, callback ) {
 		// no fading for broken browsers
 		if ( brokenBrowser ){
@@ -70,37 +70,37 @@ window.ext.popupform = ( function() {
 
 	function adjustFrameSize( animate ) {
 		// set some inputs
-		var oldFrameW = container.width();
-		var oldFrameH = container.height();
-		var oldContW = $content.width();
-		var oldContH = $content.height();
+		const oldFrameW = container.width();
+		const oldFrameH = container.height();
+		const oldContW = $content.width();
+		const oldContH = $content.height();
 
-		var availW = Math.floor( jQuery(window).width() * 0.8 );
-		var availH = Math.floor( jQuery(window).height() * 0.8 );
+		const availW = Math.floor( jQuery(window).width() * 0.8 );
+		const availH = Math.floor( jQuery(window).height() * 0.8 );
 
-		var emergencyW = Math.floor( jQuery(window).width() * 0.85 );
-		var emergencyH = Math.floor( jQuery(window).height() * 0.85 );
+		const emergencyW = Math.floor( jQuery(window).width() * 0.85 );
+		const emergencyH = Math.floor( jQuery(window).height() * 0.85 );
 
 		// FIXME: these might not be the true values
-		var scrollW = 25;
-		var scrollH = 25;
+		const scrollW = 25;
+		const scrollH = 25;
 
 		// find the dimensions of the document
 
-		var $body = $content.closest('body');
-		var $html = $body.parent();
+		const $body = $content.closest('body');
+		const $html = $body.parent();
 
-		var $scrollTgt = $html;
+		let $scrollTgt = $html;
 
 		if ( jQuery.browser.webkit || jQuery.browser.safari ) {
 			$scrollTgt = $body;
 		}
 
-		var scrollTop = $scrollTgt.scrollTop();
-		var scrollLeft = $scrollTgt.scrollLeft();
+		let scrollTop = $scrollTgt.scrollTop();
+		let scrollLeft = $scrollTgt.scrollLeft();
 
 		if ( jQuery.browser.mozilla ) {
-			setTimeout(function() {
+			setTimeout(() => {
 				$content
 				.css('position', 'absolute')
 				.width( 'auto' )
@@ -119,8 +119,8 @@ window.ext.popupform = ( function() {
 		.height( emergencyH );
 
 		// get dimension values
-		var docW = $content.width();
-		var docH = $content.height();
+		let docW = $content.width();
+		let docH = $content.height();
 		// On Firefox, this doesn't work for some reason, so use
 		// this roundabout method to set the dimensions.
 		if ( docW === 0 || docH === 0 ) {
@@ -138,29 +138,29 @@ window.ext.popupform = ( function() {
 		.width( oldContW )
 		.height( oldContH );
 
-		var docpW = docW + 2 * padding;
-		var docpH = docH + 2 * padding;
+		const docpW = docW + 2 * padding;
+		const docpH = docH + 2 * padding;
 
 		// Flags
 
-		var needsHScroll = docpW > emergencyW || ( docpW > emergencyW - scrollW && docpH > emergencyH );
-		var needsVScroll = docpH > emergencyH || ( docpH > emergencyH - scrollH && docpW > emergencyW );
+		const needsHScroll = docpW > emergencyW || ( docpW > emergencyW - scrollW && docpH > emergencyH );
+		const needsVScroll = docpH > emergencyH || ( docpH > emergencyH - scrollH && docpW > emergencyW );
 
-		var needsWStretch =
+		const needsWStretch =
 		( docpW > availW && docpW <= emergencyW ) && ( docpH <= emergencyH ) ||
 		( docpW > availW - scrollW && docpW <= emergencyW - scrollW ) && ( docpH > emergencyH );
 
-		var needsHStretch =
+		const needsHStretch =
 		( docpH > availH && docpH <= emergencyH ) && ( docpW <= emergencyW ) ||
 		( docpH > availH - scrollH && docpH <= emergencyH - scrollH ) && ( docpW > emergencyW );
 
 		// Outputs
 
-		var frameW;
-		var frameH;
+		let frameW;
+		let frameH;
 
-		var contW;
-		var contH;
+		let contW;
+		let contH;
 
 		if ( needsWStretch ) {
 			contW = docW;
@@ -247,7 +247,7 @@ window.ext.popupform = ( function() {
 				container[0].style.left = (Math.floor(( - frameW ) / 2)) + "px";
 
 
-				setTimeout(function(){
+				setTimeout(() => {
 
 						if ( jQuery.browser.safari ) {
 							$html[0].style.overflow="visible";
@@ -278,7 +278,7 @@ window.ext.popupform = ( function() {
 				// turn scrollbars off and on again to really only show them when needed
 					$html[0].style.overflow="hidden";
 
-					setTimeout(function(){
+					setTimeout(() => {
 						$html[0].style.overflow="visible";
 				}, 1);
 			}
@@ -301,8 +301,8 @@ window.ext.popupform = ( function() {
 		jQuery(window).unbind( "resize", adjustFrameSize );
 		clearTimeout(timer);
 
-		fadeOut( container, function(){
-			$background.fadeOut( function(){
+		fadeOut( container, () => {
+			$background.fadeOut( () => {
 				$wrapper.remove();
 			});
 		});
@@ -349,32 +349,32 @@ window.ext.popupform = ( function() {
 		instance++;
 
 		brokenChrome =
-		( navigator.userAgent.indexOf("Chrome") >= 0 &&
-			navigator.platform.indexOf("Linux x86_64") >= 0 );
+		( navigator.userAgent.includes("Chrome") &&
+			navigator.platform.includes("Linux x86_64") );
 
 		brokenBrowser = brokenChrome;
 
-		var maxZIndex = 0;
+		let maxZIndex = 0;
 
 		jQuery("*").each(function() {
-			var curr = parseInt( jQuery( this ).css( "z-index" ) );
+			const curr = parseInt( jQuery( this ).css( "z-index" ) );
 			maxZIndex = curr > maxZIndex ? curr : maxZIndex;
 		});
 
 		$wrapper = jQuery( "<div class='popupform-wrapper' >" );
 		$background = jQuery( "<div class='popupform-background' >" );
 
-		var $waitIndicatorWrapper = jQuery( "<div class='popupform-loading'>" );
+		const $waitIndicatorWrapper = jQuery( "<div class='popupform-loading'>" );
 
 		$waitIndicator = jQuery( "<div class='popupform-loadingbg'></div><div class='popupform-loadingfg'></div>" );
 
-		var $anchor = jQuery( "<div class='popupform-anchor' >" );
+		const $anchor = jQuery( "<div class='popupform-anchor' >" );
 
 		container = jQuery( "<div class='popupform-container' >" );
 		$innerContainer = jQuery( "<div class='popupform-innercontainer' >" );
 		$iframe = jQuery( "<iframe class='popupform-innerdocument' name='popupform-iframe" + instance + "' id='popupform-iframe" + instance + "' >");
 
-		var $closeBtn = jQuery( "<div class='popupform-close'></div> " );
+		const $closeBtn = jQuery( "<div class='popupform-close'></div> " );
 
 		// initially hide background and waitIndicator
 		if (brokenChrome) {
@@ -418,23 +418,23 @@ window.ext.popupform = ( function() {
 	}
 
 	function purgePage() {
-		var path = location.pathname;
+		const path = location.pathname;
 		// get name of the current page from the url
-		var pageName = path.split("/").pop();
+		const pageName = path.split("/").pop();
 		return ( new mw.Api() ).post( { action: 'purge', titles: pageName } );
 	}
 
 	function handleSubmitData( event, returnedData, textStatus, XMLHttpRequest ){
-		fadeOut( container, function() {
+		fadeOut( container, () => {
 			fadeIn( $waitIndicator );
 		});
 
-		var $form = jQuery( event.target );
-		var formdata = $form.serialize() + "&wpSave=" + encodeURIComponent($form.find("#wpSave").attr("value"));
+		let $form = jQuery( event.target );
+		const formdata = $form.serialize() + "&wpSave=" + encodeURIComponent($form.find("#wpSave").attr("value"));
 
 		function handleInnerSubmit() {
 			// find form in fake edit page
-			var $innerform = jQuery("<div>" + returnedData + "</div>").find("form");
+			const $innerform = jQuery("<div>" + returnedData + "</div>").find("form");
 
 			// check if we got an error page
 			if ( $innerform.length === 0 ) {
@@ -453,7 +453,7 @@ window.ext.popupform = ( function() {
 
 				handleCloseFrame();
 				if ( reload ) {
-					purgePage().then( function( data ) {
+					purgePage().then( ( data ) => {
 						location.reload();
 					} );
 				}
@@ -461,19 +461,19 @@ window.ext.popupform = ( function() {
 			}
 
 			// Send the form data off, we do not care for the returned data
-			var innerformdata = $innerform.serialize();
+			const innerformdata = $innerform.serialize();
 			jQuery.post( $innerform.attr("action"), innerformdata );
 
 			// build new url for outer page (we have to ask for a purge)
 
-			var url = location.href;
+			let url = location.href;
 
 			// does a querystring exist?
-			var start = url.indexOf("action=");
+			const start = url.indexOf("action=");
 
 			if ( start >= 0 ) {
 
-				var stop = url.indexOf("&", start);
+				const stop = url.indexOf("&", start);
 
 				if ( stop >= 0 ) {
 					url = url.slice( 0, Math.max(0, start - 1) ) + url.slice(stop + 1);
@@ -489,7 +489,7 @@ window.ext.popupform = ( function() {
 			$form
 			.submit();
 
-			fadeOut( container, function(){
+			fadeOut( container, () => {
 				fadeIn( $waitIndicator );
 			});
 
@@ -509,7 +509,7 @@ window.ext.popupform = ( function() {
 	function closeFrameAndFollowLink( link ){
 		clearTimeout(timer);
 
-		fadeOut( container, function(){
+		fadeOut( container, () => {
 			fadeIn ( $waitIndicator );
 			window.location.href = link;
 		});
@@ -518,22 +518,20 @@ window.ext.popupform = ( function() {
 	// Saw it on http://robertnyman.com/2006/04/24/get-the-rendered-style-of-an-element
 	// and liked it
 	function getStyle(oElm, strCssRule){
-		var strValue = "";
+		let strValue = "";
 		if(document.defaultView && document.defaultView.getComputedStyle){
 			strValue = document.defaultView.getComputedStyle(oElm, "").getPropertyValue(strCssRule);
 		} else if(oElm.currentStyle){
-			strCssRule = strCssRule.replace(/\-(\w)/g, function(strMatch, p1) {
-				return p1.toUpperCase();
-			});
+			strCssRule = strCssRule.replace(/\-(\w)/g, (strMatch, p1) => p1.toUpperCase());
 			strValue = oElm.currentStyle[strCssRule];
 		}
 		return strValue;
 	}
 
 	function handleLoadFrame() {
-		var $iframecontents = $iframe.contents();
+		const $iframecontents = $iframe.contents();
 
-		var containerAlreadyVisible = container.is( ':visible' );
+		const containerAlreadyVisible = container.is( ':visible' );
 
 		if ( !containerAlreadyVisible ) {
 			// no need to hide it again
@@ -559,8 +557,8 @@ window.ext.popupform = ( function() {
 			$content = $iframecontents.find("#mw_content");
 		}
 
-		var $iframebody = $content.closest("body");
-		var $iframedoc = $iframebody.parent();
+		const $iframebody = $content.closest("body");
+		const $iframedoc = $iframebody.parent();
 
 		// This is not a normal MW page (or it uses an unknown skin)
 		if ( $content.length === 0 ) {
@@ -569,7 +567,7 @@ window.ext.popupform = ( function() {
 
 		// The huge left margin looks ugly in Vector - reduce it.
 		// (How does this look for other skins?)
-		var $siblings = $content
+		const $siblings = $content
 		.css( {
 			margin: 0,
 			padding: padding,
@@ -603,7 +601,7 @@ window.ext.popupform = ( function() {
 		$iframebody.height('100%').width('100%');
 
 		$siblings.each( function(){
-			var $elem = jQuery(this);
+			const $elem = jQuery(this);
 
 			// TODO: Does this really help?
 			if ( getStyle(this, "display") !== "none" && ! (
@@ -643,25 +641,25 @@ window.ext.popupform = ( function() {
 
 		// and attach event handler to adjust frame size every time the window
 		// size changes
-		jQuery( window ).resize( function() {
+		jQuery( window ).resize( () => {
 			adjustFrameSize();
 		} );
 
 		//interval = setInterval(adjustFrameSize, 100);
 
-		var $form = $content.find("#pfForm");
-		var innerwdw = document.getElementById( 'popupform-iframe' + instance ).contentWindow;
-		var innerJ = innerwdw.jQuery;
+		const $form = $content.find("#pfForm");
+		const innerwdw = document.getElementById( 'popupform-iframe' + instance ).contentWindow;
+		const innerJ = innerwdw.jQuery;
 
 		// if we have a form and it is not a RunQuery form
 		if ($form.length > 0 && ( typeof $form[0].wpRunQuery === 'undefined') ) {
-			var submitok = false;
-			var innersubmitprocessed = false;
+			let submitok = false;
+			let innersubmitprocessed = false;
 
 			// catch form submit event
 			$form
-			.bind( "submit", function( event ){
-				var interval = setInterval(function(){
+			.bind( "submit", ( event ) => {
+				var interval = setInterval(() => {
 					if ( innersubmitprocessed ) {
 						clearInterval( interval );
 						innersubmitprocessed = false;
@@ -678,7 +676,7 @@ window.ext.popupform = ( function() {
 			// catch inner form submit event
 			if ( innerJ ) {
 				innerwdw.jQuery($form[0])
-				.bind( "submit", function( event ) {
+				.bind( "submit", ( event ) => {
 						submitok = ( event.result === undefined ) ? true : event.result;
 						innersubmitprocessed = true;
 						return false;
@@ -691,13 +689,11 @@ window.ext.popupform = ( function() {
 
 		if (innerJ) {
 			// FIXME: Why did I put this in?
-			innerwdw.jQuery( innerwdw[0] ).on('unload', function(event) {
-				return false;
-			});
+			innerwdw.jQuery( innerwdw[0] ).on('unload', (event) => false);
 
 			//
-			$content.bind( 'click', function() {
-				var foundQueue = false;
+			$content.bind( 'click', () => {
+				let foundQueue = false;
 				innerJ('*', $content[0]).each( function() {
 					if ( innerJ(this).queue().length > 0 ) {
 						foundQueue = true;
@@ -713,7 +709,7 @@ window.ext.popupform = ( function() {
 				return true;
 			});
 		} else {
-			$content.bind( 'click', function() {
+			$content.bind( 'click', () => {
 					adjustFrameSize( true );
 			});
 		}
@@ -723,10 +719,10 @@ window.ext.popupform = ( function() {
 		// in the chain of event handlers as we only attach when the frame is
 		// already completely loaded, i.e. every inner event handler is already
 		// attached.
-		var allLinks = (innerJ)?innerJ("a[href]"):jQuery("a[href]");
+		const allLinks = (innerJ)?innerJ("a[href]"):jQuery("a[href]");
 
 		// catch 'Cancel'-Link (and other 'back'-links) and close frame instead of going back
-		var backlinks = allLinks.filter('a[href="javascript:history.go(-1);"]');
+		const backlinks = allLinks.filter('a[href="javascript:history.go(-1);"]');
 		backlinks.click(handleCloseFrame);
 
 		// promote any other links to open in main window, prevent nested browsing
@@ -735,7 +731,7 @@ window.ext.popupform = ( function() {
 		.not('a[target]')              // targeted links
 		.not('a[href^="#"]')           // local links
 		.not('a.pfUploadable')         // link to file upload
-		.click(function(event){
+		.click((event) => {
 			if ( event.result !== false ) { // if not already caught by somebody else
 				closeFrameAndFollowLink( event.target.getAttribute('href') );
 			}
@@ -744,7 +740,7 @@ window.ext.popupform = ( function() {
 
 		// finally show the frame, but only if it is not already visible
 		if ( ! containerAlreadyVisible ) {
-				fadeOut ( $waitIndicator, function() {
+				fadeOut ( $waitIndicator, () => {
 				fadeTo( container, 400, 1 );
 			} );
 		}
@@ -756,7 +752,7 @@ window.ext.popupform = ( function() {
 		showForm();
 		reload = $(elem).hasClass('reload');
 
-		$iframe.on( 'load', function(){
+		$iframe.on( 'load', () => {
 			// attach event handler to iframe
 			$iframe.bind( 'load', handleLoadFrame );
 			return false;
@@ -770,12 +766,12 @@ window.ext.popupform = ( function() {
 		showForm();
 		reload = $(elem).hasClass('reload');
 		// store initial readystate
-		var readystate = $iframe.contents()[0].readyState;
+		let readystate = $iframe.contents()[0].readyState;
 
 		// set up timer for waiting on the document in the iframe to be dom-ready
 		// this sucks, but there is no other way to catch that event
 		// onload is already too late
-		timer = setInterval(function(){
+		timer = setInterval(() => {
 			// if the readystate changed
 			if ( readystate !== $iframe.contents()[0].readyState ) {
 				// store new readystate
@@ -790,7 +786,7 @@ window.ext.popupform = ( function() {
 		}, 100 );
 
 		// fallback in case we did not catch the dom-ready state
-		$iframe.on('load', function( event ){
+		$iframe.on('load', ( event ) => {
 			if ( needsRender ) { // rendering not already done?
 				handleLoadFrame( event );
 			}
@@ -801,19 +797,19 @@ window.ext.popupform = ( function() {
 			elem.target = 'popupform-iframe' + instance;
 			return true;
 		} else {
-			var delim = ptarget.indexOf( '?' );
-			var form = document.createElement("form");
+			const delim = ptarget.indexOf( '?' );
+			const form = document.createElement("form");
 
 			form.target = 'popupform-iframe' + instance;
 
 			// Do we have parameters?
 			if ( delim > 0 ) {
 				form.action = ptarget.slice( 0, Math.max(0, delim) );
-				var params = String( ptarget.slice( delim + 1 ) ).split("&");
-				for ( var i = 0; i < params.length; ++i ) {
+				const params = String( ptarget.slice( delim + 1 ) ).split("&");
+				for ( let i = 0; i < params.length; ++i ) {
 
-					var input = document.createElement("input");
-					var param = String( params[i] ).split('=');
+					const input = document.createElement("input");
+					const param = String( params[i] ).split('=');
 					input.type = 'hidden';
 					input.name = decodeURIComponent( param[0] );
 					input.value = decodeURIComponent( param[1] );

@@ -9,9 +9,9 @@ if ( window.ext === null || typeof( window.ext ) === "undefined" ) {
 window.ext.wikieditor = {
 	// initialize the wikieditor on the specified element
 	init : function init ( inputId, params ) {
-		$( function() {
+		$( () => {
 			if ( mw ) {
-				var $input = $( '#' + inputId );
+				const $input = $( '#' + inputId );
 
 				// The code below this "if" clause does not
 				// work for MW 1.34 and higher. Therefore, this
@@ -24,13 +24,13 @@ window.ext.wikieditor = {
 				// themselves, with the following:
 				// https://github.com/Nikerabbit/mediawiki-extensions-WikiEditor/commit/9a1188d0850418d8ae64bd06b7f39d9a8cbf127f
 				if ( typeof( mw.addWikiEditor ) == 'function' ) {
-					mw.loader.using( [ 'ext.wikiEditor' ], function() {
+					mw.loader.using( [ 'ext.wikiEditor' ], () => {
 						mw.addWikiEditor( $input );
 					} );
 					return;
 				}
 
-				$.when( mw.loader.using( 'ext.wikiEditor' ), $.ready ).then( function() {
+				$.when( mw.loader.using( 'ext.wikiEditor' ), $.ready ).then( () => {
 					// load toolbar
 					$input.wikiEditor( 'addModule', $.wikiEditor.modules.toolbar.config.getDefaultConfig() );
 
