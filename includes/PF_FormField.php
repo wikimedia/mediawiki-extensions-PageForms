@@ -614,7 +614,8 @@ class PFFormField {
 				}
 				if ( trim( $template_instance_query_values[$fieldName] ) ) {
 					// Don't add the tag if field content has been removed.
-					$template_instance_query_values[$fieldName] = $tag . $template_instance_query_values[$fieldName];
+					$template_instance_query_values[$fieldName] = '<translate>' . $tag .
+						$template_instance_query_values[$fieldName] . '</translate>';
 				}
 			}
 			// If user has deleted some content, and there is some translate tag ("<!--T:X-->") with no content, remove the tag.
