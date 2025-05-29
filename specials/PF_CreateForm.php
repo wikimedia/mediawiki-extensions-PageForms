@@ -782,7 +782,7 @@ END;
 			foreach ( $param['values'] as $val ) {
 				$checkboxHTML = new OOUI\CheckboxInputWidget( [
 					'name' => 'p[' . $paramName . '][' . $val . ']',
-					'selected' => in_array( $val, $cur_values ) ? true : false,
+					'selected' => in_array( $val, $cur_values ),
 					'value' => in_array( $val, $cur_values ) ? 'on' : ''
 				] );
 				$text .= Html::rawElement( 'span', [

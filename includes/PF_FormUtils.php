@@ -524,7 +524,7 @@ END;
 		// We need to pass "false" in to the parse() $clearState param so that
 		// embedding Special:RunQuery will work.
 		$output = $parser->parse( $form_def, $title, $parser->getOptions(), true, false );
-		$form_def = $output->getText();
+		$form_def = $output->runOutputPipeline( $parser->getOptions() )->getContentHolderText();
 		$form_def = preg_replace_callback(
 			"/{$rnd}-item-(\d+)-{$rnd}/",
 			static function ( array $matches ) use ( $items ) {
