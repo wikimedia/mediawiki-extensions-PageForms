@@ -17,6 +17,8 @@
  * {{#arraymap:blue;red;yellow|;|x|[[x]]|;}}
  */
 
+use MediaWiki\Parser\Parser;
+
 class PFArrayMap {
 	public static function run( Parser $parser, $frame, $args ) {
 		// Set variables.

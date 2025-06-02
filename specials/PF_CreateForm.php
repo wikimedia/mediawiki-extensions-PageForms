@@ -9,6 +9,8 @@
  */
 
 use MediaWiki\Html\Html;
+use MediaWiki\Parser\ParserOptions;
+use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
 
 /**

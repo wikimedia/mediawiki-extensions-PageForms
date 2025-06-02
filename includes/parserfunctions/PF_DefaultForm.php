@@ -9,6 +9,7 @@
  * it specifies that the relevant page(s) should have no form.
  */
 
+use MediaWiki\Parser\Parser;
 use MediaWiki\Title\Title;
 
 class PFDefaultForm {

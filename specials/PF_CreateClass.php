@@ -12,6 +12,7 @@
 
 use MediaWiki\Html\Html;
 use MediaWiki\Page\WikiPageFactory;
+use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
 
 /**

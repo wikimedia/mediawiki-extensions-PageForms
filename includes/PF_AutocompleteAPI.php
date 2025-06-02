@@ -4,6 +4,7 @@
  * @ingroup PF
  */
 
+use MediaWiki\Api\ApiBase;
 use MediaWiki\Language\RawMessage;
 
 /**

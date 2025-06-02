@@ -8,6 +8,9 @@
  * @file
  * @ingroup PF
  */
+
+use MediaWiki\User\User;
+
 class PFPageSection {
 	private $mSectionName;
 	private $mSectionLevel = 2;

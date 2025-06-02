@@ -8,6 +8,7 @@
  * @ingroup PF
  */
 
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Html\Html;
 
 class PFDatePickerInput extends PFFormInput {
