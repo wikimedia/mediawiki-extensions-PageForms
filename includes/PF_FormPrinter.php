@@ -927,21 +927,11 @@ END;
 			$readOnlyMode = $services->getReadOnlyMode();
 			$permissionStatus = $permissionErrors = null;
 
-			if ( method_exists( $permissionManager, 'getPermissionStatus' ) ) {
-				// MW 1.43+
-				$permissionStatus = $permissionManager->getPermissionStatus( 'edit', $user, $this->mPageTitle );
-				if ( $readOnlyMode->isReadOnly() ) {
-					$permissionStatus->error( 'readonlytext', $readOnlyMode->getReason() );
-				}
-				$userCanEditPage = $permissionStatus->isOK();
-			} else {
-				// MW < 1.43
-				$permissionErrors = $permissionManager->getPermissionErrors( 'edit', $user, $this->mPageTitle );
-				if ( $readOnlyMode->isReadOnly() ) {
-					$permissionErrors = [ [ 'readonlytext', [ $readOnlyMode->getReason() ] ] ];
-				}
-				$userCanEditPage = count( $permissionErrors ) == 0;
+			$permissionStatus = $permissionManager->getPermissionStatus( 'edit', $user, $this->mPageTitle );
+			if ( $readOnlyMode->isReadOnly() ) {
+				$permissionStatus->error( 'readonlytext', $readOnlyMode->getReason() );
 			}
+			$userCanEditPage = $permissionStatus->isOK();
 
 			$hookContainer->run( 'PageForms::UserCanEditPage', [ $this->mPageTitle, &$userCanEditPage ] );
 		}
@@ -966,14 +956,7 @@ END;
 			$form_is_disabled = true;
 			if ( $wgOut->getTitle() != null ) {
 				$wgOut->setPageTitle( wfMessage( 'badaccess' )->text() );
-				if ( $permissionStatus ) {
-					$wgOut->addWikiTextAsInterface( $wgOut->formatPermissionStatus( $permissionStatus, 'edit' ) );
-				} else {
-					// MW < 1.43
-					$wgOut->addWikiTextAsInterface(
-						$wgOut->formatPermissionsErrorMessage( $permissionErrors, 'edit' )
-					);
-				}
+				$wgOut->addWikiTextAsInterface( $wgOut->formatPermissionStatus( $permissionStatus, 'edit' ) );
 				$wgOut->addHTML( "\n<hr />\n" );
 			}
 		}
