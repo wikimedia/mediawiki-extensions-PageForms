@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ahmed-Najib-Biabani-Ibrahimkhel"
+			"Ahmed-Najib-Biabani-Ibrahimkhel",
+			"شاه زمان پټان"
 		]
 	},
 	"createproperty": "يوه ځانتيا ځانگړې کول",
@@ -14,11 +15,11 @@
 	"pf_createtemplate_aggregationlabel": "د لړليک لپاره سرليک:",
 	"pf_createtemplate_standardformat": "لښتيال",
 	"pf_createtemplate_sectionsformat": "برخې",
-	"pf_createtemplate_deletefield": "ړنگول",
+	"pf_createtemplate_deletefield": "دا ډگر ړنگول",
 	"pf_forminputs_change_file": "دوتنه بدلول",
 	"pf_createform_template": "کينډۍ:",
 	"pf_createform_inputtypedefault": "(تلواليز)",
-	"pf_createform_hidden": "پټ",
+	"pf_createform_hidden": "(پټ‌شوی)",
 	"pf_createform_addtemplate": "کينډۍ ورگډول:",
 	"pf_createform_atend": "په پای کې",
 	"pf_createform_add": "ورگډول",
@@ -34,7 +35,7 @@
 	"pf_formedit_createtitlenotarget": "جوړول $1",
 	"pf_formedit_remove": "غورځول",
 	"pf_formedit_addanother": "يو بل ورگډول",
-	"pf_formedit_none": "هېڅ",
+	"pf_formedit_none": "هيڅ/ناڅرگند",
 	"pf_bad_email_error": "برېښليک‌پته مو بايد يوه سمه بڼه ولري",
 	"pf_bad_number_error": "بايد چې يوه سمه شمېره وي",
 	"pf_bad_date_error": "بايد چې يوه سمه نېټه وي",
