@@ -68,7 +68,7 @@ class PFUploadForm extends HTMLForm {
 			+ $this->getOptionsSection();
 
 		MediaWikiServices::getInstance()->getHookContainer()->run( 'UploadFormInitDescriptor', [ &$descriptor ] );
-		parent::__construct( $descriptor, $this->getContext() );
+		parent::__construct( $descriptor, $this->getContext(), 'upload' );
 
 		# Set some form properties
 		$this->setSubmitTextMsg( 'uploadbtn' );
@@ -122,7 +122,7 @@ class PFUploadForm extends HTMLForm {
 		if ( $this->mTextTop ) {
 			$descriptor['UploadFormTextTop'] = [
 				'type' => 'info',
-				'section' => 'upload-source',
+				'section' => 'source',
 				'default' => $this->mTextTop,
 				'raw' => true,
 			];
@@ -146,7 +146,7 @@ class PFUploadForm extends HTMLForm {
 
 		$descriptor['UploadFile'] = [
 			'class' => UploadSourceField::class,
-			'section' => 'upload-source',
+			'section' => 'source',
 			'type' => 'file',
 			'id' => 'wpUploadFile',
 			'label-message' => 'sourcefilename',
@@ -158,7 +158,7 @@ class PFUploadForm extends HTMLForm {
 		if ( $canUploadByUrl ) {
 			$descriptor['UploadFileURL'] = [
 				'class' => UploadSourceField::class,
-				'section' => 'upload-source',
+				'section' => 'source',
 				'id' => 'wpUploadFileURL',
 				'label-message' => 'sourceurl',
 				'upload-type' => 'url',
@@ -175,7 +175,7 @@ class PFUploadForm extends HTMLForm {
 
 		$descriptor['Extensions'] = [
 			'type' => 'info',
-			'section' => 'upload-source',
+			'section' => 'source',
 			'default' => $this->getExtensionsMessage(),
 			'raw' => true,
 		];
@@ -227,14 +227,14 @@ class PFUploadForm extends HTMLForm {
 		$descriptor = [
 			'DestFile' => [
 				'type' => 'text',
-				'section' => 'upload-description',
+				'section' => 'description',
 				'id' => 'wpDestFile',
 				'label-message' => 'destfilename',
 				'size' => 60,
 			],
 			'UploadDescription' => [
 				'type' => 'textarea',
-				'section' => 'upload-description',
+				'section' => 'description',
 				'id' => 'wpUploadDescription',
 				'label-message' => $this->mForReUpload
 					? 'filereuploadsummary'
@@ -246,13 +246,13 @@ class PFUploadForm extends HTMLForm {
 /*
 			'EditTools' => array(
 				'type' => 'edittools',
-				'section' => 'upload-description',
+				'section' => 'description',
 			),
 */
 			'License' => [
 				'type' => 'select',
 				'class' => Licenses::class,
-				'section' => 'upload-description',
+				'section' => 'description',
 				'id' => 'wpLicense',
 				'label-message' => 'license',
 			],
@@ -261,7 +261,7 @@ class PFUploadForm extends HTMLForm {
 		if ( $this->mTextAfterSummary ) {
 			$descriptor['UploadFormTextAfterSummary'] = [
 				'type' => 'info',
-				'section' => 'upload-description',
+				'section' => 'description',
 				'default' => $this->mTextAfterSummary,
 				'raw' => true,
 			];
@@ -282,13 +282,13 @@ class PFUploadForm extends HTMLForm {
 		if ( $wgUseCopyrightUpload ) {
 			$descriptor['UploadCopyStatus'] = [
 				'type' => 'text',
-				'section' => 'upload-description',
+				'section' => 'description',
 				'id' => 'wpUploadCopyStatus',
 				'label-message' => 'filestatus',
 			];
 			$descriptor['UploadSource'] = [
 				'type' => 'text',
-				'section' => 'upload-description',
+				'section' => 'description',
 				'id' => 'wpUploadSource',
 				'label-message' => 'filesource',
 			];
@@ -309,7 +309,7 @@ class PFUploadForm extends HTMLForm {
 				'type' => 'check',
 				'id' => 'wpWatchthis',
 				'label-message' => 'watchthisupload',
-				'section' => 'upload-options',
+				'section' => 'options',
 			]
 		];
 		if ( !$this->mHideIgnoreWarning ) {
@@ -317,7 +317,7 @@ class PFUploadForm extends HTMLForm {
 				'type' => 'check',
 				'id' => 'wpIgnoreWarning',
 				'label-message' => 'ignorewarnings',
-				'section' => 'upload-options',
+				'section' => 'options',
 			];
 		}
 		$descriptor['DestFileWarningAck'] = [
