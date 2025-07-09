@@ -737,5 +737,10 @@
 		"PageFormsEmbeddedTemplates": [],
 		"PageFormsEmbedQueryCacheTTL": 0
 	},
+	"ForeignResourcesDir": "libs",
+	"AutoloadNamespaces": {
+		"MediaWiki\\Extension\\PageForms\\": "includes/"
+	},
+
 	"manifest_version": 1
 }

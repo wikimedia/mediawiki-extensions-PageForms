@@ -1,0 +1,117 @@
+# This file is used to track foreign resources used by Page Forms.
+# It is used by the build process to download and package these resources.
+# The resources are listed in alphabetical order by name.
+fullcalendar:
+  license: MIT
+  homepage: https://fullcalendar.io
+  authors: Adam Shaw
+  version: 6.1.18
+  purl: pkg:npm/@fullcalendar/core@6.1.18
+  type: tar
+  src: https://registry.npmjs.org/@fullcalendar/core/-/core-6.1.18.tgz
+  integrity: sha512-cD7XtZIZZ87Cg2+itnpsONCsZ89VIfLLDZ22pQX4IQVWlpYUB3bcCf878DhWkqyEen6dhi5ePtBoqYgm5K+0fQ==
+  dest:
+    package/*.js:
+    package/*.ts:
+    package/*.cjs:
+    package/locales/:
+    package/*.map:
+    package/LICENSE.md:
+    package/README.md:
+
+jquery:
+  license: MIT
+  homepage: https://jquery.com
+  authors: OpenJS Foundation and other contributors
+  version: 3.7.1
+  type: multi-file
+  files:
+    # Integrities from link modals https://code.jquery.com/jquery/
+    jquery.js:
+      src: https://code.jquery.com/jquery-3.7.1.js
+      integrity: sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=
+
+jsTree:
+  license: MIT
+  homepage: https://jstree.com
+  authors: Ivan Bozhanov
+  version: 3.3.17
+  purl: pkg:npm/jstree@3.3.17
+  type: tar
+  src: https://registry.npmjs.org/jstree/-/jstree-3.3.17.tgz
+  integrity: sha512-V0Pl1B6BIaxHUQMiWkol37QlhlBKoZA9RUeUmm95+UnV2QeZsj2QP1sOQl/m2EIOyZXOOxOHvR0SYZLSDC7EFw==
+  dest:
+    package/dist/jstree.js:
+    package/dist/themes/default/style.css:
+    package/dist/themes/default/32px.png:
+    package/dist/themes/default/40px.png:
+    package/dist/themes/default/throbber.gif:
+    package/LICENSE.txt:
+    package/README.md:
+
+jquery.browser:
+  license: MIT
+  homepage: https://github.com/gabceb/jquery-browser-plugin
+  authors: Gabriel Cebrian, jQuery Team
+  version: 0.1.0
+  purl: pkg:github/gabceb/jquery-browser-plugin@0.1.0
+  type: tar
+  src: https://registry.npmjs.org/jquery.browser/-/jquery.browser-0.1.0.tgz
+  integrity: sha512-5GjtLzzEBzxs/nwSVpCbSdk0acssfKsP7Upp43zmdHVV1Vb6E9VayyqPAQlfLrTeZL3YSWocCbkOvKdAc2CN4g==
+  dest:
+    package/dist/jquery-broswer.js:
+    package/AUTHORS.txt:
+    package/LICENSE-MIT:
+    package/README.md:
+
+jquery.rateyo:
+  license: MIT
+  homepage: https://rateyo.fundoocode.ninja/
+  authors: Prashanth Pamidi and other contributors
+  version: 3.2.0
+  purl: pkg:npm/@rateyo/jquery@3.2.0
+  type: tar
+  src: https://registry.npmjs.org/@rateyo/jquery/-/jquery-3.2.0.tgz
+  integrity: sha512-SQDl+J+KP4Cm+3IuxnWza6IWOLO/q9nbQyMKx159AW187Mbio8z9CmYMH9hL/e5r3UuKfNCFSHo/ReKRZCjHCA==
+  dest:
+    package/lib/jquery.rateyo.js:
+    package/lib/jquery.rateyo.min.js:
+    package/lib/jquery.rateyo.css:
+    package/LICENSE:
+    package/README.md:
+
+leaflet:
+  license: BSD-2-Clause
+  homepage: https://leafletjs.com
+  authors: Vladimir Agafonkin, Jack Dougherty, and other contributors
+  version: 1.9.4
+  purl: pkg:npm/leaflet@1.9.4
+  type: tar
+  src: https://registry.npmjs.org/leaflet/-/leaflet-1.9.4.tgz
+  integrity: sha512-nxS1ynzJOmOlHp+iL3FyWqK89GtNL8U8rvlMOsQdTTssxZwCXh8N2NB3GDQOL+YR3XnWyZAxwQixURb+FA74PA==
+  dest:
+    package/dist/leaflet.js:
+    package/dist/leaflet.css:
+    package/dist/images/layers.png:
+    package/dist/images/layers-2x.png:
+    package/dist/images/marker-icon.png:
+    package/dist/images/marker-icon-2x.png:
+    package/dist/images/marker-shadow.png:
+    package/LICENSE.txt:
+    package/README.md:
+
+select2:
+  license: MIT
+  homepage: https://select2.org
+  authors: Kevin Brown and other contributors
+  version: 4.1.0-rc.0
+  purl: pkg:npm/select2@4.1.0-rc.0
+  type: tar
+  src: https://registry.npmjs.org/select2/-/select2-4.1.0-rc.0.tgz
+  integrity: sha512-Hr9TdhyHCZUtwznEH2CBf7967mEM0idtJ5nMtjvk3Up5tPukOLXbHUNmh10oRfeNIhj+3GD3niu+g6sVK+gK0A==
+  dest:
+    package/dist/css/*.css:
+    package/dist/js/*.js:
+    package/dist/js/i18n/*.js:
+    package/LICENSE.md:
+    package/README.md:
