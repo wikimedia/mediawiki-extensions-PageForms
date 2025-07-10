@@ -1,27 +1,19 @@
 /* eslint-env node */
 module.exports = function (grunt) {
-	const conf = grunt.file.readJSON( 'extension.json' );
 	grunt.loadNpmTasks( 'grunt-eslint' );
 	grunt.loadNpmTasks( 'grunt-banana-checker' );
 
 	grunt.initConfig( {
 		eslint: {
 			options: {
-				cache: true
+				cache: true,
+				fix: grunt.option( 'fix' )
 			},
 			all: [
 				'**/*.{js,json}',
 				'!node_modules/**',
 				'!vendor/**',
-				'!libs/jquery.browser.js',
-				'!libs/jquery.rateyo.js',
-				'!libs/FullCalendar/fullcalendar.js',
-				'!libs/FullCalendar/locale-all.js',
-				'!libs/jstree.js',
-				'!libs/jsuites.js',
-				'!libs/jspreadsheet.js',
-				'!libs/select2.js',
-				'!libs/Sortable.js'
+				'!libs/foreign/**'
 			]
 		},
 		banana: {

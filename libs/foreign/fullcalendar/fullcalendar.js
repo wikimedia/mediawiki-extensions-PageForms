@@ -2155,7 +2155,7 @@ and fires these events as-is to whoever is observing a GlobalEmitter.
 Best when used as a singleton via GlobalEmitter.get()
 
 Normalizes mouse/touch events. For examples:
-- ignores the simulated mouse events that happen after a quick tap: mousemove+mousedown+mouseup+click
+- ignores the the simulated mouse events that happen after a quick tap: mousemove+mousedown+mouseup+click
 - compensates for various buggy scenarios where a touchend does not fire
 */
 var GlobalEmitter = /** @class */ (function () {
@@ -3885,7 +3885,7 @@ var View = /** @class */ (function (_super) {
         if (dateMutation) {
             eventInstance.dateProfile = dateMutation.buildNewDateProfile(eventInstance.dateProfile, this.calendar);
         }
-        this.triggerEventDrop(eventInstance,
+        this.triggerEventDrop(eventInstance, 
         // a drop doesn't necessarily mean a date mutation (ex: resource change)
         (dateMutation && dateMutation.dateDelta) || moment.duration(), undoFunc, el, ev);
     };

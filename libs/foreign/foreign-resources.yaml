@@ -1,0 +1,148 @@
+# This file is used to track foreign resources used by Page Forms.
+# It is used by the build process to download and package these resources.
+# The resources are listed in alphabetical order by name.
+fullcalendar:
+  license: MIT
+  homepage: https://fullcalendar.io
+  authors: Adam Shaw
+  version: 3.9.0
+  type: tar
+  src: https://registry.npmjs.org/fullcalendar/-/fullcalendar-3.9.0.tgz
+  integrity: sha512-bbALDK8+SBqluv8SKPDeVNtaSr87NYblte/pRgV5NnDJWCEARpRlQ1qQ/XEakcAXbMZov6rWYIvLOrtKwQo2Bg==
+  dest:
+    package/dist/fullcalendar.js:
+    package/dist/fullcalendar.css:
+    package/dist/locale-all.js:
+    package/LICENSE.txt:
+    package/README.md:
+    package/CONTRIBUTING.md:
+    package/CHANGELOG.md:
+
+jstree:
+  license: MIT
+  homepage: https://jstree.com
+  authors: Ivan Bozhanov
+  version: 3.3.10
+  purl: pkg:npm/jstree@3.3.10
+  type: doc-only
+  src: https://registry.npmjs.org/jstree/-/jstree-3.3.10.tgz
+  integrity: sha512-TDhwTy24ZKCVei0gLRxnH5PQuX77nqlG7bhQh+UDTeOxC2xdhDrS1x7YtbjLVlSxmH7USnA/WIeVOGN/m3D0QA==
+  dest:
+    # package/dist/jstree.js:
+    package/LICENSE-MIT:
+    package/README.md:
+
+jquery.browser:
+  license: MIT
+  homepage: https://github.com/gabceb/jquery-browser-plugin
+  authors: Gabriel Cebrian, jQuery Team
+  version: 0.1.0
+  purl: pkg:github/gabceb/jquery-browser-plugin@0.1.0
+  type: tar
+  src: https://registry.npmjs.org/jquery.browser/-/jquery.browser-0.1.0.tgz
+  integrity: sha512-5GjtLzzEBzxs/nwSVpCbSdk0acssfKsP7Upp43zmdHVV1Vb6E9VayyqPAQlfLrTeZL3YSWocCbkOvKdAc2CN4g==
+  dest:
+    package/dist/jquery.browser.js:
+    package/MIT-LICENSE.txt:
+    package/README.md:
+
+jquery.rateyo:
+  license: MIT
+  homepage: https://rateyo.fundoocode.ninja/
+  authors: Prashanth Pamidi and other contributors
+  version: 2.3.2
+  purl: pkg:npm/rateyo@2.3.2
+  type: tar
+  src: https://registry.npmjs.org/rateyo/-/rateyo-2.3.2.tgz
+  integrity: sha512-aSWnlw4fw7KNKUtXNYeizyN9jG8FKgAwxCnw6+FUtnJNcN/GJGSwiManum7jMMlUWRVoeSTS7gyqMuTLw2xrdw==
+  dest:
+    package/src/jquery.rateyo.js:
+    package/src/jquery.rateyo.css:
+
+leaflet:
+  license: BSD-2-Clause
+  homepage: https://leafletjs.com
+  authors: Vladimir Agafonkin, Jack Dougherty, and other contributors
+  version: 1.1.0
+  purl: pkg:npm/leaflet@1.1.0
+  type: tar
+  src: https://registry.npmjs.org/leaflet/-/leaflet-1.1.0.tgz
+  integrity: sha512-JK2bT5tZnLQlNuLa8pjOvUC/c/t4MfXBPZyrNK3C1BBxfX1rMHxFC2DvVCNd8esRjDtEddnwSTlv54sC5gvtMQ==
+  dest:
+    package/dist/leaflet.js:
+    package/dist/leaflet.css:
+    package/LICENSE:
+    package/README.md:
+    package/CHANGELOG.md:
+
+select2:
+  license: MIT
+  homepage: https://select2.org
+  authors: Kevin Brown and other contributors
+  version: 4.0.13
+  purl: pkg:npm/select2@4.0.13
+  type: doc-only
+  src: https://registry.npmjs.org/select2/-/select2-4.0.13.tgz
+  integrity: sha512-1JeB87s6oN/TDxQQYCvS5EFoQyvV6eYMZZ0AeA4tdFDYWN3BAGZ8npr17UBFddU0lgAt3H0yjX3X6/ekOj1yjw==
+  dest:
+    # package/dist/js/select2.js:
+    package/dist/css/select2.css:
+    package/LICENSE.md:
+    package/README.md:
+    package/CHANGELOG.md:
+
+jspreadsheet:
+  license: MIT
+  homepage: https://jspreadsheethttps://github.com/jspreadsheet/ce
+  authors: Jspreadsheet Team
+  version: 4.6.0
+  purl: pkg:npm/jspreadsheet@4.6.0
+  type: doc-only
+  src: https://registry.npmjs.org/jspreadsheet-ce/-/jspreadsheet-ce-4.6.0.tgz
+  integrity: sha512-kLDO+PmwLmpDj0ltCKwBLXGN4eZV3zyt/MWAmWtA8zl8oonrYg53Z1eChaXWFrMwGNnu1DqgChBfPppa5XYZjg==
+  dest:
+    package/dist/jexcel.js:
+    package/dist/jexcel.css:
+    package/README.md:
+
+jsuites:
+  license: MIT
+  homepage: https://github.com/jsuites/jsuites
+  authors: jSuites Team
+  version: 3.5.4
+  purl: pkg:npm/jsuites@3.5.4
+  type: tar
+  src: https://registry.npmjs.org/jsuites/-/jsuites-3.5.4.tgz
+  integrity: sha512-shpox1+Q//3m0PNzGAHeiOH8GYCAB5gEj5PUjSXxfDaQtQgbygV4nPlCFkyH39RHZ4smIlriR3A3o+b9IFVc4A==
+  dest:
+    package/dist/jsuites.js:
+    package/dist/jsuites.css:
+    package/LICENSE:
+    package/README.md:
+
+jquery.mousewheel:
+  license: MIT
+  homepage: https://github.com/jquery/jquery-mousewheel
+  authors: Brandon Aaron and other contributors
+  version: 3.1.13
+  purl: pkg:npm/jquery-mousewheel@3.1.13
+  type: tar
+  src: https://registry.npmjs.org/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz
+  integrity: sha512-GXhSjfOPyDemM005YCEHvzrEALhKDIswtxSHSR2e4K/suHVJKJxxRCGz3skPjNxjJjQa9AVSGGlYjv1M3VLIPg==
+  dest:
+    package/jquery.mousewheel.js:
+    package/LICENSE.txt:
+    package/README.md:
+    package/ChangeLog.md:
+
+sortablejs:
+  license: MIT
+  homepage: https://github.com/SortableJS/Sortable
+  authors: RubaXa and other contributors
+  version: 1.8.0-rc1
+  purl: pkg:npm/sortablejs@1.8.0-rc1
+  type: tar
+  src: https://registry.npmjs.org/sortablejs/-/sortablejs-1.8.0-rc1.tgz
+  integrity: sha512-umyNbQVDwRgc0SZvUB+FRUIUqACnu5vCCmK0zv/xWA3eDSOh+IZsg3GHdWvEOcUBwnykqyk760+YPgVa8HfxFg==
+  dest:
+    package/Sortable.js:

@@ -216,7 +216,7 @@
 		},
 		"ext.pageforms.browser": {
 			"scripts": [
-				"libs/jquery.browser.js"
+				"libs/foreign/jquery.browser/jquery.browser.js"
 			],
 			"targets": [
 				"desktop",
@@ -225,12 +225,21 @@
 		},
 		"ext.pageforms.jstree": {
 			"scripts": [
-				"libs/jstree.js",
+				"libs/foreign/jstree/jstree.js",
 				"libs/PF_tree.js"
 			],
-			"styles": [
-				"skins/jstree/jstree.css"
+			"styles": "skins/jstree/jstree.css",
+			"dependencies": "ext.pageforms",
+			"targets": [
+				"desktop",
+				"mobile"
+			]
+		},
+		"ext.pageforms.leaflet": {
+			"scripts": [
+				"libs/foreign/leaflet/leaflet.js"
 			],
+			"styles": "libs/foreign/leaflet/leaflet.css",
 			"dependencies": "ext.pageforms",
 			"targets": [
 				"desktop",
@@ -239,7 +248,7 @@
 		},
 		"ext.pageforms.sortable": {
 			"scripts": [
-				"libs/Sortable.js"
+				"libs/foreign/sortablejs/Sortable.js"
 			],
 			"targets": [
 				"desktop",
@@ -281,10 +290,12 @@
 		},
 		"ext.pageforms.autoeditrating": {
 			"scripts": [
-				"libs/jquery.rateyo.js",
+				"libs/foreign/jquery.rateyo/jquery.rateyo.js",
 				"libs/PF_AutoEditRating.js"
 			],
-			"styles": "skins/jquery.rateyo.css",
+			"styles": [
+				"libs/foreign/jquery.rateyo/jquery.rateyo.css"
+			],
 			"dependencies": [
 				"oojs-ui-windows"
 			],
@@ -397,7 +408,7 @@
 		},
 		"ext.pageforms.rating": {
 			"scripts": [
-				"libs/jquery.rateyo.js",
+				"libs/foreign/jquery.rateyo/jquery.rateyo.js",
 				"libs/PF_rating.js"
 			],
 			"dependencies": [
@@ -409,7 +420,7 @@
 			]
 		},
 		"ext.pageforms.rating.styles": {
-			"styles": "skins/jquery.rateyo.css"
+			"styles": "libs/foreign/jquery.rateyo/jquery.rateyo.css"
 		},
 		"ext.pageforms.simpleupload": {
 			"scripts": [
@@ -427,7 +438,8 @@
 		},
 		"ext.pageforms.select2": {
 			"scripts": [
-				"libs/select2.js",
+				"libs/foreign/select2/select2.js",
+				"libs/foreign/jquery.mousewheel/jquery.mousewheel.js",
 				"libs/ext.pf.select2.base.js",
 				"libs/ext.pf.select2.tokens.js"
 			],
@@ -447,7 +459,7 @@
 		},
 		"ext.pageforms.select2.styles": {
 			"styles": [
-				"skins/select2/select2.css",
+				"libs/foreign/select2/select2.css",
 				"skins/select2/select2-bootstrap.css",
 				"skins/ext.pf.select2.css"
 			]
@@ -506,11 +518,11 @@
 		},
 		"ext.pageforms.fullcalendar": {
 			"scripts": [
-				"libs/FullCalendar/fullcalendar.js",
+				"libs/foreign/fullcalendar/fullcalendar.js",
 				"libs/PF_FullCalendar.js"
 			],
 			"styles": [
-				"skins/FullCalendar/fullcalendar.css",
+				"libs/foreign/fullcalendar/fullcalendar.css",
 				"skins/PF_FullCalendar.css"
 			],
 			"dependencies": [
@@ -532,15 +544,15 @@
 		},
 		"ext.pageforms.spreadsheet": {
 			"scripts": [
-				"libs/jsuites.js",
-				"libs/jspreadsheet.js",
+				"libs/foreign/jsuites/jsuites.js",
+				"libs/foreign/jspreadsheet/jexcel.js",
 				"libs/PF_spreadsheet.js",
 				"libs/PF_SpreadsheetAutocompleteWidget.js",
 				"libs/PF_SpreadsheetComboBoxInput.js"
 			],
 			"styles": [
-				"skins/jsuites.css",
-				"skins/jspreadsheet.css",
+				"libs/foreign/jspreadsheet/jexcel.css",
+				"libs/foreign/jsuites/jsuites.css",
 				"skins/PF_spreadsheet.css"
 			],
 			"dependencies": [
@@ -706,7 +718,7 @@
 		"PageFormsRenameEditTabs": false,
 		"PageFormsRenameMainEditTab": false,
 		"PageFormsMainFormsMinimum": 0.01,
-		"PageFormsListSeparator":  ",",
+		"PageFormsListSeparator": ",",
 		"PageForms24HourTime": false,
 		"PageFormsCacheFormDefinitions": false,
 		"PageFormsFormCacheType": null,
@@ -731,16 +743,14 @@
 		"PageFormsDependentFields": [],
 		"PageFormsCheckboxesSelectAllMinimum": 10,
 		"PageFormsMapsWithFeeders": [],
-		"PageFormsAutoeditNamespaces": [ 0 ],
+		"PageFormsAutoeditNamespaces": [
+			0
+		],
 		"PageFormsAutoCreateUser": null,
 		"PageFormsIgnoreTitlePattern": [],
 		"PageFormsEmbeddedTemplates": [],
 		"PageFormsEmbedQueryCacheTTL": 0
 	},
-	"ForeignResourcesDir": "libs",
-	"AutoloadNamespaces": {
-		"MediaWiki\\Extension\\PageForms\\": "includes/"
-	},
-
+	"ForeignResourcesDir": "libs/foreign",
 	"manifest_version": 1
 }

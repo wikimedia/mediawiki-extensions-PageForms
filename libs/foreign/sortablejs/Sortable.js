@@ -11,7 +11,7 @@
 	if (typeof define === "function" && define.amd) {
 		define(factory);
 	}
-	// Commented out for Page Forms.
+// Commented out for Page Forms.
 //	else if (typeof module != "undefined" && typeof module.exports != "undefined") {
 //		module.exports = factory();
 //	}
@@ -826,7 +826,8 @@
 			if (!ghostEl) {
 				var rect = dragEl.getBoundingClientRect(),
 					css = _css(dragEl),
-					options = this.options;
+					options = this.options,
+					ghostRect;
 
 				ghostEl = dragEl.cloneNode(true);
 
@@ -846,6 +847,11 @@
 				_css(ghostEl, 'pointerEvents', 'none');
 
 				options.fallbackOnBody && document.body.appendChild(ghostEl) || rootEl.appendChild(ghostEl);
+
+				// Fixing dimensions.
+				ghostRect = ghostEl.getBoundingClientRect();
+				_css(ghostEl, 'width', rect.width * 2 - ghostRect.width);
+				_css(ghostEl, 'height', rect.height * 2 - ghostRect.height);
 			}
 		},
 
@@ -973,7 +979,7 @@
 			) {
 				var direction;
 				var axis = this._getDirection(evt, target);
-				
+
 
 				dragRect = dragEl.getBoundingClientRect();
 
@@ -1034,7 +1040,7 @@
 					}
 				}
 				else if (target && !target.animated && target !== dragEl && (target.parentNode[expando] !== void 0) && target !== el) {
-					
+
 					isCircumstantialInvert = isCircumstantialInvert || options.invertSwap || dragEl.parentNode !== el || !this._isAligned;
 					direction = _getSwapDirection(evt, target, axis,
 						options.swapThreshold, options.invertedSwapThreshold,

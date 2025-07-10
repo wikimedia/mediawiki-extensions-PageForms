@@ -1,7 +1,7 @@
 /* global moment */
 ( function () {
 
-	mw.widgets.PFDateInputWidget = function PFDateInputWidget(config ) {
+	mw.widgets.PFDateInputWidget = function PFDateInputWidget( config ) {
 		let inputFormat;
 
 		if ( config.inputFormat ) {
@@ -85,13 +85,13 @@
 		parsedDatePartsLength = moment.parsingFlags().parsedDateParts.length;
 		if ( parsedDatePartsLength === 1 ) {
 			// Minimum length of the input format for a year
-			format = inputFormat[0];
+			format = inputFormat[ 0 ];
 		} else {
 			// Maximum length of the input format by default
-			format = inputFormat[inputFormat.length - 1];
-			if ( parsedDatePartsLength === 2 && format.includes('D') ) {
+			format = inputFormat[ inputFormat.length - 1 ];
+			if ( parsedDatePartsLength === 2 && format.includes( 'D' ) ) {
 				// Use shorter format when day is not in moment but format has day
-				format = inputFormat[inputFormat.length - 2];
+				format = inputFormat[ inputFormat.length - 2 ];
 			}
 		}
 		if ( !this.inTextInput ) {
