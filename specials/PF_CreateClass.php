@@ -34,7 +34,7 @@ class PFCreateClass extends SpecialPage {
 		if ( !$this->getUser()->isAllowed( 'createclass' ) ) {
 			$this->displayRestrictionError();
 		}
-		$this->printCreateClassForm( $query );
+		$this->printCreateClassForm();
 	}
 
 	private function createAllPages() {
@@ -204,7 +204,7 @@ class PFCreateClass extends SpecialPage {
 		$out->addWikiMsg( 'pf_createclass_success' );
 	}
 
-	private function printCreateClassForm( $query ) {
+	private function printCreateClassForm() {
 		$lang = $this->getLanguage();
 		$out = $this->getOutput();
 		$req = $this->getRequest();

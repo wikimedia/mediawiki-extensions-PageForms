@@ -469,7 +469,7 @@ END;
 	public static function getCargoFieldDescription( $cargoTable, $cargoField ) {
 		try {
 			$tableSchemas = CargoUtils::getTableSchemas( [ $cargoTable ] );
-		} catch ( MWException $e ) {
+		} catch ( MWException ) {
 			return null;
 		}
 		if ( !array_key_exists( $cargoTable, $tableSchemas ) ) {

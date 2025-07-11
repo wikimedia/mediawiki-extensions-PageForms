@@ -2075,7 +2075,7 @@ END;
 			$text = $form_input->getHtmlText();
 		}
 
-		$this->addTranslatableInput( $form_field, $cur_value, $text );
+		$this->addTranslatableInput( $form_field, $text );
 		return $text;
 	}
 
@@ -2084,10 +2084,9 @@ END;
 	 * translate tag.
 	 *
 	 * @param PFFormField $form_field
-	 * @param string $cur_value
 	 * @param string &$text
 	 */
-	private function addTranslatableInput( $form_field, $cur_value, &$text ) {
+	private function addTranslatableInput( $form_field, &$text ) {
 		if ( !PFUtils::isTranslateEnabled() || !$form_field->hasFieldArg( 'translatable' ) || !$form_field->getFieldArg( 'translatable' ) ) {
 			return;
 		}

@@ -175,7 +175,7 @@ class PFTemplateDisplay {
 
 		try {
 			[ $lat, $lon ] = CargoUtils::parseCoordinatesString( $coordinatesStr );
-		} catch ( MWException $e ) {
+		} catch ( MWException ) {
 			return '';
 		}
 		$valuesTable = [ [ 'Coords  lat' => $lat, 'Coords  lon' => $lon ] ];
@@ -193,7 +193,7 @@ class PFTemplateDisplay {
 			$text = $mappingFormat->display( $valuesTable,
 				$formattedValuesTable, $fieldDescriptions,
 				$displayParams );
-		} catch ( MWException $e ) {
+		} catch ( MWException ) {
 			return '';
 		}
 		return $text;

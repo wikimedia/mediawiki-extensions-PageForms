@@ -112,7 +112,7 @@ class PFCreateCategory extends SpecialPage {
 				]
 			);
 
-		} catch ( MWException $e ) {
+		} catch ( MWException ) {
 			// If we're here, it's probably because no forms have
 			// been defined on this wiki. If that's the case, just
 			// leave out the form selector.

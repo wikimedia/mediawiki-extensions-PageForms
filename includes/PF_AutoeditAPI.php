@@ -619,7 +619,7 @@ class PFAutoeditAPI extends ApiBase {
 				$this->logMessage( 'User tried to create a blank page', self::DEBUG );
 				try {
 					$contextTitle = $editor->getContextTitle();
-				} catch ( Exception $e ) {
+				} catch ( Exception ) {
 					// getContextTitle() throws an exception
 					// if there's no context title - this
 					// happens when using the one-stop process.
