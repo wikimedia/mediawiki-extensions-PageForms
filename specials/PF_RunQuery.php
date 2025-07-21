@@ -112,8 +112,11 @@ class PFRunQuery extends IncludableSpecialPage {
 				$out->addHeadItem( $key, "\t\t" . $item . "\n" );
 			}
 
-			PFUtils::getParser()->setOptions( ParserOptions::newFromUser( $user ) );
-			$resultsText = PFUtils::getParser()->parse( $data_text, $this->getPageTitle(), PFUtils::getParser()->getOptions(), true, false )->getText();
+			$parser = PFUtils::getParser();
+			$parser->setOptions( ParserOptions::newFromUser( $user ) );
+			$parserOptions = $parser->getOptions();
+			$parserOutput = $parser->parse( $data_text, $this->getPageTitle(), $parserOptions, true, false );
+			$resultsText = $parserOutput->runOutputPipeline( $parserOptions )->getContentHolderText();
 		}
 
 		// Get the full text of the form.
