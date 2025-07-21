@@ -27,8 +27,8 @@ class PFUploadForm extends HTMLForm {
 	/** @var string raw html */
 	protected $mTextAfterSummary;
 
-	/** @var array */
-	protected $mMaxUploadSize = [];
+	/** @var int[] */
+	protected $mMaxUploadSize;
 
 	/** @var string */
 	private $mDestFile;
@@ -61,6 +61,14 @@ class PFUploadForm extends HTMLForm {
 
 		$this->mTextTop = $options['texttop'] ?? '';
 		$this->mTextAfterSummary = $options['textaftersummary'] ?? '';
+
+		$this->mMaxUploadSize = [
+			'file' => min(
+				UploadBase::getMaxUploadSize( 'file' ),
+				UploadBase::getMaxPhpUploadSize()
+			),
+			'url' => UploadBase::getMaxUploadSize( 'url' ),
+		];
 
 		$sourceDescriptor = $this->getSourceSection();
 		$descriptor = $sourceDescriptor
@@ -127,11 +135,6 @@ class PFUploadForm extends HTMLForm {
 				'raw' => true,
 			];
 		}
-
-		$this->mMaxUploadSize['file'] = min(
-			UploadBase::getMaxUploadSize( 'file' ),
-			UploadBase::getMaxPhpUploadSize()
-		);
 
 		$help = $this->msg( 'upload-maxfilesize',
 				$this->getContext()->getLanguage()->formatSize( $this->mMaxUploadSize['file'] )
