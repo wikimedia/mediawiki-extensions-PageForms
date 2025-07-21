@@ -25,6 +25,7 @@
 
 	// Prevent multiple submission of form
 	jQuery.fn.preventDoubleSubmission = function() {
+		$form = $( '#pfForm' );
 		$( this ).on( 'submit', (e) => {
 			if ( $form.data('submitted') === true ) {
 				// Previously submitted - don't submit again
