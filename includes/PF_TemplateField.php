@@ -131,6 +131,8 @@ class PFTemplateField {
 				$f->mHoldsTemplate = $value;
 			} elseif ( $key == 'category' ) {
 				$f->mCategory = $value;
+			} elseif ( $key == 'form' ) {
+				$f->mForm = $value;
 			}
 		}
 		// Delimiter should default to ','.
