@@ -188,9 +188,17 @@ $( () => {
 			jQuery('input[name="use_fullwikitext"]').attr('value', '0');
 		}
 	} );
-	jQuery( ".createTemplateAddField" ).click( function() {
-		$( this ).createTemplateAddField( false );
-	} );
+	jQuery( ".createTemplateAddField" )
+		.on( 'click', function() {
+			$( this ).createTemplateAddField( false );
+		})
+		.on( 'keydown', function( e ) {
+			if ( e.key === 'Enter' || e.key === ' ' ) {
+				e.preventDefault();
+				$( this ).createTemplateAddField( false );
+			}
+		});
+
 	jQuery( ".addAboveButton" ).click( function() {
 		$( this ).createTemplateAddField( true );
 	} );
