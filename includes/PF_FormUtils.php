@@ -535,8 +535,8 @@ END;
 		);
 
 		if ( $output->getCacheTime() == -1 ) {
-			$form_article = Article::newFromID( $form_id );
-			self::purgeCache( $form_article );
+			$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromID( $form_id );
+			self::purgeCache( $wikiPage );
 			wfDebug( "Caching disabled for form definition $form_id\n" );
 		} elseif ( $form_id !== null ) {
 			self::cacheFormDefinition( $form_id, $form_def, $parser );
