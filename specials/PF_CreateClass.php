@@ -120,7 +120,7 @@ class PFCreateClass extends SpecialPage {
 		}
 
 		// Also create the "connecting property", if there is one.
-		$connectingProperty = trim( $req->getVal( 'connecting_property' ) );
+		$connectingProperty = trim( $req->getVal( 'connecting_property' ) ?? '' );
 		if ( defined( 'SMW_VERSION' ) && $connectingProperty != '' ) {
 			$property_title = Title::makeTitleSafe( SMW_NS_PROPERTY, $connectingProperty );
 			$datatypeLabels = PFUtils::getSMWContLang()->getDatatypeLabels();
