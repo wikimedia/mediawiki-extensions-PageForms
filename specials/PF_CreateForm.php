@@ -871,7 +871,11 @@ END;
 		foreach ( $params as $param ) {
 			$paramName = $param['name'];
 			$type = $param['type'];
-			$desc = PFUtils::getParser()->parse( $param['description'], $this->getPageTitle(), ParserOptions::newFromUser( $this->getUser() ) )->getText();
+			$parser = PFUtils::getParser();
+			$parser->setOptions( ParserOptions::newFromUser( $this->getUser() ) );
+			$parserOptions = $parser->getOptions();
+			$parserOutput = $parser->parse( $param['description'], $this->getPageTitle(), $parserOptions );
+			$desc = $parserOutput->runOutputPipeline( $parserOptions )->getContentHolderText();
 
 			if ( array_key_exists( $paramName, $paramValues ) ) {
 				$cur_value = $paramValues[$paramName];
