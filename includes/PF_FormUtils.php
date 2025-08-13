@@ -118,7 +118,6 @@ class PFFormUtils {
 		if ( $is_disabled ) {
 			$attrs['disabled'] = true;
 		}
-		// @phan-suppress-next-line PhanImpossibleTypeComparison
 		if ( array_key_exists( 'class', $attrs ) ) {
 			$attrs['classes'] = [ $attrs['class'] ];
 		}
@@ -175,7 +174,6 @@ class PFFormUtils {
 		if ( $is_disabled ) {
 			$attrs['disabled'] = true;
 		}
-		// @phan-suppress-next-line PhanImpossibleTypeComparison
 		if ( array_key_exists( 'class', $attrs ) ) {
 			$attrs['classes'] = [ $attrs['class'] ];
 		}
