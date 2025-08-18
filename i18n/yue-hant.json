@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Yueman"
+		]
+	},
+	"pf_createclass_create": "開",
+	"pf_formedit_createtitle": "開 $1： $2",
+	"pf_formedit_createtitlenotarget": "開$1",
+	"pf_editsource": "改源碼",
+	"pf-datepicker-close": "閂"
+}
