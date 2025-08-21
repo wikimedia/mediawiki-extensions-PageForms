@@ -99,12 +99,13 @@ class PFFormEdit extends UnlistedSpecialPage {
 		$module = new PFAutoeditAPI( new ApiMain(), 'pfautoedit' );
 		$module->setOption( 'form', $form_name );
 		$module->setOption( 'target', $targetName );
+		$targetTitle = Title::newFromText( $targetName );
 
 		if ( $req->getCheck( 'wpSave' ) || $req->getCheck( 'wpPreview' ) || $req->getCheck( 'wpDiff' ) ) {
 			// If the page was submitted, form data should be
 			// complete => do not preload
 			$module->setOption( 'preload', false );
-		} elseif ( !empty( $targetName ) && Title::newFromText( $targetName )->exists() ) {
+		} elseif ( !empty( $targetName ) && $targetTitle && $targetTitle->exists() ) {
 			// If target page exists, do not overwrite it with
 			// preload data; just preload the page's data.
 			$module->setOption( 'preload', true );
