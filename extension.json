@@ -210,7 +210,7 @@
 		},
 		"ext.pageforms.main.styles": {
 			"styles": [
-				"skins/PageForms.css",
+				"skins/PageForms.less",
 				"skins/PF_wizard.css"
 			]
 		},
