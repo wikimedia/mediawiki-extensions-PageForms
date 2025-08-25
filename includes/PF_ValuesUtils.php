@@ -170,7 +170,7 @@ SELECT ?value  WHERE {
 ?value " . $attributesQuery . " .
 ?value rdfs:label ?valueLabel .
 FILTER(LANG(?valueLabel) = \"" . $wgLanguageCode . "\") .
-FILTER(REGEX(LCASE(?valueLabel), \"\\\\b" . strtolower( $substring ) . "\"))
+FILTER(REGEX(LCASE(?valueLabel), \"\\\\b" . strtolower( $substring ?? '' ) . "\"))
 } ";
 		$maxValues = self::getMaxValuesToRetrieve( $substring );
 		$sparqlQueryString .= "LIMIT " . ( $maxValues + 10 );
