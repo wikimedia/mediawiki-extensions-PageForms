@@ -243,7 +243,7 @@
 	"action-viewedittab": "ver a lapela \"{{int:edit}}\" nas páxinas editables mediante formulario",
 	"tooltip-ca-formedit": "Editar esta páxina cun formulario",
 	"pf-autocomplete-no-matches": "Non hai coincidencias",
-	"pf-autocomplete-searching": "Procurando…",
+	"pf-autocomplete-searching": "Procurando...",
 	"pf-autocomplete-input-too-short": "Por favor insira $1 ou máis caracteres.",
 	"pf-autocomplete-selection-too-big": "Este campo non acepta máis de {{PLURAL:$1|$1 valor|$1 valores}}.",
 	"pf-maps-enteraddress": "Introduza o enderezo aquí",
