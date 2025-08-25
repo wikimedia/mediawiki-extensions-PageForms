@@ -2,6 +2,8 @@
  * The main CSS file for the Page Forms extension.
  */
 
+@import "mediawiki.skin.variables.less";
+
 /* Override "width: 100%" setting in standard MediaWiki skins */
 textarea.createboxInput {
 /*	width: auto;*/
@@ -185,11 +187,11 @@ body.rtl #pfForm label.radioButtonItem {
 }
 
 div.infoMessage {
-	border: 1px solid #777777;
+	border: 1px solid @border-color-base;
 	padding: 12px;
 	margin: 25px;
 	width: auto;
-	background: #eeeeee;
+	background: @background-color-neutral;
 }
 
 div.errorMessage {
@@ -213,8 +215,8 @@ div.otherForms {
 }
 
 .multipleTemplateInstance {
-	background-color: #eaecf0;
-	border: 1px solid #a2a9b1;
+	background-color: @background-color-neutral;
+	border: 1px solid @border-color-base;
 	padding: 5px;
 	margin: 15px 0 15px 0;
 	border-radius: 3px;
@@ -337,7 +339,7 @@ input.pfComboBoxActual {
 
 /* The standard MediaWiki editOptions class lacks a top border. */
 div.editOptions {
-	border: 1px solid #c8ccd1;
+	border: 1px solid @border-color-subtle;
 }
 
 span#wpMinoredit {
