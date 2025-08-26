@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Gertakapllani"
+			"Gertakapllani",
+			"Xhulianoo"
 		]
 	},
+	"formedit": "Redakto me formular",
+	"tooltip-ca-formedit": "Redakto këtë faqe me një formular",
 	"pf-autocomplete-input-too-short": "Ju lutemi shkruani $1 ose më shumë karaktere."
 }
