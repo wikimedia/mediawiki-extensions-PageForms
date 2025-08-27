@@ -13,6 +13,7 @@ module.exports = function (grunt) {
 				'**/*.{js,json}',
 				'!node_modules/**',
 				'!vendor/**',
+				'!libs/foreign/foreign-resources.cdx.json',
 				'!libs/foreign/**'
 			]
 		},

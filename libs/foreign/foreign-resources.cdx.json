@@ -1,0 +1,257 @@
+{
+    "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.6",
+    "serialNumber": "urn:uuid:b0ac51c2-4d33-4b8c-8ccb-17236a16479c",
+    "version": 1,
+    "components": [
+        {
+            "type": "library",
+            "name": "fullcalendar",
+            "version": "3.9.0",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "MIT"
+                    }
+                }
+            ],
+            "authors": [
+                {
+                    "name": "Adam Shaw"
+                }
+            ],
+            "externalReferences": [
+                {
+                    "url": "https://fullcalendar.io",
+                    "type": "website"
+                }
+            ]
+        },
+        {
+            "type": "library",
+            "name": "jstree",
+            "version": "3.3.10",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "MIT"
+                    }
+                }
+            ],
+            "purl": "pkg:npm/jstree@3.3.10",
+            "authors": [
+                {
+                    "name": "Ivan Bozhanov"
+                }
+            ],
+            "externalReferences": [
+                {
+                    "url": "https://jstree.com",
+                    "type": "website"
+                }
+            ]
+        },
+        {
+            "type": "library",
+            "name": "jquery.browser",
+            "version": "0.1.0",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "MIT"
+                    }
+                }
+            ],
+            "purl": "pkg:github/gabceb/jquery-browser-plugin@0.1.0",
+            "authors": [
+                {
+                    "name": "Gabriel Cebrian"
+                },
+                {
+                    "name": "jQuery Team"
+                }
+            ],
+            "externalReferences": [
+                {
+                    "url": "https://github.com/gabceb/jquery-browser-plugin",
+                    "type": "website"
+                }
+            ]
+        },
+        {
+            "type": "library",
+            "name": "jquery.rateyo",
+            "version": "2.3.2",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "MIT"
+                    }
+                }
+            ],
+            "purl": "pkg:npm/rateyo@2.3.2",
+            "authors": [
+                {
+                    "name": "Prashanth Pamidi and other contributors"
+                }
+            ],
+            "externalReferences": [
+                {
+                    "url": "https://rateyo.fundoocode.ninja/",
+                    "type": "website"
+                }
+            ]
+        },
+        {
+            "type": "library",
+            "name": "leaflet",
+            "version": "1.1.0",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "BSD-2-Clause"
+                    }
+                }
+            ],
+            "purl": "pkg:npm/leaflet@1.1.0",
+            "authors": [
+                {
+                    "name": "Vladimir Agafonkin"
+                },
+                {
+                    "name": "Jack Dougherty"
+                },
+                {
+                    "name": "other contributors"
+                }
+            ],
+            "externalReferences": [
+                {
+                    "url": "https://leafletjs.com",
+                    "type": "website"
+                }
+            ]
+        },
+        {
+            "type": "library",
+            "name": "select2",
+            "version": "4.0.13",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "MIT"
+                    }
+                }
+            ],
+            "purl": "pkg:npm/select2@4.0.13",
+            "authors": [
+                {
+                    "name": "Kevin Brown and other contributors"
+                }
+            ],
+            "externalReferences": [
+                {
+                    "url": "https://select2.org",
+                    "type": "website"
+                }
+            ]
+        },
+        {
+            "type": "library",
+            "name": "jspreadsheet",
+            "version": "4.6.0",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "MIT"
+                    }
+                }
+            ],
+            "purl": "pkg:npm/jspreadsheet@4.6.0",
+            "authors": [
+                {
+                    "name": "Jspreadsheet Team"
+                }
+            ],
+            "externalReferences": [
+                {
+                    "url": "https://jspreadsheethttps://github.com/jspreadsheet/ce",
+                    "type": "website"
+                }
+            ]
+        },
+        {
+            "type": "library",
+            "name": "jsuites",
+            "version": "3.5.4",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "MIT"
+                    }
+                }
+            ],
+            "purl": "pkg:npm/jsuites@3.5.4",
+            "authors": [
+                {
+                    "name": "jSuites Team"
+                }
+            ],
+            "externalReferences": [
+                {
+                    "url": "https://github.com/jsuites/jsuites",
+                    "type": "website"
+                }
+            ]
+        },
+        {
+            "type": "library",
+            "name": "jquery.mousewheel",
+            "version": "3.1.13",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "MIT"
+                    }
+                }
+            ],
+            "purl": "pkg:npm/jquery-mousewheel@3.1.13",
+            "authors": [
+                {
+                    "name": "Brandon Aaron and other contributors"
+                }
+            ],
+            "externalReferences": [
+                {
+                    "url": "https://github.com/jquery/jquery-mousewheel",
+                    "type": "website"
+                }
+            ]
+        },
+        {
+            "type": "library",
+            "name": "sortablejs",
+            "version": "1.8.0-rc1",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "MIT"
+                    }
+                }
+            ],
+            "purl": "pkg:npm/sortablejs@1.8.0-rc1",
+            "authors": [
+                {
+                    "name": "RubaXa and other contributors"
+                }
+            ],
+            "externalReferences": [
+                {
+                    "url": "https://github.com/SortableJS/Sortable",
+                    "type": "website"
+                }
+            ]
+        }
+    ]
+}
