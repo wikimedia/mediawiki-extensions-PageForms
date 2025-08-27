@@ -11,10 +11,9 @@
 	if (typeof define === "function" && define.amd) {
 		define(factory);
 	}
-// Commented out for Page Forms.
-//	else if (typeof module != "undefined" && typeof module.exports != "undefined") {
-//		module.exports = factory();
-//	}
+	else if (typeof module != "undefined" && typeof module.exports != "undefined") {
+		module.exports = factory();
+	}
 	else {
 		/* jshint sub:true */
 		window["Sortable"] = factory();
@@ -835,10 +834,8 @@
 				_toggleClass(ghostEl, options.fallbackClass, true);
 				_toggleClass(ghostEl, options.dragClass, true);
 
-				_css(ghostEl, 'box-sizing', 'border-box');
-				_css(ghostEl, 'margin', 0);
-				_css(ghostEl, 'top', rect.top);
-				_css(ghostEl, 'left', rect.left);
+				_css(ghostEl, 'top', rect.top - parseInt(css.marginTop, 10));
+				_css(ghostEl, 'left', rect.left - parseInt(css.marginLeft, 10));
 				_css(ghostEl, 'width', rect.width);
 				_css(ghostEl, 'height', rect.height);
 				_css(ghostEl, 'opacity', '0.8');
@@ -979,7 +976,7 @@
 			) {
 				var direction;
 				var axis = this._getDirection(evt, target);
-
+				
 
 				dragRect = dragEl.getBoundingClientRect();
 
@@ -1040,7 +1037,7 @@
 					}
 				}
 				else if (target && !target.animated && target !== dragEl && (target.parentNode[expando] !== void 0) && target !== el) {
-
+					
 					isCircumstantialInvert = isCircumstantialInvert || options.invertSwap || dragEl.parentNode !== el || !this._isAligned;
 					direction = _getSwapDirection(evt, target, axis,
 						options.swapThreshold, options.invertedSwapThreshold,

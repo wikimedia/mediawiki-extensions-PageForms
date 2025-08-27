@@ -247,7 +247,8 @@
 			]
 		},
 		"ext.pageforms.sortable": {
-			"scripts": [
+			"packageFiles": [
+
 				"libs/foreign/sortablejs/Sortable.js"
 			],
 			"targets": [

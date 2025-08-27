@@ -1,4 +1,4 @@
-
+const Sortable = require( 'ext.pageforms.sortable' );
 let fieldNum = 1;
 const hierarchyPlaceholder =  mediaWiki.msg( 'pf_createtemplate_hierarchystructureplaceholder' );
 

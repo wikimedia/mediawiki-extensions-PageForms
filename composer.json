@@ -52,7 +52,8 @@
 			"phpcbf"
 		],
 		"phpcs": "phpcs -p -s .",
-		"phan": "phan -d . --long-progress-bar"
+		"phan": "phan -d . --long-progress-bar",
+		"foreign-resources": "../../maintenance/run manageForeignResources --extension PageForms"
 	},
 	"config": {
 		"allow-plugins": {

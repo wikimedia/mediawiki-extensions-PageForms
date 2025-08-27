@@ -1,3 +1,5 @@
+const Sortable = require( 'ext.pageforms.sortable' );
+
 /**
  * PageForms.js
  *

@@ -1,3 +1,5 @@
+const Sortable = require( 'ext.pageforms.sortable' );
+
 /*
  * ext.pf.select2.tokens.js
  *
