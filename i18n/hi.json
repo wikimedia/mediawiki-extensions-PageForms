@@ -256,7 +256,7 @@
 	"pf_blank_namespace": "मुख्य",
 	"right-viewedittab": "फ़ॉर्म द्वारा सम्पादनीय पृष्ठों के लिए \"{{int:edit}}\" टैब देखना",
 	"right-editrestrictedfields": "फ़ॉर्म के प्रतिबंधित फ़ील्ड्स सम्पादित करना",
-	"right-createclass": "पृष्ठों के नए \"वर्ग\" बनाएँ",
+	"right-createclass": "पृष्ठों के नए \"वर्ग\" बनाना",
 	"right-multipageedit": "एक स्प्रेडशीट की मदद से कई पृष्ठ संपादित करें",
 	"action-createclass": "पृष्ठों के नए \"वर्ग\" बनाने",
 	"action-editrestrictedfields": "फ़ॉर्म के प्रतिबंधित फ़ील्ड्स सम्पादित करने",
