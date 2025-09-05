@@ -20,12 +20,12 @@
 	</rule>
 	<rule ref="MediaWiki.NamingConventions.PrefixedGlobalFunctions">
 		<properties>
-			<property name="ignoreList" type="array" value="registerAutoloaderPath,isReadablePath,addArguments,runTestAutoLoader" />
+			<property name="ignoreList[]" value="registerAutoloaderPath,isReadablePath,addArguments,runTestAutoLoader" />
 		</properties>
 	</rule>
 	<rule ref="MediaWiki.NamingConventions.ValidGlobalName">
 		<properties>
-			<property name="ignoreList" type="array" value="$smwgContLang,$smwgDefaultStore,$edgValues" />
+			<property name="ignoreList[]" value="$smwgContLang,$smwgDefaultStore,$edgValues" />
 		</properties>
 	</rule>
 	<file>.</file>
