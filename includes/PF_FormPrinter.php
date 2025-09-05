@@ -463,7 +463,7 @@ END;
 
 		$html = '';
 		foreach ( $tif->getFields() as $formField ) {
-			$fieldName = $formField->template_field->getFieldName();
+			$fieldName = $formField->getTemplateField()->getFieldName();
 			if ( $gridValues == null ) {
 				$curValue = null;
 			} else {
@@ -503,8 +503,8 @@ END;
 				$formField->setFieldArg( 'label', '' );
 			} elseif ( $formField->getLabelMsg() !== null ) {
 				$labelText = wfMessage( $formField->getLabelMsg() )->parse();
-			} elseif ( $formField->template_field->getLabel() !== null ) {
-				$labelText = $formField->template_field->getLabel() . ':';
+			} elseif ( $formField->getTemplateField()->getLabel() !== null ) {
+				$labelText = $formField->getTemplateField()->getLabel() . ':';
 			} else {
 				$labelText = $fieldName . ': ';
 			}
@@ -563,7 +563,7 @@ END;
 
 		$gridParams = [];
 		foreach ( $tif->getFields() as $formField ) {
-			$templateField = $formField->template_field;
+			$templateField = $formField->getTemplateField();
 			$formFieldArgs = $formField->getFieldArgs();
 			$possibleValues = $formField->getPossibleValues();
 
@@ -1755,7 +1755,7 @@ END;
 						$text = '';
 						$params = [];
 						foreach ( $tif->getFields() as $formField ) {
-							$templateField = $formField->template_field;
+							$templateField = $formField->getTemplateField();
 							$inputType = $formField->getInputType();
 							$values = [ 'name' => $templateField->getFieldName() ];
 							if ( $formField->getLabel() !== null ) {

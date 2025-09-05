@@ -184,7 +184,9 @@ class PFCreateForm extends SpecialPage {
 						}
 
 						if ( $paramName == 'label' ) {
-							$field->template_field->setLabel( $value );
+							$templateField = $field->getTemplateField();
+							$templateField->setLabel( $value );
+							$field->setTemplateField( $templateField );
 						} elseif ( $paramName == 'input type' ) {
 							$input_type = $req->getVal( "input_type_" . $old_i . "_" . $j );
 							if ( $input_type == 'hidden' ) {
@@ -602,7 +604,7 @@ END;
 
 	function fieldCreationHTML( $field, $field_num, $template_num ) {
 		$field_form_text = $template_num . "_" . $field_num;
-		$template_field = $field->template_field;
+		$template_field = $field->getTemplateField();
 		$text = Html::element( 'h3', null, $this->msg( 'pf_createform_field' )->text() . " " . $template_field->getFieldName() ) . "\n";
 
 		if ( !defined( 'SMW_VERSION' ) || $template_field->getSemanticProperty() == "" ) {

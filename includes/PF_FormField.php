@@ -20,7 +20,7 @@ class PFFormField {
 	/**
 	 * @var PFTemplateField
 	 */
-	public $template_field;
+	private $template_field;
 	/**
 	 * @var array
 	 */
