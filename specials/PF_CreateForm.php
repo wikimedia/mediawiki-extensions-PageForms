@@ -822,12 +822,16 @@ END;
 		$inputTypeClass = $wgPageFormsFormPrinter->getInputType( $inputType );
 
 		$params = method_exists( $inputTypeClass, 'getParameters' ) ? call_user_func( [ $inputTypeClass, 'getParameters' ] ) : [];
+		$parser = PFUtils::getParser();
+		$parser->setOptions( ParserOptions::newFromUser( $this->getUser() ) );
+		$parserOptions = $parser->getOptions();
 
 		$i = 0;
 		foreach ( $params as $param ) {
 			$paramName = $param['name'];
 			$type = $param['type'];
-			$desc = PFUtils::getParser()->parse( $param['description'], $this->getPageTitle(), ParserOptions::newFromUser( $this->getUser() ) )->getText();
+			$parserOutput = $parser->parse( $param['description'], $this->getPageTitle(), $parserOptions );
+			$desc = $parserOutput->runOutputPipeline( $parserOptions )->getContentHolderText();
 
 			if ( array_key_exists( $paramName, $paramValues ) ) {
 				$cur_value = $paramValues[$paramName];
@@ -867,13 +871,14 @@ END;
 		$section_text = 'section_' . $section_count;
 
 		$params = PFPageSection::getParameters();
+		$parser = PFUtils::getParser();
+		$parser->setOptions( ParserOptions::newFromUser( $this->getUser() ) );
+		$parserOptions = $parser->getOptions();
+
 		$i = 0;
 		foreach ( $params as $param ) {
 			$paramName = $param['name'];
 			$type = $param['type'];
-			$parser = PFUtils::getParser();
-			$parser->setOptions( ParserOptions::newFromUser( $this->getUser() ) );
-			$parserOptions = $parser->getOptions();
 			$parserOutput = $parser->parse( $param['description'], $this->getPageTitle(), $parserOptions );
 			$desc = $parserOutput->runOutputPipeline( $parserOptions )->getContentHolderText();
 
