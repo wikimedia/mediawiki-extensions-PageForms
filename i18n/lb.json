@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"GilPe",
 			"Les Meloures",
 			"Robby",
 			"Soued031",
@@ -26,7 +27,7 @@
 	"pf_createtemplate_displaylabel": "Etikett weisen:",
 	"pf_createproperty_allowedvalsforhierarchy": "Erlaabt Wäerter fir d'Hierarchie:",
 	"pf_createtemplate_delimiter": "Trennzeechen:",
-	"pf_createtemplate_aggregation": "Resumé",
+	"pf_createtemplate_aggregation": "Resümmee",
 	"pf_createtemplate_aggregationlabel": "Titel fir d'Lëscht:",
 	"pf_createtemplate_standardformat": "Tabell",
 	"pf_createtemplate_sectionsformat": "Abschnitter",
