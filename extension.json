@@ -554,6 +554,7 @@
 		"ext.pageforms.spreadsheet": {
 			"scripts": [
 				"libs/foreign/jsuites/jsuites.js",
+				"libs/PF_jspreadsheet.js",
 				"libs/foreign/jspreadsheet/jexcel.js",
 				"libs/PF_spreadsheet.js",
 				"libs/PF_SpreadsheetAutocompleteWidget.js",

@@ -45,23 +45,20 @@
 }
 
 @supports (-moz-appearance:none) {
-    .jexcel_content { padding-right:10px; }
+    .jexcel_content { padding-right:10px; } 
 }
 
-// Commented out for Page Forms.
-/*
 .jexcel_content::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+    width: 8px;
+    height: 8px;
 }
-*/
 
 .jexcel_content::-webkit-scrollbar-track {
     background: #eee;
 }
-
+ 
 .jexcel_content::-webkit-scrollbar-thumb {
-  background: #666;
+  background: #666; 
 }
 
 .jexcel {
@@ -96,7 +93,7 @@
     z-index:2;
 }
 
-.with-toolbar .jexcel > thead > tr > td
+.jexcel_container.with-toolbar .jexcel > thead > tr > td
 {
     top:42px;
 }
@@ -175,6 +172,10 @@
     line-height:1em;
 }
 
+.jexcel_overflow > tbody > tr > td {
+    overflow: hidden;
+}
+
 .jexcel > tbody > tr > td:last-child
 {
     overflow:hidden;
@@ -204,6 +205,7 @@
     width:100%;
     margin:0px;
     padding:0px;
+    padding-right:2px;
     background-color:transparent;
     box-sizing: border-box;
 }
@@ -628,7 +630,7 @@
     display:none;
 }
 
-.jexcel_toolbar i.jexcel_toolbar_item
+.jexcel_toolbar i.jexcel_toolbar_item 
 {
     width:24px;
     height:24px;
@@ -637,12 +639,12 @@
     display:inline-block;
 }
 
-.jexcel_toolbar i.jexcel_toolbar_item:hover
+.jexcel_toolbar i.jexcel_toolbar_item:hover 
 {
     background-color:#ddd;
 }
 
-.jexcel_toolbar select.jexcel_toolbar_item
+.jexcel_toolbar select.jexcel_toolbar_item 
 {
     margin-left:2px;
     margin-right:2px;
@@ -689,6 +691,8 @@
 }
 
 .jexcel_hidden_index > tbody > tr > td:first-child,
+.jexcel_hidden_index > thead > tr > td:first-child, 
+.jexcel_hidden_index > tfoot > tr > td:first-child,
 .jexcel_hidden_index > colgroup > col:first-child
 {
     display:none;
@@ -730,7 +734,7 @@
     padding-right: 20px;
 }
 
-.jexcel thead .jexcel_freezed {
+.jexcel thead .jexcel_freezed, .jexcel tfoot .jexcel_freezed {
     left: 0px;
     z-index: 3 !important;
     box-shadow: 2px 0px 2px 0.2px #ccc !important;
@@ -745,100 +749,3 @@
     -webkit-box-shadow: 2px 4px 4px 0.1px #ccc !important;
     -moz-box-shadow: 2px 4px 4px 0.1px #ccc !important;
 }
-
-/* Code taken from https://github.com/jspreadsheet/ce/blob/master/src/css/jexcel.datatables.css */
-table.jexcel
-{
-    border-right:1px solid transparent;
-}
-
-table.jexcel > thead
-{
-    background-color:#fff;
-}
-
-table.jexcel > thead > tr > td
-{
-    border-top:1px solid transparent;
-    border-left:1px solid transparent;
-    border-right:1px solid transparent;
-    border-bottom:1px solid #000;
-    background-color:#fff;
-    padding:10px;
-    font-weight:bold;
-}
-
-table.jexcel > thead > tr > td.selected
-{
-    background-color:#eee;
-}
-
-table.jexcel > tbody > tr > td
-{
-    padding:8px;
-    border-right:1px solid transparent;
-    border-left:1px solid transparent;
-}
-
-table.jexcel > tbody > tr > td:first-child
-{
-    background-color:#fff;
-}
-
-table.jexcel > tbody > tr.selected > td:first-child
-{
-    background-color:#eee;
-}
-
-.jexcel_toolbar {
-    background-color: transparent;
-    border: 0px;
-    border-bottom: 1px solid #ccc;
-    border-top: 1px solid #ccc;
-    margin-bottom: 0px;
-}
-
-.jexcel_pagination > div > div
-{
-    border:1px solid transparent;
-    background-color: #fff;
-}
-
-.jexcel_page_selected
-{
-    background: linear-gradient(to bottom, #fff 0%, #dcdcdc 100%);
-    border:1px solid #979797 !important;
-    font-weight:normal;
-    color: #333 !important;
-    border-radius:2px;
-}
-
-
-/*.jexcel > div > table > tbody > tr,
-.jexcel > div > table > thead
-{
-    border-left:1px solid transparent;
-}
-.jexcel > div > table > tbody > tr > td
-{
-    padding:10px;
-    border-right:1px solid transparent;
-}
-.jexcel > div > table > tbody > td.edition
-{
-    padding:0px;
-    padding-left:4px;
-}
-.jexcel > div > table > tbody > tr > td:first-child
-{
-    background-color:#fff;
-    font-weight:bold;
-}
-.jexcel > div > table > tbody > tr.selected > td:first-child
-{
-    background-color:#eee;
-}
-.jexcel > div > table > thead > tr > td.selected
-{
-    background-color:#eee;
-}*/

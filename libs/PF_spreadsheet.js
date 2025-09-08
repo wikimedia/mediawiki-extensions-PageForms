@@ -1,9 +1,13 @@
+// Plain script. Upstream jspreadsheet assigns this global from its UMD build.
+const jexcel = window.jexcel;
+
 /**
  * Code to integrate the jExcel JavaScript library into Page Forms.
  *
  * @author Yaron Koren
  * @author Balabky9
  * @author Amr El-Absy
+ * @author Collins Wandji
  */
 
 // @TODO - make this based on the API limit, which in turn is based on whether the user has the "apihighlimits" right.
@@ -361,9 +365,191 @@ const dataValues = [];
 		});
 	}
 
+	// jspreadsheet calls this instead of its text editor for autocomplete columns.
+	jexcel.prototype.pfAutocompleteEditor = {
+		openEditor: function( cell, el, empty ) {
+			const obj = el.jexcel;
+			const x = cell.getAttribute( 'data-x' );
+			const y = cell.getAttribute( 'data-y' );
+			const column = obj.options.columns[ x ];
+			const useTextarea = column.wordWrap != false && ( obj.options.wordWrap == true || column.wordWrap == true );
+
+			// =====================================
+			// Changes made for Page Forms
+			// =====================================
+			// this variable will be used to determine
+			// whether the cell supports autocompletion in Page Forms or not
+			let pfSpreadsheetAutocomplete = false;
+			// Cell information
+			const info = cell.getBoundingClientRect();
+
+			// Special Handling For Autocompletion in Spreadsheet-style display of Page Forms
+			const autocompleteAttrs = jexcel.prototype.getAutocompleteAttributes( cell );
+			const autocompletedatatype = autocompleteAttrs.autocompletedatatype || '';
+			const autocompletesettings = autocompleteAttrs.autocompletesettings;
+			const templateName = $( cell ).closest( '.pfSpreadsheet' ).attr( 'data-template-name' );
+			const gridParams = mw.config.get( 'wgPageFormsGridParams' );
+			const fieldParams = gridParams[ templateName ] && gridParams[ templateName ][ x ];
+			const inputType = fieldParams ? fieldParams.inputType : undefined;
+			let editor;
+
+			if ( autocompletedatatype.length !== 0 ) {
+				// function present in PF_spreadsheet.js
+				const autocompleteConfigs = jexcel.prototype.getEditorForAutocompletion(
+					inputType, x, y, autocompletedatatype, autocompletesettings, cell,
+					useTextarea ? 'textarea' : 'input'
+				);
+				editor = autocompleteConfigs.editor;
+				pfSpreadsheetAutocomplete = autocompleteConfigs.pfSpreadsheetAutocomplete;
+			}
+			if ( !editor ) {
+				// using the default jexcel editor
+				editor = document.createElement( useTextarea ? 'textarea' : 'input' );
+			}
+			// =====================================
+			// =====================================
+
+			editor.style.width = info.width + 'px';
+			editor.style.height = ( info.height - 2 ) + 'px';
+			editor.style.minHeight = ( info.height - 2 ) + 'px';
+			cell.classList.add( 'editor' );
+			cell.innerHTML = '';
+			cell.appendChild( editor );
+
+			const value = empty == true ? '' : obj.options.data[ y ][ x ];
+			// =====================================
+			// Changes made for Page Forms
+			// =====================================
+			if ( pfSpreadsheetAutocomplete ) {
+				// we are in Autocompletion mode in spreadsheets
+				let input;
+				cell.setAttribute( 'data-pf-autocomplete-editor', '1' );
+				if ( editor.classList.contains( 'oo-ui-comboBoxInputWidget' ) && editor.children[ 2 ] ) {
+					const comboField = editor.children[ 2 ];
+					input = comboField.children[ 0 ];
+					if ( comboField.children[ 1 ] ) {
+						// don't close the editor on clicking dropdown button
+						comboField.children[ 1 ].onmousedown = function( ev ) {
+							ev.preventDefault();
+						};
+					}
+				} else {
+					input = editor.querySelector( 'input' ) || editor.children[ 0 ];
+				}
+				if ( !input || ( input.tagName !== 'INPUT' && input.tagName !== 'TEXTAREA' ) ) {
+					input = editor.querySelector( 'input, textarea' );
+				}
+				if ( !input ) {
+					cell.removeAttribute( 'data-pf-autocomplete-editor' );
+					editor.onblur = function() {
+						obj.closeEditor( cell, true );
+					};
+					return;
+				}
+				cell.pfAutocompleteInput = input;
+				input.onblur = function() {
+					cell.pfAutocompleteValue = input.value;
+					input.onblur = null;
+					obj.closeEditor( cell, true );
+				};
+				if ( editor.classList.contains( 'oo-ui-comboBoxInputWidget' ) ) {
+					// focus inside the input field of combobox
+					input.focus();
+					input.value = value;
+				} else {
+					// focus on the OOUI's TextInputWidget so that
+					// on pressing any key one can directly type
+					// inside the widget
+					input.focus();
+					input.value = value;
+				}
+			} else {
+				editor.onblur = function() {
+					obj.closeEditor( cell, true );
+				};
+				// focus on editor
+				editor.focus();
+				editor.value = value;
+				editor.scrollLeft = editor.scrollWidth;
+			}
+			// =====================================
+			// =====================================
+		},
+
+		closeEditor: function( cell, save ) {
+			const autocomplete = cell.getAttribute( 'data-pf-autocomplete-editor' ) === '1';
+			const input = autocomplete ? cell.pfAutocompleteInput : cell.children[ 0 ];
+			let value;
+			// =====================================
+			// Changes made for Page Forms
+			// =====================================
+			if ( autocomplete ) {
+				// setting the value to be saved after closing the editor
+				if ( cell.pfAutocompleteValue !== undefined ) {
+					value = cell.pfAutocompleteValue;
+				} else if ( input ) {
+					value = input.value;
+				}
+			} else if ( input && save ) {
+				value = input.value;
+			}
+			if ( input ) {
+				input.onblur = null;
+			}
+			// =====================================
+			// =====================================
+			cell.removeAttribute( 'data-pf-autocomplete-editor' );
+			delete cell.pfAutocompleteInput;
+			delete cell.pfAutocompleteValue;
+			if ( !save ) {
+				return;
+			}
+			// =====================================
+			// Changes made for Page Forms
+			// =====================================
+			// Upstream writes whatever closeEditor returns, including undefined.
+			// Keep the current cell when the OOUI input never produced a value.
+			if ( value === undefined ) {
+				const current = jexcel.current;
+				const x = cell.getAttribute( 'data-x' );
+				const y = cell.getAttribute( 'data-y' );
+				if ( current && current.options.data[ y ] ) {
+					return current.options.data[ y ][ x ];
+				}
+				return '';
+			}
+			// =====================================
+			// =====================================
+			return value;
+		}
+	};
+
 })( jexcel, mediaWiki );
 
 ( function( $, mw, pf ) {
+	const originalKeyDownControls = jexcel.keyDownControls;
+	jexcel.keyDownControls = function( e ) {
+		const current = jexcel.current;
+		if ( current && current.edition && ( e.which === 13 || e.which === 9 ) ) {
+			const cell = current.edition[ 0 ];
+			// =====================================
+			// Changes made for Page Forms
+			// =====================================
+			if ( cell && cell.getAttribute( 'data-pf-autocomplete-editor' ) === '1' ) {
+				const input = cell.querySelector( 'input' );
+				if ( input ) {
+					// that means we are in autocompletion mode,
+					// this has been done to close the editor on
+					// pressing "Enter" key.
+					input.blur();
+				}
+			}
+			// =====================================
+			// =====================================
+		}
+		return originalKeyDownControls.call( this, e );
+	};
+
 	const baseUrl = mw.config.get( 'wgScriptPath' ),
 		gridParams = mw.config.get( 'wgPageFormsGridParams' ),
 		gridValues = mw.config.get( 'wgPageFormsGridValues' );
@@ -423,6 +609,9 @@ const dataValues = [];
 			}
 			if ( jExcelType == 'text' ) {
 				columnAttributes['wordWrap'] = true;
+				if ( templateParam['autocompletedatatype'] ) {
+					columnAttributes.editor = jexcel.prototype.pfAutocompleteEditor;
+				}
 			}
 			columnAttributes['type'] = jExcelType;
 			columns.push( columnAttributes );
@@ -828,7 +1017,7 @@ const dataValues = [];
 					dataValues[spreadsheetId].push( {} );
 				}
 
-				mw.spreadsheets[spreadsheetID] = jexcel( table, {
+				const spreadsheet = jexcel( table, {
 					data: myData,
 					columns: columns,
 					tableOverflow: true,
@@ -849,6 +1038,24 @@ const dataValues = [];
 						search: mw.msg( 'search' )
 					}
 				} );
+				mw.spreadsheets[spreadsheetID] = spreadsheet;
+				if ( spreadsheet ) {
+					// Empty grids and a missing selection used to throw inside the library.
+					const originalUpdateSelection = spreadsheet.updateSelectionFromCoords;
+					spreadsheet.updateSelectionFromCoords = function( x1, y1, x2, y2, origin ) {
+						if ( !spreadsheet.rows.length ) {
+							return;
+						}
+						return originalUpdateSelection.call( this, x1, y1, x2, y2, origin );
+					};
+					const originalLeft = spreadsheet.left;
+					spreadsheet.left = function( shiftKey, ctrlKey ) {
+						if ( spreadsheet.selectedCell == null ) {
+							return;
+						}
+						return originalLeft.call( this, shiftKey, ctrlKey );
+					};
+				}
 				// Set the "label" for columns that have a label defined.
 				const columnParams = gridParams[templateName];
 				for ( columnNum = 0; columnNum < columnParams.length; columnNum++ ) {

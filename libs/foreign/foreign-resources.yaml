@@ -80,7 +80,7 @@ jspreadsheet:
   authors: Jspreadsheet Team
   version: 4.6.0
   purl: pkg:npm/jspreadsheet@4.6.0
-  type: doc-only
+  type: tar
   src: https://registry.npmjs.org/jspreadsheet-ce/-/jspreadsheet-ce-4.6.0.tgz
   integrity: sha512-kLDO+PmwLmpDj0ltCKwBLXGN4eZV3zyt/MWAmWtA8zl8oonrYg53Z1eChaXWFrMwGNnu1DqgChBfPppa5XYZjg==
   dest:
