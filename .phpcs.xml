@@ -4,9 +4,13 @@
 		<exclude name="Generic.CodeAnalysis.AssignmentInCondition.Found" />
 		<exclude name="Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition" />
 		<exclude name="Generic.Files.LineLength.TooLong" />
+		<exclude name="MediaWiki.Commenting.ClassAnnotations.UnrecognizedAnnotation" />
+		<exclude name="MediaWiki.Commenting.CommentBeforeClass.FileSpacingAfter" />
+		<exclude name="MediaWiki.Commenting.CommentBeforeClass.SpacingAfter" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPrivate" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationProtected" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
+		<exclude name="MediaWiki.Commenting.PropertyAnnotations.UnrecognizedAnnotation" />
 		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationPrivate" />
 		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationProtected" />
 		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationPublic" />

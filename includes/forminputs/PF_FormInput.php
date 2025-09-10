@@ -147,7 +147,6 @@ abstract class PFFormInput {
 	abstract public function getHtmlText();
 
 	/**
-	 *
 	 * @return bool True, if this input type can handle lists
 	 */
 	public static function canHandleLists() {
