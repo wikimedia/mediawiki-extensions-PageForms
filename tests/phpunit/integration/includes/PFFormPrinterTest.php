@@ -486,6 +486,26 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			]
 		];
 
+		// #2 & #3 for template and end template on different lines or the same line.
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template|lorem}}}\n{{{end template}}}"
+			],
+			[
+				'expected_form_text' => '',
+				'expected_page_text' => '{{lorem}}'
+			]
+		];
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template|lorem}}}{{{end template}}}"
+			],
+			[
+				'expected_form_text' => '',
+				'expected_page_text' => '{{lorem}}'
+			]
+		];
+
 		return $provider;
 	}
 
