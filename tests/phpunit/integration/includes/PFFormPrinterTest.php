@@ -486,7 +486,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			]
 		];
 
-		// #2 & #3 for template and end template on different lines or the same line.
+		// #2, #3, & #4 for template and end template on different lines or the same line. T377307.
 		$provider[] = [
 			[
 				'form_definition' => "{{{for template|lorem}}}\n{{{end template}}}"
@@ -502,6 +502,15 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			],
 			[
 				'expected_form_text' => '',
+				'expected_page_text' => '{{lorem}}'
+			]
+		];
+		$provider[] = [
+			[
+				'form_definition' => "Foo{{{for template|lorem}}}{{{field|baz}}}{{{end template}}}Bar"
+			],
+			[
+				'expected_form_text' => '<input id="input_1" tabindex="1" class="createboxInput" size="35" name="lorem[baz]">',
 				'expected_page_text' => '{{lorem}}'
 			]
 		];
