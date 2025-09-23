@@ -28,7 +28,7 @@
 			const $localDatetime = $( '<strong>' );
 			// Add the label even when there isn't going to be a displayed date, to make sure it takes up vertical
 			// space and avoid the form layout shifting when a date is selected.
-			$localDatetimeLabel.append( mw.msg( 'pf-datetimepicker-localtime' ), ' ', $localDatetime );
+			$localDatetimeLabel.append( mw.message( 'pf-datetimepicker-localtime' ).escaped(), ' ', $localDatetime );
 			widget.$element
 				.next( '.pf-datetimepicker-help' )
 				.append( '<br>', $localDatetimeLabel );
