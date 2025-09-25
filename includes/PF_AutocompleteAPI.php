@@ -77,6 +77,9 @@ class PFAutocompleteAPI extends ApiBase {
 		} elseif ( $namespace !== null ) {
 			$data = PFValuesUtils::getAllPagesForNamespace( $namespace, $substr );
 			$map = $wgPageFormsUseDisplayTitle;
+			if ( $map ) {
+				$data = PFMappingUtils::createDisplayTitleLabels( $data );
+			}
 		} elseif ( $external_url !== null ) {
 			$data = PFValuesUtils::getValuesFromExternalURL( $external_url, $substr );
 			$map = true;

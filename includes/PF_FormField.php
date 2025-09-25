@@ -456,9 +456,6 @@ class PFFormField {
 						$value = $valuesSource . ':' . $value;
 					}
 				}
-				// Has to be set to false to not mess up the
-				// handling.
-				$f->mUseDisplayTitle = false;
 			}
 
 			$mappedValuesKey = json_encode( $f->mFieldArgs ) . $mappingType;
