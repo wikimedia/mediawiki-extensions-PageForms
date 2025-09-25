@@ -637,9 +637,9 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 			if ( array_key_exists( 'pp_displaytitle_value', $row ) &&
 				( $row[ 'pp_displaytitle_value' ] ) !== null &&
 				trim( str_replace( '&#160;', '', strip_tags( $row[ 'pp_displaytitle_value' ] ) ) ) !== '' ) {
-				$pages[ $title ] = htmlspecialchars_decode( $row[ 'pp_displaytitle_value'], ENT_QUOTES );
+				$pages[ $title . '@' ] = htmlspecialchars_decode( $row[ 'pp_displaytitle_value'], ENT_QUOTES );
 			} else {
-				$pages[ $title ] = $title;
+				$pages[ $title . '@' ] = $title;
 			}
 			if ( array_key_exists( 'pp_defaultsort_value', $row ) &&
 				( $row[ 'pp_defaultsort_value' ] ) !== null ) {
@@ -650,8 +650,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		}
 		$res->free();
 
-		array_multisort( $sortkeys, $pages );
-		return $pages;
+		return self::fixedMultiSort( $sortkeys, $pages );
 	}
 
 	/**
