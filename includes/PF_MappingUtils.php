@@ -414,4 +414,20 @@ class PFMappingUtils {
 		}
 		return $labels;
 	}
+
+	/**
+	 * Similar sort of concept as disambiguateLabels(), but this one has to
+	 * do with display titles specifically.
+	 *
+	 * @param array $labels
+	 * @return array
+	 */
+	public static function createDisplayTitleLabels( array $labels ) {
+		foreach ( $labels as $value => $label ) {
+			if ( $label !== $value ) {
+				$labels[$value] .= ' (' . $value . ')';
+			}
+		}
+		return $labels;
+	}
 }
