@@ -233,7 +233,8 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 
 		try {
 			$sqlQuery = CargoSQLQuery::newFromValues( $tableName, $fieldName, $whereStr, $joinOnStr = null, $fieldName, $havingStr = null, $fieldName, $limitStr, $offsetStr = 0 );
-		} catch ( Exception ) {
+		// @phan-suppress-next-line PhanUnusedVariableCaughtException
+		} catch ( Exception $e ) {
 			return [];
 		}
 

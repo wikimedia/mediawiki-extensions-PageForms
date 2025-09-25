@@ -34,7 +34,8 @@ class PFCreatePageJob extends Job {
 
 		try {
 			$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $this->title );
-		} catch ( MWException ) {
+		// @phan-suppress-next-line PhanUnusedVariableCaughtException
+		} catch ( MWException $e ) {
 			$this->error = 'pageFormsCreatePage: Wiki page not found "' . $this->title->getPrefixedDBkey() . '"';
 			return false;
 		}

@@ -111,8 +111,8 @@ class PFCreateCategory extends SpecialPage {
 					'align' => 'top'
 				]
 			);
-
-		} catch ( MWException ) {
+		// @phan-suppress-next-line PhanUnusedVariableCaughtException
+		} catch ( MWException $e ) {
 			// If we're here, it's probably because no forms have
 			// been defined on this wiki. If that's the case, just
 			// leave out the form selector.

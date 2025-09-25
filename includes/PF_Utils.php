@@ -469,7 +469,8 @@ END;
 	public static function getCargoFieldDescription( $cargoTable, $cargoField ) {
 		try {
 			$tableSchemas = CargoUtils::getTableSchemas( [ $cargoTable ] );
-		} catch ( MWException ) {
+		// @phan-suppress-next-line PhanUnusedVariableCaughtException
+		} catch ( MWException $e ) {
 			return null;
 		}
 		if ( !array_key_exists( $cargoTable, $tableSchemas ) ) {

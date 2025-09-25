@@ -175,7 +175,8 @@ class PFTemplateDisplay {
 
 		try {
 			[ $lat, $lon ] = CargoUtils::parseCoordinatesString( $coordinatesStr );
-		} catch ( MWException ) {
+		// @phan-suppress-next-line PhanUnusedVariableCaughtException
+		} catch ( MWException $e ) {
 			return '';
 		}
 		$valuesTable = [ [ 'Coords  lat' => $lat, 'Coords  lon' => $lon ] ];
@@ -193,7 +194,8 @@ class PFTemplateDisplay {
 			$text = $mappingFormat->display( $valuesTable,
 				$formattedValuesTable, $fieldDescriptions,
 				$displayParams );
-		} catch ( MWException ) {
+		// @phan-suppress-next-line PhanUnusedVariableCaughtException
+		} catch ( MWException $e ) {
 			return '';
 		}
 		return $text;
