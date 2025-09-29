@@ -90,28 +90,13 @@ window.ext.popupform = ( function() {
 		const $body = $content.closest('body');
 		const $html = $body.parent();
 
-		let $scrollTgt = $html;
+		let scrollTop = $html.scrollTop();
+		let scrollLeft = $html.scrollLeft();
 
-		if ( jQuery.browser.webkit || jQuery.browser.safari ) {
-			$scrollTgt = $body;
-		}
-
-		let scrollTop = $scrollTgt.scrollTop();
-		let scrollLeft = $scrollTgt.scrollLeft();
-
-		if ( jQuery.browser.mozilla ) {
-			setTimeout(() => {
-				$content
-				.css('position', 'absolute')
-				.width( 'auto' )
-				.height( 'auto' );
-			}, 0);
-		} else {
-			$content
-			.css('position', 'absolute')
-			.width( 'auto' )
-			.height( 'auto' );
-		}
+		$content
+		.css('position', 'absolute')
+		.width( 'auto' )
+		.height( 'auto' );
 
 		// set max dimensions for layout of content
 		$iframe
@@ -200,11 +185,7 @@ window.ext.popupform = ( function() {
 
 		if ( frameW !== oldFrameW || frameH !== oldFrameH ) {
 
-			if ( jQuery.browser.safari ) {
-				$html[0].style.overflow="hidden";
-			} else {
-				$iframe[0].style.overflow="hidden";
-			}
+			$iframe[0].style.overflow="hidden";
 
 			if ( animate ) {
 				$content
@@ -219,22 +200,11 @@ window.ext.popupform = ( function() {
 				}, {
 					duration: 500,
 					complete: function() {
+						$iframe[0].style.overflow="visible";
 
-						if ( jQuery.browser.safari ) {
-							$html[0].style.overflow="visible";
-						} else {
-							$iframe[0].style.overflow="visible";
-						}
-
-						if ( jQuery.browser.mozilla ) {
-							$content
-							.width ( contW )
-							.height ( contH );
-						} else {
-							$content
-							.width ( 'auto' )
-							.height ( 'auto' );
-						}
+						$content
+						.width ( 'auto' )
+						.height ( 'auto' );
 					}
 				});
 
@@ -248,51 +218,23 @@ window.ext.popupform = ( function() {
 
 
 				setTimeout(() => {
-
-						if ( jQuery.browser.safari ) {
-							$html[0].style.overflow="visible";
-						} else {
-							$iframe[0].style.overflow="visible";
-						}
-
+					$iframe[0].style.overflow="visible";
 				}, 100);
 
-				if ( jQuery.browser.mozilla ) {
-					$content
-					.width ( contW )
-					.height ( contH );
-				} else {
-					$content
-					.width ( 'auto' )
-					.height ( 'auto' );
-				}
-
+				$content
+				.width ( 'auto' )
+				.height ( 'auto' );
 			}
 		} else {
 			$content
 			.width ( 'auto' )
 			.height ( 'auto' );
-
-			if ( jQuery.browser.safari ) { // Google chrome needs a kick
-
-				// turn scrollbars off and on again to really only show them when needed
-					$html[0].style.overflow="hidden";
-
-					setTimeout(() => {
-						$html[0].style.overflow="visible";
-				}, 1);
-			}
 		}
 
-		$scrollTgt
+		$html
 		.css('overflow', 'auto')
 		.scrollTop(Math.min(scrollTop, docpH - frameH))
 		.scrollLeft(scrollLeft);
-
-		if ( jQuery.browser.mozilla ) {
-			$body
-			.css('overflow', 'auto');
-		}
 
 		return true;
 	}
