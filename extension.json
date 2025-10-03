@@ -214,15 +214,6 @@
 				"skins/PF_wizard.css"
 			]
 		},
-		"ext.pageforms.browser": {
-			"scripts": [
-				"libs/foreign/jquery.browser/jquery.browser.js"
-			],
-			"targets": [
-				"desktop",
-				"mobile"
-			]
-		},
 		"ext.pageforms.jstree": {
 			"scripts": [
 				"libs/foreign/jstree/jstree.js",
@@ -267,10 +258,7 @@
 		},
 		"ext.pageforms.popupformedit": {
 			"scripts": "libs/PF_popupform.js",
-			"styles": "skins/PF_popupform.css",
-			"dependencies": [
-				"ext.pageforms.browser"
-			]
+			"styles": "skins/PF_popupform.css"
 		},
 		"ext.pageforms.autoedit": {
 			"scripts": "libs/PF_autoedit.js",
