@@ -1,7 +1,5 @@
 <?php
 
-use MediaWiki\Title\Title;
-
 /**
  * A class that defines a tree - and can populate it based on either
  * wikitext or a category structure.
@@ -238,10 +236,8 @@ class PFTree {
 			$tables[] = 'linktarget';
 		}
 
-		$fields = [ 'page_id', 'page_namespace', 'page_title',
-			'page_is_redirect', 'page_len', 'page_latest',
-			'cl_from' ];
-		$where = [];
+		$fields = [ 'page_title' ];
+		$where = [ 'page_namespace' => NS_CATEGORY ];
 		$joins = [];
 		$options = [ 'ORDER BY' => 'cl_type, cl_sortkey' ];
 
@@ -257,18 +253,10 @@ class PFTree {
 
 		$options['USE INDEX']['categorylinks'] = 'cl_sortkey';
 
-		$tables = array_merge( $tables, [ 'category' ] );
-		$fields = array_merge( $fields, [ 'cat_id', 'cat_title', 'cat_subcats', 'cat_pages', 'cat_files' ] );
-		$joins['category'] = [ 'LEFT JOIN', [ 'cat_title = page_title', 'page_namespace' => NS_CATEGORY ] ];
-
 		$res = $dbr->select( $tables, $fields, $where, __METHOD__, $options, $joins );
 		$subcats = [];
-
 		foreach ( $res as $row ) {
-			$t = Title::newFromRow( $row );
-			if ( $t->getNamespace() == NS_CATEGORY ) {
-				$subcats[] = $t->getText();
-			}
+			$subcats[] = str_replace( '_', ' ', $row->page_title );
 		}
 		return $subcats;
 	}
