@@ -230,16 +230,31 @@ class PFTree {
 	private static function getSubcategories( $categoryName ) {
 		$dbr = PFUtils::getReadDB();
 
+		// true for MW 1.45+
+		$useTargetID = !$dbr->fieldExists( 'categorylinks', 'cl_to' );
+
 		$tables = [ 'page', 'categorylinks' ];
+		if ( $useTargetID ) {
+			$tables[] = 'linktarget';
+		}
+
 		$fields = [ 'page_id', 'page_namespace', 'page_title',
-			'page_is_redirect', 'page_len', 'page_latest', 'cl_to',
+			'page_is_redirect', 'page_len', 'page_latest',
 			'cl_from' ];
 		$where = [];
 		$joins = [];
 		$options = [ 'ORDER BY' => 'cl_type, cl_sortkey' ];
 
 		$joins['categorylinks'] = [ 'JOIN', 'cl_from = page_id' ];
-		$where['cl_to'] = str_replace( ' ', '_', $categoryName );
+		if ( $useTargetID ) {
+			$joins['linktarget'] = [ 'JOIN', 'cl_target_id = lt_id' ];
+		}
+		if ( $useTargetID ) {
+			$where['lt_title'] = str_replace( ' ', '_', $categoryName );
+		} else {
+			$where['cl_to'] = str_replace( ' ', '_', $categoryName );
+		}
+
 		$options['USE INDEX']['categorylinks'] = 'cl_sortkey';
 
 		$tables = array_merge( $tables, [ 'category' ] );

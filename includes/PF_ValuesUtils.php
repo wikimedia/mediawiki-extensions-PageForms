@@ -61,8 +61,15 @@ class PFValuesUtils {
 	 * @return array
 	 */
 	public static function getCategoriesForPage( $title ) {
-		$categories = [];
 		$db = PFUtils::getReadDB();
+		if ( !$db->fieldExists( 'categorylinks', 'cl_to' ) ) {
+			// MW 1.45+
+			// Just call the original function, instead of
+			// trying to create a simplified version of it.
+			return $title->getParentCategories();
+		}
+
+		$categories = [];
 		$titlekey = $title->getArticleID();
 		if ( $titlekey == 0 ) {
 			// Something's wrong - exit
