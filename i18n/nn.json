@@ -82,6 +82,7 @@
 	"pf_formedit_remove": "Fjern",
 	"pf_formedit_addanother": "Legg til enno ein",
 	"pf_formedit_none": "Ingen",
+	"runquery": "Utfør spørjing",
 	"pf_formerrors_header": "Det var feil i skjemaet ditt; sjå nedanfor",
 	"pf_blank_error": "kan ikkje vera tom",
 	"pf_bad_url_error": "må ha korrekt adresseformat, inkludert 'http'",
