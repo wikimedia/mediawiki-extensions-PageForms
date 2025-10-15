@@ -852,12 +852,15 @@ function validateStartEndDateField( startInput, endInput ) {
 	if ( !startInput.length || !endInput.length ) {
 		return true;
 	}
+
+	// We get the index, instead of the actual value, of the month dropdown in
+	// case it's a text value (i.e., with $wgAmericanDates.)
 	const startYearVal = leftPad( startInput.find(".yearInput").val(),4 );
-	const startMonthVal = leftPad( startInput.find(".monthInput").val(),2 );
+	const startMonthVal = leftPad( startInput.find(".monthInput").prop('selectedIndex'),2 );
 	const startDayVal = leftPad( startInput.find(".dayInput").val(),2 );
 
 	const endYearVal = leftPad( endInput.find(".yearInput").val(),4 );
-	const endMonthVal = leftPad( endInput.find(".monthInput").val(),2 );
+	const endMonthVal = leftPad( endInput.find(".monthInput").prop('selectedIndex'),2 );
 	const endDayVal = leftPad( endInput.find(".dayInput").val(),2 );
 
 	const startDate = startYearVal + "/" + startMonthVal + "/" + startDayVal;
