@@ -141,7 +141,12 @@ class PFTextInput extends PFFormInput {
 
 			return $text;
 		}
-		$upload_window_page = PFUtils::getSpecialPage( 'UploadWindow' );
+
+		// @todo The OutputPage object should be injected to here.
+		RequestContext::getMain()->getOutput()->addModules( 'ext.pageforms.uploadable' );
+
+		// Default to a simple link to Special:Upload (in a new tab) for non-JS users.
+		$upload_window_page = PFUtils::getSpecialPage( 'Upload' );
 		$query_string = "pfInputID=$input_id";
 		if ( $delimiter != null ) {
 			$query_string .= "&pfDelimiter=$delimiter";
@@ -151,10 +156,8 @@ class PFTextInput extends PFFormInput {
 		}
 		$upload_window_url = $upload_window_page->getPageTitle()->getFullURL( $query_string );
 		$upload_label = wfMessage( 'upload' )->parse();
-		// We need to set the size by default.
-		$style = "width:650 height:500";
 
-		$cssClasses = [ 'popupformlink', 'pfUploadable' ];
+		$cssClasses = [ 'ext-pageforms-uploadable', 'pfUploadable' ];
 
 		$showPreview = array_key_exists( 'image preview', $other_args );
 
@@ -165,14 +168,14 @@ class PFTextInput extends PFFormInput {
 		$linkAttrs = [
 			'href' => $upload_window_url,
 			'class' => implode( ' ', $cssClasses ),
+			'target' => '_blank',
 			// The 'title' parameter sets the label below the
 			// window; we're leaving it blank, because otherwise
 			// it can by mistaken by users for a button, leading
 			// to confusion.
 			// 'title' => $upload_label,
-			'rev' => $style,
 			'data-input-id' => $input_id,
-			'data-type' => 'iframe'
+			'data-pageforms-defaultfilename' => $default_filename,
 		];
 
 		$text = "\t" . Html::element( 'a', $linkAttrs, $upload_label ) . "\n";

@@ -1384,6 +1384,12 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 		return this.href.replace(/input_/g, 'input_' + num_elements + '_');
 	});
 
+	// Update the 'Upload file' link's data attribute to point to the new input ID.
+	$new_div.find( '.ext-pageforms-uploadable' ).attr(
+		'data-input-id',
+		( index, attr ) => attr.replace( /input_/g, 'input_' + num_elements + '_' )
+	);
+
 	$new_div.find('span').attr('id', function() {
 		return this.id.replace(/span_/g, 'span_' + num_elements + '_');
 	});

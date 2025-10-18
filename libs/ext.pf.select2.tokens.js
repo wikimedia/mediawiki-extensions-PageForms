@@ -37,7 +37,7 @@ const Sortable = require( 'ext.pageforms.sortable' );
 	/*
 	 * Applies select2 to the HTML element
 	 *
-	 * @param {HTMLElement} element
+	 * @param {jQuery} element
 	 *
 	 */
 	tokens_proto.apply = function( element ) {

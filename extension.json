@@ -75,18 +75,7 @@
 			]
 		},
 		"FormEdit": "PFFormEdit",
-		"RunQuery": "PFRunQuery",
-		"UploadWindow": {
-			"class": "PFUploadWindow",
-			"services": [
-				"HookContainer",
-				"LinkRenderer",
-				"ReadOnlyMode",
-				"RepoGroup",
-				"UserOptionsLookup",
-				"WatchlistManager"
-			]
-		}
+		"RunQuery": "PFRunQuery"
 	},
 	"JobClasses": {
 		"pageFormsCreatePage": "PFCreatePageJob"
@@ -116,8 +105,6 @@
 		"PFFormStart": "specials/PF_FormStart.php",
 		"PFFormEdit": "specials/PF_FormEdit.php",
 		"PFRunQuery": "specials/PF_RunQuery.php",
-		"PFUploadForm": "specials/PF_UploadForm.php",
-		"PFUploadWindow": "specials/PF_UploadWindow.php",
 		"PFTemplateField": "includes/PF_TemplateField.php",
 		"PFForm": "includes/PF_Form.php",
 		"PFTemplate": "includes/PF_Template.php",
@@ -275,6 +262,15 @@
 			"targets": [
 				"desktop",
 				"mobile"
+			]
+		},
+		"ext.pageforms.uploadable": {
+			"dependencies": [
+				"mediawiki.Upload.Dialog"
+			],
+			"packageFiles": [
+				"libs/uploadable/init.js",
+				"libs/uploadable/Booklet.js"
 			]
 		},
 		"ext.pageforms.popupformedit": {
