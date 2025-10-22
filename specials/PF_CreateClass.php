@@ -1,7 +1,8 @@
 <?php
 /**
- * A special page holding a form that allows the user to create a semantic
- * property.
+ * A special page holding a form that allows the user to create an entire
+ * "class" of files, including one or more of template, form, category and
+ * (if using SMW) semantic properties.
  *
  * @author Yaron Koren
  * @author Sanyam Goyal
