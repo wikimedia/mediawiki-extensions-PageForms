@@ -77,7 +77,7 @@ class PFCreateClass extends SpecialPage {
 			$display_label = $display_label ?: $field_name;
 			$property_name = trim( $req->getVal( "property_name_$i" ) ?? '' );
 			$property_type = $req->getVal( "field_type_$i" );
-			$allowed_values = $req->getVal( "allowed_values_$i" );
+			$allowed_values = trim( $req->getVal( "allowed_values_$i" ) ?? '' );
 			$is_list = $req->getCheck( "is_list_$i" );
 			$delimiter = $req->getVal( "delimiter_$i" );
 			$is_hierarchy = $req->getCheck( "is_hierarchy_$i" );
@@ -87,9 +87,7 @@ class PFCreateClass extends SpecialPage {
 
 			if ( $is_hierarchy ) {
 				$field->setHierarchyStructure( $req->getVal( 'hierarchy_structure_' . $i ) );
-			} elseif ( trim( $allowed_values ) == '' ) {
-				// Do nothing.
-			} else {
+			} elseif ( $allowed_values !== '' ) {
 				// To ignore escaped commas during the split, we replace them with an
 				// obscure character (a "beep"), then replace them back afterwards.
 				$allowed_values_mod = str_replace( '\,', "\a", $allowed_values );
