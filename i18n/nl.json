@@ -254,7 +254,6 @@
 	"pf_start_end_datetime_error": "Einddatum/tijd moet na begindatum/tijd liggen",
 	"pf_modified_input_error": "Deze wijziging moet worden goedgekeurd of afgewezen",
 	"pf_pipe_error": "\"|\" is niet toegestaan, behalve tussen {{...}}, [[...]] of speciale elementen",
-	"uploadwindow": "Uploadscherm",
 	"pf-simpleupload": "Uploaden",
 	"pf_deletionlog": "Verwijderingslogboek",
 	"pf-preview-header": "Voorvertoning van formulier",

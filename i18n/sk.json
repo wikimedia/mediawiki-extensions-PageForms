@@ -97,7 +97,6 @@
 	"pf_bad_number_error": "musí byť platné číslo",
 	"pf_bad_integer_error": "musí byť celé číslo",
 	"pf_bad_date_error": "musí byť platný dátum",
-	"uploadwindow": "Okno nahrávania",
 	"pf_deletionlog": "Záznam mazaní",
 	"pf_property_isproperty": "Toto je vlastnosť typu $1.",
 	"pf_property_linkstoform": "Odkazuje na stránky používajúce formulár $1.",

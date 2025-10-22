@@ -154,7 +154,6 @@
 	"pf_bad_integer_error": "dapat na isang tanggap na buumbilang (''integer'')",
 	"pf_bad_date_error": "dapat na isang tanggap na petsa",
 	"pf_pipe_error": "Hindi pinapayagan ang \"|\", maliban kung nasa loob ng {{...}} o [[...]]",
-	"uploadwindow": "Dungawan ng pagkarga",
 	"pf_deletionlog": "Talaan ng pagbubura",
 	"pf-preview-header": "Paunang patingin sa pormularyo",
 	"pf-preview-note": "Ganito ang magiging anyo ng pormularyo habang ginagamit ito:",

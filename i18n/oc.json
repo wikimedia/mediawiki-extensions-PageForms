@@ -125,7 +125,6 @@
 	"pf_bad_integer_error": "deu èsser un nombre entièr",
 	"pf_bad_date_error": "deu èsser una data valida",
 	"pf_pipe_error": "« | » es pas autorizat, levat a l’interior de {{...}} o de [[...]].",
-	"uploadwindow": "Fenèstra de mandadís",
 	"pf_deletionlog": "Istoric de las supressions",
 	"pf-preview-header": "Previsualizacion del formulari",
 	"pf-preview-note": "Aquí vesètz a qué se semblarà lo formulari un còp utilizat :",

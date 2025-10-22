@@ -95,7 +95,6 @@
 	"pf_bad_integer_error": "mora biti ceo broj",
 	"pf_bad_date_error": "mora da bude važeći datum",
 	"pf_pipe_error": "Znak „|” nije dozvoljen, osim unutar {{...}}, [[...]] ili posebnih tagova",
-	"uploadwindow": "Prozor za otpremanje",
 	"pf_deletionlog": "Dnevnik brisanja",
 	"pf_form_freetextlabel": "Slobodan tekst",
 	"right-viewedittab": "vidi karticu „{{int:edit}}” za stranice koje su uredive putem obrasca",

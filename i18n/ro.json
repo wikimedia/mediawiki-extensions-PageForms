@@ -86,7 +86,6 @@
 	"pf_bad_number_error": "trebuie să fie un număr corect",
 	"pf_bad_integer_error": "trebuie să fie un număr întreg",
 	"pf_bad_date_error": "trebuie să fie o dată corectă",
-	"uploadwindow": "Fereastra de încărcare",
 	"pf_deletionlog": "Jurnalul ștergerilor",
 	"pf_property_isproperty": "Aceasta este o proprietate de tipul $1.",
 	"pf_property_allowedvals": "{{PLURAL:$1|Valoarea admisă pentru această proprietate este|Valorile admise pentru această proprietate sunt}}:",

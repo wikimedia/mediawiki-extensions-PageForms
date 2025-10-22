@@ -235,7 +235,6 @@
 	"pf_start_end_datetime_error": "Končni datum in čas morata biti po začetnem datumu in času",
 	"pf_modified_input_error": "To spremembo je treba odobriti ali zavrniti",
 	"pf_pipe_error": "»|« ni dovoljeno, razen znotraj {{...}}, [[...]] ali posebnih oznak",
-	"uploadwindow": "Okno za nalaganje",
 	"pf-simpleupload": "Naloži",
 	"pf_deletionlog": "Dnevnik brisanja",
 	"pf-preview-header": "Predogled obrazca",

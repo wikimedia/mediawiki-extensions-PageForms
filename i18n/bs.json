@@ -81,7 +81,6 @@
 	"pf_bad_number_error": "mora biti validan broj",
 	"pf_bad_integer_error": "mora biti valjan cijeli broj",
 	"pf_bad_date_error": "mora biti valjan datum",
-	"uploadwindow": "Prozor za postavljanje",
 	"pf_deletionlog": "Zapisnik brisanja",
 	"pf_template_docu": "Ovo je '$1' obrazac.\nTrebao bi se nazvati u sljedećem formatu:",
 	"pf_form_freetextlabel": "Slobodni tekst",

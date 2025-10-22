@@ -108,7 +108,6 @@
 	"pf_bad_number_error": "muess e giltigi Zahl syy",
 	"pf_bad_integer_error": "muess e giltigi Ganzzahl syy",
 	"pf_bad_date_error": "muess e giltig Datum syy",
-	"uploadwindow": "Fänschter zum Uffelade",
 	"pf_deletionlog": "Leschlogbuech",
 	"pf_property_isproperty": "Des isch e Eigeschaft vum Typ $1.",
 	"pf_property_linkstoform": "Verwyyst uff Syte, wu s Format $1 bruuche.",

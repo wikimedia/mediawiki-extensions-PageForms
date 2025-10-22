@@ -202,7 +202,6 @@
 	"pf_start_end_datetime_error": "Ngày giờ kết thúc phải sau ngày giờ bắt đầu",
 	"pf_modified_input_error": "Sửa đổi này nên được chấp thuận hoặc từ chối",
 	"pf_pipe_error": "\"|\" không được phép, ngoại trừ trong {{...}}, [[...]] hoặc các thẻ đặc biệt",
-	"uploadwindow": "Cửa sổ tải",
 	"pf-simpleupload": "Tải lên",
 	"pf_deletionlog": "Nhật trình xóa",
 	"pf-preview-header": "Xem trước biểu mẫu",

@@ -187,7 +187,6 @@
 	"pf_bad_integer_error": "tulee olla kokonaisluku",
 	"pf_bad_date_error": "pitää olla kelvollinen päiväys",
 	"pf_start_end_date_error": "Päättymispäivämäärän on oltava aloituspäivämäärän jälkeen",
-	"uploadwindow": "Tallennusikkuna",
 	"pf-simpleupload": "Tallenna",
 	"pf_deletionlog": "Poistoloki",
 	"pf-preview-header": "Lomakkeen esikatselu",

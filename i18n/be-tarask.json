@@ -144,7 +144,6 @@
 	"pf_bad_number_error": "павінна быць слушным лікам",
 	"pf_bad_integer_error": "павінна быць цэлым лікам",
 	"pf_bad_date_error": "павінна быць слушнай датай",
-	"uploadwindow": "Акно загрузкі",
 	"pf_deletionlog": "Журнал выдаленьняў",
 	"pf_property_isproperty": "Гэта ўласьцівасьць тыпу $1.",
 	"pf_property_linkstoform": "Гэтая ўласьцівасьць спасылаецца на старонкі, якія выкарыстоўваюць форму $1.",

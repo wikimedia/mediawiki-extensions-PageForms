@@ -116,7 +116,6 @@
 	"pf_bad_number_error": "számnak kell lennie",
 	"pf_bad_integer_error": "egész számnak kell lennie",
 	"pf_bad_date_error": "érvényes dátumnak kell lennie",
-	"uploadwindow": "Feltöltési ablak",
 	"pf_deletionlog": "Törlési napló",
 	"pf_property_isproperty": "Ez egy „$1” típusú tulajdonság.",
 	"pf_property_linkstoform": "Hivatkozik azokra a lapokra, amelyek a(z) $1 űrlapot használják.",

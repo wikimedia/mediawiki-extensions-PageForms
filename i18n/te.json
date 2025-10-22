@@ -44,7 +44,6 @@
 	"pf_bad_number_error": "ఖచ్చితంగా ఓ సంఖ్య అయివుండాలి",
 	"pf_bad_integer_error": "సరైన పూర్ణసంఖ్య అయివుండాలి",
 	"pf_bad_date_error": "సరైన తేదీ అయివుండాలి",
-	"uploadwindow": "ఎక్కింపు కిటికీ",
 	"pf_deletionlog": "తొలగింపు చిట్టా",
 	"pf_template_docu": "ఇది \"$1\" మూస.\nదీన్ని కింది ఫార్మాట్‌లో కాల్ చెయ్యాలి:",
 	"pf_form_freetextlabel": "స్వేచ్ఛా పాఠ్యం",

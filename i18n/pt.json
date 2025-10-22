@@ -242,7 +242,6 @@
 	"pf_start_end_datetime_error": "A data e hora de fim deve ser posterior à data e hora de início",
 	"pf_modified_input_error": "Esta alteração devia ser aprovada ou rejeitada",
 	"pf_pipe_error": "\"|\" não é permitido, exceto entre {{...}}, [[...]] ou elementos especiais",
-	"uploadwindow": "Janela de carregamento",
 	"pf-simpleupload": "Carregar",
 	"pf_deletionlog": "Registo de eliminações",
 	"pf-preview-header": "Antevisão de formulário",

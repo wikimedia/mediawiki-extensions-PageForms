@@ -224,7 +224,6 @@
 	"pf_bad_date_error": "ha de ser una data vàlida",
 	"pf_modified_input_error": "Cal aprovar o rebujar la modificació",
 	"pf_pipe_error": "No es permet «|», excepte entre {{...}}, [[...]] o etiquetes especials",
-	"uploadwindow": "Finestra de càrrega",
 	"pf-simpleupload": "Carrega",
 	"pf_deletionlog": "Registre de supressions",
 	"pf-preview-header": "Previsualització del formulari",

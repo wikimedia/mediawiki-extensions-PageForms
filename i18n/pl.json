@@ -189,7 +189,6 @@
 	"pf_bad_integer_error": "musi być poprawną liczbą całkowitą",
 	"pf_bad_date_error": "musi być poprawną datą",
 	"pf_pipe_error": "„|” nie jest dozwolone, z wyjątkiem ciągu {{...}}, [[...]] lub specjalnych znaczników",
-	"uploadwindow": "Okno przesyłania plików",
 	"pf-simpleupload": "Prześlij",
 	"pf_deletionlog": "Rejestr usunięć",
 	"pf-preview-header": "Podgląd formularza",

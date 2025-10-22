@@ -189,7 +189,6 @@
 	"pf_start_end_date_error": "Pabaigos data turi būti vėlesnė nei pradžios data",
 	"pf_modified_input_error": "Šis pakeitimas turėtų būti patvirtintas arba atmestas",
 	"pf_pipe_error": "„|“ neleidžiamas, išskyrus, kai naudojama {{...}}, [[...]] ar specialiose žymėse",
-	"uploadwindow": "Failo įkėlimo langas",
 	"pf-simpleupload": "Įkelti",
 	"pf_deletionlog": "Trynimų žurnalas",
 	"pf-preview-header": "Formos peržiūra",

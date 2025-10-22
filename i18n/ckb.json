@@ -72,7 +72,6 @@
 	"pf_bad_number_error": "دەبێت ژمارەیەکی ڕێگەپێدراو بێت",
 	"pf_bad_date_error": "دەبێت ڕێکەوتێکی ڕێگەپێدراو بێت",
 	"pf_pipe_error": "«|» ڕێگەپێدراو نییە مەگەر ئەوەی گە لەناو {{...}} یان [[...]]دا بێت",
-	"uploadwindow": "پەنجەرەی بارکردن",
 	"pf_deletionlog": "لۆگی سڕینەوە",
 	"pf-preview-header": "پێشبینینی فۆرم",
 	"pf-pageschemas-createtitle": "سەرناوی فۆرم بۆ پەڕە نوێکان:",

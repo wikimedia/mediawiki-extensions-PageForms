@@ -246,7 +246,6 @@
 	"pf_start_end_datetime_error": "يجب أن يكون تاريخ الانتهاء بعد تاريخ البدء",
 	"pf_modified_input_error": "يجب الموافقة على هذا التعديل أو رفضه",
 	"pf_pipe_error": "\"|\" غير مسموح به ، باستثناء داخل {{...}} أو [[...]]، أو وسوم خاصة",
-	"uploadwindow": "نافذة الرفع",
 	"pf-simpleupload": "رفع",
 	"pf_deletionlog": "سجل الحذف",
 	"pf-preview-header": "معاينة الإستمارة",

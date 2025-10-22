@@ -237,7 +237,6 @@
 	"pf_bad_date_error": "должно быть датой",
 	"pf_modified_input_error": "Исправление должно быть утверждено или отклонено",
 	"pf_pipe_error": "Знак «|» не разрешён, кроме в рамках {{...}} или [[...]]",
-	"uploadwindow": "Окно загрузки",
 	"pf-simpleupload": "Загрузить",
 	"pf_deletionlog": "Журнал удалений",
 	"pf-preview-header": "Предпросмотр формы",

@@ -240,7 +240,6 @@
 	"pf_start_end_datetime_error": "A data de término deve ser posterior a data de início",
 	"pf_modified_input_error": "Esta alteração devia ser aprovada ou rejeitada",
 	"pf_pipe_error": "\"|\" não é permitido, exceto dentro de {{...}} ou [[...]], ou etiquetas especiais",
-	"uploadwindow": "Janela de upload",
 	"pf-simpleupload": "Enviar",
 	"pf_deletionlog": "Registro de eliminações",
 	"pf-preview-header": "Previsão do formulário",

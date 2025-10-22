@@ -262,7 +262,6 @@
 	"pf_start_end_datetime_error": "结束日期时间必须晚于开始日期时间",
 	"pf_modified_input_error": "该修改应被核准或拒绝",
 	"pf_pipe_error": "不允许使用“|”，{{...}}、[[...]]或特殊标记内除外",
-	"uploadwindow": "上传窗口",
 	"pf-simpleupload": "上传",
 	"pf_deletionlog": "删除日志",
 	"pf-preview-header": "表单预览",

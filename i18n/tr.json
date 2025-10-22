@@ -240,7 +240,6 @@
 	"pf_start_end_datetime_error": "Bitiş tarih saati, başlangıç tarihinden sonra olmalıdır",
 	"pf_modified_input_error": "Bu değişiklik onaylanmalı veya reddedilmelidir",
 	"pf_pipe_error": "\"|\" izin verilmiyor, {{...}}, [[...]] veya özel etiketler dışında izin hariç",
-	"uploadwindow": "Yükleme penceresi",
 	"pf-simpleupload": "Yükle",
 	"pf_deletionlog": "Silme günlüğü",
 	"pf-preview-header": "Form önizlemesi",

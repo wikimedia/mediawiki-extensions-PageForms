@@ -212,7 +212,6 @@
 	"pf_bad_integer_error": "ha de ser un enteiro",
 	"pf_bad_date_error": "debe ser unha data válida",
 	"pf_pipe_error": "\"|\" non está permitido, excepto entre {{...}}, [[...]] ou etiquetas especiais",
-	"uploadwindow": "Ventá de carga",
 	"pf-simpleupload": "Subir",
 	"pf_deletionlog": "Rexistro de borrados",
 	"pf-preview-header": "Vista previa do formulario",

@@ -237,7 +237,6 @@
 	"pf_start_end_datetime_error": "Le data e hora de fin debe esser posterior al data e hora de initio",
 	"pf_modified_input_error": "Iste modification debe esser approbate o rejectate",
 	"pf_pipe_error": "\"|\" non es permittite, excepte inter {{...}}, [[...]] o etiquettas special",
-	"uploadwindow": "Fenestra de incargamento",
 	"pf-simpleupload": "Incargar",
 	"pf_deletionlog": "Registro de deletiones",
 	"pf-preview-header": "Previsualisation de formulario",
