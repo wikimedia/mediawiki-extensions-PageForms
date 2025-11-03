@@ -198,7 +198,7 @@
 	"pf_formedit_remove": "Bu örneği kaldır",
 	"pf_formedit_addanotherabove": "Buna yukarıdakilerden başka bir örneği ekle",
 	"pf_formedit_addanother": "Başka birtane ekle",
-	"pf_formedit_none": "Hiçbiri",
+	"pf_formedit_none": "Hiçbiri/bilinmiyor",
 	"pf_formedit_emptytitle": "Hata: Girilen veriler boş bir sayfa başlığı ile sonuçlanıyor.",
 	"pf_formedit_hookerror": "Hata: MediaWiki uzantısı hedef sayfanın değiştirilmesini engelledi.",
 	"pf_formedit_saveandcontinueediting": "Kaydet ve devam et",
