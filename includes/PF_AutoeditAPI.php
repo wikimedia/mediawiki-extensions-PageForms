@@ -425,23 +425,46 @@ class PFAutoeditAPI extends ApiBase {
 		$services = MediaWikiServices::getInstance();
 		$permManager = $services->getPermissionManager();
 
-		$permStatus = $permManager->getPermissionStatus( 'edit', $user, $title );
+		if ( method_exists( $permManager, 'getPermissionStatus' ) ) {
+			// MW 1.43+
+			$permStatus = $permManager->getPermissionStatus( 'edit', $user, $title );
 
-		// if this title needs to be created, user needs create rights
-		if ( !$title->exists() ) {
-			$permStatusForCreate = $permManager->getPermissionStatus( 'create', $user, $title );
-			$permStatus->merge( $permStatusForCreate );
-		}
-
-		if ( !$permStatus->isOK() ) {
-			// Auto-block user's IP if the account was "hard" blocked
-			$user->spreadAnyEditBlock();
-
-			foreach ( $permStatus->getMessages() as $errorMsg ) {
-				$this->logMessage( wfMessage( $errorMsg )->parse() );
+			// if this title needs to be created, user needs create rights
+			if ( !$title->exists() ) {
+				$permStatusForCreate = $permManager->getPermissionStatus( 'create', $user, $title );
+				$permStatus->merge( $permStatusForCreate );
 			}
 
-			return;
+			if ( !$permStatus->isOK() ) {
+				// Auto-block user's IP if the account was "hard" blocked
+				$user->spreadAnyEditBlock();
+
+				foreach ( $permStatus->getMessages() as $errorMsg ) {
+					$this->logMessage( wfMessage( $errorMsg )->parse() );
+				}
+
+				return;
+			}
+		} else {
+			// MW < 1.43
+			$permErrors = $permManager->getPermissionErrors( 'edit', $user, $title );
+
+			// if this title needs to be created, user needs create rights
+			if ( !$title->exists() ) {
+				$permErrorsForCreate = $permManager->getPermissionErrors( 'create', $user, $title );
+				$permErrors = array_merge( $permErrors, wfArrayDiff2( $permErrorsForCreate, $permErrors ) );
+			}
+
+			if ( $permErrors ) {
+				// Auto-block user's IP if the account was "hard" blocked
+				$user->spreadAnyEditBlock();
+
+				foreach ( $permErrors as $error ) {
+					$this->logMessage( call_user_func_array( 'wfMessage', $error )->parse() );
+				}
+
+				return;
+			}
 		}
 
 		$resultDetails = [];

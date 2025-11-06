@@ -1,5 +1,9 @@
 <?php
 
+if ( !class_exists( 'MediaWikiIntegrationTestCase' ) ) {
+	class_alias( 'MediaWikiTestCase', 'MediaWikiIntegrationTestCase' );
+}
+
 /**
  * @covers \PFForm
  *
