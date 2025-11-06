@@ -1,16 +1,11 @@
 <?php
 
 use MediaWiki\CommentStore\CommentStore;
-use MediaWiki\Context\RequestContext;
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Parser\Parser;
-use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Revision\RenderedRevision;
 use MediaWiki\Title\Title;
 use OOUI\ButtonInputWidget;
-use Wikimedia\ObjectCache\BagOStuff;
-use Wikimedia\StringUtils\StringUtils;
 
 /**
  * Utilities for the display and retrieval of forms.

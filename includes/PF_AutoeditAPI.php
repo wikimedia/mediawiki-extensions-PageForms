@@ -6,18 +6,12 @@
  * @ingroup PageForms
  */
 
-use MediaWiki\Api\ApiBase;
-use MediaWiki\Context\RequestContext;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Parser\Parser;
-use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Request\FauxRequest;
-use MediaWiki\Request\WebRequest;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Title\Title;
-use Wikimedia\StringUtils\StringUtils;
 
 /**
  * @ingroup PageForms

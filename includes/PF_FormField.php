@@ -7,7 +7,6 @@
 
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\User\User;
 
 /**
  * This class is distinct from PFTemplateField in that it represents a template

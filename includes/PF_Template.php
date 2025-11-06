@@ -11,7 +11,6 @@
 
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
-use Wikimedia\StringUtils\StringUtils;
 
 class PFTemplate {
 	private $mTemplateName;

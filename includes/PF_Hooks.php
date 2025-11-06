@@ -8,22 +8,12 @@
  * @ingroup PF
  */
 
-use MediaWiki\Context\RequestContext;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Output\OutputPage;
-use MediaWiki\Parser\Parser;
-use MediaWiki\Request\WebRequest;
 use MediaWiki\ResourceLoader\ResourceLoader;
-use MediaWiki\Revision\RevisionRecord;
-use MediaWiki\SpecialPage\SpecialPage;
-use MediaWiki\Storage\EditResult;
 use MediaWiki\StubObject\StubObject;
 use MediaWiki\Title\Title;
-use MediaWiki\User\User;
-use MediaWiki\User\UserIdentity;
-use Wikimedia\StringUtils\StringUtils;
 
 class PFHooks {
 
@@ -417,14 +407,14 @@ class PFHooks {
 	 * cookie correctly only after form-based saves, unfortunately.
 	 *
 	 * @param WikiPage $wikiPage
-	 * @param UserIdentity $user
+	 * @param MediaWiki\User\UserIdentity $user
 	 * @param string $summary
 	 * @param int $flags
-	 * @param RevisionRecord $revisionRecord
-	 * @param EditResult $editResult
+	 * @param MediaWiki\Revision\RevisionRecord $revisionRecord
+	 * @param MediaWiki\Storage\EditResult $editResult
 	 */
-	public static function setPostEditCookie( WikiPage $wikiPage, UserIdentity $user, string $summary, int $flags,
-		RevisionRecord $revisionRecord, EditResult $editResult
+	public static function setPostEditCookie( WikiPage $wikiPage, MediaWiki\User\UserIdentity $user, string $summary, int $flags,
+		MediaWiki\Revision\RevisionRecord $revisionRecord, MediaWiki\Storage\EditResult $editResult
 	) {
 		// Have this take effect only if the save came from a form -
 		// we need to use a global variable to determine that.
@@ -450,7 +440,7 @@ class PFHooks {
 	 * then reload the original page, which does seem to work. There may
 	 * well be a better solution for this, though.
 	 *
-	 * @param OutputPage $out
+	 * @param MediaWiki\Output\OutputPage $out
 	 * @param Skin $skin
 	 */
 	public static function handleForceReload( $out, Skin $skin ) {

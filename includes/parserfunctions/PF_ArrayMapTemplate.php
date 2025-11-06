@@ -19,8 +19,6 @@
  * {{#arraymaptemplate:blue;red;yellow|Beautify|;|;}}
  */
 
-use MediaWiki\Parser\Parser;
-
 class PFArrayMapTemplate {
 	public static function run( Parser $parser, $frame, $args ) {
 		// Set variables.

@@ -2,9 +2,6 @@
 
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Output\OutputPage;
-use MediaWiki\Parser\Parser;
-use MediaWiki\Parser\Sanitizer;
 use MediaWiki\Title\Title;
 
 /**

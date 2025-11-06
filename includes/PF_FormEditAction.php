@@ -1,6 +1,5 @@
 <?php
 
-use MediaWiki\Context\IContextSource;
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 

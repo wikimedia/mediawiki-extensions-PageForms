@@ -8,7 +8,6 @@
  */
 
 use MediaWiki\Html\Html;
-use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Title\Title;
 
 /**

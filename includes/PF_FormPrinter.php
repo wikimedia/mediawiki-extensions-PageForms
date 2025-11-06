@@ -13,16 +13,10 @@
  * @ingroup PF
  */
 
-use MediaWiki\Context\RequestContext;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Output\OutputPage;
-use MediaWiki\Parser\Parser;
-use MediaWiki\Parser\ParserOptions;
-use MediaWiki\Parser\Sanitizer;
 use MediaWiki\Title\Title;
-use MediaWiki\User\User;
 
 class PFFormPrinter {
 

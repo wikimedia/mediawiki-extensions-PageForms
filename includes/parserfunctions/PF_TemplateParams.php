@@ -6,8 +6,6 @@
  * @author Yaron Koren
  */
 
-use MediaWiki\Parser\Parser;
-
 class PFTemplateParams {
 
 	public static function run( Parser $parser ) {

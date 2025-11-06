@@ -9,7 +9,6 @@
  */
 
 use MediaWiki\Html\Html;
-use MediaWiki\Parser\Sanitizer;
 use MediaWiki\Title\Title;
 
 /**
