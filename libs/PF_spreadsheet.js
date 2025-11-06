@@ -593,7 +593,6 @@ const dataValues = [];
 		}
 
 		//(function getData () {
-			let page = "";
 
 			// Called whenever the user makes a change to the data.
 			function editMade( instance, cell, x, y, value ) {
@@ -601,7 +600,6 @@ const dataValues = [];
 				columnName = columnNames[x];
 				if ( columnName === "page" ) {
 					newPageNames[y] = value;
-					page = value === '' ? " " : value;
 				}
 
 				// Update either the "save" or the "add" icon,
@@ -651,7 +649,7 @@ const dataValues = [];
 							templateName,
 							formName,
 							y,
-							page,
+							newPageNames[y],
 							dataValues[spreadsheetID][y],
 							columns,
 							editMultiplePages
