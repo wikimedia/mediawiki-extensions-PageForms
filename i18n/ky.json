@@ -17,6 +17,7 @@
 	"pf_forminputs_checkboxes_select_all": "Баарын тандоо",
 	"pf_createform_template": "Калып:",
 	"pf_createform_field": "Талаа:",
+	"pf_createform_removetemplate": "Калыпты алып салуу",
 	"pf_createclass_create": "Түзүү",
 	"pf_formedit_createtitle": "«‎$1» түзүү: $2",
 	"pf_formedit_createtitlenotarget": "«‎$1» түзүү",
