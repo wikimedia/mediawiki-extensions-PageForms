@@ -15,7 +15,7 @@
 	"pageforms-desc": "Formularios para crear e editar páxinas wiki",
 	"specialpages-group-pf_group": "Formularios semánticos",
 	"apihelp-pfautocomplete-summary": "Autoenchido usado pola extensión Page Forms.",
-	"apihelp-pfautocomplete-param-limit": "Un límite no número de resultados devoltos",
+	"apihelp-pfautocomplete-param-limit": "Límite no número de resultados a devolver",
 	"apihelp-pfautocomplete-param-substr": "A subcadea sobre a que realizar o autoenchido",
 	"apihelp-pfautocomplete-param-property": "Unha propiedade de MediaWiki Semántica cuxos valores serán completados automaticamente",
 	"apihelp-pfautocomplete-param-category": "Unha categoría cuxas páxinas serán completadas automaticamente",
