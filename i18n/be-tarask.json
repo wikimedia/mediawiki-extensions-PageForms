@@ -6,7 +6,8 @@
 			"Kareyac",
 			"Red Winged Duck",
 			"Renessaince",
-			"Wizardist"
+			"Wizardist",
+			"Ucukor"
 		]
 	},
 	"pageforms-desc": "Формы для стварэньня і рэдагаваньня вікістаронак",
@@ -114,7 +115,7 @@
 	"pf_formedit_altformsonly": "Калі ласка, выберыце адну з наступных формаў для даданьня гэтай старонкі:",
 	"pf_formcreate": "Стварыць з дапамогай формы",
 	"pf_viewform": "Паказаць форму",
-	"pf_editsource": "Рэдагаваць крыніцу",
+	"pf_editsource": "Рэдагаваць",
 	"pf_formedit_edittitle": "Рэдагаваньне $1: $2",
 	"pf_formedit_morethanoneform": "Увага: для гэтай старонкі вызначана па змоўчваньні больш за адну форму.",
 	"pf_formedit_formwarning": "Увага: старонка [[$1|ўжо існуе]], але яна не выкарыстоўвае гэтую форму.",
