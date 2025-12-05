@@ -221,9 +221,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 	}
 
 	coordsInput.keypress( function( e ) {
-		// Is this still necessary fro IE compatibility?
-		const keycode = (e.keyCode ? e.keyCode : e.which);
-		if ( keycode === 13 ) {
+		if ( e.key === 'Enter' ) {
 			setMarkerFromCoordinates();
 			// Prevent the form from getting submitted.
 			e.preventDefault();
@@ -307,9 +305,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 	}
 
 	inputDiv.find('.pfAddressInput').keypress( ( e ) => {
-		// Is this still necessary fro IE compatibility?
-		const keycode = (e.keyCode ? e.keyCode : e.which);
-		if ( keycode === 13 ) {
+		if ( e.key === 'Enter' ) {
 			setMarkerFromAddress();
 			// Prevent the form from getting submitted.
 			e.preventDefault();

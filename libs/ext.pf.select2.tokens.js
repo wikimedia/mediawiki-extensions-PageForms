@@ -123,10 +123,10 @@ const Sortable = require( 'ext.pageforms.sortable' );
 		});
 
 		$(inputData.$container[0]).on("keyup",(e) => {
-			if( existingValuesOnly ){
+			if ( existingValuesOnly ) {
 				return ;
 			}
-			if( e.keyCode === 9 ){
+			if ( e.key === 'Tab' ) {
 				let rawValue = "";
 				let checkIfPresent = false;
 				const valHighlighted = inputData.$results.find('.select2-results__option--highlighted')[0];

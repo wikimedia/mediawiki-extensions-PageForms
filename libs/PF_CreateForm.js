@@ -57,5 +57,5 @@ jQuery( () => {
 
 jQuery( "input,select" ).keypress( ( event ) =>
 	// Don't submit the form if enter is pressed on a text input box or a select.
-	 event.keyCode !== 13
+	 event.key !== 'Enter'
  );

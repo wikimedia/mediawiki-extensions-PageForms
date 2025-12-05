@@ -16,7 +16,7 @@
 		this.setValues();
 	});
 	this.$input.keyup( (event) => {
-		if (event.keyCode !== 38 && event.keyCode !== 40 && event.keyCode !== 37 && event.keyCode !== 39) {
+		if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown' && event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
 			this.setValues();
 		}
 	});

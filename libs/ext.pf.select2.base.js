@@ -82,7 +82,7 @@
 					if ( existingValuesOnly ) {
 						return ;
 					}
-					if ( e.keyCode === 9 ) { // Tab.
+					if ( e.key === 'Tab' ) {
 						const valHighlighted = inputData.$results.find('.select2-results__option--highlighted')[0];
 						if ( valHighlighted !== undefined ){
 							rawValue = valHighlighted.textContent;
