@@ -13,7 +13,7 @@
 		]
 	},
 	"pageforms-desc": "Formularios para crear e editar páxinas wiki",
-	"specialpages-group-pf_group": "Formularios semánticos",
+	"specialpages-group-pf_group": "Formularios de páxinas",
 	"apihelp-pfautocomplete-description": "Autoenchido usado pola extensión Semantic Forms (Formularios Semánticos).",
 	"apihelp-pfautocomplete-summary": "Autoenchido usado pola extensión Page Forms.",
 	"apihelp-pfautocomplete-param-limit": "Límite no número de resultados a devolver",
