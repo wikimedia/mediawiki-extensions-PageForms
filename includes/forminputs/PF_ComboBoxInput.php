@@ -41,9 +41,14 @@ class PFComboBoxInput extends PFFormInput {
 		// $cur_value may be a simple string or an array,
 		// possibly even a mapped value-label array.
 		if ( is_array( $cur_value ) ) {
-			$cur_label = reset( $cur_value );
-			$cur_val_keys = array_keys( $cur_value );
-			$cur_value = reset( $cur_val_keys );
+			if ( count( $cur_value ) > 0 ) {
+				$cur_label = reset( $cur_value );
+				$cur_val_keys = array_keys( $cur_value );
+				$cur_value = reset( $cur_val_keys );
+			} else {
+				$cur_value = '';
+				$cur_label = '';
+			}
 		} else {
 			$cur_label = $cur_value;
 		}
