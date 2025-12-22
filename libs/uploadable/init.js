@@ -7,12 +7,18 @@ const uploadDialog = new mw.Upload.Dialog( {
 } );
 windowManager.addWindows( [ uploadDialog ] );
 
+const uploadHandlerContext = {};
+
 const handleClick = ( e ) => {
 	e.preventDefault();
 	windowManager.openWindow( uploadDialog );
 	const uploadLink = e.target;
+
 	uploadDialog.uploadBooklet.setDefaultFilename( uploadLink.dataset.pageformsDefaultfilename );
-	uploadDialog.uploadBooklet.connect ( this, {
+
+	uploadDialog.uploadBooklet.disconnect( uploadHandlerContext );
+
+	uploadDialog.uploadBooklet.connect ( uploadHandlerContext, {
 		fileSaved: ( imageInfo ) => {
 			const filename = new mw.Title ( imageInfo.canonicaltitle ).getMainText ();
 			uploadDialog.close ();
