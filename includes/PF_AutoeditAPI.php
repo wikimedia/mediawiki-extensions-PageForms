@@ -541,8 +541,8 @@ class PFAutoeditAPI extends ApiBase {
 				$anchor = isset( $resultDetails['sectionanchor'] ) ? $resultDetails['sectionanchor'] : '';
 
 				// Give extensions a chance to modify URL query on create
-				$sectionanchor = null;
-				$extraQuery = null;
+				$sectionanchor = '';
+				$extraQuery = '';
 				$services->getHookContainer()->run( 'ArticleUpdateBeforeRedirect', [ $editor->getArticle(), &$sectionanchor, &$extraQuery ] );
 
 				// @phan-suppress-next-line PhanImpossibleCondition
@@ -577,7 +577,7 @@ class PFAutoeditAPI extends ApiBase {
 			case EditPage::AS_SUCCESS_UPDATE:
 				// Article successfully updated
 				$extraQuery = '';
-				$sectionanchor = $resultDetails['sectionanchor'] ?? null;
+				$sectionanchor = $resultDetails['sectionanchor'] ?? '';
 
 				// Give extensions a chance to modify URL query on update
 				$services->getHookContainer()->run( 'ArticleUpdateBeforeRedirect', [ $editor->getArticle(), &$sectionanchor, &$extraQuery ] );
