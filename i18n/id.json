@@ -143,7 +143,7 @@
 	"pf_bad_number_error": "harus berupa angka",
 	"pf_bad_integer_error": "harus berupa bilangan bulat",
 	"pf_bad_date_error": "harus berupa tanggal",
-	"pf_pipe_error": "\"|\" tidak diizinkan, kecuali di dalam {{...}}, [[...]], atau tag istimewa",
+	"pf_pipe_error": "\"|\" tidak diizinkan, kecuali di dalam {{...}}, [[...]], atau tanda istimewa",
 	"pf_deletionlog": "Log penghapusan",
 	"pf_property_isproperty": "Ini adalah properti bertipe $1",
 	"pf_property_linkstoform": "Ia terhubung dengan halaman yang menggunakan formulir $1.",
