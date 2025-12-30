@@ -705,7 +705,6 @@
 		"CargoTablesActionLinks": "PFHooks::addToCargoTablesLinks",
 		"CargoTablesSetAllowedActions": "PFHooks::addToCargoTablesColumns",
 		"CargoTablesSetActionLinks": "PFHooks::addToCargoTablesRow",
-		"TinyMCEDisable": "PFHooks::disableTinyMCE",
 		"CanonicalNamespaces": "PFHooks::registerNamespaces",
 		"ResourceLoaderRegisterModules": "PFHooks::registerModules",
 		"BeforePageDisplay": "PFHooks::handleForceReload"

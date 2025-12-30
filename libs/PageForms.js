@@ -12,7 +12,7 @@ const Sortable = require( 'ext.pageforms.sortable' );
  * @author Harold Solbrig
  * @author Eugene Mednikov
  */
-/*global wgPageFormsShowOnSelect, wgPageFormsFieldProperties, wgPageFormsCargoFields, wgPageFormsDependentFields, validateAll, alert, mwTinyMCEInit, pf, Sortable*/
+/*global wgPageFormsShowOnSelect, wgPageFormsFieldProperties, wgPageFormsCargoFields, wgPageFormsDependentFields, validateAll, alert, pf, Sortable*/
 
 ( function( $, mw ) {
 
@@ -1767,32 +1767,6 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 			}
 		});
 	}
-
-	// @TODO - this should be in the TinyMCE extension, and use a hook.
-	if ( typeof( mwTinyMCEInit ) === 'function' ) {
-		if ( partOfMultiple ) {
-			$myThis.find(".tinymce").each( function() {
-				mwTinyMCEInit( '#' + $(this).attr('id') );
-			});
-		} else {
-			$myThis.find(".tinymce").not(".multipleTemplateWrapper .tinymce").each( function() {
-				mwTinyMCEInit( '#' + $(this).attr('id') );
-			});
-		}
-	} else {
-		$(document).on('TinyMCELoaded', (e) => {
-			if ( partOfMultiple ) {
-				$myThis.find(".tinymce").each( function() {
-					mwTinyMCEInit( '#' + $(this).attr('id') );
-				});
-			} else {
-				$myThis.find(".tinymce").not(".multipleTemplateWrapper .tinymce").each( function() {
-					mwTinyMCEInit( '#' + $(this).attr('id') );
-				});
-			}
-		});
-	}
-
 };
 
 // Copied from https://stackoverflow.com/a/8809472

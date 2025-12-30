@@ -72,20 +72,6 @@ class PFTextAreaInput extends PFFormInput {
 			}
 		}
 
-		// TinyMCE
-		if (
-			array_key_exists( 'editor', $this->mOtherArgs ) &&
-			$this->mOtherArgs['editor'] == 'tinymce'
-		) {
-			$this->mEditor = 'tinymce';
-			global $wgTinyMCEEnabled;
-			$wgTinyMCEEnabled = true;
-			$newClasses = 'mceMinimizeOnBlur';
-			if ( $input_name != 'pf_free_text' && !array_key_exists( 'isSection', $this->mOtherArgs ) ) {
-				$newClasses .= ' mcePartOfTemplate';
-			}
-		}
-
 		if ( $newClasses == null ) {
 			// Do nothing.
 		} elseif ( array_key_exists( 'class', $this->mOtherArgs ) ) {
@@ -156,8 +142,6 @@ class PFTextAreaInput extends PFFormInput {
 			return 'ext.pageforms.wikieditor';
 		} elseif ( $this->mEditor == 'visualeditor' ) {
 			return 'ext.veforall.main';
-		} elseif ( $this->mEditor == 'tinymce' ) {
-			return 'ext.tinymce';
 		} else {
 			return null;
 		}
@@ -178,8 +162,6 @@ class PFTextAreaInput extends PFFormInput {
 			$className = 'wikieditor ';
 		} elseif ( $this->mEditor == 'visualeditor' ) {
 			$className = 'visualeditor ';
-		} elseif ( $this->mEditor == 'tinymce' ) {
-			$className = 'tinymce ';
 		} else {
 			$className = '';
 		}

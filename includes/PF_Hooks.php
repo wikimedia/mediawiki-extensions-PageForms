@@ -336,27 +336,6 @@ class PFHooks {
 	}
 
 	/**
-	 * Called by the TinyMCEDisable hook.
-	 *
-	 * Disable TinyMCE if this is a form definition page, or a form-editable page.
-	 *
-	 * @param Title $title The page Title object
-	 * @return bool Whether or not to disable TinyMCE
-	 */
-	public static function disableTinyMCE( $title ) {
-		if ( $title->getNamespace() == PF_NS_FORM ) {
-			return false;
-		}
-
-		$defaultForms = PFFormLinker::getDefaultFormsForPage( $title );
-		if ( count( $defaultForms ) > 0 ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
 	 * Called by the EditPage::importFormData hook.
 	 *
 	 * @param EditPage $editpage
