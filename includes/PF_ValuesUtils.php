@@ -294,25 +294,31 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 				$tables = [ 'categorylinks', 'page' ];
 				$columns = [ 'page_title', 'page_namespace' ];
 				$conditions = [];
-				$conditions[] = 'cl_from = page_id';
-				$conditions['cl_to'] = $category;
+				$join = [];
+				$join['categorylinks'] = [ 'JOIN', 'cl_from = page_id' ];
+				if ( $db->fieldExists( 'categorylinks', 'cl_to' ) ) {
+					$conditions['cl_to'] = $category;
+				} else {
+					// MW 1.45+
+					$tables[] = 'linktarget';
+					$join['linktarget'] = [ 'JOIN', 'cl_target_id = lt_id' ];
+					$conditions['lt_title'] = $category;
+				}
 				if ( $wgPageFormsUseDisplayTitle ) {
 					$tables['pp_displaytitle'] = 'page_props';
 					$tables['pp_defaultsort'] = 'page_props';
 					$columns['pp_displaytitle_value'] = 'pp_displaytitle.pp_value';
 					$columns['pp_defaultsort_value'] = 'pp_defaultsort.pp_value';
-					$join = [
-						'pp_displaytitle' => [
-							'LEFT JOIN', [
-								'pp_displaytitle.pp_page = page_id',
-								'pp_displaytitle.pp_propname = \'displaytitle\''
-							]
-						],
-						'pp_defaultsort' => [
-							'LEFT JOIN', [
-								'pp_defaultsort.pp_page = page_id',
-								'pp_defaultsort.pp_propname = \'defaultsort\''
-							]
+					$join['pp_displaytitle'] = [
+						'LEFT JOIN', [
+							'pp_displaytitle.pp_page = page_id',
+							'pp_displaytitle.pp_propname = \'displaytitle\''
+						]
+					];
+					$join['pp_defaultsort'] = [
+						'LEFT JOIN', [
+							'pp_defaultsort.pp_page = page_id',
+							'pp_defaultsort.pp_propname = \'defaultsort\''
 						]
 					];
 					if ( $substring != null ) {
@@ -323,7 +329,6 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 							' OR page_namespace = ' . NS_CATEGORY;
 					}
 				} else {
-					$join = [];
 					if ( $substring != null ) {
 						$conditions[] = self::getSQLConditionForAutocompleteInColumn( 'page_title', $substring ) . ' OR page_namespace = ' . NS_CATEGORY;
 					}
