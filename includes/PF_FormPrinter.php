@@ -1958,7 +1958,6 @@ END;
 		}
 
 		$form_text .= "\t</form>\n";
-		$parser->replaceLinkHolders( $form_text );
 		$hookContainer->run( 'PageForms::RenderingEnd', [ &$form_text ] );
 
 		// Send the autocomplete values to the browser, along with the
