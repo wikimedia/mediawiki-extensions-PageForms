@@ -158,20 +158,6 @@ class PFTokensInput extends PFFormInput {
 		$cur_values = PFValuesUtils::getValuesArray( $cur_value, $delimiter );
 		$optionsText = '';
 
-		$possible_values = $other_args['possible_values'];
-		if ( $possible_values == null ) {
-			// If it's a Boolean property, display 'Yes' and 'No'
-			// as the values.
-			if ( array_key_exists( 'property_type', $other_args ) && $other_args['property_type'] == '_boo' ) {
-				$possible_values = [
-					PFUtils::getWordForYesOrNo( true ),
-					PFUtils::getWordForYesOrNo( false ),
-				];
-			} else {
-				$possible_values = [];
-			}
-		}
-
 		foreach ( $cur_values as $current_value ) {
 			if ( $current_value !== '' ) {
 				$optionAttrs = [ 'value' => $current_value, 'selected' => 'selected' ];
