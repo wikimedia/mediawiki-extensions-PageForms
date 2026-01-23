@@ -738,9 +738,12 @@ $.fn.validateDateField = function() {
 // Standalone pipes are not allowed, because they mess up the template
 // parsing; unless they're part of a call to a template or a parser function.
 $.fn.checkForPipes = function() {
-	let fieldVal = this.find("input, textarea").val();
 	// We need to check for a few different things because this is
 	// called for a variety of different input types.
+	let fieldVal = this.find("input").val();
+	if ( fieldVal === undefined || fieldVal === '' ) {
+		fieldVal = this.find("textarea").val();
+	}
 	if ( fieldVal === undefined || fieldVal === '' ) {
 		fieldVal = this.text();
 	}
