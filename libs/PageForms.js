@@ -740,16 +740,24 @@ $.fn.validateDateField = function() {
 $.fn.checkForPipes = function() {
 	// We need to check for a few different things because this is
 	// called for a variety of different input types.
-	let fieldVal = this.find("input").val();
-	if ( fieldVal === undefined || fieldVal === '' ) {
-		fieldVal = this.find("textarea").val();
+	let fieldVal = this.find("textarea").val();
+	if ( fieldVal === undefined ) {
+		fieldVal = this.find("select").val();
 	}
-	if ( fieldVal === undefined || fieldVal === '' ) {
+	if ( fieldVal === undefined ) {
+		fieldVal = this.find("input").val();
+	}
+	if ( fieldVal === undefined ) {
 		fieldVal = this.text();
 	}
-	if ( fieldVal === undefined || fieldVal === '' ) {
+	if ( fieldVal === undefined ) {
 		return true;
 	}
+
+	if ( Array.isArray(fieldVal) ) {
+		fieldVal = fieldVal.join();
+	}
+
 	if ( !fieldVal.includes('|') ) {
 		return true;
 	}
@@ -983,7 +991,7 @@ window.validateAll = function() {
 			num_errors += 1;
 		}
 	});
-	$("span.inputSpan, div.pfComboBox").not(".hiddenByPF, .freeText, .pageSection").each( function() {
+	$("span.inputSpan, span.comboboxSpan").not(".hiddenByPF, .freeText, .pageSection").each( function() {
 		if (! $(this).checkForPipes() ) {
 			num_errors += 1;
 		}
