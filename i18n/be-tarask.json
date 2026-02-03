@@ -73,7 +73,7 @@
 	"pf_createform_nameinputdesc": "(форма звычайна атрымлівае тую ж назву, што і яе асноўны шаблён):",
 	"pf_createform_template": "Шаблён:",
 	"pf_createform_templatelabelinput": "Пазнака шаблёну (неабавязкова):",
-	"pf_createform_allowmultiple": "Дазволіць некалькі (ці нуль) экзэмпляраў гэтага шаблёну ў стваранай старонцы",
+	"pf_createform_allowmultiple": "Дазволіць мноства (ці нуль) экзэмпляраў гэтага шаблёну ў стваранай старонцы",
 	"pf_createform_field": "Поле:",
 	"pf_createform_fieldprop": "Гэта поле вызначае ўласьцівасьць $1 тыпу $2.",
 	"pf_createform_fieldproplist": "Гэта поле вызначае сьпіс элемэнтаў, якія маюць уласьцівасьць $1 тыпу $2.",
