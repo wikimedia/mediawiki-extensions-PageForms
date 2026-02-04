@@ -159,7 +159,7 @@
 	"pf_formedit_formwarning": "Uwaga: Ta strona [[$1|już istnieje]], ale nie używa tego formularza.",
 	"pf_formedit_remove": "Usuń tę instancję",
 	"pf_formedit_addanother": "Dodaj kolejny",
-	"pf_formedit_none": "Brak",
+	"pf_formedit_none": "Brak/nie wiadomo",
 	"pf_formedit_hookerror": "Błąd: Rozszerzenie MediaWiki uniemożliwiło modyfikację strony docelowej.",
 	"pf_formedit_saveandcontinueediting": "Zapisz i kontynuuj",
 	"pf_formedit_saveandcontinue_summary": "Zapisano używając przycisku „$1” w formularzu",
