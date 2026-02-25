@@ -56,12 +56,12 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			$expected['expected_form_text'],
 			$form_text,
 			'asserts that formHTML() returns the correct HTML text for the form for the given test input'
-			);
+		);
 		$this->assertStringContainsString(
 			$expected['expected_page_text'],
 			$page_text,
 			'assert that formHTML() returns the correct text for the page created by the form'
-			);
+		);
 	}
 
 	/**
@@ -127,33 +127,33 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		$inputTypes = $wgPageFormsFormPrinter->getAllInputTypes();
 		$expectedInputTypes = [
-				'text',
-				'text with autocomplete',
-				'textarea',
-				'textarea with autocomplete',
-				'date',
-				'start date',
-				'end date',
-				'datepicker',
-				'datetimepicker',
-				'datetime',
-				'start datetime',
-				'end datetime',
-				'year',
-				'checkbox',
-				'dropdown',
-				'radiobutton',
-				'checkboxes',
-				'listbox',
-				'combobox',
-				'tree',
-				'tokens',
-				'regexp',
-				'rating',
-				'googlemaps',
-				'openlayers',
-				'leaflet'
-			];
+			'text',
+			'text with autocomplete',
+			'textarea',
+			'textarea with autocomplete',
+			'date',
+			'start date',
+			'end date',
+			'datepicker',
+			'datetimepicker',
+			'datetime',
+			'start datetime',
+			'end datetime',
+			'year',
+			'checkbox',
+			'dropdown',
+			'radiobutton',
+			'checkboxes',
+			'listbox',
+			'combobox',
+			'tree',
+			'tokens',
+			'regexp',
+			'rating',
+			'googlemaps',
+			'openlayers',
+			'leaflet'
+		];
 
 		$this->assertEquals( $expectedInputTypes, $inputTypes, 'asserts that getAllInputTypes() returns the correct list of input types' );
 	}
@@ -544,52 +544,62 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		// #1 form definition without other parameters
 		$provider[] = [
-		[
-			'form_definition' => "==section1==
-								 {{{section|section1|level=2}}}" ],
-		[
-			'expected_form_text' => "<span class=\"inputSpan pageSection\"><textarea tabindex=\"1\" name=\"_section[section1]\" id=\"input_1\" class=\"createboxInput\" rows=\"5\" cols=\"90\" style=\"width: 100%\"></textarea></span>",
-			'expected_page_text' => "==section1==" ]
+			[
+				'form_definition' => "==section1==
+								 {{{section|section1|level=2}}}"
+			],
+			[
+				'expected_form_text' => "<span class=\"inputSpan pageSection\"><textarea tabindex=\"1\" name=\"_section[section1]\" id=\"input_1\" class=\"createboxInput\" rows=\"5\" cols=\"90\" style=\"width: 100%\"></textarea></span>",
+				'expected_page_text' => "==section1=="
+			]
 		];
 
 		// #2 'rows' and 'colums' parameters set
 		$provider[] = [
-		[
-			'form_definition' => "=====section 2=====
-								 {{{section|section 2|level=5|rows=10|cols=5}}}" ],
-		[
-			'expected_form_text' => "<span class=\"inputSpan pageSection\"><textarea tabindex=\"1\" name=\"_section[section 2]\" id=\"input_1\" class=\"createboxInput\" rows=\"10\" cols=\"5\" style=\"width: auto\"></textarea></span>",
-			'expected_page_text' => "=====section 2=====" ]
+			[
+				'form_definition' => "=====section 2=====
+								 {{{section|section 2|level=5|rows=10|cols=5}}}"
+			],
+			[
+				'expected_form_text' => "<span class=\"inputSpan pageSection\"><textarea tabindex=\"1\" name=\"_section[section 2]\" id=\"input_1\" class=\"createboxInput\" rows=\"10\" cols=\"5\" style=\"width: auto\"></textarea></span>",
+				'expected_page_text' => "=====section 2====="
+			]
 		];
 
 		// #3 'mandatory' and 'autogrow' parameters set
 		$provider[] = [
-		[
-			'form_definition' => "==section 3==
-								 {{{section|section 3|level=2|mandatory|rows=20|cols=50|autogrow}}}" ],
-		[
-			'expected_form_text' => "<span class=\"inputSpan pageSection mandatoryFieldSpan\"><textarea tabindex=\"1\" name=\"_section[section 3]\" id=\"input_1\" class=\"mandatoryField autoGrow\" rows=\"20\" cols=\"50\" style=\"width: auto\"></textarea></span>",
-			'expected_page_text' => "==section 3==" ]
+			[
+				'form_definition' => "==section 3==
+								 {{{section|section 3|level=2|mandatory|rows=20|cols=50|autogrow}}}"
+			],
+			[
+				'expected_form_text' => "<span class=\"inputSpan pageSection mandatoryFieldSpan\"><textarea tabindex=\"1\" name=\"_section[section 3]\" id=\"input_1\" class=\"mandatoryField autoGrow\" rows=\"20\" cols=\"50\" style=\"width: auto\"></textarea></span>",
+				'expected_page_text' => "==section 3=="
+			]
 		];
 
 		// #4 'restricted' parameter set
 		$provider[] = [
-		[
-			'form_definition' => "===Section 5===
-								 {{{section|Section 5|level=3|restricted|class=FormTest}}}" ],
-		[
-			'expected_form_text' => "<span class=\"inputSpan pageSection\"><textarea tabindex=\"1\" name=\"_section[Section 5]\" id=\"input_1\" class=\"createboxInput FormTest\" rows=\"5\" cols=\"90\" style=\"width: 100%\" disabled=\"\"></textarea></span>",
-			'expected_page_text' => "===Section 5===" ]
+			[
+				'form_definition' => "===Section 5===
+								 {{{section|Section 5|level=3|restricted|class=FormTest}}}"
+			],
+			[
+				'expected_form_text' => "<span class=\"inputSpan pageSection\"><textarea tabindex=\"1\" name=\"_section[Section 5]\" id=\"input_1\" class=\"createboxInput FormTest\" rows=\"5\" cols=\"90\" style=\"width: 100%\" disabled=\"\"></textarea></span>",
+				'expected_page_text' => "===Section 5==="
+			]
 		];
 
 		// #5 'hidden' parameter set
 		$provider[] = [
-		[
-			'form_definition' => "====section 4====
-								 {{{section|section 4|level=4|hidden}}}" ],
-		[
-			'expected_form_text' => "<input type=\"hidden\" name=\"_section[section 4]\">",
-			'expected_page_text' => "====section 4====" ]
+			[
+				'form_definition' => "====section 4====
+								 {{{section|section 4|level=4|hidden}}}"
+			],
+			[
+				'expected_form_text' => "<input type=\"hidden\" name=\"_section[section 4]\">",
+				'expected_page_text' => "====section 4===="
+			]
 		];
 
 		return $provider;
