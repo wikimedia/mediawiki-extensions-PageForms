@@ -1,5 +1,8 @@
 <?php
 
+use MediaWiki\Content\ContentHandler;
+use MediaWiki\MediaWikiServices;
+use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
 use OOUI\BlankTheme;
 
@@ -10,11 +13,70 @@ use OOUI\BlankTheme;
  * @author Collins Wandji <collinschuwa@gmail.com>
  */
 class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
+	/** @var array<string,array<int,array<string,string>>> */
+	private static $cargoResultsByWhere = [];
+
+	/** @var string[] */
+	private static $cargoSeenWhere = [];
+
+	/** @var bool */
+	private static $cargoShimActive = false;
+
+	private static function ensureCargoSQLQueryShim(): void {
+		if ( class_exists( 'CargoSQLQuery' ) ) {
+			self::$cargoShimActive = false;
+			return;
+		}
+
+		$shimClass = get_class( new class {
+
+			private $whereStr;
+
+			/**
+			 * @param mixed $tableName
+			 * @param mixed $fieldName
+			 * @param string|null $whereStr
+			 * @param mixed ...$unused
+			 * @return self
+			 */
+			public static function newFromValues( $tableName, $fieldName, $whereStr, ...$unused ) {
+				return new self::$whereStr;
+			}
+
+			public function run(): array {
+				return \PFFormPrinterTest::getCargoResultsForWhere( $this->whereStr );
+			}
+		} );
+		class_alias( $shimClass, 'CargoSQLQuery' );
+		self::$cargoShimActive = true;
+	}
+
+	private static function isCargoShimActive(): bool {
+		return self::$cargoShimActive;
+	}
+
+	public static function setCargoResultsByWhere( array $resultsByWhere ): void {
+		self::$cargoResultsByWhere = $resultsByWhere;
+		self::$cargoSeenWhere = [];
+	}
+
+	public static function getCargoResultsForWhere( $whereStr ): array {
+		if ( $whereStr === null ) {
+			return [];
+		}
+		self::$cargoSeenWhere[] = $whereStr;
+		return self::$cargoResultsByWhere[$whereStr] ?? [];
+	}
+
+	public static function getCargoSeenWhere(): array {
+		return self::$cargoSeenWhere;
+	}
 
 	/**
 	 * Set up the environment
 	 */
 	protected function setUp(): void {
+		self::ensureCargoSQLQueryShim();
 		\OOUI\Theme::setSingleton( new BlankTheme() );
 
 		// Make sure the form is not in "disabled" state. Unfortunately setting up the global state
@@ -71,40 +133,162 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	 */
 	public function testFormHTML( $setup, $expected ) {
 		global $wgPageFormsFormPrinter, $wgOut;
+		global $wgRequest, $wgPageFormsShowExpandAllLink, $wgTitle;
 
 		$wgOut->getContext()->setTitle( $this->getTitle() );
+		$wgTitle = Title::newFromText( 'PFFormPrinterTestTitle' );
+
+		$wgPageFormsShowExpandAllLink = $setup['show_expand_all'] ?? false;
+
+		$requestValues = $setup['request_values'] ?? [];
+		$request = new FauxRequest( $requestValues, true );
+		$wgRequest = $request;
+		\RequestContext::getMain()->setRequest( $request );
+
+		if ( array_key_exists( 'context_user', $setup ) ) {
+			$contextUser = $setup['context_user'] === 'test_user'
+				? self::getTestUser()->getUser()
+				: $setup['context_user'];
+			\RequestContext::getMain()->setUser( $contextUser );
+		}
+
+		if ( array_key_exists( 'user_can_edit_override', $setup ) ) {
+			$overrideValue = (bool)$setup['user_can_edit_override'];
+			$this->setTemporaryHook( 'PageForms::UserCanEditPage',
+				static function ( $pageTitle, &$userCanEditPage ) use ( $overrideValue ) {
+					$userCanEditPage = $overrideValue;
+					return true;
+				}
+			);
+		}
+
+		if ( isset( $setup['read_only'] ) ) {
+			$this->overrideConfigValues( [ 'ReadOnly' => $setup['read_only'] ? 'Test read-only' : false ] );
+		}
+
+		if ( !empty( $setup['create_page'] ) ) {
+			$title = Title::newFromText( $setup['create_page'] );
+			$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
+			$content = ContentHandler::makeContent( 'Existing page content', $title );
+			$wikiPage->doUserEditContent( $content, self::getTestUser()->getUser(), 'create page for test', 0, false, );
+			// $wikiPage->newPageUpdater(self::getTestUser()->getUser(), $content, EDIT_UPDATE)->saveRevision(CommentStoreComment::newUnsavedComment('Creating page for test'));
+		}
+
+		if ( !empty( $setup['define_cargo'] ) ) {
+			// Cargo-dependent scenarios should only run when Cargo runtime classes are available.
+			// Otherwise defining CARGO_VERSION leaks into later datasets and breaks unrelated tests.
+			if ( !class_exists( 'CargoUtils' ) ) {
+				$this->markTestSkipped( 'Cargo-specific formHTML test requires CargoUtils.' );
+			}
+			if ( !defined( 'CARGO_VERSION' ) ) {
+				define( 'CARGO_VERSION', '3.8.7' );
+			}
+		}
+
+		if ( isset( $setup['cargo_results'] ) ) {
+			self::setCargoResultsByWhere( $setup['cargo_results'] );
+		}
+
+		if ( isset( $setup['expected_exception'] ) ) {
+			$this->expectException( $setup['expected_exception'] );
+			if ( isset( $setup['expected_exception_message'] ) ) {
+				$this->expectExceptionMessage( $setup['expected_exception_message'] );
+			}
+		}
+
+		$form_submitted = $setup['form_submitted'] ?? true;
+		$page_exists = $setup['page_exists'] ?? false;
+		$form_id = $setup['form_id'] ?? null;
+		$existing_page_content = $setup['existing_page_content'] ?? null;
+		$page_name = $setup['page_name'] ?? 'TestFormGenerationPage';
+		$page_name_formula = $setup['page_name_formula'] ?? null;
+		$form_context = $setup['form_context'] ?? \PFFormPrinter::CONTEXT_REGULAR;
+		$autocreate_query = $setup['autocreate_query'] ?? [];
+		$user = array_key_exists( 'user', $setup ) ? $setup['user'] : self::getTestUser()->getUser();
 
 		[ $form_text, $page_text, $form_page_title, $generated_page_name ] =
 			$wgPageFormsFormPrinter->formHTML(
 				$form_def = $setup['form_definition'],
-				$form_submitted = true,
-				$source_is_page = false,
-				$form_id = null,
-				$existing_page_content = null,
-				$page_name = 'TestFormGenerationPage',
-				$page_name_formula = null,
-				\PFFormPrinter::CONTEXT_REGULAR,
-				$autocreate_query = [],
-				$user = self::getTestUser()->getUser()
+				$form_submitted,
+				$page_exists,
+				$form_id,
+				$existing_page_content,
+				$page_name,
+				$page_name_formula,
+				$form_context,
+				$autocreate_query,
+				$user
 			);
 
-		$this->assertStringContainsString(
-			$expected['expected_form_text'],
-			$form_text,
-			'asserts that formHTML() generates the correct HTML form'
-		);
-		$this->assertStringContainsString(
-			$expected['expected_page_text'],
-			$page_text,
-			'asserts that formHTML() generates the correct page text'
-		);
+		if ( isset( $setup['expected_exception'] ) ) {
+			return;
+		}
+
+		$expectedFormText = $expected['expected_form_text'] ?? null;
+		if ( $expectedFormText !== null ) {
+			if ( is_array( $expectedFormText ) ) {
+				foreach ( $expectedFormText as $expectedFormTextPart ) {
+					$this->assertStringContainsString(
+						$expectedFormTextPart,
+						$form_text,
+						'asserts that formHTML() generates the expected HTML form output'
+					);
+				}
+			} else {
+				$this->assertStringContainsString(
+					$expectedFormText,
+					$form_text,
+					'asserts that formHTML() generates the expected HTML form output'
+				);
+			}
+		}
+
+		$expectedPageText = $expected['expected_page_text'] ?? null;
+		if ( $expectedPageText !== null ) {
+			if ( is_array( $expectedPageText ) ) {
+				foreach ( $expectedPageText as $expectedPageTextPart ) {
+					$this->assertStringContainsString(
+						$expectedPageTextPart,
+						$page_text,
+						'asserts that formHTML() generates the expected page text'
+					);
+				}
+			} else {
+				$this->assertStringContainsString(
+					$expectedPageText,
+					$page_text,
+					'asserts that formHTML() generates the expected page text'
+				);
+			}
+		}
+
+		if ( isset( $expected['expected_form_text_regex'] ) ) {
+			foreach ( (array)$expected['expected_form_text_regex'] as $regex ) {
+				$this->assertMatchesRegularExpression( $regex, $form_text );
+			}
+		}
+		if ( isset( $expected['expected_page_text_regex'] ) ) {
+			foreach ( (array)$expected['expected_page_text_regex'] as $regex ) {
+				$this->assertMatchesRegularExpression( $regex, $page_text );
+			}
+		}
+
+		$expectedFormPageTitle = $expected['expected_form_page_title'] ?? '';
+		if ( is_array( $expectedFormPageTitle ) ) {
+			$this->assertContains(
+				$form_page_title,
+				$expectedFormPageTitle,
+				'asserts that formHTML() generates an acceptable form page title'
+			);
+		} else {
+			$this->assertSame(
+				$expectedFormPageTitle,
+				$form_page_title,
+				'asserts that formHTML() generates the correct form page title'
+			);
+		}
 		$this->assertSame(
-			'',
-			$form_page_title,
-			'asserts that formHTML() generates the correct form page title'
-		);
-		$this->assertSame(
-			'',
+			$expected['expected_generated_page_name'] ?? '',
 			$generated_page_name,
 			'asserts that formHTML() generates the correct generated page name'
 		);
@@ -452,6 +636,226 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
+	 * @covers \PFFormPrinter::addTranslatableInput
+	 * @covers \PFFormPrinter::formFieldHTML
+	 */
+	public function testFormFieldHTMLAddsTranslateTagHiddenInput() {
+		if ( !\MediaWiki\Registration\ExtensionRegistry::getInstance()->isLoaded( 'Translate' ) ) {
+			$this->markTestSkipped( 'Translate extension is required for translatable-input rendering checks.' );
+		}
+
+		$pfFormPrinter = new PFFormPrinter();
+		$templateField = $this->getMockBuilder( 'PFTemplateField' )
+			->disableOriginalConstructor()
+			->getMock();
+		$templateField->method( 'getFieldType' )->willReturn( '' );
+		$templateField->method( 'getPropertyType' )->willReturn( '_txt' );
+		$templateField->method( 'getRegex' )->willReturn( null );
+
+		$formField = $this->getMockBuilder( 'PFFormField' )
+			->disableOriginalConstructor()
+			->getMock();
+		$formField->method( 'getTemplateField' )->willReturn( $templateField );
+		$formField->method( 'isHidden' )->willReturn( false );
+		$formField->method( 'getInputType' )->willReturn( 'text' );
+		$formField->method( 'getInputName' )->willReturn( 'MyTemplate[MyField]' );
+		$formField->method( 'isDisabled' )->willReturn( false );
+		$formField->method( 'getArgumentsForInputCall' )->willReturn( [] );
+		$formField->method( 'hasFieldArg' )
+			->willReturnCallback( static function ( $arg ) {
+				return in_array( $arg, [ 'translatable', 'translate_number_tag' ], true );
+			} );
+		$formField->method( 'getFieldArg' )
+			->willReturnCallback( static function ( $arg ) {
+				if ( $arg === 'translatable' ) {
+					return true;
+				}
+				if ( $arg === 'translate_number_tag' ) {
+					return "<!--T:7 -->\n";
+				}
+				return null;
+			} );
+
+		$result = $pfFormPrinter->formFieldHTML( $formField, 'value' );
+		$this->assertStringContainsString( "name='MyTemplate[MyField_translate_number_tag]'", $result );
+		$this->assertStringContainsString( "value='<!--T:7 -->", $result );
+	}
+
+	/**
+	 * @covers \PFFormPrinter::createFormFieldTranslateTag
+	 */
+	public function testCreateFormFieldTranslateTagExtractsTranslateNumberTag() {
+		if ( !\MediaWiki\Registration\ExtensionRegistry::getInstance()->isLoaded( 'Translate' ) ) {
+			$this->markTestSkipped( 'Translate extension is required for createFormFieldTranslateTag checks.' );
+		}
+
+		$pfFormPrinter = new PFFormPrinter();
+		$template = $this->getMockBuilder( 'PFTemplate' )->disableOriginalConstructor()->getMock();
+		$tif = $this->getMockBuilder( 'PFTemplateInForm' )->disableOriginalConstructor()->getMock();
+
+		$formField = $this->getMockBuilder( 'PFFormField' )
+			->disableOriginalConstructor()
+			->getMock();
+		$formField->method( 'hasFieldArg' )
+			->willReturnCallback( static function ( $arg ) {
+				return $arg === 'translatable';
+			} );
+		$formField->method( 'getFieldArg' )
+			->willReturnCallback( static function ( $arg ) {
+				return $arg === 'translatable' ? true : null;
+			} );
+		$formField->expects( $this->once() )
+			->method( 'setFieldArg' )
+			->with( 'translate_number_tag', "<!--T:42 -->\n" );
+
+		$curValue = "<translate><!--T:42 -->\nTranslated text</translate>";
+		$method = new \ReflectionMethod( PFFormPrinter::class, 'createFormFieldTranslateTag' );
+		$method->setAccessible( true );
+		$method->invokeArgs( $pfFormPrinter, [ &$template, &$tif, &$formField, &$curValue ] );
+
+		$this->assertSame( 'Translated text', $curValue );
+	}
+
+	/**
+	 * @covers \PFFormPrinter::generateUUID
+	 */
+	public function testGenerateUUID() {
+		$method = new \ReflectionMethod( PFFormPrinter::class, 'generateUUID' );
+		$method->setAccessible( true );
+
+		$first = $method->invoke( null );
+		$second = $method->invoke( null );
+
+		$this->assertMatchesRegularExpression(
+			'/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/',
+			$first
+		);
+		$this->assertMatchesRegularExpression(
+			'/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/',
+			$second
+		);
+		$this->assertNotSame( $first, $second );
+	}
+
+	/**
+	 * @covers \PFFormPrinter::getCargoBasedMapping
+	 * @dataProvider cargoBasedMappingDataProvider
+	 */
+	public function testGetCargoBasedMapping( $setup, $expected ) {
+		if ( !self::isCargoShimActive() ) {
+			$this->markTestSkipped( 'CargoSQLQuery shim is not active in this environment.' );
+		}
+
+		self::setCargoResultsByWhere( $setup['results_by_where'] );
+
+		$pfFormPrinter = new PFFormPrinter();
+		$mockFormField = $this->getMockBuilder( 'PFFormField' )
+			->disableOriginalConstructor()
+			->getMock();
+		$mockFormField->method( 'getFieldArg' )
+			->willReturnMap( [
+				[ 'delimiter', $setup['delimiter'] ]
+			] );
+		$mockFormField->method( 'isList' )
+			->willReturn( $setup['is_list'] );
+
+		$reflectionMethod = new ReflectionMethod( PFFormPrinter::class, 'getCargoBasedMapping' );
+		$reflectionMethod->setAccessible( true );
+		$result = $reflectionMethod->invoke(
+			$pfFormPrinter,
+			$setup['current_value'],
+			$setup['mapping_cargo_table'],
+			$setup['mapping_cargo_field'],
+			$setup['mapping_cargo_value_field'],
+			$mockFormField
+		);
+
+		$this->assertSame(
+			$expected['mapped_value'],
+			$result,
+			'asserts that getCargoBasedMapping() returns expected mapped output for the given form field setup'
+		);
+		$this->assertSame(
+			$expected['where_calls'],
+			self::getCargoSeenWhere(),
+			'asserts that getCargoBasedMapping() creates Cargo lookups for each split value, with expected trimming'
+		);
+	}
+
+	public function cargoBasedMappingDataProvider() {
+		return [
+			'list values: mapped and partially unmapped' => [
+				[
+					'current_value' => 'A1, C3, B2',
+					'mapping_cargo_table' => 'TestTable',
+					'mapping_cargo_field' => 'Label',
+					'mapping_cargo_value_field' => 'Code',
+					'delimiter' => ',',
+					'is_list' => true,
+					'results_by_where' => [
+						'Code="A1"' => [ [ 'Label' => 'Alpha' ] ],
+						'Code="B2"' => [ [ 'Label' => 'Beta' ] ],
+					],
+				],
+				[
+					'mapped_value' => 'Alpha, C3,Beta',
+					'where_calls' => [ 'Code="A1"', 'Code="C3"', 'Code="B2"' ],
+				]
+			],
+			'list values: trimming with semicolon delimiter' => [
+				[
+					'current_value' => '  A1 ;B2  ',
+					'mapping_cargo_table' => 'TestTable',
+					'mapping_cargo_field' => 'Label',
+					'mapping_cargo_value_field' => 'Code',
+					'delimiter' => ';',
+					'is_list' => true,
+					'results_by_where' => [
+						'Code="A1"' => [ [ 'Label' => 'Alpha' ] ],
+						'Code="B2"' => [ [ 'Label' => 'Beta' ] ],
+					],
+				],
+				[
+					'mapped_value' => 'Alpha;Beta',
+					'where_calls' => [ 'Code="A1"', 'Code="B2"' ],
+				]
+			],
+			'single non-list value: mapped' => [
+				[
+					'current_value' => 'B2',
+					'mapping_cargo_table' => 'TestTable',
+					'mapping_cargo_field' => 'Label',
+					'mapping_cargo_value_field' => 'Code',
+					'delimiter' => ',',
+					'is_list' => false,
+					'results_by_where' => [
+						'Code="B2"' => [ [ 'Label' => 'Beta' ] ],
+					],
+				],
+				[
+					'mapped_value' => 'Beta',
+					'where_calls' => [ 'Code="B2"' ],
+				]
+			],
+			'single non-list value: unmapped falls back to input' => [
+				[
+					'current_value' => 'Z9',
+					'mapping_cargo_table' => 'TestTable',
+					'mapping_cargo_field' => 'Label',
+					'mapping_cargo_value_field' => 'Code',
+					'delimiter' => ',',
+					'is_list' => false,
+					'results_by_where' => [],
+				],
+				[
+					'mapped_value' => 'Z9',
+					'where_calls' => [ 'Code="Z9"' ],
+				]
+			],
+		];
+	}
+
+	/**
 	 * @covers \PFFormPrinter::getStringFromPassedInArray
 	 */
 	public function testGetStringFromPassedInArray() {
@@ -487,6 +891,41 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$expected = '2023-10-15 10:30:45';
 		$result = $pfFormPrinter::getStringFromPassedInArray( $value, $delimiter );
 		$this->assertEquals( $expected, $result, 'asserts that getStringFromPassedInArray() returns the correct datetime string for a date with six elements' );
+
+		// Test year-only date
+		$value = [ 'year' => '2024', 'month' => '', 'day' => '' ];
+		$expected = '2024';
+		$result = $pfFormPrinter::getStringFromPassedInArray( $value, $delimiter );
+		$this->assertEquals( $expected, $result, 'asserts that getStringFromPassedInArray() returns only the year when month is empty' );
+
+		// Test month + year date in non-American format (month converted from number to name)
+		$this->setMwGlobals( [ 'wgAmericanDates' => false ] );
+		$value = [ 'year' => '2024', 'month' => '2', 'day' => '' ];
+		$expected = 'February 2024';
+		$result = $pfFormPrinter::getStringFromPassedInArray( $value, $delimiter );
+		$this->assertEquals( $expected, $result, 'asserts that getStringFromPassedInArray() converts numeric month to month name when day is empty' );
+
+		// Test American date with time, AM/PM marker and timezone
+		$this->setMwGlobals( [ 'wgAmericanDates' => true ] );
+		$value = [
+			'year' => '2024',
+			'month' => 'March',
+			'day' => '7',
+			'hour' => '3',
+			'minute' => '5',
+			'second' => '9',
+			'ampm24h' => 'PM',
+			'timezone' => 'UTC'
+		];
+		$expected = 'March 7, 2024 03:05:09 PM UTC';
+		$result = $pfFormPrinter::getStringFromPassedInArray( $value, $delimiter );
+		$this->assertEquals( $expected, $result, 'asserts that getStringFromPassedInArray() appends AM/PM and timezone when provided' );
+
+		// Test invalid date payload with empty year.
+		$value = [ 'year' => '', 'month' => '10', 'day' => '15' ];
+		$expected = '';
+		$result = $pfFormPrinter::getStringFromPassedInArray( $value, $delimiter );
+		$this->assertEquals( $expected, $result, 'asserts that getStringFromPassedInArray() returns an empty string when year is missing' );
 	}
 
 	/**
@@ -794,6 +1233,121 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
+	 * @covers \PFFormPrinter::tableHTML
+	 */
+	public function testTableHTMLMissingGridValuesAndLabelFallbacks() {
+		global $wgPageFormsFieldNum;
+		$wgPageFormsFieldNum = 1;
+
+		$pfFormPrinter = $this->getMockBuilder( PFFormPrinter::class )
+			->onlyMethods( [ 'formFieldHTML' ] )
+			->getMock();
+
+		$templateInForm = $this->getMockBuilder( 'PFTemplateInForm' )
+			->disableOriginalConstructor()
+			->getMock();
+		$templateInForm->method( 'getGridValues' )->willReturn( [] );
+		$templateInForm->method( 'getTemplateName' )->willReturn( 'LabelFallbackTemplate' );
+
+		$msgTemplateField = $this->getMockBuilder( 'PFTemplateField' )
+			->disableOriginalConstructor()
+			->onlyMethods( [ 'getFieldName', 'getLabel' ] )
+			->getMock();
+		$msgTemplateField->method( 'getFieldName' )->willReturn( 'msgField' );
+		$msgTemplateField->method( 'getLabel' )->willReturn( null );
+
+		$msgLabelField = $this->getMockBuilder( 'PFFormField' )
+			->disableOriginalConstructor()
+			->onlyMethods( [
+				'getTemplateField', 'holdsTemplate', 'isHidden', 'getLabel', 'getLabelMsg',
+				'getInputName', 'hasFieldArg', 'additionalHTMLForInput'
+			] )
+			->getMock();
+		$msgLabelField->method( 'getTemplateField' )->willReturn( $msgTemplateField );
+		$msgLabelField->method( 'holdsTemplate' )->willReturn( false );
+		$msgLabelField->method( 'isHidden' )->willReturn( false );
+		$msgLabelField->method( 'getLabel' )->willReturn( null );
+		$msgLabelField->method( 'getLabelMsg' )->willReturn( 'mainpage' );
+		$msgLabelField->method( 'getInputName' )->willReturn( 'msgField' );
+		$msgLabelField->method( 'hasFieldArg' )->willReturn( false );
+		$msgLabelField->method( 'additionalHTMLForInput' )->willReturn( '' );
+
+		$templateLabelTemplateField = $this->getMockBuilder( 'PFTemplateField' )
+			->disableOriginalConstructor()
+			->onlyMethods( [ 'getFieldName', 'getLabel' ] )
+			->getMock();
+		$templateLabelTemplateField->method( 'getFieldName' )->willReturn( 'templateLabelField' );
+		$templateLabelTemplateField->method( 'getLabel' )->willReturn( 'Template Label' );
+
+		$templateLabelField = $this->getMockBuilder( 'PFFormField' )
+			->disableOriginalConstructor()
+			->onlyMethods( [
+				'getTemplateField', 'holdsTemplate', 'isHidden', 'getLabel', 'getLabelMsg',
+				'getInputName', 'hasFieldArg', 'additionalHTMLForInput'
+			] )
+			->getMock();
+		$templateLabelField->method( 'getTemplateField' )->willReturn( $templateLabelTemplateField );
+		$templateLabelField->method( 'holdsTemplate' )->willReturn( false );
+		$templateLabelField->method( 'isHidden' )->willReturn( false );
+		$templateLabelField->method( 'getLabel' )->willReturn( null );
+		$templateLabelField->method( 'getLabelMsg' )->willReturn( null );
+		$templateLabelField->method( 'getInputName' )->willReturn( 'templateLabelField' );
+		$templateLabelField->method( 'hasFieldArg' )->willReturn( false );
+		$templateLabelField->method( 'additionalHTMLForInput' )->willReturn( '' );
+
+		$fallbackTemplateField = $this->getMockBuilder( 'PFTemplateField' )
+			->disableOriginalConstructor()
+			->onlyMethods( [ 'getFieldName', 'getLabel' ] )
+			->getMock();
+		$fallbackTemplateField->method( 'getFieldName' )->willReturn( 'fallbackField' );
+		$fallbackTemplateField->method( 'getLabel' )->willReturn( null );
+
+		$fallbackField = $this->getMockBuilder( 'PFFormField' )
+			->disableOriginalConstructor()
+			->onlyMethods( [
+				'getTemplateField', 'holdsTemplate', 'isHidden', 'getLabel', 'getLabelMsg',
+				'getInputName', 'hasFieldArg', 'additionalHTMLForInput'
+			] )
+			->getMock();
+		$fallbackField->method( 'getTemplateField' )->willReturn( $fallbackTemplateField );
+		$fallbackField->method( 'holdsTemplate' )->willReturn( false );
+		$fallbackField->method( 'isHidden' )->willReturn( false );
+		$fallbackField->method( 'getLabel' )->willReturn( null );
+		$fallbackField->method( 'getLabelMsg' )->willReturn( null );
+		$fallbackField->method( 'getInputName' )->willReturn( 'fallbackField' );
+		$fallbackField->method( 'hasFieldArg' )->willReturn( false );
+		$fallbackField->method( 'additionalHTMLForInput' )->willReturn( '' );
+
+		$templateInForm->method( 'getFields' )->willReturn( [ $msgLabelField, $templateLabelField, $fallbackField ] );
+
+		$pfFormPrinter->method( 'formFieldHTML' )
+			->willReturnCallback( static function ( $formField, $curValue ) {
+				return '<input name="' . $formField->getInputName() . '" value="' . $curValue . '">';
+			} );
+
+		$result = $pfFormPrinter->tableHTML( $templateInForm, 42 );
+
+		$this->assertStringContainsString( 'Template Label:', $result, 'asserts that tableHTML() uses the template field label when field label and label message are absent' );
+		$this->assertStringContainsString( 'fallbackField: ', $result, 'asserts that tableHTML() falls back to field name when no label sources are available' );
+		$this->assertStringContainsString( 'name="msgField" value=""', $result, 'asserts that tableHTML() passes null current values when grid values for the instance do not exist' );
+	}
+
+	/**
+	 * @covers \PFFormPrinter::spreadsheetHTML
+	 */
+	public function testSpreadsheetHTMLReturnsNullWhenNoFields() {
+		$pfFormPrinter = new PFFormPrinter();
+		$templateInForm = $this->getMockBuilder( 'PFTemplateInForm' )
+			->disableOriginalConstructor()
+			->onlyMethods( [ 'getFields' ] )
+			->getMock();
+		$templateInForm->method( 'getFields' )->willReturn( [] );
+
+		$result = $pfFormPrinter->spreadsheetHTML( $templateInForm );
+		$this->assertNull( $result, 'asserts that spreadsheetHTML() returns null when no fields are defined' );
+	}
+
+	/**
 	 * @covers \PFFormPrinter::multipleTemplateInstanceTableHTML
 	 */
 	public function testMultipleTemplateInstanceTableHTMLEnabledAndDisabled() {
@@ -1050,7 +1604,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
-	 * Data provider method for testFormHTML
+	 * Data provider method for testFormHTML, providing various form definitions and expected outputs to test different branches of formHTML().
 	 */
 	public static function formHTMLDataProvider() {
 		$provider = [];
@@ -1095,6 +1649,411 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			]
 		];
 
+		// #5 page name empty, anon warning, and expand-all link.
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template|TAnon}}}\n{{{field|field1}}}\n{{{end template}}}",
+				'page_name' => '',
+				'user' => MediaWikiServices::getInstance()->getWikiPageFactory()->newFromId( 0 ),
+				'show_expand_all' => true
+			],
+			[
+				'expected_form_text' => [ 'mw-anon-edit-warning', 'pf-expand-all' ],
+				'expected_page_text' => '{{TAnon}}'
+			]
+		];
+
+		// #5b extra closing braces and empty tag components.
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template|TExtra}}}\n" .
+					"{{{field|file|default filename=FileName}}}}}\n{{{end template}}}"
+			],
+			[
+				'expected_form_text' => 'name="TExtra[file]"',
+				'expected_page_text' => '{{TExtra}}'
+			]
+		];
+
+		// #5c nested for template to exercise previous template tracking.
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template|TOuter}}}{{{for template|TInner}}}{{{field|field1}}}{{{end template}}}{{{end template}}}"
+			],
+			[
+				'expected_form_text' => 'name="TInner[field1]"',
+				'expected_page_text' => '{{TInner}}'
+			]
+		];
+
+		// #6 call showDeletionLog() when form is not submitted.
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template|TDelete}}}\n{{{field|field1}}}\n{{{end template}}}",
+				'form_submitted' => false,
+				'page_name' => 'NewPageForDeletionLog'
+			],
+			[
+				'expected_form_text' => '</form>',
+				'expected_page_text' => '{{TDelete}}'
+			]
+		];
+
+		// #7 use current user, defaults, page name formula, and mapping property.
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template|TGen}}}\n" .
+					"{{{field|field1}}}\n" .
+					"{{{field|datefield|input type=date|default=now}}}\n" .
+					"{{{field|userfield|default=current user}}}\n" .
+					"{{{field|uuidfield|default=uuid}}}\n" .
+					"{{{field|mapped|mapping property=SomeProperty}}}\n" .
+					"{{{end template}}}",
+				'page_name_formula' => '<TGen[field1]>',
+				'request_values' => [
+					'TGen' => [
+						'field1' => 'GeneratedTitle',
+						'mapped' => 'SomeValue'
+					]
+				],
+				'user' => null,
+				'context_user' => 'test_user'
+			],
+			[
+				'expected_form_text' => 'name="TGen[field1]"',
+				'expected_page_text' => '{{TGen',
+				'expected_generated_page_name' => 'GeneratedTitle',
+				'expected_page_text_regex' => '/[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}/'
+			]
+		];
+
+		// #8 cargo-based mapping when form is submitted.
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template|TCargo}}}\n" .
+					"{{{field|field1|mapping cargo table=Table1|mapping cargo field=Source|mapping cargo value field=Target}}}\n" .
+					"{{{end template}}}",
+				'define_cargo' => true,
+				'cargo_results' => [
+					'Target="Value A"' => [ [ 'Target' => 'Mapped A' ] ]
+				],
+				'request_values' => [
+					'TCargo' => [
+						'field1' => 'Value A'
+					]
+				]
+			],
+			[
+				'expected_form_text' => 'name="TCargo[field1]"',
+				'expected_page_text_regex' => '/\\{\\{TCargo\\s*\\|field1=Value A\\s*\\}\\}/'
+			]
+		];
+
+		// #9 cargo-based mapping when form is not submitted.
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template|TCargoView}}}\n" .
+					"{{{field|field1|mapping cargo table=Table1|mapping cargo field=Source|mapping cargo value field=Target}}}\n" .
+					"{{{end template}}}",
+				'define_cargo' => true,
+				'cargo_results' => [
+					'Target="View A"' => [ [ 'Target' => 'Mapped View' ] ]
+				],
+				'form_submitted' => false,
+				'request_values' => [
+					'TCargoView' => [
+						'field1' => 'View A'
+					]
+				]
+			],
+			[
+				'expected_form_text' => 'name="TCargoView[field1]"',
+				'expected_page_text_regex' => '/\\{\\{TCargoView\\s*\\|field1=View A\\s*\\}\\}/'
+			]
+		];
+
+		// #11 read-only mode with permission status.
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template|TReadOnly}}}\n{{{field|field1}}}\n{{{end template}}}",
+				'read_only' => true,
+				'user_can_edit_override' => false
+			],
+			[
+				'expected_form_text' => '</form>',
+				'expected_page_text' => '{{TReadOnly}}'
+			]
+		];
+
+		// #12 info tag handling and free text input with edittools.
+		$provider[] = [
+			[
+				'form_definition' => "{{{info|create title=Form{{!}}Title|includeonly free text}}}\n" .
+					"{{{field|#freetext#|edittools}}}\n" .
+					"{{{unknown|value}}}\n" .
+					"{{{standard input|summary|label=Summary|class=SumClass|style=width: 10px;}}}\n" .
+					"{{{standard input|minor edit|label=Minor|checked}}}\n" .
+					"{{{standard input|watch|label=Watch}}}\n" .
+					"{{{standard input|save|label=Save}}}\n" .
+					"{{{standard input|save and continue|label=Continue}}}\n" .
+					"{{{standard input|preview}}}\n" .
+					"{{{standard input|changes}}}\n" .
+					"{{{standard input|cancel}}}\n" .
+					"{{{standard input|run query}}}\n",
+				'request_values' => [
+					'standard_input' => [
+						'#freetext#' => '<onlyinclude>FreeText</onlyinclude>'
+					],
+					'wpSummary' => 'Summary text',
+					'wpMinoredit' => '1',
+					'wpWatchthis' => '1'
+				]
+			],
+			[
+				'expected_form_text' => [ 'mw-editTools', 'SumClass', 'Summary text' ],
+				'expected_page_text' => 'FreeText',
+				'expected_form_page_title' => 'Form|Title'
+			]
+		];
+
+		// #13 query context without standard inputs to cover query form bottom.
+		$provider[] = [
+			[
+				'form_definition' => "{{{info|query form at top}}}\n{{{for template|TQuery}}}\n{{{field|field1}}}\n{{{end template}}}",
+				'form_context' => \PFFormPrinter::CONTEXT_QUERY
+			],
+			[
+				'expected_form_text' => 'name="TQuery[field1]"',
+				'expected_page_text' => '{{TQuery}}'
+			]
+		];
+
+		// #14 embedded query context sets form page title to null.
+		$provider[] = [
+			[
+				'form_definition' => "{{{info|query title=EmbeddedTitle}}}\n{{{for template|TEmbed}}}\n{{{field|field1}}}\n{{{end template}}}",
+				'form_context' => \PFFormPrinter::CONTEXT_EMBEDDED_QUERY
+			],
+			[
+				'expected_form_text' => 'name="TEmbed[field1]"',
+				'expected_page_text' => '{{TEmbed}}',
+				'expected_form_page_title' => [ null, '' ]
+			]
+		];
+
+		// #15 forbidden characters in tag components should throw.
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template|Bad}}}\n{{{field|field1|label=<bad>}}}\n{{{end template}}}",
+				'expected_exception' => \MWException::class,
+				'expected_exception_message' => 'forbidden characters'
+			],
+			[]
+		];
+
+		// #16 missing template name should throw.
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template}}}\n{{{end template}}}",
+				'expected_exception' => \MWException::class,
+				'expected_exception_message' => 'template name must be specified'
+			],
+			[]
+		];
+
+		// #17 end template with extra parameters should throw.
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template|TBadEnd}}}\n{{{end template|extra}}}",
+				'expected_exception' => \MWException::class,
+				'expected_exception_message' => 'end template'
+			],
+			[]
+		];
+
+		// #18 source page with insertionpoint replacement and + modifier.
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template|TSource}}}\n{{{field|field1|list|delimiter=,}}}\n{{{end template}}}",
+				'page_exists' => true,
+				'existing_page_content' => "Start\n{{TSource|field1=Alpha, Beta}}\n{{{insertionpoint}}}\nEnd",
+				'request_values' => [
+					'TSource' => [
+						'field1+' => 'Gamma'
+					]
+				]
+			],
+			[
+				'expected_form_text' => 'name="TSource[field1]"',
+				'expected_page_text_regex' => '/Alpha,\\s*Beta,\\s*Gamma/'
+			]
+		];
+
+		// #19 source page with - modifier resulting in empty list.
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template|TMinus}}}\n{{{field|field1|list|delimiter=,}}}\n{{{end template}}}",
+				'page_exists' => true,
+				'existing_page_content' => "{{TMinus|field1=RemoveMe}}",
+				'request_values' => [
+					'TMinus' => [
+						'field1-' => 'RemoveMe'
+					]
+				]
+			],
+			[
+				'expected_form_text' => 'name="TMinus[field1]"',
+				'expected_page_text' => '{{subst:lc: }}'
+			]
+		];
+
+		// #20 get value from existing page when form is not submitted and holds template.
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template|THold}}}\n{{{field|embed|holds template}}}\n{{{end template}}}",
+				'page_exists' => true,
+				'form_submitted' => false,
+				'existing_page_content' => "{{THold|embed={{Inner|val=1}}}}"
+			],
+			[
+				'expected_form_text' => 'name="THold[embed]"',
+				'expected_page_text' => '{{THold'
+			]
+		];
+
+		// #21 page sections with existing page content and hideIfEmpty handling.
+		$provider[] = [
+			[
+				'form_definition' => "==Section A==\n{{{section|Section A|level=2}}}\n" .
+					"==Section B==\n{{{section|Section B|level=2|hideIfEmpty}}}",
+				'page_exists' => true,
+				'existing_page_content' => "==Section A==\nContent A\n==Section B==\nContent B"
+			],
+			[
+				'expected_form_text' => 'name="_section[Section A]"',
+				'expected_page_text' => null
+			]
+		];
+
+		// #22 multiple template displays and placeholder replacement.
+		$provider[] = [
+			[
+				'form_definition' =>
+					"{{{for template|Outer}}}\n" .
+					"{{{field|inner|holds template}}}\n" .
+					"{{{end template}}}\n" .
+					"{{{for template|Inner|multiple|display=table|label=Inner Label}}}\n" .
+					"{{{field|name}}}\n" .
+					"{{{field|uuidfield|default=uuid}}}\n" .
+					"{{{end template}}}\n" .
+					"{{{for template|Sheet|multiple|display=spreadsheet|label=Sheet Label}}}\n" .
+					"{{{field|sheetfield}}}\n" .
+					"{{{end template}}}\n" .
+					"{{{for template|Cal|multiple|display=calendar|label=Cal Label|event title field=title|event date field=date}}}\n" .
+					"{{{field|title}}}\n" .
+					"{{{field|date|input type=date}}}\n" .
+					"{{{end template}}}\n" .
+					"{{{for template|TableSingle|display=table|label=Table Label}}}\n" .
+					"{{{field|tablefield}}}\n" .
+					"{{{end template}}}\n" .
+					"{{{for template|LabelOnly|label=Label Only}}}\n" .
+					"{{{field|field1}}}\n" .
+					"{{{end template}}}",
+				'form_submitted' => true
+			],
+			[
+				'expected_form_text' => [ 'multipleTemplateWrapper', 'pfFullCalendarJS', 'Table Label' ],
+				'expected_page_text' => '{{Outer}}'
+			]
+		];
+
+		// #23 multiple checkbox with source page to exercise checkbox coercion.
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template|TMulti|multiple}}}\n{{{field|flag|input type=checkbox}}}\n{{{end template}}}",
+				'page_exists' => true,
+				'form_submitted' => false,
+				'existing_page_content' => "{{TMulti|flag=yes}}"
+			],
+			[
+				'expected_form_text_regex' => '/TMulti\\[[^\\]]+\\]\\[flag\\]/',
+				'expected_page_text' => '{{TMulti'
+			]
+		];
+
+		// #24 free text from request when no free-text input is defined.
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template|TFree}}}\n{{{field|field1}}}\n{{{end template}}}",
+				'request_values' => [
+					'pf_free_text' => 'Submitted free text'
+				]
+			],
+			[
+				'expected_form_text' => 'pf_free_text',
+				'expected_page_text' => 'Submitted free text'
+			]
+		];
+
+		// #25 warning when existing page does not match form.
+		$provider[] = [
+			[
+				'form_definition' => "{{{info|edit title=EditTitle}}}\n{{{for template|TWarn}}}\n{{{field|field1}}}\n{{{end template}}}",
+				'page_exists' => true,
+				'create_page' => 'FormWarningPage',
+				'page_name' => 'FormWarningPage',
+				'existing_page_content' => "Existing content not matching template"
+			],
+			[
+				'expected_form_text' => 'cdx-message--warning',
+				'expected_page_text' => '{{TWarn}}',
+				'expected_form_page_title' => 'EditTitle'
+			]
+		];
+
+		// #26 autocreate context uses values from autocreate query.
+		$provider[] = [
+			[
+				'form_definition' => "{{{for template|TAuto}}}\n{{{field|field1}}}\n{{{end template}}}",
+				'form_context' => \PFFormPrinter::CONTEXT_AUTOCREATE,
+				'autocreate_query' => [
+					'TAuto' => [
+						'field1' => 'AutoValue'
+					]
+				]
+			],
+			[
+				'expected_form_text' => 'AutoValue',
+				'expected_page_text_regex' => '/\\{\\{TAuto\\s*\\|field1=AutoValue\\s*\\}\\}/'
+			]
+		];
+
+		// #27 section values from request when not using source page.
+		$provider[] = [
+			[
+				'form_definition' => "==Section X==\n{{{section|Section X|level=2}}}",
+				'request_values' => [
+					'_section' => [ 'Section X' => 'Section content' ]
+				]
+			],
+			[
+				'expected_form_text' => 'Section content',
+				'expected_page_text' => '==Section X=='
+			]
+		];
+
+		// #28 run query button when standard input is used in query context.
+		$provider[] = [
+			[
+				'form_definition' => "{{{standard input|run query|label=Run}}}\n{{{for template|TQueryRun}}}\n{{{field|field1}}}\n{{{end template}}}",
+				'form_context' => \PFFormPrinter::CONTEXT_QUERY
+			],
+			[
+				'expected_form_text' => 'wpRunQuery',
+				'expected_page_text' => '{{TQueryRun}}'
+			]
+		];
+
 		return $provider;
 	}
 
@@ -1104,14 +2063,57 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	public function testGetStringForCurrentTime() {
 		global $wgPageFormsFormPrinter;
 
-		$includeTime = true;
-		$includeTimezone = true;
+		$this->setMwGlobals( [
+			'wgAmericanDates' => false,
+			'wgPageForms24HourTime' => false
+		] );
+		$currentDateOnly = $wgPageFormsFormPrinter->getStringForCurrentTime(
+			$includeTime = false,
+			$includeTimezone = false
+		);
+		$this->assertMatchesRegularExpression(
+			'/^\d{4}-\d{1,2}-\d{1,2}$/',
+			$currentDateOnly,
+			'asserts that getStringForCurrentTime() returns only the date when time is excluded'
+		);
 
-		$current_time_string = $wgPageFormsFormPrinter->getStringForCurrentTime( $includeTime, $includeTimezone );
+		$this->setMwGlobals( [ 'wgAmericanDates' => true ] );
+		$currentAmericanDateOnly = $wgPageFormsFormPrinter->getStringForCurrentTime(
+			$includeTime = false,
+			$includeTimezone = false
+		);
+		$monthNamesPattern = implode(
+			'|',
+			array_map( static fn ( $monthName ) => preg_quote( $monthName, '/' ), \PFFormUtils::getMonthNames() )
+		);
+		$this->assertMatchesRegularExpression(
+			'/^(' . $monthNamesPattern . ') \d{1,2}, \d{4}$/',
+			$currentAmericanDateOnly,
+			'asserts that getStringForCurrentTime() returns an American-style date when configured'
+		);
 
+		$this->setMwGlobals( [
+			'wgAmericanDates' => false,
+			'wgPageForms24HourTime' => true
+		] );
+		$current24HourTime = $wgPageFormsFormPrinter->getStringForCurrentTime(
+			$includeTime = true,
+			$includeTimezone = false
+		);
+		$this->assertMatchesRegularExpression(
+			'/^\d{4}-\d{1,2}-\d{1,2} \d{2}:\d{2}:\d{2}$/',
+			$current24HourTime,
+			'asserts that getStringForCurrentTime() returns the time in 24-hour format when configured'
+		);
+
+		$this->setMwGlobals( [ 'wgPageForms24HourTime' => false ] );
+		$currentTimeWithTimezone = $wgPageFormsFormPrinter->getStringForCurrentTime(
+			$includeTime = true,
+			$includeTimezone = true
+		);
 		$this->assertMatchesRegularExpression(
 			'/\d{4}-\d{1,2}-\d{1,2} \d{2}:\d{2}:\d{2} (AM|PM) [A-Z]{3}/',
-			$current_time_string,
+			$currentTimeWithTimezone,
 			'asserts that getStringForCurrentTime() returns the correct time string with timezone'
 		);
 	}
@@ -1210,9 +2212,9 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	 */
 	public function getDefaultInputTypeSMWDataProvider(): array {
 		return [
-			'single_found' => [ false, 'Text', null ],
+			'single_found' => [ false, 'Text', 'textbox' ],
 			'single_not_found' => [ false, 'NonExistentType', null ],
-			'list_found' => [ true, 'Text', null ],
+			'list_found' => [ true, 'Text', 'textarea' ],
 			'list_not_found' => [ true, 'NonExistentType', null ],
 		];
 	}
@@ -1222,11 +2224,11 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	 */
 	public function testGetDefaultInputTypeSMW( bool $isList, string $propertyType, ?string $expected ) {
 		$pfFormPrinter = new \PFFormPrinter();
-		$this->setPrivateProperty( 'mDefaultInputForPropType', [
+		$this->setPrivateProperty( $pfFormPrinter, 'mDefaultInputForPropType', [
 			'Text' => 'textbox',
 			'Number' => 'number',
 		] );
-		$this->setPrivateProperty( 'mDefaultInputForPropTypeList', [
+		$this->setPrivateProperty( $pfFormPrinter, 'mDefaultInputForPropTypeList', [
 			'Text' => 'textarea',
 		] );
 
@@ -1251,11 +2253,11 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	public function testGetDefaultInputTypeCargo( bool $isList, string $fieldType, ?string $expected ) {
 		$pfFormPrinter = new \PFFormPrinter();
 
-		$this->setPrivateProperty( 'mDefaultInputForCargoType', [
+		$this->setPrivateProperty( $pfFormPrinter, 'mDefaultInputForCargoType', [
 			'String' => 'text',
 			'Integer' => 'int',
 		] );
-		$this->setPrivateProperty( 'mDefaultInputForCargoTypeList', [
+		$this->setPrivateProperty( $pfFormPrinter, 'mDefaultInputForCargoTypeList', [
 			'String' => 'text',
 		] );
 
@@ -1264,13 +2266,12 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * Data provider method
-	 * @note this test appears to catch a bug in the implementation, as the expected value is always empty
 	 */
 	public function getPossibleInputTypesSMWDataProvider(): array {
 		return [
-			'single_found' => [ false, 'Text', [] ],
+			'single_found' => [ false, 'Text', [ 'textbox', 'textarea', 'text' ] ],
 			'single_not_found' => [ false, 'NonExistentType', [] ],
-			'list_found' => [ true, 'Text', [] ],
+			'list_found' => [ true, 'Text', [ 'textarea', 'text', 'textbox' ] ],
 			'list_not_found' => [ true, 'NonExistentType', [] ],
 		];
 	}
@@ -1281,11 +2282,11 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	public function testGetPossibleInputTypesSMW( bool $isList, string $propertyType, array $expected ) {
 		$pfFormPrinter = new \PFFormPrinter();
 
-		$this->setPrivateProperty( 'mPossibleInputsForPropType', [
+		$this->setPrivateProperty( $pfFormPrinter, 'mPossibleInputsForPropType', [
 			'Text' => [ 'textbox', 'textarea', 'text' ],
 			'Number' => [ 'number', 'spinner' ],
 		] );
-		$this->setPrivateProperty( 'mPossibleInputsForPropTypeList', [
+		$this->setPrivateProperty( $pfFormPrinter, 'mPossibleInputsForPropTypeList', [
 			'Text' => [ 'textarea', 'text', 'textbox' ],
 		] );
 
@@ -1310,11 +2311,11 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	public function testGetPossibleInputTypesCargo( bool $isList, string $fieldType, array $expected ) {
 		$pfFormPrinter = new \PFFormPrinter();
 
-		$this->setPrivateProperty( 'mPossibleInputsForCargoType', [
+		$this->setPrivateProperty( $pfFormPrinter, 'mPossibleInputsForCargoType', [
 			'String' => [ 'text with autocomplete', 'textarea with autocomplete', 'combobox', 'tree', 'tokens' ],
 			'Integer' => [ 'int', 'number' ],
 		] );
-		$this->setPrivateProperty( 'mPossibleInputsForCargoTypeList', [
+		$this->setPrivateProperty( $pfFormPrinter, 'mPossibleInputsForCargoTypeList', [
 			'String' => [ 'tree', 'tokens' ],
 		] );
 
@@ -1322,12 +2323,12 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
+	 * @param \PFFormPrinter $pfFormPrinter
 	 * @param string $propertyName
 	 * @param mixed $value
 	 * @return void
 	 */
-	private function setPrivateProperty( string $propertyName, $value ): void {
-		$pfFormPrinter = new \PFFormPrinter();
+	private function setPrivateProperty( \PFFormPrinter $pfFormPrinter, string $propertyName, $value ): void {
 		$reflection = new \ReflectionClass( get_class( $pfFormPrinter ) );
 		$property = $reflection->getProperty( $propertyName );
 		$property->setAccessible( true );
