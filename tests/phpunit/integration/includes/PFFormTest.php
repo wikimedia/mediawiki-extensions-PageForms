@@ -170,6 +170,11 @@ class PFFormTest extends MediaWikiIntegrationTestCase {
 		$items = [];
 		$items[] = [
 			'type' => 'template',
+			'item' => $templateMock,
+
+		];
+		$items[] = [
+			'type' => 'section',
 			'item' => $templateMock
 		];
 
@@ -197,6 +202,10 @@ class PFFormTest extends MediaWikiIntegrationTestCase {
 		$items = [];
 		$items[] = [
 			'type' => 'template',
+			'item' => $templateMock
+		];
+		$items[] = [
+			'type' => 'section',
 			'item' => $templateMock
 		];
 

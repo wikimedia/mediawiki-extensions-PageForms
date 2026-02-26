@@ -30,7 +30,15 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		$shimClass = get_class( new class {
 
+			/** @var string|null */
 			private $whereStr;
+
+			/**
+			 * @param string|null $whereStr
+			 */
+			public function __construct( $whereStr = null ) {
+				$this->whereStr = $whereStr;
+			}
 
 			/**
 			 * @param mixed $tableName
@@ -40,7 +48,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			 * @return self
 			 */
 			public static function newFromValues( $tableName, $fieldName, $whereStr, ...$unused ) {
-				return new self::$whereStr;
+				return new self( $whereStr );
 			}
 
 			public function run(): array {
@@ -98,6 +106,11 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	 */
 	public function testPageSectionsWithoutExistingPages( $setup, $expected ) {
 		global $wgPageFormsFormPrinter, $wgOut;
+		static $cachedTestUser = null;
+
+		if ( $cachedTestUser === null ) {
+			$cachedTestUser = self::getTestUser()->getUser();
+		}
 
 		$wgOut->getContext()->setTitle( $this->getTitle() );
 
@@ -112,7 +125,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 				$page_name_formula = null,
 				\PFFormPrinter::CONTEXT_REGULAR,
 				$autocreate_query = [],
-				$user = self::getTestUser()->getUser()
+				$user = $cachedTestUser
 			);
 
 		$this->assertStringContainsString(
@@ -134,6 +147,11 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	public function testFormHTML( $setup, $expected ) {
 		global $wgPageFormsFormPrinter, $wgOut;
 		global $wgRequest, $wgPageFormsShowExpandAllLink, $wgTitle;
+		static $cachedTestUser = null;
+
+		if ( $cachedTestUser === null ) {
+			$cachedTestUser = self::getTestUser()->getUser();
+		}
 
 		$wgOut->getContext()->setTitle( $this->getTitle() );
 		$wgTitle = Title::newFromText( 'PFFormPrinterTestTitle' );
@@ -147,14 +165,15 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		if ( array_key_exists( 'context_user', $setup ) ) {
 			$contextUser = $setup['context_user'] === 'test_user'
-				? self::getTestUser()->getUser()
+				? $cachedTestUser
 				: $setup['context_user'];
 			\RequestContext::getMain()->setUser( $contextUser );
 		}
 
 		if ( array_key_exists( 'user_can_edit_override', $setup ) ) {
 			$overrideValue = (bool)$setup['user_can_edit_override'];
-			$this->setTemporaryHook( 'PageForms::UserCanEditPage',
+			$this->setTemporaryHook(
+				'PageForms::UserCanEditPage',
 				static function ( $pageTitle, &$userCanEditPage ) use ( $overrideValue ) {
 					$userCanEditPage = $overrideValue;
 					return true;
@@ -204,7 +223,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$page_name_formula = $setup['page_name_formula'] ?? null;
 		$form_context = $setup['form_context'] ?? \PFFormPrinter::CONTEXT_REGULAR;
 		$autocreate_query = $setup['autocreate_query'] ?? [];
-		$user = array_key_exists( 'user', $setup ) ? $setup['user'] : self::getTestUser()->getUser();
+		$user = array_key_exists( 'user', $setup ) ? $setup['user'] : $cachedTestUser;
 
 		[ $form_text, $page_text, $form_page_title, $generated_page_name ] =
 			$wgPageFormsFormPrinter->formHTML(
@@ -637,35 +656,23 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * @covers \PFFormPrinter::addTranslatableInput
-	 * @covers \PFFormPrinter::formFieldHTML
 	 */
-	public function testFormFieldHTMLAddsTranslateTagHiddenInput() {
-		if ( !\MediaWiki\Registration\ExtensionRegistry::getInstance()->isLoaded( 'Translate' ) ) {
+	public function testAddTranslatableInputAddsHiddenInputWithExpectedName() {
+		if ( !\ExtensionRegistry::getInstance()->isLoaded( 'Translate' ) ) {
 			$this->markTestSkipped( 'Translate extension is required for translatable-input rendering checks.' );
 		}
 
 		$pfFormPrinter = new PFFormPrinter();
-		$templateField = $this->getMockBuilder( 'PFTemplateField' )
-			->disableOriginalConstructor()
-			->getMock();
-		$templateField->method( 'getFieldType' )->willReturn( '' );
-		$templateField->method( 'getPropertyType' )->willReturn( '_txt' );
-		$templateField->method( 'getRegex' )->willReturn( null );
 
-		$formField = $this->getMockBuilder( 'PFFormField' )
+		$bracketedFormField = $this->getMockBuilder( 'PFFormField' )
 			->disableOriginalConstructor()
 			->getMock();
-		$formField->method( 'getTemplateField' )->willReturn( $templateField );
-		$formField->method( 'isHidden' )->willReturn( false );
-		$formField->method( 'getInputType' )->willReturn( 'text' );
-		$formField->method( 'getInputName' )->willReturn( 'MyTemplate[MyField]' );
-		$formField->method( 'isDisabled' )->willReturn( false );
-		$formField->method( 'getArgumentsForInputCall' )->willReturn( [] );
-		$formField->method( 'hasFieldArg' )
+		$bracketedFormField->method( 'getInputName' )->willReturn( 'MyTemplate[MyField]' );
+		$bracketedFormField->method( 'hasFieldArg' )
 			->willReturnCallback( static function ( $arg ) {
 				return in_array( $arg, [ 'translatable', 'translate_number_tag' ], true );
 			} );
-		$formField->method( 'getFieldArg' )
+		$bracketedFormField->method( 'getFieldArg' )
 			->willReturnCallback( static function ( $arg ) {
 				if ( $arg === 'translatable' ) {
 					return true;
@@ -676,16 +683,46 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 				return null;
 			} );
 
-		$result = $pfFormPrinter->formFieldHTML( $formField, 'value' );
-		$this->assertStringContainsString( "name='MyTemplate[MyField_translate_number_tag]'", $result );
-		$this->assertStringContainsString( "value='<!--T:7 -->", $result );
+		$method = new \ReflectionMethod( PFFormPrinter::class, 'addTranslatableInput' );
+		$method->setAccessible( true );
+
+		$text = '<input type="text" name="MyTemplate[MyField]" value="value">';
+		$method->invokeArgs( $pfFormPrinter, [ &$bracketedFormField, &$text ] );
+
+		$this->assertStringContainsString( "name='MyTemplate[MyField_translate_number_tag]'", $text );
+		$this->assertStringContainsString( "value='<!--T:7 -->", $text );
+
+		$plainFormField = $this->getMockBuilder( 'PFFormField' )
+			->disableOriginalConstructor()
+			->getMock();
+		$plainFormField->method( 'getInputName' )->willReturn( 'StandaloneField' );
+		$plainFormField->method( 'hasFieldArg' )
+			->willReturnCallback( static function ( $arg ) {
+				return in_array( $arg, [ 'translatable', 'translate_number_tag' ], true );
+			} );
+		$plainFormField->method( 'getFieldArg' )
+			->willReturnCallback( static function ( $arg ) {
+				if ( $arg === 'translatable' ) {
+					return true;
+				}
+				if ( $arg === 'translate_number_tag' ) {
+					return "<!--T:8 -->\n";
+				}
+				return null;
+			} );
+
+		$text = '<input type="text" name="StandaloneField" value="value">';
+		$method->invokeArgs( $pfFormPrinter, [ &$plainFormField, &$text ] );
+
+		$this->assertStringContainsString( "name='StandaloneField_translate_number_tag'", $text );
+		$this->assertStringContainsString( "value='<!--T:8 -->", $text );
 	}
 
 	/**
 	 * @covers \PFFormPrinter::createFormFieldTranslateTag
 	 */
-	public function testCreateFormFieldTranslateTagExtractsTranslateNumberTag() {
-		if ( !\MediaWiki\Registration\ExtensionRegistry::getInstance()->isLoaded( 'Translate' ) ) {
+	public function testCreateFormFieldTranslateTagHandlesNullAndExtractsTranslateNumberTag() {
+		if ( !\ExtensionRegistry::getInstance()->isLoaded( 'Translate' ) ) {
 			$this->markTestSkipped( 'Translate extension is required for createFormFieldTranslateTag checks.' );
 		}
 
@@ -708,9 +745,14 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			->method( 'setFieldArg' )
 			->with( 'translate_number_tag', "<!--T:42 -->\n" );
 
-		$curValue = "<translate><!--T:42 -->\nTranslated text</translate>";
 		$method = new \ReflectionMethod( PFFormPrinter::class, 'createFormFieldTranslateTag' );
 		$method->setAccessible( true );
+
+		$curValue = null;
+		$method->invokeArgs( $pfFormPrinter, [ &$template, &$tif, &$formField, &$curValue ] );
+		$this->assertNull( $curValue );
+
+		$curValue = "<translate><!--T:42 -->\nTranslated text</translate>";
 		$method->invokeArgs( $pfFormPrinter, [ &$template, &$tif, &$formField, &$curValue ] );
 
 		$this->assertSame( 'Translated text', $curValue );
@@ -850,6 +892,23 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 				[
 					'mapped_value' => 'Z9',
 					'where_calls' => [ 'Code="Z9"' ],
+				]
+			],
+			'list values: quoted value is preserved when unmapped' => [
+				[
+					'current_value' => 'A"1, B2',
+					'mapping_cargo_table' => 'TestTable',
+					'mapping_cargo_field' => 'Label',
+					'mapping_cargo_value_field' => 'Code',
+					'delimiter' => ',',
+					'is_list' => true,
+					'results_by_where' => [
+						'Code="B2"' => [ [ 'Label' => 'Beta' ] ],
+					],
+				],
+				[
+					'mapped_value' => 'A"1,Beta',
+					'where_calls' => [ 'Code="A"1"', 'Code="B2"' ],
 				]
 			],
 		];
@@ -1259,8 +1318,14 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$msgLabelField = $this->getMockBuilder( 'PFFormField' )
 			->disableOriginalConstructor()
 			->onlyMethods( [
-				'getTemplateField', 'holdsTemplate', 'isHidden', 'getLabel', 'getLabelMsg',
-				'getInputName', 'hasFieldArg', 'additionalHTMLForInput'
+				'getTemplateField',
+				'holdsTemplate',
+				'isHidden',
+				'getLabel',
+				'getLabelMsg',
+				'getInputName',
+				'hasFieldArg',
+				'additionalHTMLForInput'
 			] )
 			->getMock();
 		$msgLabelField->method( 'getTemplateField' )->willReturn( $msgTemplateField );
@@ -1282,8 +1347,14 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$templateLabelField = $this->getMockBuilder( 'PFFormField' )
 			->disableOriginalConstructor()
 			->onlyMethods( [
-				'getTemplateField', 'holdsTemplate', 'isHidden', 'getLabel', 'getLabelMsg',
-				'getInputName', 'hasFieldArg', 'additionalHTMLForInput'
+				'getTemplateField',
+				'holdsTemplate',
+				'isHidden',
+				'getLabel',
+				'getLabelMsg',
+				'getInputName',
+				'hasFieldArg',
+				'additionalHTMLForInput'
 			] )
 			->getMock();
 		$templateLabelField->method( 'getTemplateField' )->willReturn( $templateLabelTemplateField );
@@ -1305,8 +1376,14 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$fallbackField = $this->getMockBuilder( 'PFFormField' )
 			->disableOriginalConstructor()
 			->onlyMethods( [
-				'getTemplateField', 'holdsTemplate', 'isHidden', 'getLabel', 'getLabelMsg',
-				'getInputName', 'hasFieldArg', 'additionalHTMLForInput'
+				'getTemplateField',
+				'holdsTemplate',
+				'isHidden',
+				'getLabel',
+				'getLabelMsg',
+				'getInputName',
+				'hasFieldArg',
+				'additionalHTMLForInput'
 			] )
 			->getMock();
 		$fallbackField->method( 'getTemplateField' )->willReturn( $fallbackTemplateField );
@@ -2297,12 +2374,12 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	 * Data provider method
 	 */
 	public function getPossibleInputTypesCargoDataProvider(): array {
-			return [
+		return [
 			'single_found' => [ false, 'String', [ 'text with autocomplete', 'textarea with autocomplete', 'combobox', 'tree', 'tokens' ] ],
 			'single_not_found' => [ false, 'NonExistentType', [] ],
 			'list_found' => [ true, 'String', [ 'tree', 'tokens' ] ],
 			'list_not_found' => [ true, 'NonExistentType', [] ],
-			];
+		];
 	}
 
 	/**
@@ -2335,3 +2412,4 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$property->setValue( $pfFormPrinter, $value );
 	}
 }
+// phpcs:enable Generic.Files.OneObjectStructurePerFile.MultipleFound
