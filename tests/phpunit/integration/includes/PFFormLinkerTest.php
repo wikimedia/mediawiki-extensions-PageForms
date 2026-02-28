@@ -12,11 +12,15 @@ use OOUI\BlankTheme;
  */
 class PFFormLinkerTest extends MediaWikiIntegrationTestCase {
 	private static ?ReflectionProperty $formPerNamespaceProperty = null;
+	/** @var array<string,string|null> */
+	private static array $schemaFormsByCategory = [];
+	private static bool $psSchemaShimActive = false;
 
 	/**
 	 * Set up the environment
 	 */
 	protected function setUp(): void {
+		self::ensurePSSchemaShim();
 		$this->resetNamespaceFormCache();
 		\OOUI\Theme::setSingleton( new BlankTheme() );
 
@@ -31,8 +35,50 @@ class PFFormLinkerTest extends MediaWikiIntegrationTestCase {
 		parent::setUp();
 	}
 
+	private static function ensurePSSchemaShim(): void {
+		if ( class_exists( 'PSSchema' ) ) {
+			self::$psSchemaShimActive = false;
+			return;
+		}
+
+		$shimClass = get_class( new class {
+			private string $category;
+
+			public function __construct( $category = '' ) {
+				$this->category = (string)$category;
+			}
+
+			public function isPSDefined(): bool {
+				return \PFFormLinkerTest::getSchemaFormForCategory( $this->category ) !== null;
+			}
+
+			public function getXML(): SimpleXMLElement {
+				$formName = \PFFormLinkerTest::getSchemaFormForCategory( $this->category );
+				if ( $formName === null ) {
+					return simplexml_load_string( '<PageSchema />' );
+				}
+
+				return simplexml_load_string(
+					'<PageSchema><pageforms_Form name="' . htmlspecialchars( $formName, ENT_QUOTES ) . '" /></PageSchema>'
+				);
+			}
+		} );
+
+		class_alias( $shimClass, 'PSSchema' );
+		self::$psSchemaShimActive = true;
+	}
+
+	public static function setSchemaFormsByCategory( array $formsByCategory ): void {
+		self::$schemaFormsByCategory = $formsByCategory;
+	}
+
+	public static function getSchemaFormForCategory( string $category ): ?string {
+		return self::$schemaFormsByCategory[$category] ?? null;
+	}
+
 	private function resetNamespaceFormCache(): void {
 		$this->getFormPerNamespaceProperty()->setValue( null, [] );
+		self::setSchemaFormsByCategory( [] );
 	}
 
 	private function setNamespaceFormCache( array $cache ): void {
@@ -295,6 +341,23 @@ class PFFormLinkerTest extends MediaWikiIntegrationTestCase {
 		$this->editPage( $page, '[[Category:PFCategoryA]][[Category:PFCategoryB]]' );
 
 		$this->assertSame( [], \PFFormLinker::getDefaultFormsForPage( $page->getTitle() ) );
+	}
+
+	/**
+	 * @covers \PFFormLinker::getDefaultFormsForPage
+	 */
+	public function testGetDefaultFormsForPageDeduplicatesSchemaAndCategoryDefaults(): void {
+		if ( class_exists( 'PSSchema' ) && !self::$psSchemaShimActive ) {
+			$this->markTestSkipped( 'This scenario requires the PSSchema shim.' );
+		}
+
+		self::setSchemaFormsByCategory( [ 'PFSchemaCategory' => 'SharedForm' ] );
+		$this->setDefaultFormProperty( Title::newFromText( 'Category:PFSchemaCategory' ), 'SharedForm' );
+
+		$page = $this->getNonexistingTestPage();
+		$this->editPage( $page, '[[Category:PFSchemaCategory]]' );
+
+		$this->assertSame( [ 'SharedForm' ], \PFFormLinker::getDefaultFormsForPage( $page->getTitle() ) );
 	}
 
 	/**

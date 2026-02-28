@@ -716,6 +716,24 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		$this->assertStringContainsString( "name='StandaloneField_translate_number_tag'", $text );
 		$this->assertStringContainsString( "value='<!--T:8 -->", $text );
+
+		$noTagFormField = $this->getMockBuilder( 'PFFormField' )
+			->disableOriginalConstructor()
+			->getMock();
+		$noTagFormField->method( 'getInputName' )->willReturn( 'NoTagField' );
+		$noTagFormField->method( 'hasFieldArg' )
+			->willReturnCallback( static function ( $arg ) {
+				return $arg === 'translatable';
+			} );
+		$noTagFormField->method( 'getFieldArg' )
+			->willReturnCallback( static function ( $arg ) {
+				return $arg === 'translatable' ? true : null;
+			} );
+
+		$text = '<input type="text" name="NoTagField" value="value">';
+		$method->invokeArgs( $pfFormPrinter, [ &$noTagFormField, &$text ] );
+
+		$this->assertStringNotContainsString( 'translate_number_tag', $text );
 	}
 
 	/**
@@ -729,6 +747,24 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$pfFormPrinter = new PFFormPrinter();
 		$template = $this->getMockBuilder( 'PFTemplate' )->disableOriginalConstructor()->getMock();
 		$tif = $this->getMockBuilder( 'PFTemplateInForm' )->disableOriginalConstructor()->getMock();
+		$method = new \ReflectionMethod( PFFormPrinter::class, 'createFormFieldTranslateTag' );
+		$method->setAccessible( true );
+
+		$nullFormField = $this->getMockBuilder( 'PFFormField' )
+			->disableOriginalConstructor()
+			->getMock();
+		$nullFormField->method( 'hasFieldArg' )
+			->willReturnCallback( static function ( $arg ) {
+				return $arg === 'translatable';
+			} );
+		$nullFormField->method( 'getFieldArg' )
+			->willReturnCallback( static function ( $arg ) {
+				return $arg === 'translatable' ? true : null;
+			} );
+
+		$curValue = null;
+		$method->invokeArgs( $pfFormPrinter, [ &$template, &$tif, &$nullFormField, &$curValue ] );
+		$this->assertNull( $curValue );
 
 		$formField = $this->getMockBuilder( 'PFFormField' )
 			->disableOriginalConstructor()
@@ -745,17 +781,30 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			->method( 'setFieldArg' )
 			->with( 'translate_number_tag', "<!--T:42 -->\n" );
 
-		$method = new \ReflectionMethod( PFFormPrinter::class, 'createFormFieldTranslateTag' );
-		$method->setAccessible( true );
-
-		$curValue = null;
-		$method->invokeArgs( $pfFormPrinter, [ &$template, &$tif, &$formField, &$curValue ] );
-		$this->assertNull( $curValue );
-
 		$curValue = "<translate><!--T:42 -->\nTranslated text</translate>";
 		$method->invokeArgs( $pfFormPrinter, [ &$template, &$tif, &$formField, &$curValue ] );
 
 		$this->assertSame( 'Translated text', $curValue );
+
+		$multiLineFormField = $this->getMockBuilder( 'PFFormField' )
+			->disableOriginalConstructor()
+			->getMock();
+		$multiLineFormField->method( 'hasFieldArg' )
+			->willReturnCallback( static function ( $arg ) {
+				return $arg === 'translatable';
+			} );
+		$multiLineFormField->method( 'getFieldArg' )
+			->willReturnCallback( static function ( $arg ) {
+				return $arg === 'translatable' ? true : null;
+			} );
+		$multiLineFormField->expects( $this->once() )
+			->method( 'setFieldArg' )
+			->with( 'translate_number_tag', "<!--T:84 --> " );
+
+		$curValue = "<translate><!--T:84 --> Line 1\nLine 2</translate>";
+		$method->invokeArgs( $pfFormPrinter, [ &$template, &$tif, &$multiLineFormField, &$curValue ] );
+
+		$this->assertSame( "Line 1\nLine 2", $curValue );
 	}
 
 	/**
