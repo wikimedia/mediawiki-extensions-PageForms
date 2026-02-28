@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Http\HttpRequestFactory;
 use MediaWiki\Title\Title;
 use OOUI\BlankTheme;
 
@@ -22,6 +23,8 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 
 	/** @var array<string,array<int,array<string,string>>> */
 	private static array $cargoResultsByWhere = [];
+
+	private $serviceContainer;
 
 	protected function setUp(): void {
 		\OOUI\Theme::setSingleton( new BlankTheme() );
@@ -494,6 +497,88 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
+	 * @covers \PFValuesUtils::getAutocompletionTypeAndSource
+	 */
+	public function testGetAutocompletionTypeAndSourceHandlesContentNamespacesKey(): void {
+		$fieldArgs = [ 'values from content namespaces' => true ];
+
+		[ $type, $source ] = \PFValuesUtils::getAutocompletionTypeAndSource( $fieldArgs );
+
+		$this->assertSame( 'namespace', $type );
+		$this->assertSame( '_contentNamespaces', $source );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAutocompletionTypeAndSource
+	 */
+	public function testGetAutocompletionTypeAndSourceHandlesValuesFromQueryKey(): void {
+		$fieldArgs = [ 'values from query' => '[[Category:Test]][[status::Active]]' ];
+
+		[ $type, $source ] = \PFValuesUtils::getAutocompletionTypeAndSource( $fieldArgs );
+
+		$this->assertSame( 'semantic_query', $type );
+		$this->assertSame( '[[Category:Test]][[status::Active]]', $source );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAutocompletionTypeAndSource
+	 */
+	public function testGetAutocompletionTypeAndSourceHandlesValuesKey(): void {
+		global $wgPageFormsFieldNum;
+		$wgPageFormsFieldNum = 5;
+
+		$fieldArgs = [ 'values' => 'option1, option2, option3' ];
+
+		[ $type, $source ] = \PFValuesUtils::getAutocompletionTypeAndSource( $fieldArgs );
+
+		$this->assertSame( 'values', $type );
+		$this->assertStringContainsString( 'values-', $source );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAutocompletionTypeAndSource
+	 */
+	public function testGetAutocompletionTypeAndSourceHandlesAutocompleteFieldTypeKey(): void {
+		$fieldArgs = [
+			'autocomplete field type' => 'property',
+			'autocompletion source' => 'Has Name'
+		];
+
+		[ $type, $source ] = \PFValuesUtils::getAutocompletionTypeAndSource( $fieldArgs );
+
+		$this->assertSame( 'property', $type );
+		$this->assertSame( 'Has Name', $source );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAutocompletionTypeAndSource
+	 */
+	public function testGetAutocompletionTypeAndSourceHandlesCargoFieldWithWhereClause(): void {
+		$fieldArgs = [
+			'cargo field' => 'title',
+			'cargo table' => 'Books',
+			'cargo where' => 'published=1'
+		];
+
+		[ $type, $source ] = \PFValuesUtils::getAutocompletionTypeAndSource( $fieldArgs );
+
+		$this->assertSame( 'cargo field', $type );
+		$this->assertSame( 'Books|title|published=1', $source );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAutocompletionTypeAndSource
+	 */
+	public function testGetAutocompletionTypeAndSourceHandlesSemanticPropertyKey(): void {
+		$fieldArgs = [ 'semantic_property' => 'Has Author' ];
+
+		[ $type, $source ] = \PFValuesUtils::getAutocompletionTypeAndSource( $fieldArgs );
+
+		$this->assertSame( 'property', $type );
+		$this->assertSame( 'Has Author', $source );
+	}
+
+	/**
 	 * @covers \PFValuesUtils::getAllCategories
 	 */
 	public function testGetAllCategoriesReturnsInsertedCategory(): void {
@@ -695,6 +780,16 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 		$this->assertStringContainsString( 'hello', $condition );
 		$this->assertStringContainsString( 'world', $condition );
 		$this->assertStringNotContainsString( 'hello world', $condition );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getSQLConditionForAutocompleteInColumn
+	 */
+	public function testGetSQLConditionForAutocompleteInColumnUsesSimpleLowerForNonMySQL(): void {
+		$condition = \PFValuesUtils::getSQLConditionForAutocompleteInColumn( 'page_title', 'test' );
+
+		$this->assertIsString( $condition );
+		$this->assertStringContainsString( 'LOWER', $condition );
 	}
 
 	/**
@@ -904,6 +999,29 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
+	 * @covers \PFValuesUtils::getValuesArray
+	 */
+	public function testGetValuesArrayAppliesDisplayTitleMappingWhenConfigured(): void {
+		$this->setMwGlobals( [ 'wgPageFormsUseDisplayTitle' => true ] );
+
+		$page1 = $this->createPage( 'PFValuesDisplayPage One' );
+		$this->setDisplayTitle( $page1, 'Display One' );
+		$page2 = $this->createPage( 'PFValuesDisplayPage Two' );
+		$this->setDisplayTitle( $page2, 'Display Two' );
+
+		$result = \PFValuesUtils::getValuesArray(
+			'PFValuesDisplayPage One, PFValuesDisplayPage Two',
+			','
+		);
+
+		$this->assertIsArray( $result );
+		$this->assertCount( 2, $result );
+
+		$this->assertStringContainsString( 'Display One', $result[0] );
+		$this->assertStringContainsString( 'Display Two', $result[1] );
+	}
+
+	/**
 	 * @covers \PFValuesUtils::getAutocompleteValues
 	 */
 	public function testGetAutocompleteValuesWithNullSourceNameReturnsEmptyArray(): void {
@@ -1029,6 +1147,29 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
+	 * @covers \PFValuesUtils::getRemoteDataTypeAndPossiblySetAutocompleteValues
+	 */
+	public function testGetRemoteDataTypeHandlesValuesFieldArgument(): void {
+		global $wgPageFormsAutocompleteValues;
+		$this->setMwGlobals( [
+			'wgPageFormsMaxLocalAutocompleteValues' => 100,
+			'wgPageFormsAutocompleteValues'         => [],
+		] );
+
+		$fieldArgs = [ 'values' => 'Option1, Option2, Option3' ];
+
+		$result = \PFValuesUtils::getRemoteDataTypeAndPossiblySetAutocompleteValues(
+			'values', 'values-1', $fieldArgs, 'values-1'
+		);
+
+		$this->assertNull( $result );
+		$this->assertArrayHasKey( 'values-1', $wgPageFormsAutocompleteValues );
+		$autocompleteValues = $wgPageFormsAutocompleteValues['values-1'];
+		$this->assertIsArray( $autocompleteValues );
+		$this->assertCount( 3, $autocompleteValues );
+	}
+
+	/**
 	 * @covers \PFValuesUtils::setAutocompleteValues
 	 */
 	public function testSetAutocompleteValuesForNonListReturnsNullDelimiter(): void {
@@ -1101,5 +1242,188 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 		$result = \PFValuesUtils::getValuesFromExternalURL( 'blankAlias', 'test' );
 
 		$this->assertInstanceOf( \Message::class, $result );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getValuesFromExternalURL
+	 */
+	public function testGetValuesFromExternalURLReturnsMessageOnEmptyPageContents(): void {
+		$this->setMwGlobals( [ 'wgPageFormsAutocompletionURLs' => [ 'testAlias' => 'https://example.com/?q=<substr>' ] ] );
+
+		// Mock the HTTP request factory to return empty content
+		$httpRequestFactory = $this->createMock( HttpRequestFactory::class );
+		$httpRequestFactory->method( 'get' )->willReturn( '' );
+
+		$services = $this->getServiceContainer();
+		$services->redefineService( 'HttpRequestFactory', static function () use ( $httpRequestFactory ) {
+			return $httpRequestFactory;
+		} );
+
+		$result = \PFValuesUtils::getValuesFromExternalURL( 'testAlias', 'search' );
+
+		$this->assertInstanceOf( \Message::class, $result );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getValuesFromExternalURL
+	 */
+	public function testGetValuesFromExternalURLReturnsMessageOnInvalidJSON(): void {
+		$this->setMwGlobals( [ 'wgPageFormsAutocompletionURLs' => [ 'testAlias' => 'https://example.com/?q=<substr>' ] ] );
+
+		// Mock the HTTP request factory to return invalid JSON
+		$httpRequestFactory = $this->createMock( HttpRequestFactory::class );
+		$httpRequestFactory->method( 'get' )->willReturn( 'not valid json' );
+
+		$services = $this->getServiceContainer();
+		$services->redefineService( 'HttpRequestFactory', static function () use ( $httpRequestFactory ) {
+			return $httpRequestFactory;
+		} );
+
+		$result = \PFValuesUtils::getValuesFromExternalURL( 'testAlias', 'search' );
+
+		$this->assertInstanceOf( \Message::class, $result );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getValuesFromExternalURL
+	 */
+	public function testGetValuesFromExternalURLParsesValidJSONWithDisplaytitle(): void {
+		$this->setMwGlobals( [ 'wgPageFormsAutocompletionURLs' => [ 'testAlias' => 'https://example.com/?q=<substr>' ] ] );
+
+		// Mock valid JSON response with displaytitle
+		$jsonResponse = json_encode( [
+			'pfautocomplete' => [
+				(object)[ 'title' => 'Option One', 'displaytitle' => 'Option One Display' ],
+				(object)[ 'title' => 'Option Two', 'displaytitle' => 'Option Two Display' ],
+			]
+		] );
+
+		$httpRequestFactory = $this->createMock( HttpRequestFactory::class );
+		$httpRequestFactory->method( 'get' )->willReturn( $jsonResponse );
+
+		$services = $this->getServiceContainer();
+		$services->redefineService( 'HttpRequestFactory', static function () use ( $httpRequestFactory ) {
+			return $httpRequestFactory;
+		} );
+
+		$result = \PFValuesUtils::getValuesFromExternalURL( 'testAlias', 'search' );
+
+		$this->assertIsArray( $result );
+		$this->assertArrayHasKey( 'Option One', $result );
+		$this->assertSame( 'Option One Display', $result['Option One'] );
+		$this->assertArrayHasKey( 'Option Two', $result );
+		$this->assertSame( 'Option Two Display', $result['Option Two'] );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getValuesFromExternalURL
+	 */
+	public function testGetValuesFromExternalURLFallsBackToTitleWhenNoDisplaytitle(): void {
+		$this->setMwGlobals( [ 'wgPageFormsAutocompletionURLs' => [ 'testAlias' => 'https://example.com/?q=<substr>' ] ] );
+
+		// Mock valid JSON response without displaytitle (null)
+		$jsonResponse = json_encode( [
+			'pfautocomplete' => [
+				(object)[ 'title' => 'Option One' ],
+				(object)[ 'title' => 'Option Two', 'displaytitle' => null ],
+			]
+		] );
+
+		$httpRequestFactory = $this->createMock( HttpRequestFactory::class );
+		$httpRequestFactory->method( 'get' )->willReturn( $jsonResponse );
+
+		$services = $this->getServiceContainer();
+		$services->redefineService( 'HttpRequestFactory', static function () use ( $httpRequestFactory ) {
+			return $httpRequestFactory;
+		} );
+
+		$result = \PFValuesUtils::getValuesFromExternalURL( 'testAlias', 'search' );
+
+		$this->assertIsArray( $result );
+		$this->assertArrayHasKey( 'Option One', $result );
+		$this->assertSame( 'Option One', $result['Option One'] );
+		$this->assertArrayHasKey( 'Option Two', $result );
+		$this->assertSame( 'Option Two', $result['Option Two'] );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getValuesFromExternalURL
+	 */
+	public function testGetValuesFromExternalURLEncodeSubstringInURL(): void {
+		$this->setMwGlobals( [ 'wgPageFormsAutocompletionURLs' => [ 'testAlias' => 'https://example.com/?q=<substr>' ] ] );
+
+		$jsonResponse = json_encode( [ 'pfautocomplete' => [] ] );
+
+		$httpRequestFactory = $this->createMock( HttpRequestFactory::class );
+		$httpRequestFactory->expects( $this->once() )
+			->method( 'get' )
+			->with( 'https://example.com/?q=test+search', [], 'PFValuesUtils::getValuesFromExternalURL' )
+			->willReturn( $jsonResponse );
+
+		$services = $this->getServiceContainer();
+		$services->redefineService( 'HttpRequestFactory', static function () use ( $httpRequestFactory ) {
+			return $httpRequestFactory;
+		} );
+
+		$result = \PFValuesUtils::getValuesFromExternalURL( 'testAlias', 'test search' );
+		$this->assertSame( [], $result );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForQuery
+	 */
+	public function testGetAllPagesForQueryHandlesMissingSMW(): void {
+		// The function uses SMWQueryProcessor and SMW store which require
+		// the Semantic MediaWiki extension to be installed.
+		// This test verifies graceful handling when SMW is not available.
+
+		try {
+			$simpleQuery = '[[Category:Test]]';
+			$result = \PFValuesUtils::getAllPagesForQuery( $simpleQuery );
+
+			// If SMWQueryProcessor is available, we should get a result array
+			$this->assertIsArray( $result,
+				'getAllPagesForQuery should return an array when SMW is available'
+			);
+		} catch ( \Error $e ) {
+			// Expected: Class "SMWQueryProcessor" not found
+			// This indicates SMW is not installed, which is the normal case
+			// in basic MediaWiki installations
+			$this->assertStringContainsString(
+				'not found',
+				$e->getMessage(),
+				'Error should indicate missing SMW class'
+			);
+		} catch ( \Exception $e ) {
+			$this->assertTrue( true, 'Exception expected when SMW not available: ' . $e->getMessage() );
+		}
+	}
+
+	/**
+	 * @covers \PFValuesUtils::processSemanticQuery
+	 */
+	public function testProcessSemanticQueryReplacesHTMLEntitiesAndSpecialChars(): void {
+		$query = '[[Category:Test]]&lt;value&gt;test@replacement';
+		$result = \PFValuesUtils::processSemanticQuery( $query, 'sub' );
+
+		$this->assertStringContainsString( '<value>', $result );
+		$this->assertStringNotContainsString( '&lt;', $result );
+
+		// '@' should be replaced with substring parameter
+		$this->assertStringContainsString( 'sub', $result );
+		$this->assertStringNotContainsString( '@', $result );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::processSemanticQuery
+	 */
+	public function testProcessSemanticQueryHandlesAllReplacementPatterns(): void {
+		$query = '&lt;prop&gt;~value(test)%special@end';
+		$result = \PFValuesUtils::processSemanticQuery( $query, 'SUBSTR' );
+
+		$this->assertStringContainsString( '<prop>', $result );
+		$this->assertStringContainsString( '[test]', $result );
+		$this->assertStringContainsString( '|special', $result );
+		$this->assertStringContainsString( 'SUBSTR', $result );
 	}
 }

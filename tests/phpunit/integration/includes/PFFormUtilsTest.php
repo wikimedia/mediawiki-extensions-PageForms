@@ -270,6 +270,14 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
+	 * @covers \PFFormUtils::showChangesButtonHTML
+	 */
+	public function testShowChangesButtonHTMLDisabledFlag(): void {
+		$html = (string)\PFFormUtils::showChangesButtonHTML( true );
+		$this->assertStringContainsString( 'disabled', $html );
+	}
+
+	/**
 	 * @covers \PFFormUtils::cancelLinkHTML
 	 */
 	public function testCancelLinkHTMLWithNullTitleUsesPfSendBackClass(): void {
@@ -312,6 +320,14 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
+	 * @covers \PFFormUtils::cancelLinkHTML
+	 */
+	public function testCancelLinkHTMLCustomClassAppearsInOutput(): void {
+		$result = \PFFormUtils::cancelLinkHTML( false, null, [ 'class' => 'my-cancel-class' ] );
+		$this->assertStringContainsString( 'my-cancel-class', $result );
+	}
+
+	/**
 	 * @covers \PFFormUtils::runQueryButtonHTML
 	 */
 	public function testRunQueryButtonHTMLReturnsFieldLayoutAndIncrementsTabIndex(): void {
@@ -321,6 +337,20 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 		$result = \PFFormUtils::runQueryButtonHTML( false );
 
 		$this->assertInstanceOf( \OOUI\FieldLayout::class, $result );
+		$this->assertSame( $before + 1, $wgPageFormsTabIndex );
+	}
+
+	/**
+	 * @covers \PFFormUtils::queryFormBottom
+	 */
+	public function testQueryFormBottomReturnsFieldLayoutFromRunQueryButton(): void {
+		global $wgPageFormsTabIndex;
+		$before = $wgPageFormsTabIndex;
+
+		$result = \PFFormUtils::queryFormBottom();
+		$this->assertIsString( $result );
+		$this->assertStringContainsString( 'oo-ui-layout', $result );
+		$this->assertStringContainsString( 'oo-ui-fieldLayout', $result );
 		$this->assertSame( $before + 1, $wgPageFormsTabIndex );
 	}
 
@@ -498,25 +528,23 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * @covers \PFFormUtils::getPreloadedText
-	 * @TODO: This fails because getPreloadedText() calls Title::newFromText() and then checks if the title exists,
-	 * but Title::newFromText() returns a Title object even for non-existent pages.
-	 * To fix this, we would need to mock Title::newFromText() to return null or throw an exception for non-existent pages,
-	 * which is non-trivial given the current structure of the code. For now, this test documents the existing behavior,
-	 * which is that getPreloadedText() will return an empty string for a title that does not exist,
-	 * but it does not distinguish between a non-existent page and a page with an empty title.
-	 *
-	 * checking if the $text returned at line 410 of PFFormUtils::getPreloadedText is null and return and empty string if it is,
-	 * would be a possible fix for this test.
 	 */
-	// public function testGetPreloadedTextWithNonExistentPageReturnsEmpty(): void {
-	// 	$preloadTitle = $this->getNonexistingTestPage()->getTitle();
-	// 	$result = \PFFormUtils::getPreloadedText( (string)$preloadTitle );
-	// 	$this->assertSame( '', $result );
+	public function testGetPreloadedTextWithInvalidTitleReturnsEmpty(): void {
+		$this->assertSame( '', \PFFormUtils::getPreloadedText( '<invalid>' ) );
+	}
 
-	// 	$preloadTitle = Title::newFromText( 'PFFormUtilsTestNonExistentPage' );
-	// 	$result = \PFFormUtils::getPreloadedText( (string)$preloadTitle );
-	// 	$this->assertSame( '', $result );
-	// }
+	/**
+	 * @covers \PFFormUtils::getPreloadedText
+	 */
+	public function testGetPreloadedTextWithNoReadPermissionReturnsEmpty(): void {
+		$this->createPage( 'PFPreloadNoReadPage', '' );
+
+		$user = self::getTestUser()->getUser();
+		\RequestContext::getMain()->setUser( $user );
+		$this->overrideUserPermissions( $user, [] );
+
+		$this->assertSame( '', \PFFormUtils::getPreloadedText( 'PFPreloadNoReadPage' ) );
+	}
 
 	/**
 	 * @covers \PFFormUtils::getPreloadedText
@@ -579,6 +607,162 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
+	 * @covers \PFFormUtils::getFormDefinition
+	 */
+	public function testGetFormDefinitionReturnsEmptyWhenNoDefAndNoId(): void {
+		$parser = $this->getServiceContainer()->getParserFactory()->create();
+		$parser->setOptions( \ParserOptions::newFromAnon() );
+		$parser->setTitle( Title::newFromText( 'Dummy' ) );
+
+		$this->assertSame( '', \PFFormUtils::getFormDefinition( $parser, null, null ) );
+	}
+
+	/**
+	 * @covers \PFFormUtils::getFormDefinition
+	 */
+	public function testGetFormDefinitionWithProvidedDefStripsNoincludeAndIncludeonly(): void {
+		$parser = $this->getServiceContainer()->getParserFactory()->create();
+		$title = Title::newFromText( 'Dummy' );
+		$parser->startExternalParse( $title, \ParserOptions::newFromAnon(), \Parser::OT_HTML );
+
+		$formDef = 'Visible<noinclude>Hidden</noinclude><includeonly>Wrap</includeonly>End';
+		$result = \PFFormUtils::getFormDefinition( $parser, $formDef );
+
+		$this->assertStringContainsString( 'Visible', $result );
+		$this->assertStringNotContainsString( 'Hidden', $result );
+		$this->assertStringNotContainsString( '<includeonly>', $result );
+		$this->assertStringContainsString( 'Wrap', $result );
+		$this->assertStringContainsString( 'End', $result );
+	}
+
+	/**
+	 * @covers \PFFormUtils::getFormDefinition
+	 */
+	public function testGetFormDefinitionLoadsFromFormIdWhenNoDefProvided(): void {
+		if ( !defined( 'PF_NS_FORM' ) ) {
+			define( 'PF_NS_FORM', 106 );
+		}
+		$title = $this->createPage( 'Form:PFTestFormDef', 'Form body text' );
+		$parser = $this->getServiceContainer()->getParserFactory()->create();
+		$parser->startExternalParse( $title, \ParserOptions::newFromAnon(), \Parser::OT_HTML );
+
+		$result = \PFFormUtils::getFormDefinition( $parser, null, $title->getArticleID() );
+
+		$this->assertStringContainsString( 'Form body text', $result );
+	}
+
+	/**
+	 * @covers \PFFormUtils::getFormDefinition
+	 */
+	public function testGetFormDefinitionPreservesTripleBraceTags(): void {
+		$parser = $this->getServiceContainer()->getParserFactory()->create();
+		$title = Title::newFromText( 'Dummy' );
+		$parser->startExternalParse( $title, \ParserOptions::newFromAnon(), \Parser::OT_HTML );
+
+		$formDef = 'Before {{{field|name}}} After';
+		$result = \PFFormUtils::getFormDefinition( $parser, $formDef );
+
+		$this->assertStringContainsString( '{{{field|name}}}', $result );
+		$this->assertStringContainsString( 'Before', $result );
+		$this->assertStringContainsString( 'After', $result );
+	}
+
+	/**
+	 * @covers \PFFormUtils::getFormDefinitionFromCache
+	 */
+	public function testGetFormDefinitionFromCacheReturnsNullWhenCachingDisabled(): void {
+		$this->setMwGlobals( [ 'wgPageFormsCacheFormDefinitions' => false ] );
+
+		if ( !defined( 'PF_NS_FORM' ) ) {
+			define( 'PF_NS_FORM', 106 );
+		}
+		$title = $this->createPage( 'Form:PFCacheDisabledForm', 'Cache disabled body' );
+		$parser = $this->getServiceContainer()->getParserFactory()->create();
+		$parser->startExternalParse( $title, \ParserOptions::newFromAnon(), \Parser::OT_HTML );
+
+		$result1 = \PFFormUtils::getFormDefinition( $parser, null, $title->getArticleID() );
+		$this->assertStringContainsString( 'Cache disabled body', $result1 );
+
+		$parser2 = $this->getServiceContainer()->getParserFactory()->create();
+		$parser2->startExternalParse( $title, \ParserOptions::newFromAnon(), \Parser::OT_HTML );
+		$result2 = \PFFormUtils::getFormDefinition( $parser2, null, $title->getArticleID() );
+		$this->assertStringContainsString( 'Cache disabled body', $result2 );
+	}
+
+	/**
+	 * @covers \PFFormUtils::getFormDefinitionFromCache
+	 * @covers \PFFormUtils::cacheFormDefinition
+	 */
+	public function testGetFormDefinitionFromCacheReturnsCachedValueOnSecondCall(): void {
+		$this->setMwGlobals( [ 'wgPageFormsCacheFormDefinitions' => true ] );
+
+		if ( !defined( 'PF_NS_FORM' ) ) {
+			define( 'PF_NS_FORM', 106 );
+		}
+		$title = $this->createPage( 'Form:PFCacheHitForm', 'Cached form body' );
+		$parser = $this->getServiceContainer()->getParserFactory()->create();
+		$parser->startExternalParse( $title, \ParserOptions::newFromAnon(), \Parser::OT_HTML );
+
+		$result1 = \PFFormUtils::getFormDefinition( $parser, null, $title->getArticleID() );
+		$this->assertStringContainsString( 'Cached form body', $result1 );
+
+		$parser2 = $this->getServiceContainer()->getParserFactory()->create();
+		$parser2->startExternalParse( $title, \ParserOptions::newFromAnon(), \Parser::OT_HTML );
+		$result2 = \PFFormUtils::getFormDefinition( $parser2, null, $title->getArticleID() );
+		$this->assertStringContainsString( 'Cached form body', $result2 );
+		$this->assertSame( $result1, $result2 );
+	}
+
+	/**
+	 * @covers \PFFormUtils::cacheFormDefinition
+	 */
+	public function testCacheFormDefinitionDoesNotStoreWhenCachingDisabled(): void {
+		$this->setMwGlobals( [ 'wgPageFormsCacheFormDefinitions' => false ] );
+
+		if ( !defined( 'PF_NS_FORM' ) ) {
+			define( 'PF_NS_FORM', 106 );
+		}
+		$title = $this->createPage( 'Form:PFCacheSkipForm', 'Skip cache body' );
+		$parser = $this->getServiceContainer()->getParserFactory()->create();
+		$parser->startExternalParse( $title, \ParserOptions::newFromAnon(), \Parser::OT_HTML );
+
+		\PFFormUtils::getFormDefinition( $parser, null, $title->getArticleID() );
+
+		$cache = \PFFormUtils::getFormCache();
+		$cacheKey = \PFFormUtils::getCacheKey( (string)$title->getArticleID(), $parser );
+		$this->assertFalse( $cache->get( $cacheKey ), 'Cache should not store when caching is disabled' );
+	}
+
+	/**
+	 * @covers \PFFormUtils::cacheFormDefinition
+	 */
+	public function testCacheFormDefinitionStoresDefinitionAndKeyListWhenEnabled(): void {
+		$this->setMwGlobals( [ 'wgPageFormsCacheFormDefinitions' => true ] );
+
+		if ( !defined( 'PF_NS_FORM' ) ) {
+			define( 'PF_NS_FORM', 106 );
+		}
+		$title = $this->createPage( 'Form:PFCacheStoreForm', 'Stored form body' );
+		$formId = (string)$title->getArticleID();
+		$parser = $this->getServiceContainer()->getParserFactory()->create();
+		$parser->startExternalParse( $title, \ParserOptions::newFromAnon(), \Parser::OT_HTML );
+
+		\PFFormUtils::getFormDefinition( $parser, null, $title->getArticleID() );
+
+		$cache = \PFFormUtils::getFormCache();
+		$cacheKeyForForm = \PFFormUtils::getCacheKey( $formId, $parser );
+		$cacheKeyForList = \PFFormUtils::getCacheKey( $formId );
+
+		$cachedDef = $cache->get( $cacheKeyForForm );
+		$this->assertIsString( $cachedDef, 'Cached form definition should be a string' );
+		$this->assertStringContainsString( 'Stored form body', $cachedDef );
+
+		$keyList = $cache->get( $cacheKeyForList );
+		$this->assertIsArray( $keyList, 'Cache key list should be an array' );
+		$this->assertArrayHasKey( $cacheKeyForForm, $keyList );
+	}
+
+	/**
 	 * @covers \PFFormUtils::purgeCache
 	 */
 	public function testPurgeCacheReturnsTrueForNonFormNamespacePage(): void {
@@ -589,6 +773,244 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 		$result = \PFFormUtils::purgeCache( $wikiPage );
 
 		$this->assertTrue( $result );
+	}
+
+	/**
+	 * @covers \PFFormUtils::purgeCache
+	 */
+	public function testPurgeCacheReturnsTrueForFormPageWithNoCachedEntries(): void {
+		if ( !defined( 'PF_NS_FORM' ) ) {
+			define( 'PF_NS_FORM', 106 );
+		}
+		$title = $this->createPage( 'Form:PFPurgeNoCacheForm', 'No cache content' );
+		$wikiPage = $this->getServiceContainer()->getWikiPageFactory()->newFromTitle( $title );
+
+		$result = \PFFormUtils::purgeCache( $wikiPage );
+
+		$this->assertTrue( $result );
+	}
+
+	/**
+	 * @covers \PFFormUtils::purgeCache
+	 */
+	public function testPurgeCacheDeletesCachedDefinitionAndKeyList(): void {
+		$this->setMwGlobals( [ 'wgPageFormsCacheFormDefinitions' => true ] );
+
+		if ( !defined( 'PF_NS_FORM' ) ) {
+			define( 'PF_NS_FORM', 106 );
+		}
+		$title = $this->createPage( 'Form:PFPurgeCacheForm', 'Purgeable form body' );
+		$formId = (string)$title->getArticleID();
+
+		$parser = $this->getServiceContainer()->getParserFactory()->create();
+		$parser->startExternalParse( $title, \ParserOptions::newFromAnon(), \Parser::OT_HTML );
+		\PFFormUtils::getFormDefinition( $parser, null, $title->getArticleID() );
+
+		$cache = \PFFormUtils::getFormCache();
+		$cacheKeyForForm = \PFFormUtils::getCacheKey( $formId, $parser );
+		$cacheKeyForList = \PFFormUtils::getCacheKey( $formId );
+
+		// Confirm cache is populated before purge
+		$this->assertIsString( $cache->get( $cacheKeyForForm ) );
+		$this->assertIsArray( $cache->get( $cacheKeyForList ) );
+
+		$wikiPage = $this->getServiceContainer()->getWikiPageFactory()->newFromTitle( $title );
+		$result = \PFFormUtils::purgeCache( $wikiPage );
+
+		$this->assertTrue( $result );
+		$this->assertFalse( $cache->get( $cacheKeyForForm ), 'Cached definition should be deleted' );
+		$this->assertFalse( $cache->get( $cacheKeyForList ), 'Key list should be deleted' );
+	}
+
+	/**
+	 * @covers \PFFormUtils::minorEditInputHTML
+	 */
+	public function testMinorEditInputHTMLIncrementsTabIndex(): void {
+		global $wgPageFormsTabIndex;
+		$before = $wgPageFormsTabIndex;
+
+		\PFFormUtils::minorEditInputHTML( true, false, false );
+
+		$this->assertSame( $before + 1, $wgPageFormsTabIndex );
+	}
+
+	/**
+	 * @covers \PFFormUtils::minorEditInputHTML
+	 */
+	public function testMinorEditInputHTMLContainsCheckboxAndLabel(): void {
+		$html = \PFFormUtils::minorEditInputHTML( true, false, false );
+
+		$this->assertIsString( $html );
+		$this->assertStringContainsString( 'wpMinoredit', $html );
+		$this->assertStringContainsString( '<label', $html );
+		$this->assertStringContainsString( '<div', $html );
+	}
+
+	/**
+	 * @covers \PFFormUtils::minorEditInputHTML
+	 */
+	public function testMinorEditInputHTMLCheckedWhenIsCheckedTrue(): void {
+		$html = \PFFormUtils::minorEditInputHTML( true, false, true );
+
+		$this->assertStringContainsString( 'checked', $html );
+	}
+
+	/**
+	 * @covers \PFFormUtils::minorEditInputHTML
+	 */
+	public function testMinorEditInputHTMLDisabledWhenIsDisabledTrue(): void {
+		$html = \PFFormUtils::minorEditInputHTML( true, true, false );
+
+		$this->assertStringContainsString( 'disabled', $html );
+	}
+
+	/**
+	 * @covers \PFFormUtils::minorEditInputHTML
+	 */
+	public function testMinorEditInputHTMLCustomLabelAppearsInOutput(): void {
+		$html = \PFFormUtils::minorEditInputHTML( true, false, false, 'Mark as minor' );
+
+		$this->assertStringContainsString( 'Mark as minor', $html );
+	}
+
+	/**
+	 * When the form has NOT been submitted, the method ignores the passed-in
+	 * $is_checked and instead reads the user's 'minordefault' preference.
+	 *
+	 * @covers \PFFormUtils::minorEditInputHTML
+	 */
+	public function testMinorEditInputHTMLUsesUserMinorDefaultWhenNotSubmitted(): void {
+		$user = self::getTestUser()->getUser();
+		$this->getServiceContainer()->getUserOptionsManager()
+			->setOption( $user, 'minordefault', 1 );
+		\RequestContext::getMain()->setUser( $user );
+
+		// Pass $is_checked = false, but $form_submitted = false so the
+		// method should read the user preference (minordefault = 1) instead.
+		$html = \PFFormUtils::minorEditInputHTML( false, false, false );
+
+		$this->assertStringContainsString( 'checked', $html );
+	}
+
+	/**
+	 * @covers \PFFormUtils::minorEditInputHTML
+	 */
+	public function testMinorEditInputHTMLCustomClassConvertedToClasses(): void {
+		$html = \PFFormUtils::minorEditInputHTML( true, false, false, null, [ 'class' => 'my-custom-class' ] );
+
+		$this->assertStringContainsString( 'my-custom-class', $html );
+	}
+
+	/**
+	 * @covers \PFFormUtils::watchInputHTML
+	 */
+	public function testWatchInputHTMLIncrementsTabIndex(): void {
+		global $wgPageFormsTabIndex;
+		$this->setMwGlobals( [ 'wgTitle' => Title::newFromText( 'SomePage' ) ] );
+		$before = $wgPageFormsTabIndex;
+
+		\PFFormUtils::watchInputHTML( true, false, false );
+
+		$this->assertSame( $before + 1, $wgPageFormsTabIndex );
+	}
+
+	/**
+	 * @covers \PFFormUtils::watchInputHTML
+	 */
+	public function testWatchInputHTMLContainsCheckboxAndLabel(): void {
+		$this->setMwGlobals( [ 'wgTitle' => Title::newFromText( 'SomePage' ) ] );
+
+		$html = \PFFormUtils::watchInputHTML( true, false, false );
+
+		$this->assertIsString( $html );
+		$this->assertStringContainsString( 'wpWatchthis', $html );
+		$this->assertStringContainsString( '<label', $html );
+		$this->assertStringContainsString( '<div', $html );
+	}
+
+	/**
+	 * @covers \PFFormUtils::watchInputHTML
+	 */
+	public function testWatchInputHTMLCheckedWhenFormSubmittedAndIsCheckedTrue(): void {
+		$this->setMwGlobals( [ 'wgTitle' => Title::newFromText( 'SomePage' ) ] );
+
+		$html = \PFFormUtils::watchInputHTML( true, false, true );
+
+		$this->assertStringContainsString( 'checked', $html );
+	}
+
+	/**
+	 * @covers \PFFormUtils::watchInputHTML
+	 */
+	public function testWatchInputHTMLDisabledWhenIsDisabledTrue(): void {
+		$this->setMwGlobals( [ 'wgTitle' => Title::newFromText( 'SomePage' ) ] );
+
+		$html = \PFFormUtils::watchInputHTML( true, true, false );
+
+		$this->assertStringContainsString( 'disabled', $html );
+	}
+
+	/**
+	 * @covers \PFFormUtils::watchInputHTML
+	 */
+	public function testWatchInputHTMLCustomLabelAppearsInOutput(): void {
+		$this->setMwGlobals( [ 'wgTitle' => Title::newFromText( 'SomePage' ) ] );
+
+		$html = \PFFormUtils::watchInputHTML( true, false, false, 'Watch this page' );
+
+		$this->assertStringContainsString( 'Watch this page', $html );
+	}
+
+	/**
+	 * @covers \PFFormUtils::watchInputHTML
+	 */
+	public function testWatchInputHTMLCustomClassConvertedToClasses(): void {
+		$this->setMwGlobals( [ 'wgTitle' => Title::newFromText( 'SomePage' ) ] );
+
+		$html = \PFFormUtils::watchInputHTML( true, false, false, null, [ 'class' => 'my-watch-class' ] );
+
+		$this->assertStringContainsString( 'my-watch-class', $html );
+	}
+
+	/**
+	 * When the form has NOT been submitted and the user has 'watchdefault'
+	 * enabled, the checkbox should be checked regardless of the passed-in value.
+	 *
+	 * @covers \PFFormUtils::watchInputHTML
+	 */
+	public function testWatchInputHTMLCheckedViaWatchDefaultWhenNotSubmitted(): void {
+		$this->setMwGlobals( [ 'wgTitle' => Title::newFromText( 'SomePage' ) ] );
+
+		$user = self::getTestUser()->getUser();
+		$this->getServiceContainer()->getUserOptionsManager()
+			->setOption( $user, 'watchdefault', 1 );
+		\RequestContext::getMain()->setUser( $user );
+
+		$html = \PFFormUtils::watchInputHTML( false, false, false );
+
+		$this->assertStringContainsString( 'checked', $html );
+	}
+
+	/**
+	 * When the form has NOT been submitted, the user has 'watchcreations'
+	 * enabled, and $wgTitle does not exist, the checkbox should be checked.
+	 *
+	 * @covers \PFFormUtils::watchInputHTML
+	 */
+	public function testWatchInputHTMLCheckedViaWatchCreationsForNonExistentPage(): void {
+		// Use a title that definitely does not exist
+		$nonExistentTitle = Title::newFromText( 'PFWatchInputTestNonExistent' . mt_rand() );
+		$this->setMwGlobals( [ 'wgTitle' => $nonExistentTitle ] );
+
+		$user = self::getTestUser()->getUser();
+		$optionsManager = $this->getServiceContainer()->getUserOptionsManager();
+		$optionsManager->setOption( $user, 'watchdefault', 0 );
+		$optionsManager->setOption( $user, 'watchcreations', 1 );
+		\RequestContext::getMain()->setUser( $user );
+
+		$html = \PFFormUtils::watchInputHTML( false, false, false );
+
+		$this->assertStringContainsString( 'checked', $html );
 	}
 
 	/**
@@ -622,6 +1044,23 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 		$result = \PFFormUtils::formBottom( false, false );
 
 		$this->assertStringContainsString( 'My edit summary', $result );
+	}
+
+	/**
+	 * @covers \PFFormUtils::formBottom
+	 */
+	public function testFormBottomIncludesMinorEditAndWatchForRegisteredUser(): void {
+		$user = self::getTestUser()->getUser();
+		\RequestContext::getMain()->setUser( $user );
+		$request = new FauxRequest( [], false );
+		\RequestContext::getMain()->setRequest( $request );
+		// watchInputHTML reads $wgTitle
+		$this->setMwGlobals( [ 'wgTitle' => Title::newFromText( 'SomePage' ) ] );
+
+		$result = \PFFormUtils::formBottom( false, false );
+
+		$this->assertStringContainsString( 'wpMinoredit', $result );
+		$this->assertStringContainsString( 'wpWatchthis', $result );
 	}
 
 	/**

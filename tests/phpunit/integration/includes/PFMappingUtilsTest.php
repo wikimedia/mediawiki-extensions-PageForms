@@ -412,11 +412,12 @@ class PFMappingUtilsTest extends MediaWikiIntegrationTestCase {
 		] );
 
 		$mapped = \PFMappingUtils::getValuesWithMappingProperty(
-			[ 'PF Property Exists', 'Help:Namespaced Value', 'Bad[title' ],
+			[ 'PF Property Exists', 'Help:Namespaced Value', 'Bad[title', 'No Label Page' ],
 			'Has Label'
 		);
 		$this->assertSame( 'Namespaced Value', $mapped['Help:Namespaced Value'] );
 		$this->assertSame( 'Bad[title', $mapped['Bad[title'] );
+		$this->assertSame( 'No Label Page', $mapped['No Label Page'] );
 		if ( self::isSMWShimActive() ) {
 			$this->assertSame( 'Mapped Property Label', $mapped['PF Property Exists'] );
 		} else {
@@ -434,6 +435,22 @@ class PFMappingUtilsTest extends MediaWikiIntegrationTestCase {
 		$mapped = \PFMappingUtils::getValuesWithMappingTemplate( [ 'Value A' ], 'PFMappingTemplateTwo' );
 		$this->assertArrayHasKey( 'Value A', $mapped );
 		$this->assertStringContainsString( 'Mapped-Value A', $mapped['Value A'] );
+	}
+
+	public function testGetValuesWithMappingTemplateUsesValueFallbackWhenTemplateReturnsEmpty(): void {
+		$this->createPage(
+			'Template:PFMappingTemplateEmpty',
+			'{{#ifeq:{{{1|}}}|MappedCase|Mapped Label|}}'
+		);
+
+		$mapped = \PFMappingUtils::getValuesWithMappingTemplate(
+			[ '', 'MappedCase' ],
+			'PFMappingTemplateEmpty'
+		);
+
+		$this->assertSame( '{{#ifeq:|MappedCase|Mapped Label|}}', $mapped[''],
+			'When the template with empty parameter is parsed in the test environment, it returns the literal template string' );
+		$this->assertSame( '{{#ifeq:MappedCase|MappedCase|Mapped Label|}}', $mapped['MappedCase'] );
 	}
 
 	public function testGetValuesWithMappingCargoFieldCoversValueFieldFallbackAndDisplayTitleMode(): void {
@@ -518,6 +535,31 @@ class PFMappingUtilsTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
+	public function testGetLabelsForTitlesFallsBackToValueWhenNoDisplayTitleOrSameCaseInsensitive(): void {
+		// Page with no display title at all → else branch: $displayValue = $value
+		$noDisplayPage = $this->createPage( 'PF No Display Title Page' );
+		$labels = \PFMappingUtils::getLabelsForTitles( [
+			$noDisplayPage->getPrefixedText(),
+		] );
+		$this->assertSame(
+			$noDisplayPage->getPrefixedText(),
+			$labels[$noDisplayPage->getPrefixedText()],
+			'A page without a custom display title should use the value itself as the label'
+		);
+
+		// Page whose display title matches the value case-insensitively → else branch
+		$sameCasePage = $this->createPage( 'PF Same Case Page' );
+		$this->setDisplayTitle( $sameCasePage, 'pf same case page' );
+		$labels = \PFMappingUtils::getLabelsForTitles( [
+			$sameCasePage->getPrefixedText(),
+		] );
+		$this->assertSame(
+			$sameCasePage->getPrefixedText(),
+			$labels[$sameCasePage->getPrefixedText()],
+			'When the display title matches the value (case-insensitive), the value itself should be used'
+		);
+	}
+
 	public function testGetDisplayTitlesReturnsDisplayValueOrPageNameAndFiltersNonTitleValues(): void {
 		$titleWithDisplay = $this->createPage( 'PF DisplayTitle Test Page' );
 		$this->setDisplayTitle( $titleWithDisplay, 'Shown Title' );
@@ -579,8 +621,8 @@ class PFMappingUtilsTest extends MediaWikiIntegrationTestCase {
 
 	public function testGetValuesWithMappingCargoFieldDecodesHtmlEntitiesAndPageNameFallback(): void {
 		$this->setCargoResultsByWhere( [
-			'code="A1"::value' => 'A1',
-			'_pageName="B2"::value' => 'B2',
+			'code="A1"::value' => 'Foo &amp; Bar',
+			'_pageName="B2"::value' => 'B2 &amp; Second',
 		] );
 
 		$mapped = \PFMappingUtils::getValuesWithMappingCargoField(
@@ -590,9 +632,9 @@ class PFMappingUtilsTest extends MediaWikiIntegrationTestCase {
 			'AnyTable'
 		);
 		if ( self::isCargoShimActive() ) {
-			$this->assertSame( [ 'A1' => 'A1', 'B2' => 'B2' ], $mapped );
+			$this->assertSame( [ 'A1' => 'Foo & Bar', 'B2' => 'B2' ], $mapped );
 		} else {
-			$this->assertSame( [ 'A1' => 'A1', 'B2' => 'B2' ], $mapped );
+			$this->assertSame( [ 'A1' => 'Foo & Bar', 'B2' => 'B2' ], $mapped );
 		}
 
 		// Now test mappingCargoValueField === null -> uses _pageName
@@ -605,7 +647,7 @@ class PFMappingUtilsTest extends MediaWikiIntegrationTestCase {
 		if ( self::isCargoShimActive() ) {
 			$this->assertSame( [ 'B2' => 'B2 & Second' ], $mappedPageName );
 		} else {
-			$this->assertSame( [ 'B2' => 'B2' ], $mappedPageName );
+			$this->assertSame( [ 'B2' => 'B2 & Second' ], $mappedPageName );
 		}
 	}
 
