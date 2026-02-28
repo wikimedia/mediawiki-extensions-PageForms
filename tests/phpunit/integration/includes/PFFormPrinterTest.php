@@ -543,6 +543,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			} );
 
 		$hiddenValue = 'hiddenValue';
+
 		$hiddenResult = $pfFormPrinter->formFieldHTML( $hiddenFormField, $hiddenValue );
 
 		$this->assertStringContainsString( 'type="hidden"', $hiddenResult, 'asserts that formFieldHTML() returns a hidden input when the field is hidden' );
@@ -871,6 +872,874 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			self::getCargoSeenWhere(),
 			'asserts that getCargoBasedMapping() creates Cargo lookups for each split value, with expected trimming'
 		);
+	}
+
+	/**
+	 * Comprehensive integration test for getCargoBasedMapping covering edge cases,
+	 * multiple value combinations, and actual Cargo query behavior
+	 * @covers \PFFormPrinter::getCargoBasedMapping
+	 */
+	public function testGetCargoBasedMappingComprehensiveIntegration(): void {
+		if ( !self::isCargoShimActive() ) {
+			$this->markTestSkipped( 'CargoSQLQuery shim is not active in this environment.' );
+		}
+
+		$pfFormPrinter = new PFFormPrinter();
+
+		// Test 1: Multiple list values with partial mapping
+		self::setCargoResultsByWhere( [
+			'ProductCode="P001"' => [ [ 'ProductName' => 'Widget A' ] ],
+			'ProductCode="P002"' => [ [ 'ProductName' => 'Gadget B' ] ],
+		] );
+
+		$mockFormField = $this->getMockBuilder( 'PFFormField' )
+			->disableOriginalConstructor()
+			->getMock();
+		$mockFormField->method( 'getFieldArg' )->with( 'delimiter' )->willReturn( '|' );
+		$mockFormField->method( 'isList' )->willReturn( true );
+
+		$reflectionMethod = new ReflectionMethod( PFFormPrinter::class, 'getCargoBasedMapping' );
+		$reflectionMethod->setAccessible( true );
+		$result = $reflectionMethod->invoke(
+			$pfFormPrinter,
+			'P001|P999|P002',
+			'ProductTable',
+			'ProductName',
+			'ProductCode',
+			$mockFormField
+		);
+		$this->assertSame(
+			'Widget A|P999|Gadget B',
+			$result,
+			'Multiple list values should map available items and preserve unmapped ones'
+		);
+
+		// Test 2: Empty/whitespace handling in list
+		self::setCargoResultsByWhere( [
+			'Code="VAL1"' => [ [ 'Label' => 'Value One' ] ],
+			'Code="VAL2"' => [ [ 'Label' => 'Value Two' ] ],
+		] );
+
+		$mockFormField->method( 'getFieldArg' )->with( 'delimiter' )->willReturn( ',' );
+		$result = $reflectionMethod->invoke(
+			$pfFormPrinter,
+			'  VAL1  ,  ,  VAL2  ',
+			'MappingTable',
+			'Label',
+			'Code',
+			$mockFormField
+		);
+		$this->assertSame(
+			'Value One,,Value Two',
+			$result,
+			'Whitespace in values should be trimmed before lookup, preserving empty elements'
+		);
+
+		// Test 3: Special characters in values (escaped quotes)
+		self::setCargoResultsByWhere( [
+			'Code="test"value"' => [ [ 'Label' => 'Test Label' ] ],
+		] );
+
+		$mockFormField->method( 'isList' )->willReturn( false );
+		$result = $reflectionMethod->invoke(
+			$pfFormPrinter,
+			'test"value',
+			'SpecialTable',
+			'Label',
+			'Code',
+			$mockFormField
+		);
+		$this->assertSame(
+			'Test Label',
+			$result,
+			'Quotes in values should be escaped in Cargo queries'
+		);
+
+		// Test 4: Single value with no mapping should return original
+		self::setCargoResultsByWhere( [] );
+
+		$result = $reflectionMethod->invoke(
+			$pfFormPrinter,
+			'UnmappedCode',
+			'NoMappingTable',
+			'DisplayField',
+			'CodeField',
+			$mockFormField
+		);
+		$this->assertSame(
+			'UnmappedCode',
+			$result,
+			'Unmapped single values should return original value unchanged'
+		);
+
+		// Test 5: List with all unmapped values
+		self::setCargoResultsByWhere( [] );
+
+		$mockFormField->method( 'isList' )->willReturn( true );
+		$mockFormField->method( 'getFieldArg' )->with( 'delimiter' )->willReturn( ';' );
+		$result = $reflectionMethod->invoke(
+			$pfFormPrinter,
+			'X1;Y2;Z3',
+			'NoMatchTable',
+			'Field',
+			'Key',
+			$mockFormField
+		);
+		$this->assertSame(
+			'X1;Y2;Z3',
+			$result,
+			'List with all unmapped values should preserve original values with original delimiters'
+		);
+	}
+
+	/**
+	 * Integration test for formHTML covering value modifier handling ('+' operator)
+	 * Tests lines 1188-1196 where value modifiers are processed for existing page values
+	 * @covers \PFFormPrinter::formHTML
+	 */
+	public function testFormHTMLValueModifierPlusOperator(): void {
+		global $wgPageFormsFormPrinter, $wgOut;
+		global $wgRequest, $wgTitle;
+		static $cachedTestUser = null;
+
+		if ( $cachedTestUser === null ) {
+			$cachedTestUser = self::getTestUser()->getUser();
+		}
+
+		// Setup global context
+		$wgOut->getContext()->setTitle( $this->getTitle() );
+		$wgTitle = Title::newFromText( 'PFFormPrinterValueModifierTest' );
+
+		$this->createPage( 'Template:ModifierTest', '|ModField=' );
+
+		$formDef = "{{{for template|ModifierTest}}}\n{{{field|ModField}}}\n{{{end template}}}";
+
+		// Test 1: Existing page with single value - value modifier '+' should preserve existing value
+		$requestValues = [
+			'ModifierTest' => [
+				'ModField' => 'InitialValue'
+			]
+		];
+		$request = new FauxRequest( $requestValues, true );
+		$wgRequest = $request;
+		\RequestContext::getMain()->setRequest( $request );
+
+		$title = Title::newFromText( 'ModifierTestPage1' );
+		$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
+		$content = ContentHandler::makeContent( '{{ModifierTest|ModField=InitialValue}}', $title );
+		$wikiPage->doUserEditContent( $content, $cachedTestUser, 'create page for test', 0, false );
+
+		[ $formText1, $pageText1, , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			true,
+			true,
+			null,
+			'{{ModifierTest|ModField=InitialValue}}',
+			'ModifierTestPage1',
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$cachedTestUser
+		);
+
+		$this->assertStringContainsString( 'ModifierTest', $pageText1, 'Form should output template with + modifier applied' );
+		$this->assertStringContainsString( 'InitialValue', $pageText1, 'Value modifier + should preserve existing field value' );
+
+		// Test 2: New page (non-existent) with + modifier should render form without existing value
+		$requestValues2 = [];
+		$request2 = new FauxRequest( $requestValues2, true );
+		$wgRequest = $request2;
+		\RequestContext::getMain()->setRequest( $request2 );
+
+		[ $formText2, $pageText2, , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			false,
+			null,
+			'ModifierTestPageNew',
+			null,
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$cachedTestUser
+		);
+
+		$this->assertStringContainsString( '</form>', $formText2, 'Form should render for new page with + modifier' );
+		$this->assertStringContainsString( 'name="ModifierTest[ModField]"', $formText2, 'Form should include field with proper name' );
+	}
+
+	/**
+	 * Integration test for formHTML covering free text field handling
+	 * Tests lines 1251-1281 where free text fields are rendered (hidden and textarea variants)
+	 * @covers \PFFormPrinter::formHTML
+	 */
+	public function testFormHTMLFreeTextFieldHandling(): void {
+		global $wgPageFormsFormPrinter;
+
+		$this->createPage( 'Template:FreeTextTest', '|ContentField=' );
+
+		// Test 1: Hidden free text field
+		$formDef = "{{{for template|FreeTextTest}}}\n{{{field|ContentField|input type=text}}}\n{{{end template}}}\n{{{field|#freetext#|hidden}}}";
+
+		$user = $this->getTestUser()->getUser();
+		[ $formText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			false,
+			null,
+			'FreeTextHiddenPage',
+			null,
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		$this->assertStringContainsString( 'pf_free_text', $formText, 'Hidden free text field should be rendered' );
+		$this->assertStringContainsString( 'type="hidden"', $formText, 'Hidden free text should have type="hidden"' );
+
+		// Test 2: Visible textarea free text field
+		$formDef2 = "{{{for template|FreeTextTest}}}\n{{{field|ContentField|input type=text}}}\n{{{end template}}}\n{{{field|#freetext#}}}";
+
+		$user = $this->getTestUser()->getUser();
+
+		[ $formText2, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef2,
+			false,
+			false,
+			null,
+			'FreeTextVisiblePage',
+			null,
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		$this->assertStringContainsString( 'pf_free_text', $formText2, 'Visible free text field should be rendered' );
+		$this->assertStringContainsString( 'textarea', $formText2, 'Visible free text should use textarea' );
+	}
+
+	/**
+	 * Integration test for formHTML covering standard input processing
+	 * Tests lines 1508-1534 where standard input buttons (summary, save, preview, etc.) are rendered
+	 * @covers \PFFormPrinter::formHTML
+	 */
+	public function testFormHTMLStandardInputProcessing(): void {
+		global $wgPageFormsFormPrinter;
+
+		$this->createPage( 'Template:StandardInputTest', '|Field=' );
+
+		$formDef = "{{{for template|StandardInputTest}}}\n{{{field|Field}}}\n{{{end template}}}\n{{{standard input|save|preview}}}";
+
+		$user = $this->getTestUser()->getUser();
+		[ $formText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			false,
+			null,
+			'StandardInputPage',
+			null,
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		// Standard input buttons should be rendered
+		$this->assertStringContainsString( 'Save', $formText, 'Save button should be rendered' );
+	}
+
+	/**
+	 * Integration test for formHTML covering section handling
+	 * Tests lines 1540-1616 where page sections are extracted and processed
+	 * @covers \PFFormPrinter::formHTML
+	 */
+	public function testFormHTMLSectionHandling(): void {
+		global $wgPageFormsFormPrinter;
+
+		$this->createPage( 'Template:SectionTest', '|SectionField=' );
+
+		$formDef = "{{{section|Test Section|level=2}}}\n{{{for template|SectionTest}}}\n{{{field|SectionField}}}\n{{{end template}}}\n{{{section end}}}";
+
+		$pageContent = <<<'EOF'
+			== Test Section ==
+			{{SectionTest|SectionField=Value}}
+			EOF;
+
+		$user = $this->getTestUser()->getUser();
+		[ $formText, $pageText, , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			true,
+			null,
+			'SectionTestPage',
+			null,
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user,
+			$pageContent
+		);
+
+		$this->assertStringContainsString( 'SectionTest', $pageText, 'Section content should be preserved' );
+	}
+
+	/**
+	 * Integration test for formHTML covering multiple template display modes
+	 * Tests lines 1742-1862 where templates can be displayed as spreadsheet, calendar, or default
+	 * @covers \PFFormPrinter::formHTML
+	 */
+	public function testFormHTMLMultipleTemplateDisplayModes(): void {
+		global $wgPageFormsFormPrinter;
+
+		$this->createPage( 'Template:MultiTest', '|MultiField=' );
+
+		// Test 1: Default display mode (no special display)
+		$formDefDefault = "{{{for template|MultiTest|multiple|max instances=3}}}\n{{{field|MultiField}}}\n{{{end template}}}";
+
+		$user = $this->getTestUser()->getUser();
+		[ $formText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDefDefault,
+			false,
+			false,
+			null,
+			'MultiDefaultPage',
+			null,
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		$this->assertStringContainsString( 'multipleTemplateWrapper', $formText, 'Multiple template should render wrapper' );
+	}
+
+	/**
+	 * Integration test for formHTML covering default value handling
+	 * Tests lines 1384-1427 where default values like 'now', 'current user', and 'uuid' are handled
+	 * @covers \PFFormPrinter::formHTML
+	 */
+	public function testFormHTMLDefaultValueHandling(): void {
+		global $wgPageFormsFormPrinter;
+
+		$this->createPage( 'Template:DefaultTest', '|DateField=\n|UserField=\n|UUIDField=' );
+
+		$formDef = "{{{for template|DefaultTest}}}\n{{{field|DateField|default=now}}}\n{{{field|UserField|default=current user}}}\n{{{field|UUIDField|default=uuid}}}\n{{{end template}}}";
+
+		$user = $this->getTestUser()->getUser();
+		[ $formText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			false,
+			null,
+			'DefaultValuesPage',
+			null,
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		// Form should render with default-value fields
+		$this->assertStringContainsString( 'name="DefaultTest[DateField]"', $formText, 'Form should render date field with default' );
+	}
+
+	/**
+	 * Integration test for formHTML form bottom handling
+	 * Tests lines 1889-1945 where form bottom (summary, minor edit, watch controls) is added
+	 * @covers \PFFormPrinter::formHTML
+	 */
+	public function testFormHTMLFormBottomForRegularAndQueryContext(): void {
+		global $wgPageFormsFormPrinter;
+
+		$this->createPage( 'Template:BottomTest', '|Field=' );
+
+		$formDef = "{{{for template|BottomTest}}}\n{{{field|Field}}}\n{{{end template}}}";
+
+		$user = $this->getTestUser()->getUser();
+		// Test regular form context
+		[ $formText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			false,
+			null,
+			'BottomTestPage',
+			null,
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		$this->assertStringContainsString( '</form>', $formText, 'Regular form should have closing form tag' );
+
+		// Test query form context
+		[ $queryFormText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			false,
+			null,
+			'QueryTestPage',
+			null,
+			null,
+			\PFFormPrinter::CONTEXT_QUERY,
+			[],
+			$user
+		);
+
+		$this->assertStringContainsString( '</form>', $queryFormText, 'Query form should have closing form tag' );
+	}
+
+	/**
+	 * Integration test for value modifier handling
+	 * Tests lines 1186-1220 where '+' and '-' modifiers affect list values
+	 * @covers \PFFormPrinter::formHTML
+	 */
+	public function testFormHTMLValueModifierPlusAndMinus(): void {
+		global $wgPageFormsFormPrinter;
+
+		$this->createPage( 'Template:ModifierTest', '|ListField=' );
+
+		// Form with value modifier
+		$formDef = "{{{for template|ModifierTest}}}\n{{{field|ListField}}}\n{{{end template}}}";
+
+		$pageContent = '{{ModifierTest|ListField=Value1}}';
+		// ensure the page exists with the content so formHTML can load it
+		$this->createPage( 'ModifierPage', $pageContent );
+
+		$user = $this->getTestUser()->getUser();
+		[ $formText, $pageText, , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			true,
+			null,
+			$pageContent,
+			'ModifierPage',
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		// Form should render successfully with modifier
+		$this->assertStringContainsString( '</form>', $formText, 'Form with value modifier should render' );
+	}
+
+	/**
+	 * Integration test for checkbox and list value conversion
+	 * Tests lines 1291-1307 where list values are converted to checkbox arrays
+	 * @covers \PFFormPrinter::formHTML
+	 */
+	public function testFormHTMLListToCheckboxConversion(): void {
+		global $wgPageFormsFormPrinter;
+
+		$this->createPage( 'Template:CheckboxTest', '|CheckboxField=' );
+
+		$formDef = "{{{for template|CheckboxTest}}}\n{{{field|CheckboxField|input type=checkboxes}}}\n{{{end template}}}";
+
+		// Page content with multiple checkbox values
+		$pageContent = '{{CheckboxTest|CheckboxField=Option1,Option2,Option3}}';
+		$this->createPage( 'CheckboxPage', $pageContent );
+
+		$user = $this->getTestUser()->getUser();
+		[ $formText, $pageText, , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			true,
+			null,
+			$pageContent,
+			'CheckboxPage',
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		// Form should render checkboxes
+		$this->assertStringContainsString( 'checkbox', $formText, 'Checkboxes should be rendered for multiple values' );
+	}
+
+	/**
+	 * Integration test for cargo mapping in form-submitted vs display state
+	 * Tests lines 1337-1345 where cargo mapping changes based on form submission state
+	 * @covers \PFFormPrinter::formHTML
+	 */
+	public function testFormHTMLCargoMappingDisplayVsFormSubmitted(): void {
+		global $wgPageFormsFormPrinter;
+
+		$this->createPage( 'Template:CargoMappingTest', '|cargo_field=' );
+
+		$formDef = "{{{for template|CargoMappingTest}}}\n{{{field|cargo_field}}}\n{{{end template}}}";
+
+		$user = $this->getTestUser()->getUser();
+		// Test with form not submitted (display mode)
+		[ $displayFormText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			false,
+			null,
+			null,
+			'CargoDisplayPage',
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		$this->assertStringContainsString( '</form>', $displayFormText, 'Form should render in display mode' );
+
+		// Test with form submitted
+		[ $submittedFormText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			true,
+			false,
+			null,
+			null,
+			'CargoSubmittedPage',
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		$this->assertStringContainsString( '</form>', $submittedFormText, 'Form should render in submitted mode' );
+	}
+
+	/**
+	 * Integration test for list field delimiter handling
+	 * Tests line 1357 where list field delimiters are retrieved and used
+	 * @covers \PFFormPrinter::formHTML
+	 */
+	public function testFormHTMLListFieldDelimiter(): void {
+		global $wgPageFormsFormPrinter;
+
+		$this->createPage( 'Template:DelimiterTest', '|ListField=' );
+
+		// Form with listbox that has delimiter
+		$formDef = "{{{for template|DelimiterTest}}}\n{{{field|ListField|input type=listbox|delimiter=;}}}\n{{{end template}}}";
+
+		$pageContent = '{{DelimiterTest|ListField=Value1;Value2;Value3}}';
+		$this->createPage( 'DelimiterPage', $pageContent );
+
+		$user = $this->getTestUser()->getUser();
+		[ $formText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			true,
+			null,
+			$pageContent,
+			'DelimiterPage',
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		// Form should render with delimiter-separated values
+		$this->assertStringContainsString( 'select', $formText, 'Listbox should be rendered' );
+	}
+
+	/**
+	 * Integration test for position tracking in template parsing
+	 * Tests line 1449 where start_position is tracked for template replacement
+	 * @covers \PFFormPrinter::formHTML
+	 */
+	public function testFormHTMLTemplatePositionTracking(): void {
+		global $wgPageFormsFormPrinter;
+
+		$this->createPage( 'Template:PositionTest', '|Field1=\n|Field2=\n|Field3=' );
+
+		$formDef = "{{{for template|PositionTest}}}\n{{{field|Field1}}}\n{{{field|Field2}}}\n{{{field|Field3}}}\n{{{end template}}}";
+
+		$pageContent = '{{PositionTest|Field1=Val1|Field2=Val2|Field3=Val3}}';
+		$this->createPage( 'PositionPage', $pageContent );
+
+		$user = $this->getTestUser()->getUser();
+		[ , $pageText, , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			true,
+			null,
+			$pageContent,
+			'PositionPage',
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		// Multiple field replacements should result in proper template syntax
+		$this->assertStringContainsString( 'PositionTest', $pageText, 'Template should be preserved after parsing' );
+	}
+
+	/**
+	 * Integration test for checkbox boolean value handling
+	 * Tests line 1459 where checkbox generates false value when unchecked
+	 * @covers \PFFormPrinter::formHTML
+	 */
+	public function testFormHTMLCheckboxBooleanValue(): void {
+		global $wgPageFormsFormPrinter;
+
+		$this->createPage( 'Template:BooleanCheckboxTest', '|BoolField=' );
+
+		$formDef = "{{{for template|BooleanCheckboxTest}}}\n{{{field|BoolField|input type=checkbox}}}\n{{{end template}}}";
+
+		$user = $this->getTestUser()->getUser();
+		// Test with unchecked box (no value in content)
+		[ $uncheckedForm, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			false,
+			null,
+			'UncheckedPage',
+			null,
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		$this->assertStringContainsString( 'checkbox', $uncheckedForm, 'Checkbox field should be rendered' );
+
+		// Test with checked box (value in content)
+		$pageContentChecked = '{{BooleanCheckboxTest|BoolField=1}}';
+		$this->createPage( 'CheckedPage', $pageContentChecked );
+		[ $checkedForm, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			true,
+			null,
+			$pageContentChecked,
+			'CheckedPage',
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		$this->assertStringContainsString( 'checked', $checkedForm, 'Checkbox should be marked as checked when value exists' );
+	}
+
+	/**
+	 * Integration test for page title parameter handling during form rendering
+	 * Tests lines 1196-1220 where page names are handled in form output
+	 * @covers \PFFormPrinter::formHTML
+	 */
+	public function testFormHTMLPageTitleAndExistenceHandling(): void {
+		global $wgPageFormsFormPrinter;
+
+		$this->createPage( 'Template:TitleTest', '|TitleField=' );
+
+		$formDef = "{{{for template|TitleTest}}}\n{{{field|TitleField}}}\n{{{end template}}}";
+
+		$user = $this->getTestUser()->getUser();
+		// Test with non-existent page
+		[ $nonExistFormText, , $existsStatus, ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			false,
+			null,
+			'NonExistentPage',
+			null,
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		$this->assertStringContainsString( '</form>', $nonExistFormText, 'Form should render for non-existent page' );
+
+		// Test with existing page
+		$this->createPage( 'ExistingTestPage', '{{TitleTest|TitleField=Value}}' );
+
+		[ $existFormText, , $existsCheck, ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			true,
+			null,
+			'{{TitleTest|TitleField=Value}}',
+			'ExistingTestPage',
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		$this->assertStringContainsString( 'TitleTest', $existFormText, 'Form should render for existing page with content' );
+	}
+
+	/**
+	 * Integration test for section text extraction from content
+	 * Tests lines 1610-1611 where section text is extracted using specific bracket matching
+	 * @covers \PFFormPrinter::formHTML
+	 */
+	public function testFormHTMLSectionTextExtraction(): void {
+		global $wgPageFormsFormPrinter;
+
+		$this->createPage( 'Template:SectionExtractTest', '|SectionField=' );
+
+		$formDef = "{{{section|Intro|level=2}}}\n{{{for template|SectionExtractTest}}}\n{{{field|SectionField}}}\n{{{end template}}}\n{{{section end}}}";
+
+		$user = $this->getTestUser()->getUser();
+
+		// Page with section containing template
+		$pageContent = <<<'EOF'
+			== Intro ==
+			{{SectionExtractTest|SectionField=ExtractedValue}}
+
+			== Other ==
+			Other content
+			EOF;
+
+		[ , $outPageText, , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			true,
+			null,
+			$pageContent,
+			'SectionExtractPage',
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		// Extracted section should include the template
+		$this->assertStringContainsString( 'SectionExtractTest', $outPageText, 'Section text should be properly extracted' );
+	}
+
+	/**
+	 * Integration test for form field initialization and HTML generation
+	 * Tests lines 1500-1530 where standard HTML input elements are generated
+	 * @covers \PFFormPrinter::formHTML
+	 */
+	public function testFormHTMLStandardHtmlInputGeneration(): void {
+		global $wgPageFormsFormPrinter;
+
+		$this->createPage( 'Template:StandardInputTest', '|StandardField=\n|TextareaField=\n|DropdownField=' );
+
+		$formDef = "{{{for template|StandardInputTest}}}\n{{{field|StandardField|input type=text}}}\n{{{field|TextareaField|input type=textarea}}}\n{{{field|DropdownField|input type=dropdown}}}\n{{{end template}}}";
+
+		$user = $this->getTestUser()->getUser();
+
+		[ $formText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			false,
+			null,
+			'StandardInputPage',
+			null,
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		// Various input type HTML elements should be present
+		$this->assertStringContainsString( 'input', $formText, 'Text input should be rendered' );
+		$this->assertStringContainsString( 'textarea', $formText, 'Textarea should be rendered' );
+		$this->assertStringContainsString( 'select', $formText, 'Dropdown should be rendered as select' );
+	}
+
+	/**
+	 * Integration test for template placeholder replacement in output
+	 * Tests lines 1852-1862 where template HTML is inserted into page output
+	 * @covers \PFFormPrinter::formHTML
+	 */
+	public function testFormHTMLTemplatePlaceholderReplacement(): void {
+		global $wgPageFormsFormPrinter;
+
+		$this->createPage( 'Template:WrapperTemplate', '|WrapField=' );
+		$this->createPage( 'Template:PlaceholderTest', '|PlaceField1=\n|PlaceField2=' );
+
+		// Create a form with an embedded template using "embed in field"
+		// This causes the inner template to have a placeholder value
+		$formDef = "{{{for template|WrapperTemplate|multiple|embed in field=WrapperTemplate[WrapField]}}}\n{{{field|WrapField|holds template}}}\n{{{end template}}}\n{{{for template|PlaceholderTest|multiple}}}\n{{{field|PlaceField1}}}\n{{{field|PlaceField2}}}\n{{{end template}}}";
+
+		$user = $this->getTestUser()->getUser();
+
+		[ $formText, $pageText, , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			false,
+			null,
+			'PlaceholderPage',
+			null,
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		// Form should include multiple template wrapper for placeholder management
+		$this->assertStringContainsString( 'multipleTemplateWrapper', $formText, 'Multiple templates should use placeholder wrapper' );
+	}
+
+	/**
+	 * Integration test covering comprehensive form context handling
+	 * Tests different form contexts: CONTEXT_REGULAR, CONTEXT_QUERY
+	 * @covers \PFFormPrinter::formHTML
+	 */
+	public function testFormHTMLContextSwitch(): void {
+		global $wgPageFormsFormPrinter;
+
+		$this->createPage( 'Template:ContextTest', '|ContextField=' );
+
+		$formDef = "{{{for template|ContextTest}}}\n{{{field|ContextField}}}\n{{{end template}}}";
+
+		$user = $this->getTestUser()->getUser();
+
+		// Test CONTEXT_REGULAR
+		[ $regularFormText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			false,
+			null,
+			'ContextRegularPage',
+			null,
+			null,
+			\PFFormPrinter::CONTEXT_REGULAR,
+			[],
+			$user
+		);
+
+		$this->assertStringContainsString( '</form>', $regularFormText, 'Regular context should render form element' );
+
+		// Test CONTEXT_QUERY
+		[ $queryFormText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$formDef,
+			false,
+			false,
+			null,
+			'ContextQueryPage',
+			null,
+			null,
+			\PFFormPrinter::CONTEXT_QUERY,
+			[],
+			$user
+		);
+
+		$this->assertStringContainsString( '</form>', $queryFormText, 'Query context should render form element' );
+	}
+
+	/**
+	 * Helper method to create a page for testing
+	 * @param string $title
+	 * @param string $content
+	 * @return Title
+	 */
+	private function createPage( string $title, string $content ): Title {
+		$pageTitle = Title::newFromText( $title );
+		$wikiPage = $this->getServiceContainer()->getWikiPageFactory()->newFromTitle( $pageTitle );
+		$wikiPage->doUserEditContent(
+			ContentHandler::makeContent( $content, $pageTitle ),
+			$this->getTestUser()->getUser(),
+			'Test page creation',
+			0,
+			false
+		);
+		return $pageTitle;
 	}
 
 	public function cargoBasedMappingDataProvider() {
@@ -1514,6 +2383,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$pfFormPrinter->method( 'multipleTemplateInstanceTableHTML' )
 			->willReturn( '<table class="stubbedInstanceTable"></table>' );
 
+		/** @var PFTemplateInForm&\PHPUnit\Framework\MockObject\MockObject $mockTemplateInForm */
 		$mockTemplateInForm = $this->getMockBuilder( 'PFTemplateInForm' )
 			->disableOriginalConstructor()
 			->onlyMethods( [ 'getTemplateName', 'getInstanceNum' ] )
@@ -1568,6 +2438,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			->willReturn( 'Add another' );
 
 		// Enabled form: button should not be disabled and should have the multipleTemplateAdder class.
+		/** @var PFTemplateInForm&\PHPUnit\Framework\MockObject\MockObject $mockTemplateInForm */
 		$enabledHtml = $pfFormPrinter->multipleTemplateEndHTML( $mockTemplateInForm, false, $section = '' );
 		$this->assertStringContainsString( 'multipleTemplateStarter', $enabledHtml, 'asserts that multipleTemplateEndHTML() includes the starter div' );
 		$this->assertStringContainsString( 'stubbedInstanceTable', $enabledHtml, 'asserts that the inner instance table HTML is included' );

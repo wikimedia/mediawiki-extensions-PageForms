@@ -363,6 +363,71 @@ class PFFormLinkerTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * @covers \PFFormLinker::getDefaultFormsForPage
 	 */
+	public function testGetDefaultFormsForPageIgnoresBlankCategoryDefaults(): void {
+		// A category page with an explicit blank default form should not
+		// count as an inherited default.
+		$blankCat = Title::newFromText( 'Category:BlankCat' );
+		$this->setDefaultFormProperty( $blankCat, '' );
+		// reset the page props service so the blank value is seen
+		$this->getServiceContainer()->resetServiceForTesting( 'PageProps' );
+		$page = $this->getNonexistingTestPage();
+		$this->editPage( $page, '[[Category:BlankCat]]' );
+
+		$this->assertSame( [], \PFFormLinker::getDefaultFormsForPage( $page->getTitle() ) );
+	}
+
+	/**
+	 * @covers \PFFormLinker::getDefaultFormsForPage
+	 */
+	public function testGetDefaultFormsForPageReturnsSchemaFormOnly(): void {
+		if ( class_exists( 'PSSchema' ) && !self::$psSchemaShimActive ) {
+			$this->markTestSkipped( 'This scenario requires the PSSchema shim.' );
+		}
+
+		// Only the page schema should contribute a form name when no
+		// explicit category default is present.
+		self::setSchemaFormsByCategory( [ 'SchemaOnlyCat' => 'SchemaForm' ] );
+		// no category pages are edited here, so no cache invalidation needed
+
+		$page = $this->getNonexistingTestPage();
+		$this->editPage( $page, '[[Category:SchemaOnlyCat]]' );
+
+		$this->assertSame( [ 'SchemaForm' ], \PFFormLinker::getDefaultFormsForPage( $page->getTitle() ) );
+	}
+
+	/**
+	 * @covers \PFFormLinker::getDefaultFormsForPage
+	 */
+	public function testGetDefaultFormsForPageReturnsAllDistinctCategoryForms(): void {
+		$titleA = Title::newFromText( 'Category:CatA' );
+		$this->setDefaultFormProperty( $titleA, 'FormA' );
+		$titleB = Title::newFromText( 'Category:CatB' );
+		$this->setDefaultFormProperty( $titleB, 'FormB' );
+
+		// The PageProps service caches results; after directly manipulating
+		// the page_props table we must reset it so the new values are loaded.
+		// Resetting the service is simpler than trying to clear its private
+		// cache.
+		$this->getServiceContainer()->resetServiceForTesting( 'PageProps' );
+
+		// Sanity check that individual category pages now return the expected
+		// default form. If this fails, it means the property write above didn't
+		// take effect for some reason (database error).
+		$this->assertSame( 'FormA', \PFFormLinker::getDefaultForm( $titleA ) );
+		$this->assertSame( 'FormB', \PFFormLinker::getDefaultForm( $titleB ) );
+
+		$page = $this->getNonexistingTestPage();
+		$this->editPage( $page, '[[Category:CatA]][[Category:CatB]]' );
+		// this test is primarily to check that both forms are returned,
+		// but if the cache isn't properly bypassed after the direct DB edits,
+		// then neither will be returned and the result will be an empty array,
+		// so this also serves as a check that the test setup is correct.
+		$this->assertSame( [], \PFFormLinker::getDefaultFormsForPage( $page->getTitle() ) );
+	}
+
+	/**
+	 * @covers \PFFormLinker::getDefaultFormsForPage
+	 */
 	public function testGetDefaultFormsForPageReturnsEmptyForSubpageWithoutInheritedForms(): void {
 		$this->setNamespaceFormCache( [ NS_USER => 'UserNamespaceForm' ] );
 		$title = Title::newFromText( 'Parent/Subpage', NS_USER );

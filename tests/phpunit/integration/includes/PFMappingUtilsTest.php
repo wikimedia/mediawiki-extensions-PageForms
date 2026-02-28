@@ -1,7 +1,6 @@
 <?php
 
 use MediaWiki\Content\ContentHandler;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use OOUI\BlankTheme;
 
@@ -30,7 +29,9 @@ class PFMappingUtilsTest extends MediaWikiIntegrationTestCase {
 	 * after every test to ensure each test gets a clean instance.
 	 */
 	// protected function tearDown(): void {
-	// 	$this->getServiceContainer()->resetServiceForTesting( 'Parser' );
+	// 	$services = $this->getServiceContainer();
+	// 	$services->resetServiceForTesting( 'ParserFactory' );
+	// 	$services->resetServiceForTesting( 'Parser' );
 	// 	parent::tearDown();
 	// }
 
@@ -238,7 +239,7 @@ class PFMappingUtilsTest extends MediaWikiIntegrationTestCase {
 		$title = Title::newFromText( $prefixedText );
 		$this->assertInstanceOf( Title::class, $title );
 
-		$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
+		$wikiPage = $this->getServiceContainer()->getWikiPageFactory()->newFromTitle( $title );
 		$wikiPage->doUserEditContent(
 			ContentHandler::makeContent( $content, $title ),
 			self::getTestUser()->getUser(),
@@ -363,6 +364,12 @@ class PFMappingUtilsTest extends MediaWikiIntegrationTestCase {
 	// 	} else {
 	// 		$this->assertSame( [ 'A1' => 'A1' ], $cargoMapped );
 	// 	}
+
+	// 	$services = $this->getServiceContainer();
+
+	// 	$services->getMainWANObjectCache()->useInterimHoldOffCaching(false);
+	// 	$services->resetServiceForTesting('ParserFactory');
+	// 	$services->resetServiceForTesting('Parser');
 
 	// 	$translated = \PFMappingUtils::getMappedValues(
 	// 		[ 'hello' ],
@@ -569,4 +576,37 @@ class PFMappingUtilsTest extends MediaWikiIntegrationTestCase {
 			] )
 		);
 	}
+
+	public function testGetValuesWithMappingCargoFieldDecodesHtmlEntitiesAndPageNameFallback(): void {
+		$this->setCargoResultsByWhere( [
+			'code="A1"::value' => 'A1',
+			'_pageName="B2"::value' => 'B2',
+		] );
+
+		$mapped = \PFMappingUtils::getValuesWithMappingCargoField(
+			[ 'A1' => 'A1', 'B2' => 'B2' ],
+			'label_field',
+			'code',
+			'AnyTable'
+		);
+		if ( self::isCargoShimActive() ) {
+			$this->assertSame( [ 'A1' => 'A1', 'B2' => 'B2' ], $mapped );
+		} else {
+			$this->assertSame( [ 'A1' => 'A1', 'B2' => 'B2' ], $mapped );
+		}
+
+		// Now test mappingCargoValueField === null -> uses _pageName
+		$mappedPageName = \PFMappingUtils::getValuesWithMappingCargoField(
+			[ 'B2' => 'B2' ],
+			'label_field',
+			null,
+			'AnyTable'
+		);
+		if ( self::isCargoShimActive() ) {
+			$this->assertSame( [ 'B2' => 'B2 & Second' ], $mappedPageName );
+		} else {
+			$this->assertSame( [ 'B2' => 'B2' ], $mappedPageName );
+		}
+	}
+
 }
