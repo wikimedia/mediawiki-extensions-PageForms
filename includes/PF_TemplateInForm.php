@@ -516,8 +516,15 @@ class PFTemplateInForm {
 		$this->mPregMatchTemplateStr = str_replace(
 			[ '/', '(', ')', '^' ],
 			[ '\/', '\(', '\)', '\^' ],
-			$this->mSearchTemplateStr );
-		$this->mPageCallsThisTemplate = preg_match( '/{{' . $this->mPregMatchTemplateStr . '\s*[\|}]/i', str_replace( '_', ' ', $existing_page_content ) );
+			$this->mSearchTemplateStr
+		);
+		// Strip content inside <pre>, <nowiki>, <syntaxhighlight> etc. before
+		// checking whether the page calls this template. Without this, a template
+		// inside a <pre> block would be falsely detected, causing checkIfAllInstancesPrinted()
+		// to never terminate the multiple-template loop.
+		$unparsedTextReplacements = [];
+		$contentToSearch = self::removeUnparsedText( $existing_page_content, $unparsedTextReplacements );
+		$this->mPageCallsThisTemplate = preg_match( '/{{' . $this->mPregMatchTemplateStr . '\s*[\|}]/i', str_replace( '_', ' ', $contentToSearch ) );
 	}
 
 	function checkIfAllInstancesPrinted( $form_submitted, $source_is_page, $is_autoedit ) {
