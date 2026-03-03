@@ -6,6 +6,9 @@
 	},
 	"pf_createform_sectionlevel": "Па̄ҋк ре̄ввьн:",
 	"formedit": "Воа̄йхэ фо̄рманҍ",
+	"pf_formedit_formwarning": "'''Це̄ӆӆьксуввмушш:''' тэдт лысст [[$1|ё лӣ]], ноа эйй оанҍ тэнн фо̄рма.",
 	"pf-simpleupload": "Лоа̄дтэ",
-	"pf-maps-enteraddress": "Пый а̄дрез тэсьт"
+	"pf_deletionlog": "Вэ̄ццкмужэ журналл",
+	"pf-maps-enteraddress": "Пый а̄дрез тэсьт",
+	"pf-maps-lookupcoordinates": "Ме̄ррьдэллэ координатэтҍ а̄дрез вӣкенҍ"
 }
