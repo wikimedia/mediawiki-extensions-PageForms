@@ -301,14 +301,7 @@ $.fn.showIfSelected = function(partOfMultiple, initPage) {
 			inputVal = $(this).find('input').val();
 		}
 	} else if ( this.attr( 'data-input-type' ) == 'tokens' ) {
-		if ( initPage ) {
-			inputVal = $(this).find('select').val();
-		} else {
-			inputVal = [];
-			$(this).find('li.select2-selection__choice').each( function() {
-				inputVal.push( $(this).attr('title') );
-			});
-		}
+		inputVal = $(this).find('select').val();
 	} else {
 		inputVal = this.val();
 	}
