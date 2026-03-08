@@ -347,11 +347,26 @@ class PFFormPrinter {
 	 * @return string
 	 */
 	function multipleTemplateInstanceTableHTML( $form_is_disabled, $mainText ) {
+		global $wgPageFormsTabIndex;
 		if ( $form_is_disabled ) {
 			$addAboveButton = $removeButton = '';
 		} else {
-			$addAboveButton = Html::element( 'a', [ 'class' => "addAboveButton", 'title' => wfMessage( 'pf_formedit_addanotherabove' )->text() ] );
-			$removeButton = Html::element( 'a', [ 'class' => "removeButton", 'title' => wfMessage( 'pf_formedit_remove' )->text() ] );
+			$wgPageFormsTabIndex++;
+			$addAboveButton = Html::element( 'a', [
+				'class' => "addAboveButton",
+				'title' => wfMessage( 'pf_formedit_addanotherabove' )->text(),
+				'tabindex' => $wgPageFormsTabIndex,
+				'role' => 'button',
+				'href' => 'javascript:void(0)',
+			] );
+			$wgPageFormsTabIndex++;
+			$removeButton = Html::element( 'a', [
+				'class' => "removeButton",
+				'title' => wfMessage( 'pf_formedit_remove' )->text(),
+				'tabindex' => $wgPageFormsTabIndex,
+				'role' => 'button',
+				'href' => 'javascript:void(0)',
+			] );
 		}
 
 		$text = <<<END
@@ -430,6 +445,7 @@ END;
 			$this->multipleTemplateInstanceTableHTML( $form_is_disabled, $section )
 		) . "\n";
 
+		$wgPageFormsTabIndex++;
 		$attributes = [
 			'tabIndex' => $wgPageFormsTabIndex,
 			'classes' => [ 'multipleTemplateAdder' ],

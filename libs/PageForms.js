@@ -1408,6 +1408,17 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 			.append($new_div.hide().fadeIn());
 	}
 
+	// Re-sequence tabindex values for all focusable elements on the entire form so that
+	// keyboard navigation strictly follows the new logical visual DOM order after insertion.
+	let currentTabIndex = 1;
+	$( '#pfForm' ).find( '[tabindex]' ).each( function() {
+		const ti = parseInt( $( this ).attr( 'tabindex' ), 10 );
+		// Only re-sequence elements that intentionally participate in the tab order (exclude -1)
+		if ( !isNaN( ti ) && ti > 0 ) {
+			$( this ).attr( 'tabindex', currentTabIndex++ );
+		}
+	} );
+
 	$new_div.initializeJSElements(true);
 
 	// Initialize new inputs.
@@ -1453,6 +1464,20 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 	// Hook that fires each time a new template instance is added.
 	// The first parameter is a jQuery selection of the newly created instance div.
 	mw.hook('pf.addTemplateInstance').fire($new_div);
+
+	// Move keyboard focus to the first focusable field in the new instance.
+	// This ensures that Tab/Enter-triggered instance creation places focus on
+	// the first input (e.g., a topic dropdown) rather than on the "add above"
+	// icon. We use a setTimeout to defer execution slightly, ensuring the
+	// row's .fadeIn() animation has started so the elements are officially :visible.
+	setTimeout( () => {
+		const $firstFocusable = $new_div.find(
+			'.oo-ui-inputWidget-input, .select2-selection, input:not([type="hidden"]):not(:disabled), select:not(:disabled), textarea:not(:disabled)'
+		).not( '.hiddenByPF, .disabledByPF' ).filter( ':visible' ).first();
+		if ( $firstFocusable.length ) {
+			$firstFocusable[0].focus();
+		}
+	}, 500 );
 };
 
 // The first argument is needed, even though it's an attribute of the element
@@ -1631,11 +1656,28 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 			});
 			return false;
 		});
+		this.find(".removeButton").keydown( function( e ) {
+			if ( e.key === 'Enter' || e.key === ' ' ) {
+				e.preventDefault();
+				$(this).trigger( 'click' );
+			}
+		});
 
 		// ...and the new adder
 		this.find('.addAboveButton').click( function() {
 			$(this).addInstance( true );
 			return false; // needed to disable <a> behavior
+		});
+		this.find('.addAboveButton').keydown( function( e ) {
+			if ( e.key === 'Enter' || e.key === ' ' ) {
+				e.preventDefault();
+				// Blur the button before adding the instance so the browser
+				// has no element to restore focus to after the keydown event.
+				// This allows our setTimeout in addInstance to set focus on
+				// the first input of the newly created instance.
+				$(this).trigger( 'blur' );
+				$(this).addInstance( true );
+			}
 		});
 	}
 
@@ -1865,6 +1907,11 @@ $( () => {
 		.on( 'keydown', '.multipleTemplateAdder', function( e ) {
 			if ( e.key === 'Enter' || e.key === ' ' ) {
 				e.preventDefault();
+				// Blur the button before adding the instance so the browser
+				// has no element to restore focus to after the keydown event.
+				// This allows our setTimeout in addInstance to set focus on
+				// the first input of the newly created instance.
+				$( this ).trigger( 'blur' );
 				$( this ).addInstance( false );
 			}
 		});
