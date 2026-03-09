@@ -101,8 +101,8 @@ class PFRunQuery extends IncludableSpecialPage {
 		$resultsText = '';
 
 		if ( $form_submitted ) {
-			// @TODO - fix RunQuery's parsing so that this check
-			// isn't needed.
+			// Null check needed for MW < 1.43.
+			// @phan-suppress-next-line PhanSuspiciousWeakTypeComparison
 			if ( PFUtils::getParser()->getOutput() == null ) {
 				$headItems = [];
 			} else {
@@ -198,6 +198,8 @@ END;
 		PFUtils::addFormRLModules( $embedded ? PFUtils::getParser() : null );
 		if ( !$embedded ) {
 			$po = PFUtils::getParser()->getOutput();
+			// Not-null check needed for MW < 1.43
+			// @phan-suppress-next-line PhanRedundantCondition
 			if ( $po ) {
 				$out->addParserOutputMetadata( $po );
 			}
