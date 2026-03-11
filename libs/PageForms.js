@@ -1858,8 +1858,15 @@ $( () => {
 		$('.multipleTemplateInstance').each( function() {
 			$(this).initializeJSElements(true);
 		});
-		$('.multipleTemplateAdder').click( function() {
-			$(this).addInstance( false );
+		$('.multipleTemplateAdder')
+		.on( 'click', function() {
+			$( this ).addInstance( false );
+		})
+		.on( 'keydown', function( e ) {
+			if ( e.key === 'Enter' || e.key === ' ' ) {
+				e.preventDefault();
+				$( this ).addInstance( false );
+			}
 		});
 		const wgPageFormsHeightForMinimizingInstances = mw.config.get( 'wgPageFormsHeightForMinimizingInstances' );
 		minimizeInstances( wgPageFormsHeightForMinimizingInstances );
