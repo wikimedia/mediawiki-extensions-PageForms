@@ -419,7 +419,7 @@ END;
 	 * @return string
 	 */
 	static function queryFormBottom() {
-		return self::runQueryButtonHTML( false );
+		return (string)self::runQueryButtonHTML( false );
 	}
 
 	static function getMonthNames() {

@@ -536,7 +536,6 @@ class PFAutoeditAPI extends ApiBase {
 
 			case EditPage::AS_SUCCESS_NEW_ARTICLE:
 				// Article successfully created
-				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 				$query = $resultDetails['redirect'] ? 'redirect=no' : '';
 				$anchor = isset( $resultDetails['sectionanchor'] ) ? $resultDetails['sectionanchor'] : '';
 
@@ -582,9 +581,8 @@ class PFAutoeditAPI extends ApiBase {
 				// Give extensions a chance to modify URL query on update
 				$services->getHookContainer()->run( 'ArticleUpdateBeforeRedirect', [ $editor->getArticle(), &$sectionanchor, &$extraQuery ] );
 
-				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 				if ( $resultDetails['redirect'] ) {
-					// @phan-suppress-next-line PhanSuspiciousValueComparison
+					// @phan-suppress-next-line PhanRedundantValueComparison
 					if ( $extraQuery == '' ) {
 						$extraQuery = 'redirect=no';
 					} else {

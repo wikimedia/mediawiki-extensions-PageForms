@@ -597,7 +597,7 @@ END;
 			'name' => 'del_' . $template_num,
 			'flags' => [ 'destructive' ],
 		] );
-		$text .= "\t" . Html::rawElement( 'p', null, $removeTemplateButton ) . "\n";
+		$text .= "\t" . Html::rawElement( 'p', [], (string)$removeTemplateButton ) . "\n";
 		$text .= "	</div>\n";
 		return $text;
 	}
@@ -748,19 +748,19 @@ END;
 	 */
 	public static function inputTypeParamInput( $type, $paramName, $cur_value, array $param, array $paramValues, $fieldFormText ) {
 		if ( $type == 'int' ) {
-			return new OOUI\TextInputWidget( [
+			return (string)new OOUI\TextInputWidget( [
 				'name' => $paramName . '_' . $fieldFormText,
 				'value' => $cur_value,
 				'classes' => [ 'pfTextFieldForInt' ]
 			] );
 		} elseif ( $type == 'string' ) {
-			return new OOUI\TextInputWidget( [
+			return (string)new OOUI\TextInputWidget( [
 				'name' => $paramName . '_' . $fieldFormText,
 				'value' => $cur_value,
 				'classes' => [ 'pfTextFieldForString' ]
 			] );
 		} elseif ( $type == 'text' ) {
-			return new OOUI\MultilineTextInputWidget( [
+			return (string)new OOUI\MultilineTextInputWidget( [
 				'name' => $paramName . '_' . $fieldFormText,
 				'rows' => 4,
 				'value' => $cur_value
@@ -773,7 +773,7 @@ END;
 					$val = $value;
 				}
 			}
-			return new OOUI\DropdownInputWidget( [
+			return (string)new OOUI\DropdownInputWidget( [
 				'name' => 'p[' . $paramName . ']',
 				'options' => $optionAttrs,
 				'value' => $val
@@ -789,11 +789,11 @@ END;
 				] );
 				$text .= Html::rawElement( 'span', [
 						'style' => 'white-space: nowrap; padding-right: 5px; font-family: monospace;'
-					], $checkboxHTML );
+					], (string)$checkboxHTML );
 			}
 			return $text;
 		} elseif ( $type == 'boolean' ) {
-			return new OOUI\CheckboxInputWidget( [
+			return (string)new OOUI\CheckboxInputWidget( [
 				'name' => $paramName . '_' . $fieldFormText,
 				'selected' => $cur_value ? true : false,
 				'value' => $cur_value ? 'on' : ''
