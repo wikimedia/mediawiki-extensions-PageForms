@@ -229,7 +229,7 @@ class PFTree {
 		$dbr = PFUtils::getReadDB();
 
 		// true for MW 1.45+
-		$useTargetID = !$dbr->fieldExists( 'categorylinks', 'cl_to' );
+		$useTargetID = !$dbr->fieldExists( 'categorylinks', 'cl_to', __METHOD__ );
 
 		$tables = [ 'page', 'categorylinks' ];
 		if ( $useTargetID ) {

@@ -62,7 +62,7 @@ class PFValuesUtils {
 	 */
 	public static function getCategoriesForPage( $title ) {
 		$db = PFUtils::getReadDB();
-		if ( !$db->fieldExists( 'categorylinks', 'cl_to' ) ) {
+		if ( !$db->fieldExists( 'categorylinks', 'cl_to', __METHOD__ ) ) {
 			// MW 1.45+
 			// Just call the original function, instead of
 			// trying to create a simplified version of it.
@@ -296,7 +296,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 				$conditions = [];
 				$join = [];
 				$join['categorylinks'] = [ 'JOIN', 'cl_from = page_id' ];
-				if ( $db->fieldExists( 'categorylinks', 'cl_to' ) ) {
+				if ( $db->fieldExists( 'categorylinks', 'cl_to', __METHOD__ ) ) {
 					$conditions['cl_to'] = $category;
 				} else {
 					// MW 1.45+
