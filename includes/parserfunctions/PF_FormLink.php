@@ -143,12 +143,11 @@ class PFFormLink {
 		}
 
 		if ( $className == 'PFFormRedLink' && $targetPageExists ) {
+			// Use PFUtils::makeLink so that labels containing HTML
+			// (resulting from parsed wiki markup) are handled safely
+			// and rendered correctly.
 			$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
-			if ( $inExistingPageLinkStr == '' ) {
-				return $linkRenderer->makeKnownLink( $targetTitle );
-			} else {
-				return $linkRenderer->makeKnownLink( $targetTitle, $inExistingPageLinkStr );
-			}
+			return PFUtils::makeLink( $linkRenderer, $targetTitle, $inExistingPageLinkStr );
 		}
 
 		// The page doesn't exist, so if 'create page' was
