@@ -395,6 +395,15 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
+	 * @covers \PFFormUtils::summaryInputHTML
+	 */
+	public function testSummaryInputHTMLCustomClassIsConvertedToOouiClasses(): void {
+		$result = \PFFormUtils::summaryInputHTML( false, null, [ 'class' => 'my-summary-class' ] );
+
+		$this->assertStringContainsString( 'my-summary-class', (string)$result );
+	}
+
+	/**
 	 * @covers \PFFormUtils::unhandledFieldsHTML
 	 */
 	public function testUnhandledFieldsHTMLWithNullTemplateReturnsEmptyString(): void {
@@ -763,6 +772,48 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
+	 * @covers \PFFormUtils::getFormDefinition
+	 */
+	public function testGetFormDefinitionPurgesCacheWhenParserOutputDisablesCaching(): void {
+		$this->setMwGlobals( [ 'wgPageFormsCacheFormDefinitions' => true ] );
+
+		if ( !defined( 'PF_NS_FORM' ) ) {
+			define( 'PF_NS_FORM', 106 );
+		}
+		$title = $this->createPage( 'Form:PFCacheDisabledDuringParse', 'Original body' );
+		$formId = (string)$title->getArticleID();
+
+		$cache = \PFFormUtils::getFormCache();
+		$cacheKeyForForm = \PFFormUtils::getCacheKey( $formId );
+		$cacheKeyForList = \PFFormUtils::getCacheKey( $formId );
+		$cache->set( $cacheKeyForForm, 'stale form definition' );
+		$cache->set( $cacheKeyForList, [ $cacheKeyForForm => $cacheKeyForForm ] );
+
+		$parserOptions = \ParserOptions::newFromAnon();
+		$parserOutput = $this->getMockBuilder( \ParserOutput::class )
+			->disableOriginalConstructor()
+			->onlyMethods( [ 'runOutputPipeline', 'getContentHolderText', 'getCacheTime' ] )
+			->getMock();
+		$parserOutput->method( 'runOutputPipeline' )->willReturnSelf();
+		$parserOutput->method( 'getContentHolderText' )->willReturn( 'Parsed form definition' );
+		$parserOutput->method( 'getCacheTime' )->willReturn( -1 );
+
+		$parser = $this->getMockBuilder( \Parser::class )
+			->disableOriginalConstructor()
+			->onlyMethods( [ 'getTitle', 'getOptions', 'parse' ] )
+			->getMock();
+		$parser->method( 'getTitle' )->willReturn( $title );
+		$parser->method( 'getOptions' )->willReturn( $parserOptions );
+		$parser->method( 'parse' )->willReturn( $parserOutput );
+
+		$result = \PFFormUtils::getFormDefinition( $parser, 'Visible form body', $formId );
+
+		$this->assertSame( 'Parsed form definition', $result );
+		$this->assertFalse( $cache->get( $cacheKeyForForm ), 'Cached definition should be purged' );
+		$this->assertFalse( $cache->get( $cacheKeyForList ), 'Cache key list should be purged' );
+	}
+
+	/**
 	 * @covers \PFFormUtils::purgeCache
 	 */
 	public function testPurgeCacheReturnsTrueForNonFormNamespacePage(): void {
@@ -820,6 +871,37 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 		$this->assertTrue( $result );
 		$this->assertFalse( $cache->get( $cacheKeyForForm ), 'Cached definition should be deleted' );
 		$this->assertFalse( $cache->get( $cacheKeyForList ), 'Key list should be deleted' );
+	}
+
+	/**
+	 * @covers \PFFormUtils::purgeCacheOnSave
+	 */
+	public function testPurgeCacheOnSaveReturnsResultOfPurgingResolvedWikiPage(): void {
+		$this->setMwGlobals( [ 'wgPageFormsCacheFormDefinitions' => true ] );
+
+		if ( !defined( 'PF_NS_FORM' ) ) {
+			define( 'PF_NS_FORM', 106 );
+		}
+		$title = $this->createPage( 'Form:PFPurgeOnSaveForm', 'Body for purge on save' );
+		$formId = (string)$title->getArticleID();
+
+		$cache = \PFFormUtils::getFormCache();
+		$cacheKeyForForm = \PFFormUtils::getCacheKey( $formId );
+		$cacheKeyForList = \PFFormUtils::getCacheKey( $formId );
+		$cache->set( $cacheKeyForForm, 'cached form definition' );
+		$cache->set( $cacheKeyForList, [ $cacheKeyForForm => $cacheKeyForForm ] );
+
+		$revisionRecord = $this->createMock( \MediaWiki\Revision\RevisionRecord::class );
+		$revisionRecord->method( 'getPageId' )->willReturn( (int)$formId );
+
+		$renderedRevision = $this->createMock( \MediaWiki\Revision\RenderedRevision::class );
+		$renderedRevision->method( 'getRevision' )->willReturn( $revisionRecord );
+
+		$result = \PFFormUtils::purgeCacheOnSave( $renderedRevision );
+
+		$this->assertTrue( $result );
+		$this->assertFalse( $cache->get( $cacheKeyForForm ), 'Cached form definition should be deleted' );
+		$this->assertFalse( $cache->get( $cacheKeyForList ), 'Cached key list should be deleted' );
 	}
 
 	/**
@@ -1007,6 +1089,26 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 		$optionsManager->setOption( $user, 'watchdefault', 0 );
 		$optionsManager->setOption( $user, 'watchcreations', 1 );
 		\RequestContext::getMain()->setUser( $user );
+
+		$html = \PFFormUtils::watchInputHTML( false, false, false );
+
+		$this->assertStringContainsString( 'checked', $html );
+	}
+
+	/**
+	 * @covers \PFFormUtils::watchInputHTML
+	 */
+	public function testWatchInputHTMLCheckedWhenPageIsAlreadyWatched(): void {
+		$title = $this->createPage( 'PFWatchedPageForFormUtils' );
+		$this->setMwGlobals( [ 'wgTitle' => $title ] );
+
+		$user = self::getTestUser()->getUser();
+		$optionsManager = $this->getServiceContainer()->getUserOptionsManager();
+		$optionsManager->setOption( $user, 'watchdefault', 0 );
+		$optionsManager->setOption( $user, 'watchcreations', 0 );
+		\RequestContext::getMain()->setUser( $user );
+
+		$this->getServiceContainer()->getWatchlistManager()->addWatch( $user, $title );
 
 		$html = \PFFormUtils::watchInputHTML( false, false, false );
 
