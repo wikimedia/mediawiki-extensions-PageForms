@@ -102,7 +102,8 @@ class PFFormEditAction extends Action {
 		$form_edit_tab = [
 			'class' => $class_name,
 			'text' => wfMessage( $form_edit_tab_msg )->text(),
-			'href' => $title->getLocalURL( 'action=formedit' )
+			'href' => $title->getLocalURL( 'action=formedit' ),
+			'icon' => 'edit',
 		];
 
 		// Find the location of the 'edit' tab, and add 'edit

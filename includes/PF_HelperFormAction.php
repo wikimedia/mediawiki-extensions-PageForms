@@ -86,7 +86,8 @@ class PFHelperFormAction extends Action {
 		$form_create_tab = [
 			'class' => $class_name,
 			'text' => wfMessage( $form_create_tab_text )->text(),
-			'href' => $title->getLocalURL( 'action=formcreate' )
+			'href' => $title->getLocalURL( 'action=formcreate' ),
+			'icon' => 'edit',
 		];
 
 		// Find the location of the 'create' tab, and add 'create
