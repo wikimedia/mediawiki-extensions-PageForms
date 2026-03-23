@@ -1,15 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
+			"Aca",
 			"Winston Sung"
 		]
 	},
 	"pageforms-desc": "Obrasci za pravljenje i uređivanje wikistranica",
 	"specialpages-group-pf_group": "Semantički obrasci",
-	"apihelp-pfautocomplete-summary": "Automatsko dovršavanje koje rabi proširenje »Stranični obrasci«.",
+	"apihelp-pfautocomplete-summary": "Automatsko dovršavanje koje koristi dodatak \"Stranični obrasci\".",
 	"createproperty": "Pravljenje svojstva",
 	"pf-createproperty-with-name": "Pravljenje svojstva: $1",
-	"pf_createproperty_allowedvalsinput": "Ako želite da bude dozvoljeno samo za određene vrijednosti, unesite spisak dozvoljenih vrijednosti, odvojenih zarezima (ako vrijednost sadrži zarez, onda pišite zarez kao „\\,“):",
+	"pf_createproperty_allowedvalsinput": "Ako želite da bude dozvoljeno samo za određene vrijednosti, unesite spisak dozvoljenih vrijednosti, odvojenih zarezima (ako vrijednost sadrži zarez, onda pišite zarez kao \"\\,\"):",
 	"pf_createproperty_propname": "Naziv svojstva:",
 	"pf_createproperty_proptype": "Vrsta:",
 	"pf_createproperty_editsummary": "Napravljeno svojstvo vrste $1",
