@@ -9,6 +9,7 @@
 
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
+use SMW\SMWQueryProcessor;
 
 class PFValuesUtils {
 
@@ -36,7 +37,7 @@ class PFValuesUtils {
 		$res = $store->getPropertyValues( $page, $property, $requestOptions );
 		$values = [];
 		foreach ( $res as $value ) {
-			if ( $value instanceof SMWDIUri ) {
+			if ( $value instanceof \SMWDIUri ) {
 				$values[] = $value->getURI();
 			} elseif ( $value instanceof \SMW\DIWikiPage ) {
 				$realValue = str_replace( '_', ' ', $value->getDBKey() );
