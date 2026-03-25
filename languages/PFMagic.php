@@ -19,6 +19,7 @@ $magicWords['en'] = [
 	'autoedit_rating' => [ 0, 'autoedit_rating' ],
 	'template_params' => [ 0, 'template_params' ],
 	'template_display' => [ 0, 'template_display' ],
+	'page_name_formula' => [ 0, 'page_name_formula' ],
 ];
 
 /** Arabic (العربية) */

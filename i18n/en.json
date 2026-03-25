@@ -316,5 +316,6 @@
 	"pf-invalidexturl": "Invalid external URL value.",
 	"pf-blankexturl": "Blank external URL value.",
 	"pf-externalpageempty": "External page contains no contents.",
-	"pf-externalpagebadjson": "Could not parse JSON in external page."
+	"pf-externalpagebadjson": "Could not parse JSON in external page.",
+	"pf-automatic-rename": "Automatic rename based on page name formula"
 }

@@ -129,6 +129,7 @@
 		"PFQueryFormLink": "includes/parserfunctions/PFQueryFormLink.php",
 		"PFTemplateParams": "includes/parserfunctions/PFTemplateParams.php",
 		"PFTemplateDisplay": "includes/parserfunctions/PFTemplateDisplay.php",
+		"PFPageNameFormula": "includes/parserfunctions/PFPageNameFormula.php",
 		"PFAutocompleteAPI": "includes/PFAutocompleteAPI.php",
 		"PFAutoeditAPI": "includes/PFAutoeditAPI.php",
 		"PFFormEditAction": "includes/PFFormEditAction.php",
@@ -698,7 +699,10 @@
 		"MakeGlobalVariablesScript": "PFHooks::setGlobalJSVariables",
 		"PageSchemasRegisterHandlers": "PFHooks::registerPageSchemasClass",
 		"EditPage::importFormData": "PFHooks::showFormPreview",
-		"PageSaveComplete": "PFHooks::setPostEditCookie",
+		"PageSaveComplete": [
+			"PFHooks::setPostEditCookie",
+			"PFHooks::renamePageBasedOnFormula"
+		],
 		"MultiContentSave": "PFFormUtils::purgeCacheOnSave",
 		"HtmlPageLinkRendererEnd": "PFFormLinker::setBrokenLink",
 		"AdminLinks": "PFHooks::addToAdminLinks",

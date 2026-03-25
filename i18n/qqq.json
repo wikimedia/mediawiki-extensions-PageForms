@@ -336,5 +336,6 @@
 	"pf-invalidexturl": "Error message.",
 	"pf-blankexturl": "Error message.",
 	"pf-externalpageempty": "Error message.",
-	"pf-externalpagebadjson": "Error message."
+	"pf-externalpagebadjson": "Error message.",
+	"pf-automatic-rename": "Used as the edit summary when automatically renaming a page based on a page name formula."
 }
