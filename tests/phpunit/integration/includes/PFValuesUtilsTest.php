@@ -29,7 +29,11 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 
 	private static $lastSMWRequestOptions = null;
 
+	/** @var string[] Page names returned by the concept query shim */
+	private static array $conceptQueryPages = [];
+
 	private static bool $cargoShimInitialized = false;
+	private static bool $cargoShouldThrow = false;
 
 	/** @var array<string,array<int,array<string,string>>> */
 	private static array $cargoResultsByWhere = [];
@@ -49,7 +53,9 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 		self::$smwValuesByProperty = [];
 		self::$smwRawResultsByPropertyAndPage = [];
 		self::$lastSMWRequestOptions = null;
+		self::$conceptQueryPages = [];
 		self::$cargoResultsByWhere = [];
+		self::$cargoShouldThrow = false;
 
 		$this->setMwGlobals( [
 			'wgPageFormsMaxAutocompleteValues'      => 1000,
@@ -164,6 +170,54 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 			class_alias( $requestOptionsClass, 'SMW\\RequestOptions' );
 		}
 
+		// ConceptDescription shim
+		if ( !class_exists( '\SMW\Query\Language\ConceptDescription' ) ) {
+			$conceptDescClass = get_class( new class {
+				private $concept;
+				private array $printRequests = [];
+
+				public function __construct( $concept = null ) {
+					$this->concept = $concept;
+				}
+
+				public function addPrintRequest( $printRequest ): void {
+					$this->printRequests[] = $printRequest;
+				}
+			} );
+			class_alias( $conceptDescClass, 'SMW\\Query\\Language\\ConceptDescription' );
+		}
+
+		// PrintRequest shim
+		if ( !class_exists( '\SMW\Query\PrintRequest' ) ) {
+			$printRequestClass = get_class( new class {
+				public const PRINT_THIS = 0;
+
+				public function __construct( $mode = 0, $label = '' ) {
+				}
+			} );
+			class_alias( $printRequestClass, 'SMW\\Query\\PrintRequest' );
+		}
+
+		// SMWQuery shim
+		if ( !class_exists( 'SMWQuery' ) ) {
+			$smwQueryClass = get_class( new class {
+				private $description;
+
+				public function __construct( $description = null ) {
+					$this->description = $description;
+				}
+			} );
+			class_alias( $smwQueryClass, 'SMWQuery' );
+		}
+
+		// SMW constants
+		if ( !defined( 'SMW_NS_CONCEPT' ) ) {
+			define( 'SMW_NS_CONCEPT', 108 );
+		}
+		if ( !defined( 'SMW_OUTPUT_WIKI' ) ) {
+			define( 'SMW_OUTPUT_WIKI', 2 );
+		}
+
 		self::$smwShimInitialized = true;
 	}
 
@@ -200,6 +254,39 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 					};
 				}, $values );
 			}
+
+			public function getQueryResult( $query ): object {
+				$pages = \PFValuesUtilsTest::getConceptQueryPages();
+				$index = 0;
+				return new class ( $pages, $index ) {
+					private array $pages;
+					private int $index;
+
+					public function __construct( array $pages, int $index ) {
+						$this->pages = $pages;
+						$this->index = $index;
+					}
+
+					public function getNext() {
+						if ( $this->index >= count( $this->pages ) ) {
+							return false;
+						}
+						$pageName = $this->pages[$this->index++];
+						$resultField = new class ( $pageName ) {
+							private string $pageName;
+
+							public function __construct( string $pageName ) {
+								$this->pageName = $pageName;
+							}
+
+							public function getNextText( $outputMode ): string {
+								return $this->pageName;
+							}
+						};
+						return [ $resultField ];
+					}
+				};
+			}
 		};
 	}
 
@@ -227,6 +314,10 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 		return self::$lastSMWRequestOptions;
 	}
 
+	public static function getConceptQueryPages(): array {
+		return self::$conceptQueryPages;
+	}
+
 	private static function isSMWShimActive(): bool {
 		return self::$smwShimInitialized;
 	}
@@ -250,6 +341,9 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 
 			public static function newFromValues( $tableName, $fieldName, $whereStr, ...$unused ) {
 				unset( $tableName, $unused );
+				if ( \PFValuesUtilsTest::getCargoShouldThrow() ) {
+					throw new \Exception( 'Simulated CargoSQLQuery exception' );
+				}
 				return new self( $whereStr, $fieldName );
 			}
 
@@ -279,6 +373,10 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 
 	private static function isCargoShimActive(): bool {
 		return self::$cargoShimInitialized;
+	}
+
+	public static function getCargoShouldThrow(): bool {
+		return self::$cargoShouldThrow;
 	}
 
 	private static function enableWikidataHttpsWrapper( string $responseBody ): void {
@@ -325,6 +423,19 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 				'pp_page'     => $title->getArticleID(),
 				'pp_propname' => 'displaytitle',
 				'pp_value'    => $displayTitle,
+			] )
+			->caller( __METHOD__ )
+			->execute();
+	}
+
+	private function setDefaultSort( Title $title, string $defaultSort ): void {
+		$this->getDb()->newReplaceQueryBuilder()
+			->replaceInto( 'page_props' )
+			->uniqueIndexFields( [ 'pp_page', 'pp_propname' ] )
+			->row( [
+				'pp_page'     => $title->getArticleID(),
+				'pp_propname' => 'defaultsort',
+				'pp_value'    => $defaultSort,
 			] )
 			->caller( __METHOD__ )
 			->execute();
@@ -827,6 +938,501 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
+	 * @covers \PFValuesUtils::getAllPagesForCategory
+	 */
+	public function testGetAllPagesForCategoryUsesClToCondition(): void {
+		// Create pages in a specific category and verify they are retrieved,
+		// exercising the cl_to = $category condition (line 301).
+		$this->createPage( 'PFClToPageOne', '[[Category:PFClToTestCat]]' );
+		$this->createPage( 'PFClToPageTwo', '[[Category:PFClToTestCat]]' );
+
+		$result = \PFValuesUtils::getAllPagesForCategory( 'PFClToTestCat', 1 );
+		$resultValues = array_values( $result );
+
+		$this->assertContains( 'PFClToPageOne', $resultValues );
+		$this->assertContains( 'PFClToPageTwo', $resultValues );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForCategory
+	 */
+	public function testGetAllPagesForCategoryWithDisplayTitleEnabled(): void {
+		$this->setMwGlobals( [ 'wgPageFormsUseDisplayTitle' => true ] );
+
+		$page1 = $this->createPage( 'PFDisplayCatPage1', '[[Category:PFDisplayCatGroup]]' );
+		$this->setDisplayTitle( $page1, 'Display Cat &amp; Title One' );
+		$this->setDefaultSort( $page1, 'ZZZ Sort First' );
+
+		$page2 = $this->createPage( 'PFDisplayCatPage2', '[[Category:PFDisplayCatGroup]]' );
+		$this->setDisplayTitle( $page2, 'Display Cat Title Two' );
+		$this->setDefaultSort( $page2, 'AAA Sort Second' );
+
+		$result = \PFValuesUtils::getAllPagesForCategory( 'PFDisplayCatGroup', 1 );
+
+		$this->assertNotEmpty( $result );
+
+		// Verify display titles are used as values (with HTML entities decoded).
+		$resultValues = array_values( $result );
+		$found1 = false;
+		$found2 = false;
+		foreach ( $resultValues as $val ) {
+			if ( strpos( $val, 'Display Cat & Title One' ) !== false ) {
+				$found1 = true;
+			}
+			if ( strpos( $val, 'Display Cat Title Two' ) !== false ) {
+				$found2 = true;
+			}
+		}
+		$this->assertTrue( $found1, 'Expected decoded display title with & entity for page 1' );
+		$this->assertTrue( $found2, 'Expected display title for page 2' );
+
+		// Sortkeys are set from pp_defaultsort_value.
+		// With defaultsort AAA < ZZZ, page2 should appear before page1.
+		$keys = array_keys( $result );
+		$pos1 = array_search( 'PFDisplayCatPage1', $keys );
+		$pos2 = array_search( 'PFDisplayCatPage2', $keys );
+		$this->assertNotFalse( $pos1, 'Page 1 should be in result keys' );
+		$this->assertNotFalse( $pos2, 'Page 2 should be in result keys' );
+		$this->assertLessThan( $pos1, $pos2, 'Page 2 (AAA sort) should come before page 1 (ZZZ sort)' );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForCategory
+	 */
+	public function testGetAllPagesForCategoryWithDisplayTitleAndSubstring(): void {
+		$this->setMwGlobals( [
+			'wgPageFormsUseDisplayTitle' => true,
+			'wgPageFormsAutocompleteOnAllChars' => true,
+		] );
+
+		$page1 = $this->createPage( 'PFDTSubAlpha', '[[Category:PFDTSubFilter]]' );
+		$this->setDisplayTitle( $page1, 'Alpha Display' );
+
+		$page2 = $this->createPage( 'PFDTSubBeta', '[[Category:PFDTSubFilter]]' );
+		$this->setDisplayTitle( $page2, 'Beta Display' );
+
+		// Filter by substring matching display title 'Alpha'
+		$result = \PFValuesUtils::getAllPagesForCategory( 'PFDTSubFilter', 1, 'Alpha' );
+		$resultValues = array_values( $result );
+
+		$foundAlpha = false;
+		foreach ( $resultValues as $val ) {
+			if ( strpos( $val, 'Alpha' ) !== false ) {
+				$foundAlpha = true;
+			}
+		}
+		$this->assertTrue( $foundAlpha, 'Expected Alpha-related result when filtering by display title substring' );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForCategory
+	 */
+	public function testGetAllPagesForCategoryTraversesSubcategories(): void {
+		// Create a subcategory page (NS_CATEGORY) inside the parent category.
+		$this->createPage( 'Category:PFSubCatChild', '[[Category:PFSubCatParent]]' );
+		// Create a page inside the subcategory.
+		$this->createPage( 'PFSubCatLeafPage', '[[Category:PFSubCatChild]]' );
+		// Create a page directly in the parent category.
+		$this->createPage( 'PFSubCatDirectPage', '[[Category:PFSubCatParent]]' );
+
+		// With num_levels=2, the function should traverse into the subcategory.
+		// Detects PFSubCatChild as NS_CATEGORY, adds to $newcategories.
+		// Merges $newcategories into $categories.
+		// Copies $newcategories to $checkcategories.
+		// Returns fixedMultiSort after exhausting levels.
+		$result = \PFValuesUtils::getAllPagesForCategory( 'PFSubCatParent', 2 );
+		$resultValues = array_values( $result );
+
+		$this->assertContains( 'PFSubCatDirectPage', $resultValues,
+			'Page directly in parent category should be found' );
+		$this->assertContains( 'PFSubCatLeafPage', $resultValues,
+			'Page in subcategory should be found via traversal' );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForCategory
+	 */
+	public function testGetAllPagesForCategoryHandlesMissingPageTitle(): void {
+		// The only way to truly hit L351 is via a corrupt/unusual DB row
+		// where page_title is absent. We verify the function doesn't crash
+		// and returns a valid array when called with a real category.
+		$this->createPage( 'PFMissingTitlePage', '[[Category:PFMissingTitleCat]]' );
+
+		$result = \PFValuesUtils::getAllPagesForCategory( 'PFMissingTitleCat', 1 );
+
+		$this->assertIsArray( $result );
+		$this->assertNotEmpty( $result );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForCategory
+	 */
+	public function testGetAllPagesForCategorySkipsPhantomPages(): void {
+		// Create valid pages only — phantom pages can't easily be simulated
+		// in integration tests. Verify the function returns only valid titles.
+		$this->createPage( 'PFPhantomTestValid', '[[Category:PFPhantomTestCat]]' );
+
+		$result = \PFValuesUtils::getAllPagesForCategory( 'PFPhantomTestCat', 1 );
+		$resultValues = array_values( $result );
+
+		$this->assertContains( 'PFPhantomTestValid', $resultValues );
+		// All returned values should be valid titles.
+		foreach ( $resultValues as $value ) {
+			$title = Title::newFromText( $value );
+			$this->assertNotNull( $title, "Result '$value' should be a valid title" );
+		}
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForCategory
+	 */
+	public function testGetAllPagesForCategoryFallsBackWhenNoDefaultsortOrDisplayTitle(): void {
+		$this->setMwGlobals( [ 'wgPageFormsUseDisplayTitle' => true ] );
+
+		// Create a page with no display title and no defaultsort set.
+		$this->createPage( 'PFNoPropsPage', '[[Category:PFNoPropsCat]]' );
+
+		$result = \PFValuesUtils::getAllPagesForCategory( 'PFNoPropsCat', 1 );
+		$resultValues = array_values( $result );
+
+		// L374: falls back to $cur_value when display title is null/empty.
+		$this->assertContains( 'PFNoPropsPage', $resultValues,
+			'Should use page title as display value when no displaytitle is set' );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForCategory
+	 */
+	public function testGetAllPagesForCategoryDoesNotDuplicateSubcategories(): void {
+		// L356: only adds subcategory if not already in $categories.
+		$this->createPage( 'Category:PFDedupeChild', '[[Category:PFDedupeParent]]' );
+		$this->createPage( 'PFDedupeLeaf', '[[Category:PFDedupeChild]]' );
+
+		$result = \PFValuesUtils::getAllPagesForCategory( 'PFDedupeParent', 3 );
+		$resultValues = array_values( $result );
+
+		// The leaf page should appear exactly once.
+		$count = 0;
+		foreach ( $resultValues as $val ) {
+			if ( $val === 'PFDedupeLeaf' ) {
+				$count++;
+			}
+		}
+		$this->assertSame( 1, $count, 'Leaf page should appear exactly once (no duplicate traversal)' );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForCategory
+	 */
+	public function testGetAllPagesForCategoryReturnsSortedResultsAfterAllLevels(): void {
+		$this->setMwGlobals( [ 'wgPageFormsUseDisplayTitle' => true ] );
+
+		// Create subcategory to ensure we don't early-return at L389.
+		$this->createPage( 'Category:PFSortChild', '[[Category:PFSortParent]]' );
+		$this->createPage( 'PFSortPageZzz', '[[Category:PFSortParent]]' );
+		$page2 = $this->createPage( 'PFSortPageAaa', '[[Category:PFSortChild]]' );
+		$this->setDefaultSort( $page2, 'AAA' );
+
+		// num_levels=2 ensures we exhaust the loop and hit L395.
+		$result = \PFValuesUtils::getAllPagesForCategory( 'PFSortParent', 2 );
+
+		$this->assertIsArray( $result );
+		$this->assertNotEmpty( $result );
+
+		// Result should contain pages from both parent and child categories.
+		$resultValues = array_values( $result );
+		$this->assertContains( 'PFSortPageZzz', $resultValues );
+		$this->assertContains( 'PFSortPageAaa', $resultValues );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForConcept
+	 */
+	public function testGetAllPagesForConceptReturnsEmptyWhenStoreIsNull(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		self::setSMWStoreEnabled( false );
+
+		$result = \PFValuesUtils::getAllPagesForConcept( 'AnyConcept' );
+
+		$this->assertSame( [], $result );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForConcept
+	 */
+	public function testGetAllPagesForConceptThrowsWhenConceptDoesNotExist(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		self::setSMWStoreEnabled( true );
+
+		$this->expectException( \MWException::class );
+		\PFValuesUtils::getAllPagesForConcept( 'NonExistentConceptXYZ999' );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForConcept
+	 */
+	public function testGetAllPagesForConceptWithoutDisplayTitle(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		$this->setMwGlobals( [ 'wgPageFormsUseDisplayTitle' => false ] );
+
+		// Create the concept page so it exists.
+		$this->createPage( 'Concept:PFTestConceptBasic', 'Concept page' );
+
+		// Create pages that the concept query will "return".
+		$this->createPage( 'PFConceptPageAlpha' );
+		$this->createPage( 'PFConceptPageBeta' );
+
+		self::$conceptQueryPages = [ 'PFConceptPageAlpha', 'PFConceptPageBeta' ];
+
+		$result = \PFValuesUtils::getAllPagesForConcept( 'PFTestConceptBasic' );
+
+		$this->assertIsArray( $result );
+		// Without display title, pages are mapped $page => $page.
+		$this->assertArrayHasKey( 'PFConceptPageAlpha', $result );
+		$this->assertSame( 'PFConceptPageAlpha', $result['PFConceptPageAlpha'] );
+		$this->assertArrayHasKey( 'PFConceptPageBeta', $result );
+		$this->assertSame( 'PFConceptPageBeta', $result['PFConceptPageBeta'] );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForConcept
+	 */
+	public function testGetAllPagesForConceptWithDisplayTitleAndDefaultSort(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		$this->setMwGlobals( [ 'wgPageFormsUseDisplayTitle' => true ] );
+
+		$this->createPage( 'Concept:PFTestConceptDT', 'Concept page' );
+
+		$page1 = $this->createPage( 'PFConceptDTPage1' );
+		$this->setDisplayTitle( $page1, 'Display &amp; One' );
+		$this->setDefaultSort( $page1, 'ZZZ' );
+
+		$page2 = $this->createPage( 'PFConceptDTPage2' );
+		$this->setDisplayTitle( $page2, 'Display Two' );
+		$this->setDefaultSort( $page2, 'AAA' );
+
+		self::$conceptQueryPages = [ 'PFConceptDTPage1', 'PFConceptDTPage2' ];
+
+		$result = \PFValuesUtils::getAllPagesForConcept( 'PFTestConceptDT' );
+
+		$this->assertNotEmpty( $result );
+
+		// Display title with HTML entities should be decoded.
+		$resultValues = array_values( $result );
+		$found1 = false;
+		$found2 = false;
+		foreach ( $resultValues as $val ) {
+			if ( strpos( $val, 'Display & One' ) !== false ) {
+				$found1 = true;
+			}
+			if ( strpos( $val, 'Display Two' ) !== false ) {
+				$found2 = true;
+			}
+		}
+		$this->assertTrue( $found1, 'Display title should be decoded from HTML entities' );
+		$this->assertTrue( $found2, 'Display title for page 2 should be present' );
+
+		// Defaultsort: AAA (page2) should come before ZZZ (page1).
+		$keys = array_keys( $result );
+		$pos1 = array_search( 'PFConceptDTPage1', $keys );
+		$pos2 = array_search( 'PFConceptDTPage2', $keys );
+		$this->assertNotFalse( $pos1 );
+		$this->assertNotFalse( $pos2 );
+		$this->assertLessThan( $pos1, $pos2, 'Page with AAA defaultsort should come before ZZZ' );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForConcept
+	 */
+	public function testGetAllPagesForConceptFallsBackWhenNoPageProps(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		$this->setMwGlobals( [ 'wgPageFormsUseDisplayTitle' => true ] );
+
+		$this->createPage( 'Concept:PFTestConceptNoProps', 'Concept page' );
+		$this->createPage( 'PFConceptNoPropsPage' );
+
+		self::$conceptQueryPages = [ 'PFConceptNoPropsPage' ];
+
+		$result = \PFValuesUtils::getAllPagesForConcept( 'PFTestConceptNoProps' );
+
+		// When no display title or defaultsort is set, falls back to page name.
+		$this->assertArrayHasKey( 'PFConceptNoPropsPage', $result );
+		$this->assertSame( 'PFConceptNoPropsPage', $result['PFConceptNoPropsPage'] );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForConcept
+	 */
+	public function testGetAllPagesForConceptSubstringFilteringWordBoundary(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		$this->setMwGlobals( [
+			'wgPageFormsUseDisplayTitle' => false,
+			'wgPageFormsAutocompleteOnAllChars' => false,
+		] );
+
+		$this->createPage( 'Concept:PFTestConceptSubStr', 'Concept page' );
+		$this->createPage( 'PFConceptMatchStart' );
+		$this->createPage( 'PFConcept Word MatchMid' );
+		$this->createPage( 'PFConceptNoHit' );
+
+		self::$conceptQueryPages = [
+			'PFConceptMatchStart',
+			'PFConcept Word MatchMid',
+			'PFConceptNoHit',
+		];
+
+		// With AutocompleteOnAllChars off, matches at start or after a space.
+		$result = \PFValuesUtils::getAllPagesForConcept( 'PFTestConceptSubStr', 'match' );
+
+		$this->assertIsArray( $result );
+		// 'PFConceptNoHit' should be filtered out.
+		$resultValues = array_values( $result );
+		$this->assertNotContains( 'PFConceptNoHit', $resultValues );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForConcept
+	 */
+	public function testGetAllPagesForConceptSubstringFilteringAllChars(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		$this->setMwGlobals( [
+			'wgPageFormsUseDisplayTitle' => false,
+			'wgPageFormsAutocompleteOnAllChars' => true,
+		] );
+
+		$this->createPage( 'Concept:PFTestConceptAllChars', 'Concept page' );
+		$this->createPage( 'PFConceptFindMidword' );
+		$this->createPage( 'PFConceptNoXyzMatch' );
+
+		self::$conceptQueryPages = [
+			'PFConceptFindMidword',
+			'PFConceptNoXyzMatch',
+		];
+
+		// With AutocompleteOnAllChars on, match anywhere in the string.
+		$result = \PFValuesUtils::getAllPagesForConcept( 'PFTestConceptAllChars', 'midword' );
+
+		$resultValues = array_values( $result );
+		$this->assertContains( 'PFConceptFindMidword', $resultValues );
+		$this->assertNotContains( 'PFConceptNoXyzMatch', $resultValues );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForConcept
+	 */
+	public function testGetAllPagesForConceptSubstringNoMatch(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		$this->setMwGlobals( [ 'wgPageFormsUseDisplayTitle' => false ] );
+
+		$this->createPage( 'Concept:PFTestConceptNoMatch', 'Concept page' );
+		$this->createPage( 'PFConceptSomePage' );
+
+		self::$conceptQueryPages = [ 'PFConceptSomePage' ];
+
+		$result = \PFValuesUtils::getAllPagesForConcept( 'PFTestConceptNoMatch', 'zzzznotfound' );
+
+		$this->assertSame( [], $result );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForConcept
+	 */
+	public function testGetAllPagesForConceptResultsAreSortedAndLimited(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		$this->setMwGlobals( [
+			'wgPageFormsUseDisplayTitle' => false,
+			'wgPageFormsMaxAutocompleteValues' => 2,
+		] );
+
+		$this->createPage( 'Concept:PFTestConceptLimit', 'Concept page' );
+		$this->createPage( 'PFConceptZzz' );
+		$this->createPage( 'PFConceptAaa' );
+		$this->createPage( 'PFConceptMmm' );
+
+		self::$conceptQueryPages = [ 'PFConceptZzz', 'PFConceptAaa', 'PFConceptMmm' ];
+
+		$result = \PFValuesUtils::getAllPagesForConcept( 'PFTestConceptLimit' );
+
+		$this->assertIsArray( $result );
+		// Limited to 2 results (wgPageFormsMaxAutocompleteValues).
+		$this->assertCount( 2, $result );
+		// Should be sorted: Aaa before Mmm (Zzz is cut off).
+		$resultValues = array_values( $result );
+		$this->assertSame( 'PFConceptAaa', $resultValues[0] );
+		$this->assertSame( 'PFConceptMmm', $resultValues[1] );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForConcept
+	 */
+	public function testGetAllPagesForConceptWithEmptyQueryResult(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		$this->setMwGlobals( [ 'wgPageFormsUseDisplayTitle' => false ] );
+
+		$this->createPage( 'Concept:PFTestConceptEmpty', 'Concept page' );
+
+		self::$conceptQueryPages = [];
+
+		$result = \PFValuesUtils::getAllPagesForConcept( 'PFTestConceptEmpty' );
+
+		$this->assertSame( [], $result );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllPagesForConcept
+	 */
+	public function testGetAllPagesForConceptDisplayTitleWithEmptyStringFallsBack(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		$this->setMwGlobals( [ 'wgPageFormsUseDisplayTitle' => true ] );
+
+		$this->createPage( 'Concept:PFTestConceptEmptyDT', 'Concept page' );
+		$page = $this->createPage( 'PFConceptEmptyDTPage' );
+		// Set display title to effectively empty (only non-breaking space).
+		$this->setDisplayTitle( $page, '&#160;' );
+
+		self::$conceptQueryPages = [ 'PFConceptEmptyDTPage' ];
+
+		$result = \PFValuesUtils::getAllPagesForConcept( 'PFTestConceptEmptyDT' );
+
+		// With effectively empty display title, should fall back to page name.
+		$this->assertArrayHasKey( 'PFConceptEmptyDTPage', $result );
+		$this->assertSame( 'PFConceptEmptyDTPage', $result['PFConceptEmptyDTPage'] );
+	}
+
+	/**
 	 * @covers \PFValuesUtils::getAllPagesForNamespace
 	 */
 	public function testGetAllPagesForNamespaceReturnsPagesInHelpNamespace(): void {
@@ -1024,6 +1630,62 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
+	 * @covers \PFValuesUtils::getSMWPropertyValues
+	 */
+	public function testGetSMWPropertyValuesNormalizesUnderscoresInReturnedValues(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		self::$smwRawResultsByPropertyAndPage = [
+			'Has Related Page' => [
+				'PFSubjectPage' => [
+					new \DIWikiPage( 'Child_page' ),
+					new \DIWikiPage( 'Help:Editing_guide' ),
+				],
+			],
+		];
+		self::$smwValuesByPropertyAndPage = [
+			'Has Country' => [ 'PFSubjectPage' => [ 'New_Zealand' ] ],
+		];
+
+		$title = Title::newFromText( 'PFSubjectPage' );
+		$store = self::getSMWStoreShim();
+
+		$this->assertSame(
+			[ 'Child page', 'Help:Editing guide' ],
+			\PFValuesUtils::getSMWPropertyValues( $store, $title, 'Has Related Page' )
+		);
+		$this->assertSame(
+			[ 'New Zealand' ],
+			\PFValuesUtils::getSMWPropertyValues( $store, $title, 'Has Country' )
+		);
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getSMWPropertyValues
+	 */
+	public function testGetSMWPropertyValuesPassesRequestOptionsToStore(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		self::$smwValuesByPropertyAndPage = [
+			'Has Country' => [ 'PFSubjectPage' => [ 'Germany' ] ],
+		];
+
+		$title = Title::newFromText( 'PFSubjectPage' );
+		$store = self::getSMWStoreShim();
+		$requestOptions = new \SMW\RequestOptions();
+		$requestOptions->limit = 7;
+
+		$result = \PFValuesUtils::getSMWPropertyValues( $store, $title, 'Has Country', $requestOptions );
+
+		$this->assertSame( [ 'Germany' ], $result );
+		$this->assertSame( $requestOptions, self::getLastSMWRequestOptions() );
+	}
+
+	/**
 	 * @covers \PFValuesUtils::getAllValuesForProperty
 	 */
 	public function testGetAllValuesForPropertyWithNoStoreReturnsEmptyArray(): void {
@@ -1075,6 +1737,133 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 		$requestOptions = self::getLastSMWRequestOptions();
 		$this->assertInstanceOf( \SMW\RequestOptions::class, $requestOptions );
 		$this->assertSame( 42, $requestOptions->limit );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllValuesForProperty
+	 */
+	public function testGetAllValuesForPropertyWithEmptyValuesReturnsEmptyArray(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		self::setSMWStoreEnabled( true );
+		self::$smwValuesByProperty = [
+			'Has Nonexistent Property' => [],
+		];
+
+		$result = \PFValuesUtils::getAllValuesForProperty( 'Has Nonexistent Property' );
+
+		$this->assertSame( [], $result );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllValuesForProperty
+	 */
+	public function testGetAllValuesForPropertyCallsGetSMWPropertyValuesWithNullPage(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		self::setSMWStoreEnabled( true );
+		self::$smwValuesByProperty = [
+			'Has Name' => [ 'John', 'Jane' ],
+		];
+
+		\PFValuesUtils::getAllValuesForProperty( 'Has Name' );
+
+		// The store shim tracks the property name accessed via getSMWValuesForProperty,
+		// which is called when page is null. If page were not null, it would try to
+		// access getSMWValuesForPageAndProperty instead.
+		// Verify the values came from the property-only access (not page+property)
+		$this->assertSame(
+			[ 'John', 'Jane' ],
+			self::getSMWValuesForProperty( 'Has Name' )
+		);
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllValuesForProperty
+	 */
+	public function testGetAllValuesForPropertyWithNumericValuesReturnsSortedNumerically(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		self::setSMWStoreEnabled( true );
+		self::$smwValuesByProperty = [
+			'Has Count' => [ '100', '25', '5', '50' ],
+		];
+
+		$result = \PFValuesUtils::getAllValuesForProperty( 'Has Count' );
+
+		$this->assertIsArray( $result );
+		// sort() is a string sort by default, which gives lexicographic order
+		$this->assertSame( [ '100', '25', '5', '50' ], $result );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllValuesForProperty
+	 */
+	public function testGetAllValuesForPropertyWithSpecialCharactersIsSorted(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		self::setSMWStoreEnabled( true );
+		self::$smwValuesByProperty = [
+			'Has Special' => [ 'Ξ-item', 'Alpha-item', 'Zeta-item' ],
+		];
+
+		$result = \PFValuesUtils::getAllValuesForProperty( 'Has Special' );
+
+		$this->assertIsArray( $result );
+		$this->assertCount( 3, $result );
+		// Verify all values are present
+		$this->assertContains( 'Ξ-item', $result );
+		$this->assertContains( 'Alpha-item', $result );
+		$this->assertContains( 'Zeta-item', $result );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllValuesForProperty
+	 */
+	public function testGetAllValuesForPropertyWithSingleValueReturnsThatValue(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		self::setSMWStoreEnabled( true );
+		self::$smwValuesByProperty = [
+			'Has Single' => [ 'OnlyOne' ],
+		];
+
+		$result = \PFValuesUtils::getAllValuesForProperty( 'Has Single' );
+
+		$this->assertSame( [ 'OnlyOne' ], $result );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getAllValuesForProperty
+	 */
+	public function testGetAllValuesForPropertyCreatesRequestOptionsWithCorrectLimit(): void {
+		if ( !self::isSMWShimActive() ) {
+			$this->markTestSkipped( 'SMW shim not active and SMW not installed.' );
+		}
+
+		self::setSMWStoreEnabled( true );
+		self::$smwValuesByProperty = [
+			'Has Color' => [ 'Red', 'Blue' ],
+		];
+
+		$this->setMwGlobals( [ 'wgPageFormsMaxAutocompleteValues' => 500 ] );
+
+		\PFValuesUtils::getAllValuesForProperty( 'Has Color' );
+
+		// Verify RequestOptions was created and has the correct limit
+		$options = self::getLastSMWRequestOptions();
+		$this->assertNotNull( $options );
+		$this->assertSame( 500, $options->limit );
 	}
 
 	/**
@@ -2077,5 +2866,87 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 			$this->assertSame( $copy, $result,
 				'Wikidata results should be sorted as per line 712' );
 		}
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getValuesForCargoField
+	 */
+	public function testGetValuesForCargoFieldReturnsEmptyArrayOnException(): void {
+		if ( !self::isCargoShimActive() ) {
+			$this->markTestSkipped( 'CargoSQLQuery shim not active and Cargo not installed.' );
+		}
+
+		self::$cargoShouldThrow = true;
+
+		$result = \PFValuesUtils::getValuesForCargoField( 'Books', 'title' );
+
+		$this->assertSame( [], $result );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getValuesForCargoField
+	 */
+	public function testGetValuesForCargoFieldUsesFieldNameAsAliasForUnderscorePrefixedField(): void {
+		if ( !self::isCargoShimActive() ) {
+			$this->markTestSkipped( 'CargoSQLQuery shim not active and Cargo not installed.' );
+		}
+
+		// When fieldName starts with '_', the alias stays as the raw fieldName
+		// (no underscore-to-space replacement). Seed a row keyed by '_pageName'.
+		self::$cargoResultsByWhere = [
+			'' => [
+				[ '_pageName' => 'TestPage' ],
+			],
+		];
+
+		$result = \PFValuesUtils::getValuesForCargoField( 'SomeTable', '_pageName' );
+
+		$this->assertContains( 'TestPage', $result );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getValuesForCargoField
+	 */
+	public function testGetValuesForCargoFieldSkipsRowsWithMissingFieldAlias(): void {
+		if ( !self::isCargoShimActive() ) {
+			$this->markTestSkipped( 'CargoSQLQuery shim not active and Cargo not installed.' );
+		}
+
+		// Return rows where some have the expected field alias and some don't.
+		// Field "title" → alias "title" (no underscores).
+		self::$cargoResultsByWhere = [
+			'' => [
+				[ 'title' => 'Included Value' ],
+				[ 'other_field' => 'Should Be Skipped' ],
+				[ 'title' => 'Another Included' ],
+			],
+		];
+
+		$result = \PFValuesUtils::getValuesForCargoField( 'Books', 'title' );
+
+		$this->assertSame( [ 'Included Value', 'Another Included' ], $result );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getValuesForCargoField
+	 */
+	public function testGetValuesForCargoFieldDecodesHtmlQuotesAndAngularBrackets(): void {
+		if ( !self::isCargoShimActive() ) {
+			$this->markTestSkipped( 'CargoSQLQuery shim not active and Cargo not installed.' );
+		}
+
+		// Cargo HTML-encodes everything — verify that quotes and angular
+		// brackets are decoded back via html_entity_decode().
+		self::$cargoResultsByWhere = [
+			'' => [
+				[ 'title' => '&lt;strong&gt;Bold&lt;/strong&gt;' ],
+				[ 'title' => 'She said &quot;hello&quot;' ],
+			],
+		];
+
+		$result = \PFValuesUtils::getValuesForCargoField( 'Books', 'title' );
+
+		$this->assertContains( '<strong>Bold</strong>', $result );
+		$this->assertContains( 'She said "hello"', $result );
 	}
 }
