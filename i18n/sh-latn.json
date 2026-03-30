@@ -10,7 +10,7 @@
 	"apihelp-pfautocomplete-summary": "Automatsko dovršavanje koje koristi dodatak \"Stranični obrasci\".",
 	"createproperty": "Pravljenje svojstva",
 	"pf-createproperty-with-name": "Pravljenje svojstva: $1",
-	"pf_createproperty_allowedvalsinput": "Ako želite da bude dozvoljeno samo za određene vrijednosti, unesite spisak dozvoljenih vrijednosti, odvojenih zarezima (ako vrijednost sadrži zarez, onda pišite zarez kao \"\\,\"):",
+	"pf_createproperty_allowedvalsinput": "Ako želite da bude dopušteno samo za određene vrijednosti, unesite listu dopuštenih vrijednosti, odvojenih zarezima (ako vrijednost sadrži zarez, onda pišite zarez kao \"\\,\"):",
 	"pf_createproperty_propname": "Naziv svojstva:",
 	"pf_createproperty_proptype": "Vrsta:",
 	"pf_createproperty_editsummary": "Napravljeno svojstvo vrste $1",
