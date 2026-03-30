@@ -9,8 +9,10 @@
  */
 
 use MediaWiki\EditPage\EditPage;
+use MediaWiki\Exception\PermissionsError;
 use MediaWiki\Extension\ConfirmEdit\Hooks;
 use MediaWiki\Html\Html;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 
 /**
@@ -52,6 +54,19 @@ class PFFormEdit extends UnlistedSpecialPage {
 			$destFile = $req->getText( 'wpDestFile' );
 			$targetTitle = Title::makeTitleSafe( NS_FILE, $destFile );
 			$this->mTarget = $targetTitle->getFullText();
+		}
+
+		if ( $this->mTarget !== '' ) {
+			$userCanRead = MediaWikiServices::getInstance()
+				->getPermissionManager()
+				->userCan(
+					'read',
+					$this->getUser(),
+					Title::newFromText( $this->mTarget )
+				);
+			if ( !$userCanRead ) {
+				throw new PermissionsError( 'read' );
+			}
 		}
 
 		$alt_forms = $req->getArray( 'alt_form' );
