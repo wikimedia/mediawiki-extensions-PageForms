@@ -3,7 +3,8 @@
 		"authors": [
 			"Anakmalaysia",
 			"CyberTroopers",
-			"DannyS712"
+			"DannyS712",
+			"Tofeiku"
 		]
 	},
 	"pageforms-desc": "Borang untuk menambahkan dan menyunting data semantik",
@@ -13,7 +14,7 @@
 	"pf_createproperty_proptype": "Jenis:",
 	"templates": "Templat",
 	"pf_createtemplate_connectingproperty": "Nama sifat untuk menyambungkan medan-medan templat ini dengan seluruh halaman:",
-	"pf_createtemplate_deletefield": "Hapuskan",
+	"pf_createtemplate_deletefield": "Hapuskan medan ini",
 	"forms": "Borang",
 	"pf_createform_template": "Templat:",
 	"pf_createform_inputtype": "Jenis input:",
