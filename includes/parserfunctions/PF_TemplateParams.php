@@ -9,23 +9,16 @@
 class PFTemplateParams {
 
 	public static function run( Parser $parser ) {
-		global $wgRenderHashAppend, $wgLang;
-
 		$title = $parser->getTitle();
 		if ( $title->getNamespace() !== NS_TEMPLATE ) {
 			return '<div class="error">Error: #template_params can only be called within a template.</div>';
 		}
 
-		// In theory, this will set a separate cache for each user
+		// This will set a separate cache for each user
 		// language - so that a user viewing the output of
 		// #template_params in one language won't affect the display
 		// for a user viewing it in another language.
-		// In practice, setting this variable to *any* value seems to
-		// just disable the cache entirely. That's probably alright,
-		// though - template pages don't get viewed that frequently,
-		// so disabling the cache for them probably will not have a
-		// big effect on performance.
-		$wgRenderHashAppend = ';lang=' . $wgLang->getCode();
+		$parser->getOptions()->getUserLangObj();
 
 		$params = func_get_args();
 		// We don't need the parser.
