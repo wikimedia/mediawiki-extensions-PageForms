@@ -56,9 +56,6 @@
 		this.setInputAttribute('mappingproperty', element.attr('mappingproperty'));
 		this.setInputAttribute('mappingtemplate', element.attr('mappingtemplate'));
 
-		// Initialize values in the combobox
-		this.setValues();
-
 		if (this.config.autocompletesettings == 'external data') {
 			// this is especially set for dependent on settings
 			// when the source field has external data autocompletion
