@@ -12,6 +12,17 @@ use MediaWiki\MediaWikiServices;
  */
 
 class PFHelperFormAction extends Action {
+	/** @var callable|null */
+	private static $helperPageFactory = null;
+
+	/**
+	 * Allows tests to override helper page construction.
+	 *
+	 * @param callable|null $factory
+	 */
+	public static function setHelperPageFactory( ?callable $factory ): void {
+		self::$helperPageFactory = $factory;
+	}
 
 	/**
 	 * Return the name of the action this object responds to
@@ -135,19 +146,31 @@ class PFHelperFormAction extends Action {
 	private static function displayForm( $article ) {
 		$title = $article->getTitle();
 		if ( defined( 'SMW_NS_PROPERTY' ) && $title->getNamespace() == SMW_NS_PROPERTY ) {
-			$createPropertyPage = new PFCreateProperty();
+			$createPropertyPage = self::newHelperPage( PFCreateProperty::class );
 			$createPropertyPage->execute( $title->getText() );
 		} elseif ( $title->getNamespace() == NS_TEMPLATE ) {
-			$createTemplatePage = new PFCreateTemplate();
+			$createTemplatePage = self::newHelperPage( PFCreateTemplate::class );
 			$createTemplatePage->execute( $title->getText() );
 		} elseif ( $title->getNamespace() == PF_NS_FORM ) {
-			$createFormPage = new PFCreateForm();
+			$createFormPage = self::newHelperPage( PFCreateForm::class );
 			$createFormPage->execute( $title->getText() );
 		} elseif ( $title->getNamespace() == NS_CATEGORY ) {
-			$createCategoryPage = new PFCreateCategory();
+			$createCategoryPage = self::newHelperPage( PFCreateCategory::class );
 			$createCategoryPage->execute( $title->getText() );
 		}
 
 		return false;
+	}
+
+	/**
+	 * @param string $className
+	 * @return PFCreateProperty|PFCreateTemplate|PFCreateForm|PFCreateCategory
+	 */
+	private static function newHelperPage( string $className ) {
+		if ( self::$helperPageFactory !== null ) {
+			return call_user_func( self::$helperPageFactory, $className );
+		}
+
+		return new $className();
 	}
 }
