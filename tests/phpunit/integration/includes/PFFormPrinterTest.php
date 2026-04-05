@@ -105,17 +105,20 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	 * @dataProvider pageSectionDataProvider
 	 */
 	public function testPageSectionsWithoutExistingPages( $setup, $expected ) {
-		global $wgPageFormsFormPrinter, $wgOut;
+		global $wgPageFormsFormPrinter;
 		static $cachedTestUser = null;
 
 		if ( $cachedTestUser === null ) {
 			$cachedTestUser = self::getTestUser()->getUser();
 		}
 
-		$wgOut->getContext()->setTitle( $this->getTitle() );
+		$context = RequestContext::getMain();
+		$context->setTitle( $this->getTitle() );
+		$context->setUser( $cachedTestUser );
 
 		[ $form_text, $page_text, $form_page_title, $generated_page_name ] =
 			$wgPageFormsFormPrinter->formHTML(
+				$context,
 				$form_def = $setup['form_definition'],
 				$form_submitted = true,
 				$source_is_page = false,
@@ -124,8 +127,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 				$page_name = 'TestStringForFormPageTitle',
 				$page_name_formula = null,
 				\PFFormPrinter::CONTEXT_REGULAR,
-				$autocreate_query = [],
-				$user = $cachedTestUser
+				$autocreate_query = []
 			);
 
 		$this->assertStringContainsString(
@@ -145,29 +147,26 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	 * @dataProvider formHTMLDataProvider
 	 */
 	public function testFormHTML( $setup, $expected ) {
-		global $wgPageFormsFormPrinter, $wgOut;
-		global $wgRequest, $wgPageFormsShowExpandAllLink, $wgTitle;
+		global $wgPageFormsFormPrinter;
+		global $wgPageFormsShowExpandAllLink, $wgTitle;
 		static $cachedTestUser = null;
 
 		if ( $cachedTestUser === null ) {
 			$cachedTestUser = self::getTestUser()->getUser();
 		}
 
-		$wgOut->getContext()->setTitle( $this->getTitle() );
+		$context = RequestContext::getMain();
+		$context->setTitle( $this->getTitle() );
+		$context->setUser( $cachedTestUser );
 		$wgTitle = Title::newFromText( 'PFFormPrinterTestTitle' );
 
 		$wgPageFormsShowExpandAllLink = $setup['show_expand_all'] ?? false;
 
 		$requestValues = $setup['request_values'] ?? [];
-		$request = new FauxRequest( $requestValues, true );
-		$wgRequest = $request;
-		\RequestContext::getMain()->setRequest( $request );
+		$context->setRequest( new FauxRequest( $requestValues, true ) );
 
-		if ( array_key_exists( 'context_user', $setup ) ) {
-			$contextUser = $setup['context_user'] === 'test_user'
-				? $cachedTestUser
-				: $setup['context_user'];
-			\RequestContext::getMain()->setUser( $contextUser );
+		if ( array_key_exists( 'user', $setup ) ) {
+			$context->setUser( $setup['user'] );
 		}
 
 		if ( array_key_exists( 'user_can_edit_override', $setup ) ) {
@@ -223,10 +222,10 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$page_name_formula = $setup['page_name_formula'] ?? null;
 		$form_context = $setup['form_context'] ?? \PFFormPrinter::CONTEXT_REGULAR;
 		$autocreate_query = $setup['autocreate_query'] ?? [];
-		$user = array_key_exists( 'user', $setup ) ? $setup['user'] : $cachedTestUser;
 
 		[ $form_text, $page_text, $form_page_title, $generated_page_name ] =
 			$wgPageFormsFormPrinter->formHTML(
+				$context,
 				$form_def = $setup['form_definition'],
 				$form_submitted,
 				$page_exists,
@@ -236,7 +235,6 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 				$page_name_formula,
 				$form_context,
 				$autocreate_query,
-				$user
 			);
 
 		if ( isset( $setup['expected_exception'] ) ) {
@@ -432,7 +430,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		$pfFormPrinter->mPageTitle = $mockTitle;
 
-		$mockContext = $this->getMockBuilder( RequestContext::class )
+		$mockContext = $this->getMockBuilder( \RequestContext::class )
 			->disableOriginalConstructor()
 			->getMock();
 		$mockContext->method( 'getTitle' )
@@ -512,7 +510,8 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			->willReturn( [] );
 
 		$cur_value = 'testValue';
-		$result = $pfFormPrinter->formFieldHTML( $mockFormField, $cur_value );
+		$out = \RequestContext::getMain()->getOutput();
+		$result = $pfFormPrinter->formFieldHTML( $out, $mockFormField, $cur_value );
 
 		$this->assertStringContainsString( '<input', $result, 'asserts that formFieldHTML() returns the correct HTML for a text input' );
 		$this->assertStringContainsString( 'name="testField"', $result, 'asserts that formFieldHTML() includes the correct input name' );
@@ -544,7 +543,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		$hiddenValue = 'hiddenValue';
 
-		$hiddenResult = $pfFormPrinter->formFieldHTML( $hiddenFormField, $hiddenValue );
+		$hiddenResult = $pfFormPrinter->formFieldHTML( $out, $hiddenFormField, $hiddenValue );
 
 		$this->assertStringContainsString( 'type="hidden"', $hiddenResult, 'asserts that formFieldHTML() returns a hidden input when the field is hidden' );
 		$this->assertStringContainsString( 'name="hiddenField"', $hiddenResult, 'asserts that formFieldHTML() uses the correct name for hidden inputs' );
@@ -580,7 +579,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$pfFormPrinter->setCargoTypeHook( 'TestCargoType', false, 'PFTextInput', [] );
 
 		$cargoValue = 'cargoValue';
-		$cargoResult = $pfFormPrinter->formFieldHTML( $cargoFormField, $cargoValue );
+		$cargoResult = $pfFormPrinter->formFieldHTML( $out, $cargoFormField, $cargoValue );
 
 		$this->assertStringContainsString( '<input', $cargoResult, 'asserts that formFieldHTML() returns HTML when using a cargo-based mapping' );
 		$this->assertStringContainsString( 'name="cargoField"', $cargoResult, 'asserts that formFieldHTML() uses the correct name for cargo-based mappings' );
@@ -614,7 +613,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$pfFormPrinter->setSemanticTypeHook( 'TestPropertyType', false, 'PFTextInput', [] );
 
 		$semanticValue = 'semanticValue';
-		$semanticResult = $pfFormPrinter->formFieldHTML( $semanticFormField, $semanticValue );
+		$semanticResult = $pfFormPrinter->formFieldHTML( $out, $semanticFormField, $semanticValue );
 
 		$this->assertStringContainsString( '<input', $semanticResult, 'asserts that formFieldHTML() returns HTML when using a semantic-type-based mapping' );
 		$this->assertStringContainsString( 'name="semanticField"', $semanticResult, 'asserts that formFieldHTML() uses the correct name for semantic-type-based mappings' );
@@ -648,7 +647,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			->willReturn( [] );
 
 		$listValue = 'listValue';
-		$listResult = $pfFormPrinter->formFieldHTML( $listFormField, $listValue );
+		$listResult = $pfFormPrinter->formFieldHTML( $out, $listFormField, $listValue );
 
 		$this->assertStringContainsString( '<input', $listResult, 'asserts that formFieldHTML() returns HTML for list inputs using the default text input' );
 		$this->assertStringContainsString( 'name="listField"', $listResult, 'asserts that formFieldHTML() uses the correct name for list inputs' );
@@ -993,8 +992,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	 * @covers \PFFormPrinter::formHTML
 	 */
 	public function testFormHTMLValueModifierPlusOperator(): void {
-		global $wgPageFormsFormPrinter, $wgOut;
-		global $wgRequest, $wgTitle;
+		global $wgPageFormsFormPrinter, $wgTitle;
 		static $cachedTestUser = null;
 
 		if ( $cachedTestUser === null ) {
@@ -1002,7 +1000,9 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		}
 
 		// Setup global context
-		$wgOut->getContext()->setTitle( $this->getTitle() );
+		$context = \RequestContext::getMain();
+		$context->setTitle( $this->getTitle() );
+		$context->setUser( $cachedTestUser );
 		$wgTitle = Title::newFromText( 'PFFormPrinterValueModifierTest' );
 
 		$this->createPage( 'Template:ModifierTest', '|ModField=' );
@@ -1015,9 +1015,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 				'ModField' => 'InitialValue'
 			]
 		];
-		$request = new FauxRequest( $requestValues, true );
-		$wgRequest = $request;
-		\RequestContext::getMain()->setRequest( $request );
+		$context->setRequest( new FauxRequest( $requestValues, true ) );
 
 		$title = Title::newFromText( 'ModifierTestPage1' );
 		$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
@@ -1025,6 +1023,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$wikiPage->doUserEditContent( $content, $cachedTestUser, 'create page for test', 0, false );
 
 		[ $formText1, $pageText1, , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			true,
 			true,
@@ -1033,8 +1032,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			'ModifierTestPage1',
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$cachedTestUser
+			[]
 		);
 
 		$this->assertStringContainsString( 'ModifierTest', $pageText1, 'Form should output template with + modifier applied' );
@@ -1042,11 +1040,10 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		// Test 2: New page (non-existent) with + modifier should render form without existing value
 		$requestValues2 = [];
-		$request2 = new FauxRequest( $requestValues2, true );
-		$wgRequest = $request2;
-		\RequestContext::getMain()->setRequest( $request2 );
+		$context->setRequest( new FauxRequest( $requestValues2, true ) );
 
 		[ $formText2, $pageText2, , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			false,
@@ -1055,8 +1052,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			null,
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$cachedTestUser
+			[]
 		);
 
 		$this->assertStringContainsString( '</form>', $formText2, 'Form should render for new page with + modifier' );
@@ -1076,8 +1072,10 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		// Test 1: Hidden free text field
 		$formDef = "{{{for template|FreeTextTest}}}\n{{{field|ContentField|input type=text}}}\n{{{end template}}}\n{{{field|#freetext#|hidden}}}";
 
-		$user = $this->getTestUser()->getUser();
+		$context = \RequestContext::getMain();
+		$context->setUser( $this->getTestUser()->getUser() );
 		[ $formText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			false,
@@ -1086,8 +1084,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			null,
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		$this->assertStringContainsString( 'pf_free_text', $formText, 'Hidden free text field should be rendered' );
@@ -1096,9 +1093,8 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		// Test 2: Visible textarea free text field
 		$formDef2 = "{{{for template|FreeTextTest}}}\n{{{field|ContentField|input type=text}}}\n{{{end template}}}\n{{{field|#freetext#}}}";
 
-		$user = $this->getTestUser()->getUser();
-
 		[ $formText2, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef2,
 			false,
 			false,
@@ -1107,8 +1103,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			null,
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		$this->assertStringContainsString( 'pf_free_text', $formText2, 'Visible free text field should be rendered' );
@@ -1127,8 +1122,10 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		$formDef = "{{{for template|StandardInputTest}}}\n{{{field|Field}}}\n{{{end template}}}\n{{{standard input|save|preview}}}";
 
-		$user = $this->getTestUser()->getUser();
+		$context = \RequestContext::getMain();
+		$context->setUser( $this->getTestUser()->getUser() );
 		[ $formText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			false,
@@ -1137,8 +1134,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			null,
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		// Standard input buttons should be rendered
@@ -1162,8 +1158,10 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			{{SectionTest|SectionField=Value}}
 			EOF;
 
-		$user = $this->getTestUser()->getUser();
+		$context = \RequestContext::getMain();
+		$context->setUser( self::getTestUser()->getUser() );
 		[ $formText, $pageText, , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			true,
@@ -1173,7 +1171,6 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
 			[],
-			$user,
 			$pageContent
 		);
 
@@ -1193,8 +1190,10 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		// Test 1: Default display mode (no special display)
 		$formDefDefault = "{{{for template|MultiTest|multiple|max instances=3}}}\n{{{field|MultiField}}}\n{{{end template}}}";
 
-		$user = $this->getTestUser()->getUser();
+		$context = \RequestContext::getMain();
+		$context->setUser( $this->getTestUser()->getUser() );
 		[ $formText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDefDefault,
 			false,
 			false,
@@ -1203,8 +1202,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			null,
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		$this->assertStringContainsString( 'multipleTemplateWrapper', $formText, 'Multiple template should render wrapper' );
@@ -1222,8 +1220,10 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		$formDef = "{{{for template|DefaultTest}}}\n{{{field|DateField|default=now}}}\n{{{field|UserField|default=current user}}}\n{{{field|UUIDField|default=uuid}}}\n{{{end template}}}";
 
-		$user = $this->getTestUser()->getUser();
+		$context = \RequestContext::getMain();
+		$context->setUser( $this->getTestUser()->getUser() );
 		[ $formText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			false,
@@ -1232,8 +1232,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			null,
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		// Form should render with default-value fields
@@ -1252,9 +1251,11 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		$formDef = "{{{for template|BottomTest}}}\n{{{field|Field}}}\n{{{end template}}}";
 
-		$user = $this->getTestUser()->getUser();
+		$context = \RequestContext::getMain();
+		$context->setUser( $this->getTestUser()->getUser() );
 		// Test regular form context
 		[ $formText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			false,
@@ -1263,14 +1264,14 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			null,
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		$this->assertStringContainsString( '</form>', $formText, 'Regular form should have closing form tag' );
 
 		// Test query form context
 		[ $queryFormText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			false,
@@ -1279,8 +1280,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			null,
 			null,
 			\PFFormPrinter::CONTEXT_QUERY,
-			[],
-			$user
+			[]
 		);
 
 		$this->assertStringContainsString( '</form>', $queryFormText, 'Query form should have closing form tag' );
@@ -1303,8 +1303,10 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		// ensure the page exists with the content so formHTML can load it
 		$this->createPage( 'ModifierPage', $pageContent );
 
-		$user = $this->getTestUser()->getUser();
+		$context = \RequestContext::getMain();
+		$context->setUser( $this->getTestUser()->getUser() );
 		[ $formText, $pageText, , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			true,
@@ -1313,8 +1315,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			'ModifierPage',
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		// Form should render successfully with modifier
@@ -1337,8 +1338,10 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$pageContent = '{{CheckboxTest|CheckboxField=Option1,Option2,Option3}}';
 		$this->createPage( 'CheckboxPage', $pageContent );
 
-		$user = $this->getTestUser()->getUser();
+		$context = \RequestContext::getMain();
+		$context->setUser( $this->getTestUser()->getUser() );
 		[ $formText, $pageText, , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			true,
@@ -1347,8 +1350,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			'CheckboxPage',
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		// Form should render checkboxes
@@ -1367,9 +1369,11 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		$formDef = "{{{for template|CargoMappingTest}}}\n{{{field|cargo_field}}}\n{{{end template}}}";
 
-		$user = $this->getTestUser()->getUser();
+		$context = \RequestContext::getMain();
+		$context->setUser( $this->getTestUser()->getUser() );
 		// Test with form not submitted (display mode)
 		[ $displayFormText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			false,
@@ -1378,14 +1382,14 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			'CargoDisplayPage',
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		$this->assertStringContainsString( '</form>', $displayFormText, 'Form should render in display mode' );
 
 		// Test with form submitted
 		[ $submittedFormText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			true,
 			false,
@@ -1394,8 +1398,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			'CargoSubmittedPage',
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		$this->assertStringContainsString( '</form>', $submittedFormText, 'Form should render in submitted mode' );
@@ -1417,8 +1420,10 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$pageContent = '{{DelimiterTest|ListField=Value1;Value2;Value3}}';
 		$this->createPage( 'DelimiterPage', $pageContent );
 
-		$user = $this->getTestUser()->getUser();
+		$context = \RequestContext::getMain();
+		$context->setUser( $this->getTestUser()->getUser() );
 		[ $formText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			true,
@@ -1427,8 +1432,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			'DelimiterPage',
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		// Form should render with delimiter-separated values
@@ -1450,8 +1454,10 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$pageContent = '{{PositionTest|Field1=Val1|Field2=Val2|Field3=Val3}}';
 		$this->createPage( 'PositionPage', $pageContent );
 
-		$user = $this->getTestUser()->getUser();
+		$context = \RequestContext::getMain();
+		$context->setUser( $this->getTestUser()->getUser() );
 		[ , $pageText, , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			true,
@@ -1460,8 +1466,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			'PositionPage',
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		// Multiple field replacements should result in proper template syntax
@@ -1480,9 +1485,11 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		$formDef = "{{{for template|BooleanCheckboxTest}}}\n{{{field|BoolField|input type=checkbox}}}\n{{{end template}}}";
 
-		$user = $this->getTestUser()->getUser();
+		$context = \RequestContext::getMain();
+		$context->setUser( $this->getTestUser()->getUser() );
 		// Test with unchecked box (no value in content)
 		[ $uncheckedForm, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			false,
@@ -1491,8 +1498,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			null,
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		$this->assertStringContainsString( 'checkbox', $uncheckedForm, 'Checkbox field should be rendered' );
@@ -1501,6 +1507,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$pageContentChecked = '{{BooleanCheckboxTest|BoolField=1}}';
 		$this->createPage( 'CheckedPage', $pageContentChecked );
 		[ $checkedForm, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			true,
@@ -1509,8 +1516,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			'CheckedPage',
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		$this->assertStringContainsString( 'checked', $checkedForm, 'Checkbox should be marked as checked when value exists' );
@@ -1528,9 +1534,11 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		$formDef = "{{{for template|TitleTest}}}\n{{{field|TitleField}}}\n{{{end template}}}";
 
-		$user = $this->getTestUser()->getUser();
+		$context = \RequestContext::getMain();
+		$context->setUser( $this->getTestUser()->getUser() );
 		// Test with non-existent page
 		[ $nonExistFormText, , $existsStatus, ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			false,
@@ -1539,8 +1547,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			null,
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		$this->assertStringContainsString( '</form>', $nonExistFormText, 'Form should render for non-existent page' );
@@ -1549,6 +1556,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$this->createPage( 'ExistingTestPage', '{{TitleTest|TitleField=Value}}' );
 
 		[ $existFormText, , $existsCheck, ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			true,
@@ -1557,8 +1565,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			'ExistingTestPage',
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		$this->assertStringContainsString( 'TitleTest', $existFormText, 'Form should render for existing page with content' );
@@ -1576,8 +1583,6 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		$formDef = "{{{section|Intro|level=2}}}\n{{{for template|SectionExtractTest}}}\n{{{field|SectionField}}}\n{{{end template}}}\n{{{section end}}}";
 
-		$user = $this->getTestUser()->getUser();
-
 		// Page with section containing template
 		$pageContent = <<<'EOF'
 			== Intro ==
@@ -1587,7 +1592,10 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			Other content
 			EOF;
 
+		$context = \RequestContext::getMain();
+		$context->setUser( $this->getTestUser()->getUser() );
 		[ , $outPageText, , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			true,
@@ -1596,8 +1604,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			'SectionExtractPage',
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		// Extracted section should include the template
@@ -1616,9 +1623,11 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		$formDef = "{{{for template|StandardInputTest}}}\n{{{field|StandardField|input type=text}}}\n{{{field|TextareaField|input type=textarea}}}\n{{{field|DropdownField|input type=dropdown}}}\n{{{end template}}}";
 
-		$user = $this->getTestUser()->getUser();
+		$context = \RequestContext::getMain();
+		$context->setUser( $this->getTestUser()->getUser() );
 
 		[ $formText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			false,
@@ -1627,8 +1636,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			null,
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		// Various input type HTML elements should be present
@@ -1652,9 +1660,11 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		// This causes the inner template to have a placeholder value
 		$formDef = "{{{for template|WrapperTemplate|multiple|embed in field=WrapperTemplate[WrapField]}}}\n{{{field|WrapField|holds template}}}\n{{{end template}}}\n{{{for template|PlaceholderTest|multiple}}}\n{{{field|PlaceField1}}}\n{{{field|PlaceField2}}}\n{{{end template}}}";
 
-		$user = $this->getTestUser()->getUser();
+		$context = \RequestContext::getMain();
+		$context->setUser( $this->getTestUser()->getUser() );
 
 		[ $formText, $pageText, , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			false,
@@ -1663,8 +1673,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			null,
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		// Form should include multiple template wrapper for placeholder management
@@ -1683,10 +1692,12 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		$formDef = "{{{for template|ContextTest}}}\n{{{field|ContextField}}}\n{{{end template}}}";
 
-		$user = $this->getTestUser()->getUser();
+		$context = \RequestContext::getMain();
+		$context->setUser( $this->getTestUser()->getUser() );
 
 		// Test CONTEXT_REGULAR
 		[ $regularFormText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			false,
@@ -1695,14 +1706,14 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			null,
 			null,
 			\PFFormPrinter::CONTEXT_REGULAR,
-			[],
-			$user
+			[]
 		);
 
 		$this->assertStringContainsString( '</form>', $regularFormText, 'Regular context should render form element' );
 
 		// Test CONTEXT_QUERY
 		[ $queryFormText, , , ] = $wgPageFormsFormPrinter->formHTML(
+			$context,
 			$formDef,
 			false,
 			false,
@@ -1711,8 +1722,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			null,
 			null,
 			\PFFormPrinter::CONTEXT_QUERY,
-			[],
-			$user
+			[]
 		);
 
 		$this->assertStringContainsString( '</form>', $queryFormText, 'Query context should render form element' );
@@ -1984,7 +1994,8 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 				[ 'field1' => 'value2', 'field2' => '2023-10-16', 'field3' => 'No' ]
 			] );
 
-		$result = $pfFormPrinter->spreadsheetHTML( $mockTemplateInForm );
+		$out = \RequestContext::getMain()->getOutput();
+		$result = $pfFormPrinter->spreadsheetHTML( $mockTemplateInForm, $out );
 
 		$this->assertStringContainsString( 'class="pfSpreadsheet"', $result, 'asserts that the correct HTML structure is returned' );
 		$this->assertStringContainsString( 'id="TestTemplateGrid"', $result, 'asserts that the correct HTML structure is returned' );
@@ -2177,11 +2188,12 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 		// Stub formFieldHTML so that we can easily assert on its output in the table
 		$pfFormPrinter->method( 'formFieldHTML' )
-			->willReturnCallback( static function ( $formField, $curValue ) {
+			->willReturnCallback( static function ( $out, $formField, $curValue ) {
 				return '<input name="' . $formField->getInputName() . '" value="' . $curValue . '">';
 			} );
 
-		$result = $pfFormPrinter->tableHTML( $mockTemplateInForm, 0 );
+		$out = \RequestContext::getMain()->getOutput();
+		$result = $pfFormPrinter->tableHTML( $out, $mockTemplateInForm, 0 );
 
 		// Outer table wrapper
 		$this->assertStringContainsString( '<table class="formtable">', $result, 'asserts that tableHTML() wraps rows in a table' );
@@ -2311,11 +2323,12 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$templateInForm->method( 'getFields' )->willReturn( [ $msgLabelField, $templateLabelField, $fallbackField ] );
 
 		$pfFormPrinter->method( 'formFieldHTML' )
-			->willReturnCallback( static function ( $formField, $curValue ) {
+			->willReturnCallback( static function ( $out, $formField, $curValue ) {
 				return '<input name="' . $formField->getInputName() . '" value="' . $curValue . '">';
 			} );
 
-		$result = $pfFormPrinter->tableHTML( $templateInForm, 42 );
+		$out = \RequestContext::getMain()->getOutput();
+		$result = $pfFormPrinter->tableHTML( $out, $templateInForm, 42 );
 
 		$this->assertStringContainsString( 'Template Label:', $result, 'asserts that tableHTML() uses the template field label when field label and label message are absent' );
 		$this->assertStringContainsString( 'fallbackField: ', $result, 'asserts that tableHTML() falls back to field name when no label sources are available' );
@@ -2333,7 +2346,8 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			->getMock();
 		$templateInForm->method( 'getFields' )->willReturn( [] );
 
-		$result = $pfFormPrinter->spreadsheetHTML( $templateInForm );
+		$out = \RequestContext::getMain()->getOutput();
+		$result = $pfFormPrinter->spreadsheetHTML( $templateInForm, $out );
 		$this->assertNull( $result, 'asserts that spreadsheetHTML() returns null when no fields are defined' );
 	}
 
@@ -2646,7 +2660,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			[
 				'form_definition' => "{{{for template|TAnon}}}\n{{{field|field1}}}\n{{{end template}}}",
 				'page_name' => '',
-				'user' => MediaWikiServices::getInstance()->getWikiPageFactory()->newFromId( 0 ),
+				'user' => MediaWikiServices::getInstance()->getUserFactory()->newAnonymous(),
 				'show_expand_all' => true
 			],
 			[
@@ -2708,8 +2722,6 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 						'mapped' => 'SomeValue'
 					]
 				],
-				'user' => null,
-				'context_user' => 'test_user'
 			],
 			[
 				'expected_form_text' => 'name="TGen[field1]"',

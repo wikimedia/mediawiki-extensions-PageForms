@@ -991,7 +991,8 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 		$this->setMwGlobals( [ 'wgTitle' => Title::newFromText( 'SomePage' ) ] );
 		$before = $wgPageFormsTabIndex;
 
-		\PFFormUtils::watchInputHTML( true, false, false );
+		$context = \RequestContext::getMain();
+		\PFFormUtils::watchInputHTML( $context, true, false, false );
 
 		$this->assertSame( $before + 1, $wgPageFormsTabIndex );
 	}
@@ -1002,7 +1003,8 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 	public function testWatchInputHTMLContainsCheckboxAndLabel(): void {
 		$this->setMwGlobals( [ 'wgTitle' => Title::newFromText( 'SomePage' ) ] );
 
-		$html = \PFFormUtils::watchInputHTML( true, false, false );
+		$context = \RequestContext::getMain();
+		$html = \PFFormUtils::watchInputHTML( $context, true, false, false );
 
 		$this->assertIsString( $html );
 		$this->assertStringContainsString( 'wpWatchthis', $html );
@@ -1016,7 +1018,8 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 	public function testWatchInputHTMLCheckedWhenFormSubmittedAndIsCheckedTrue(): void {
 		$this->setMwGlobals( [ 'wgTitle' => Title::newFromText( 'SomePage' ) ] );
 
-		$html = \PFFormUtils::watchInputHTML( true, false, true );
+		$context = \RequestContext::getMain();
+		$html = \PFFormUtils::watchInputHTML( $context, true, false, true );
 
 		$this->assertStringContainsString( 'checked', $html );
 	}
@@ -1027,7 +1030,8 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 	public function testWatchInputHTMLDisabledWhenIsDisabledTrue(): void {
 		$this->setMwGlobals( [ 'wgTitle' => Title::newFromText( 'SomePage' ) ] );
 
-		$html = \PFFormUtils::watchInputHTML( true, true, false );
+		$context = \RequestContext::getMain();
+		$html = \PFFormUtils::watchInputHTML( $context, true, true, false );
 
 		$this->assertStringContainsString( 'disabled', $html );
 	}
@@ -1038,7 +1042,8 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 	public function testWatchInputHTMLCustomLabelAppearsInOutput(): void {
 		$this->setMwGlobals( [ 'wgTitle' => Title::newFromText( 'SomePage' ) ] );
 
-		$html = \PFFormUtils::watchInputHTML( true, false, false, 'Watch this page' );
+		$context = \RequestContext::getMain();
+		$html = \PFFormUtils::watchInputHTML( $context, true, false, false, 'Watch this page' );
 
 		$this->assertStringContainsString( 'Watch this page', $html );
 	}
@@ -1049,7 +1054,8 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 	public function testWatchInputHTMLCustomClassConvertedToClasses(): void {
 		$this->setMwGlobals( [ 'wgTitle' => Title::newFromText( 'SomePage' ) ] );
 
-		$html = \PFFormUtils::watchInputHTML( true, false, false, null, [ 'class' => 'my-watch-class' ] );
+		$context = \RequestContext::getMain();
+		$html = \PFFormUtils::watchInputHTML( $context, true, false, false, null, [ 'class' => 'my-watch-class' ] );
 
 		$this->assertStringContainsString( 'my-watch-class', $html );
 	}
@@ -1063,12 +1069,13 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 	public function testWatchInputHTMLCheckedViaWatchDefaultWhenNotSubmitted(): void {
 		$this->setMwGlobals( [ 'wgTitle' => Title::newFromText( 'SomePage' ) ] );
 
+		$context = \RequestContext::getMain();
 		$user = self::getTestUser()->getUser();
 		$this->getServiceContainer()->getUserOptionsManager()
 			->setOption( $user, 'watchdefault', 1 );
-		\RequestContext::getMain()->setUser( $user );
+		$context->setUser( $user );
 
-		$html = \PFFormUtils::watchInputHTML( false, false, false );
+		$html = \PFFormUtils::watchInputHTML( $context, false, false, false );
 
 		$this->assertStringContainsString( 'checked', $html );
 	}
@@ -1084,13 +1091,14 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 		$nonExistentTitle = Title::newFromText( 'PFWatchInputTestNonExistent' . mt_rand() );
 		$this->setMwGlobals( [ 'wgTitle' => $nonExistentTitle ] );
 
+		$context = \RequestContext::getMain();
 		$user = self::getTestUser()->getUser();
 		$optionsManager = $this->getServiceContainer()->getUserOptionsManager();
 		$optionsManager->setOption( $user, 'watchdefault', 0 );
 		$optionsManager->setOption( $user, 'watchcreations', 1 );
-		\RequestContext::getMain()->setUser( $user );
+		$context->setUser( $user );
 
-		$html = \PFFormUtils::watchInputHTML( false, false, false );
+		$html = \PFFormUtils::watchInputHTML( $context, false, false, false );
 
 		$this->assertStringContainsString( 'checked', $html );
 	}
@@ -1102,15 +1110,16 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 		$title = $this->createPage( 'PFWatchedPageForFormUtils' );
 		$this->setMwGlobals( [ 'wgTitle' => $title ] );
 
+		$context = \RequestContext::getMain();
 		$user = self::getTestUser()->getUser();
 		$optionsManager = $this->getServiceContainer()->getUserOptionsManager();
 		$optionsManager->setOption( $user, 'watchdefault', 0 );
 		$optionsManager->setOption( $user, 'watchcreations', 0 );
-		\RequestContext::getMain()->setUser( $user );
+		$context->setUser( $user );
 
 		$this->getServiceContainer()->getWatchlistManager()->addWatch( $user, $title );
 
-		$html = \PFFormUtils::watchInputHTML( false, false, false );
+		$html = \PFFormUtils::watchInputHTML( $context, false, false, false );
 
 		$this->assertStringContainsString( 'checked', $html );
 	}
@@ -1121,13 +1130,12 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 	public function testFormBottomContainsEditOptionsAndEditButtonsWrappers(): void {
 		// Ensure RequestContext returns an anonymous user so watchInputHTML
 		// is not rendered (avoids WatchlistManager complications).
-		$anon = $this->getServiceContainer()->getUserFactory()->newAnonymous();
-		\RequestContext::getMain()->setUser( $anon );
+		$context = \RequestContext::getMain();
+		$context->setUser( $this->getServiceContainer()->getUserFactory()->newAnonymous() );
 		// Use a FauxRequest with no wpSummary so we test the null path.
-		$request = new FauxRequest( [], false );
-		\RequestContext::getMain()->setRequest( $request );
+		$context->setRequest( new FauxRequest( [], false ) );
 
-		$result = \PFFormUtils::formBottom( false, false );
+		$result = \PFFormUtils::formBottom( $context, false, false );
 
 		$this->assertIsString( $result );
 		$this->assertStringContainsString( 'editOptions', $result );
@@ -1138,12 +1146,11 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 	 * @covers \PFFormUtils::formBottom
 	 */
 	public function testFormBottomWithSummaryValueIncludesItInOutput(): void {
-		$anon = $this->getServiceContainer()->getUserFactory()->newAnonymous();
-		\RequestContext::getMain()->setUser( $anon );
-		$request = new FauxRequest( [ 'wpSummary' => 'My edit summary' ], false );
-		\RequestContext::getMain()->setRequest( $request );
+		$context = \RequestContext::getMain();
+		$context->setUser( $this->getServiceContainer()->getUserFactory()->newAnonymous() );
+		$context->setRequest( new FauxRequest( [ 'wpSummary' => 'My edit summary' ], false ) );
 
-		$result = \PFFormUtils::formBottom( false, false );
+		$result = \PFFormUtils::formBottom( $context, false, false );
 
 		$this->assertStringContainsString( 'My edit summary', $result );
 	}
@@ -1152,14 +1159,13 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 	 * @covers \PFFormUtils::formBottom
 	 */
 	public function testFormBottomIncludesMinorEditAndWatchForRegisteredUser(): void {
-		$user = self::getTestUser()->getUser();
-		\RequestContext::getMain()->setUser( $user );
-		$request = new FauxRequest( [], false );
-		\RequestContext::getMain()->setRequest( $request );
+		$context = \RequestContext::getMain();
+		$context->setUser( self::getTestUser()->getUser() );
+		$context->setRequest( new FauxRequest( [], false ) );
 		// watchInputHTML reads $wgTitle
 		$this->setMwGlobals( [ 'wgTitle' => Title::newFromText( 'SomePage' ) ] );
 
-		$result = \PFFormUtils::formBottom( false, false );
+		$result = \PFFormUtils::formBottom( $context, false, false );
 
 		$this->assertStringContainsString( 'wpMinoredit', $result );
 		$this->assertStringContainsString( 'wpWatchthis', $result );

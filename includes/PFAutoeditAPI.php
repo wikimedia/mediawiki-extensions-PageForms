@@ -314,7 +314,6 @@ class PFAutoeditAPI extends ApiBase {
 	}
 
 	protected function setupEditPage( $targetContent ) {
-		global $wgRequest;
 		// Find existing target article if it exists, or create a new one.
 		$targetTitle = Title::newFromText( $this->mOptions['target'] );
 
@@ -344,12 +343,12 @@ class PFAutoeditAPI extends ApiBase {
 		);
 
 		// Checks if the "Watch this page" checkbox is checked
-		if ( $wgRequest->getCheck( 'wpWatchthis' ) ) {
+		if ( $this->getRequest()->getCheck( 'wpWatchthis' ) ) {
 			$data[ 'wpWatchthis' ] = true;
 		}
 
 		// Checks if the "Minor edit" checkbox is checked
-		if ( $wgRequest->getCheck( 'wpMinoredit' ) ) {
+		if ( $this->getRequest()->getCheck( 'wpMinoredit' ) ) {
 			$data[ 'wpMinoredit' ] = true;
 		}
 
@@ -368,7 +367,7 @@ class PFAutoeditAPI extends ApiBase {
 	}
 
 	/**
-	 * Sets the output HTML of wgOut as the module's result
+	 * Sets the output HTML as the module's result
 	 */
 	protected function setResultFromOutput() {
 		// turn on output buffering
@@ -471,6 +470,7 @@ class PFAutoeditAPI extends ApiBase {
 
 		$request = $editor->pfFauxRequest;
 		if ( $this->tokenOk( $request ) ) {
+			// TODO Use $this->getContext() here?
 			$ctx = RequestContext::getMain();
 			$tempTitle = $ctx->getTitle();
 			// We add an @ before the setTitle() calls to silence
@@ -886,7 +886,7 @@ class PFAutoeditAPI extends ApiBase {
 	 * @throws MWException
 	 */
 	public function doAction() {
-		global $wgRequest, $wgPageFormsFormPrinter;
+		global $wgPageFormsFormPrinter;
 
 		// If the wiki is read-only, do not save.
 		if ( MediaWikiServices::getInstance()->getReadOnlyMode()->isReadOnly() ) {
@@ -935,9 +935,6 @@ class PFAutoeditAPI extends ApiBase {
 		}
 
 		$preloadContent = '';
-
-		// save $wgRequest for later restoration
-		$oldRequest = $wgRequest;
 		$pageExists = false;
 
 		if ( $targetTitle !== null && $targetTitle->exists() ) {
@@ -970,9 +967,10 @@ class PFAutoeditAPI extends ApiBase {
 		$formContext = $this->mIsAutoEdit ? PFFormPrinter::CONTEXT_AUTOEDIT : PFFormPrinter::CONTEXT_REGULAR;
 
 		if ( $preloadContent !== '' ) {
-			// Spoof $wgRequest for PFFormPrinter::formHTML().
-			$session = RequestContext::getMain()->getRequest()->getSession();
-			$wgRequest = new FauxRequest( $this->mOptions, true, $session );
+			// Spoof request for PFFormPrinter::formHTML().
+			$context = new DerivativeContext( $this->getContext() );
+			$session = $this->getRequest()->getSession();
+			$context->setRequest( new FauxRequest( $this->mOptions, true, $session ) );
 			// Call PFFormPrinter::formHTML() to get at the form
 			// HTML of the existing page.
 			[ $formHTML, $targetContent, $form_page_title, $generatedTargetNameFormula ] =
@@ -981,7 +979,7 @@ class PFAutoeditAPI extends ApiBase {
 					// otherwise, multi-instance templates
 					// don't get saved, for some convoluted
 					// reason.
-					$formContent, ( $isFormSubmitted && !$this->mIsAutoEdit ), $pageExists,
+					$context, $formContent, ( $isFormSubmitted && !$this->mIsAutoEdit ), $pageExists,
 					$formArticleId, $preloadContent, $targetName, $targetNameFormula,
 					$formContext, $autocreate_query = [], $this->getUser()
 				);
@@ -1008,17 +1006,16 @@ class PFAutoeditAPI extends ApiBase {
 		// Get wikitext for submitted data and form - call formHTML(),
 		// if we haven't called it already.
 		if ( $preloadContent == '' ) {
-			// Spoof $wgRequest for PFFormPrinter::formHTML().
-			$session = RequestContext::getMain()->getRequest()->getSession();
-			$wgRequest = new FauxRequest( $this->mOptions, true, $session );
+			// Spoof request for PFFormPrinter::formHTML().
+			$context = new DerivativeContext( $this->getContext() );
+			$session = $this->getRequest()->getSession();
+			$context->setRequest( new FauxRequest( $this->mOptions, true, $session ) );
 			[ $formHTML, $targetContent, $generatedFormName, $generatedTargetNameFormula ] =
 				$wgPageFormsFormPrinter->formHTML(
-					$formContent, $isFormSubmitted, $pageExists,
+					$context, $formContent, $isFormSubmitted, $pageExists,
 					$formArticleId, $preloadContent, $targetName, $targetNameFormula,
-					$formContext, $autocreate_query = [], $this->getUser()
+					$formContext, $autocreate_query = []
 				);
-			// Restore original request.
-			$wgRequest = $oldRequest;
 		} else {
 			$generatedFormName = $form_page_title;
 		}

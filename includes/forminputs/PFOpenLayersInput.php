@@ -5,6 +5,7 @@
  */
 
 use MediaWiki\Html\Html;
+use MediaWiki\Output\OutputPage;
 
 /**
  * @ingroup PFFormInput
@@ -134,12 +135,10 @@ class PFOpenLayersInput extends PFFormInput {
 		return $text;
 	}
 
-	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
-		global $wgOut;
-
+	public static function getHTML( OutputPage $out, $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
 		if ( ExtensionRegistry::getInstance()->isLoaded( 'OpenLayers' ) ) {
-			$wgOut->addModuleStyles( 'ext.openlayers.main' );
-			$wgOut->addModules( 'ext.openlayers.main' );
+			$out->addModuleStyles( 'ext.openlayers.main' );
+			$out->addModules( 'ext.openlayers.main' );
 		} else {
 			$scripts = [
 				"https://openlayers.org/api/OpenLayers.js"
@@ -148,10 +147,10 @@ class PFOpenLayersInput extends PFFormInput {
 			foreach ( $scripts as $script ) {
 				$scriptsHTML .= Html::linkedScript( $script );
 			}
-			$wgOut->addHeadItem( $scriptsHTML, $scriptsHTML );
+			$out->addHeadItem( $scriptsHTML, $scriptsHTML );
 		}
 
-		$wgOut->addModules( 'ext.pageforms.maps' );
+		$out->addModules( 'ext.pageforms.maps' );
 
 		$height = self::getHeight( $other_args );
 		$width = self::getWidth( $other_args );
@@ -183,6 +182,7 @@ class PFOpenLayersInput extends PFFormInput {
 	 */
 	public function getHtmlText(): string {
 		return self::getHTML(
+			$this->mOut,
 			$this->mCurrentValue,
 			$this->mInputName,
 			$this->mIsMandatory,

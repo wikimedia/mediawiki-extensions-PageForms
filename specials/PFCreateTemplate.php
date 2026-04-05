@@ -369,7 +369,7 @@ END;
 			$pfTemplate->setFormat( $template_format );
 			$full_text = $pfTemplate->createText();
 
-			$text = PFUtils::printRedirectForm( $title, $full_text, "", $save_page, $this->getUser() );
+			$text = PFUtils::printRedirectForm( $title, $full_text, "", $save_page, $this->getUser(), $out );
 			$out->addHTML( $text );
 			return;
 		}

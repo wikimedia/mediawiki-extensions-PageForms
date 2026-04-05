@@ -5,6 +5,8 @@
  * @ingroup PF
  */
 
+use MediaWiki\Request\WebRequest;
+
 /**
  * Represents a single template call within a wiki page.
  */
@@ -40,9 +42,7 @@ class PFWikiPageTemplate {
 		$this->addParam( $paramName, $value );
 	}
 
-	function addUnhandledParams() {
-		global $wgRequest;
-
+	function addUnhandledParams( WebRequest $request ) {
 		if ( !$this->mAddUnhandledParams ) {
 			return;
 		}
@@ -50,7 +50,7 @@ class PFWikiPageTemplate {
 		$templateName = str_replace( ' ', '_', $this->mName );
 		$prefix = '_unhandled_' . $templateName . '_';
 		$prefixSize = strlen( $prefix );
-		foreach ( $wgRequest->getValues() as $key => $value ) {
+		foreach ( $request->getValues() as $key => $value ) {
 			if ( strpos( $key, $prefix ) === 0 ) {
 				$paramName = urldecode( substr( $key, $prefixSize ) );
 				$this->addUnhandledParam( $paramName, $value );

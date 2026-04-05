@@ -1,4 +1,7 @@
 <?php
+
+use MediaWiki\Request\WebRequest;
+
 /**
  * Represents a template in a user-defined form.
  * @author Yaron Koren
@@ -308,9 +311,7 @@ class PFTemplateInForm {
 		}
 	}
 
-	function setFieldValuesFromSubmit() {
-		global $wgRequest;
-
+	function setFieldValuesFromSubmit( WebRequest $request ) {
 		// Reset values for every new instance, if this is a
 		// multiple-instance template.
 		if ( $this->mInstanceNum > 0 ) {
@@ -325,7 +326,7 @@ class PFTemplateInForm {
 		//  (Or don't.)
 		// $query_template_name = str_replace( "'", "\'", $query_template_name );
 
-		$allValuesFromSubmit = $wgRequest->getArray( $query_template_name );
+		$allValuesFromSubmit = $request->getArray( $query_template_name );
 		if ( $allValuesFromSubmit === null ) {
 			return;
 		}
@@ -333,7 +334,7 @@ class PFTemplateInForm {
 		// this instance of the template.
 		if ( $this->mAllowMultiple ) {
 			// If this data came from a spreadsheet, unescape some characters.
-			$spreadsheetTemplates = $wgRequest->getArray( 'spreadsheet_templates' );
+			$spreadsheetTemplates = $request->getArray( 'spreadsheet_templates' );
 			if ( is_array( $spreadsheetTemplates ) && array_key_exists( $query_template_name, $spreadsheetTemplates ) ) {
 				foreach ( $allValuesFromSubmit as &$rowValues ) {
 					foreach ( $rowValues as &$curValue ) {

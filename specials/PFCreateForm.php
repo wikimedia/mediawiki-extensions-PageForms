@@ -266,7 +266,7 @@ class PFCreateForm extends SpecialPage {
 				$out->setArticleBodyOnly( true );
 				$title = Title::makeTitleSafe( PF_NS_FORM, $form->getFormName() );
 				$full_text = $form->createMarkup();
-				$text = PFUtils::printRedirectForm( $title, $full_text, "", $save_page, $this->getUser() );
+				$text = PFUtils::printRedirectForm( $title, $full_text, "", $save_page, $this->getUser(), $out );
 				$out->addHTML( $text );
 				return;
 			}

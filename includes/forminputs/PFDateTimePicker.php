@@ -9,6 +9,7 @@
  */
 
 use MediaWiki\Html\Html;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Widget\DateTimeInputWidget;
 
 class PFDateTimePicker extends PFFormInput {
@@ -18,6 +19,7 @@ class PFDateTimePicker extends PFFormInput {
 	}
 
 	/**
+	 * @param OutputPage $out The output page this input will b added to.
 	 * @param string $input_number The number of the input in the form.
 	 * @param string $cur_value The current value of the input field.
 	 * @param string $input_name The name of the input.
@@ -25,12 +27,12 @@ class PFDateTimePicker extends PFFormInput {
 	 * @param array $other_args An associative array of other parameters that were present in the
 	 *  input definition.
 	 */
-	public function __construct( $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
+	public function __construct( OutputPage $out, $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
 		if ( $cur_value != '' ) {
 			[ $year, $month, $day, $time ] = PFDateInput::parseDate( $cur_value, true );
 			$cur_value = sprintf( '%04d-%02d-%02dT%sZ', $year, $month, $day, $time );
 		}
-		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
+		parent::__construct( $out, $input_number, $cur_value, $input_name, $disabled, $other_args );
 	}
 
 	/**

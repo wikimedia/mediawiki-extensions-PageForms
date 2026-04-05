@@ -5,6 +5,8 @@
  * @ingroup PF
  */
 
+use MediaWiki\Request\WebRequest;
+
 /**
  * Represents the structured contents of a wiki page.
  */
@@ -13,6 +15,11 @@ class PFWikiPage {
 	private $mEmbeddedTemplateDefs = [];
 	private $mEmbeddedTemplateCalls = [];
 	private $mFreeTextOnlyInclude = false;
+	private $mRequest;
+
+	function __construct( WebRequest $request ) {
+		$this->mRequest = $request;
+	}
 
 	function addTemplate( $templateInForm ) {
 		$templateName = $templateInForm->getTemplateName();
@@ -95,7 +102,7 @@ class PFWikiPage {
 
 	function createTemplateCall( $template ) {
 		$lastNumericParam = 0;
-		$template->addUnhandledParams();
+		$template->addUnhandledParams( $this->mRequest );
 
 		$templateCall = '{{' . $template->getName();
 		foreach ( $template->getParams() as $templateParam ) {

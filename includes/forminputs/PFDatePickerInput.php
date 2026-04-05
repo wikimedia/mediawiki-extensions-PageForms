@@ -9,6 +9,7 @@
  */
 
 use MediaWiki\Html\Html;
+use MediaWiki\Output\OutputPage;
 
 class PFDatePickerInput extends PFFormInput {
 
@@ -17,6 +18,7 @@ class PFDatePickerInput extends PFFormInput {
 	}
 
 	/**
+	 * @param OutputPage $out The output page this input will be added to.
 	 * @param string $input_number The number of the input in the form.
 	 * @param string $cur_value The current value of the input field.
 	 * @param string $input_name The name of the input.
@@ -24,7 +26,7 @@ class PFDatePickerInput extends PFFormInput {
 	 * @param array $other_args An associative array of other parameters that were present in the
 	 *  input definition.
 	 */
-	public function __construct( $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
+	public function __construct( OutputPage $out, $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
 		if ( $cur_value != '' ) {
 			[ $year, $month, $day ] = PFDateInput::parseDate( $cur_value );
 			if ( !$month ) {
@@ -38,7 +40,7 @@ class PFDatePickerInput extends PFFormInput {
 			}
 		}
 
-		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
+		parent::__construct( $out, $input_number, $cur_value, $input_name, $disabled, $other_args );
 	}
 
 	/**

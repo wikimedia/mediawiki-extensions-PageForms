@@ -14,8 +14,8 @@ class PFTextWithAutocompleteInput extends PFTextInput {
 		return 'text with autocomplete';
 	}
 
-	public function __construct( $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
-		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
+	public function __construct( OutputPage $out, $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
+		parent::__construct( $out, $input_number, $cur_value, $input_name, $disabled, $other_args );
 		$isList = ( array_key_exists( 'is_list', $other_args ) && $other_args['is_list'] == true );
 		if ( $isList ) {
 			self::$alias = 'PFTokensInput';

@@ -16,6 +16,7 @@
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Title\Title;
 
 class PFFormPrinter {
@@ -467,7 +468,7 @@ END;
 		return $text;
 	}
 
-	function tableHTML( $tif, $instanceNum ) {
+	function tableHTML( OutputPage $out, $tif, $instanceNum ) {
 		global $wgPageFormsFieldNum;
 
 		$allGridValues = $tif->getGridValues();
@@ -534,7 +535,7 @@ END;
 			}
 
 			$labelCell = Html::rawElement( 'th', $labelCellAttrs, $label );
-			$inputHTML = $this->formFieldHTML( $formField, $curValue );
+			$inputHTML = $this->formFieldHTML( $out, $formField, $curValue );
 			$inputHTML .= $formField->additionalHTMLForInput( $curValue, $fieldName, $tif->getTemplateName() );
 			$inputCell = Html::rawElement( 'td', null, $inputHTML );
 			$html .= Html::rawElement( 'tr', null, $labelCell . $inputCell ) . "\n";
@@ -567,15 +568,15 @@ END;
 		}
 	}
 
-	function spreadsheetHTML( $tif ) {
-		global $wgOut, $wgPageFormsGridValues, $wgPageFormsGridParams;
+	function spreadsheetHTML( $tif, OutputPage $out ) {
+		global $wgPageFormsGridValues, $wgPageFormsGridParams;
 		global $wgPageFormsScriptPath;
 
 		if ( empty( $tif->getFields() ) ) {
 			return;
 		}
 
-		$wgOut->addModules( 'ext.pageforms.spreadsheet' );
+		$out->addModules( 'ext.pageforms.spreadsheet' );
 
 		$gridParams = [];
 		foreach ( $tif->getFields() as $formField ) {
@@ -842,6 +843,7 @@ END;
 	 *
 	 * It also does some related tasks, like figuring out the page name (if
 	 * only a page formula exists).
+	 * @param IContextSource $context The context -- user, request, output page
 	 * @param string $form_def
 	 * @param bool $form_submitted
 	 * @param bool $page_exists
@@ -851,12 +853,12 @@ END;
 	 * @param string|null $page_name_formula
 	 * @param int $form_context
 	 * @param array $autocreate_query query parameters from #formredlink
-	 * @param User|null $user
 	 * @return array
 	 * @throws FatalError
 	 * @throws MWException
 	 */
 	function formHTML(
+		IContextSource $context,
 		$form_def,
 		$form_submitted,
 		$page_exists,
@@ -865,18 +867,19 @@ END;
 		$page_name = null,
 		$page_name_formula = null,
 		$form_context = self::CONTEXT_REGULAR,
-		$autocreate_query = [],
-		$user = null
+		$autocreate_query = []
 	) {
-		global $wgRequest;
 		// used to represent the current tab index in the form
 		global $wgPageFormsTabIndex;
 		// used for setting various HTML IDs
 		global $wgPageFormsFieldNum;
 		global $wgPageFormsShowExpandAllLink;
 
-		// Initialize some variables.
-		$wiki_page = new PFWikiPage();
+		// Initialize some variables,
+		$request = $context->getRequest();
+		$out = $context->getOutput();
+		$user = $context->getUser();
+		$wiki_page = new PFWikiPage( $request );
 		$source_is_page = $page_exists || $existing_page_content != null;
 		$wgPageFormsTabIndex = 0;
 		$wgPageFormsFieldNum = 0;
@@ -907,23 +910,18 @@ END;
 			$this->mPageTitle = $wgTitle;
 		} elseif ( $page_name === '' || $page_name === null ) {
 			$this->mPageTitle = Title::newFromText(
-				$wgRequest->getVal( 'namespace' ) . ":Page Forms permissions test" );
+				$request->getVal( 'namespace' ) . ":Page Forms permissions test" );
 		} else {
 			$this->mPageTitle = Title::newFromText( $page_name );
 		}
 
-		if ( $user === null ) {
-			$user = RequestContext::getMain()->getUser();
-		}
-
-		global $wgOut;
 		// Show previous set of deletions for this page, if it's been
 		// deleted before.
 		if ( !$form_submitted &&
 			( $this->mPageTitle && !$this->mPageTitle->exists() &&
 			$page_name_formula === null )
 		) {
-			$this->showDeletionLog( $wgOut );
+			$this->showDeletionLog( $context->getOutput() );
 		}
 		$services = MediaWikiServices::getInstance();
 		$hookContainer = $services->getHookContainer();
@@ -974,17 +972,17 @@ END;
 			}
 		} else {
 			$form_is_disabled = true;
-			if ( $wgOut->getTitle() != null ) {
-				$wgOut->setPageTitle( wfMessage( 'badaccess' )->text() );
+			if ( $out->getTitle() != null ) {
+				$out->setPageTitle( wfMessage( 'badaccess' )->text() );
 				if ( $permissionStatus ) {
-					$wgOut->addWikiTextAsInterface( $wgOut->formatPermissionStatus( $permissionStatus, 'edit' ) );
+					$out->addWikiTextAsInterface( $out->formatPermissionStatus( $permissionStatus, 'edit' ) );
 				} else {
 					// MW < 1.43
-					$wgOut->addWikiTextAsInterface(
-						$wgOut->formatPermissionsErrorMessage( $permissionErrors, 'edit' )
+					$out->addWikiTextAsInterface(
+						$out->formatPermissionsErrorMessage( $permissionErrors, 'edit' )
 					);
 				}
-				$wgOut->addHTML( "\n<hr />\n" );
+				$out->addHTML( "\n<hr />\n" );
 			}
 		}
 
@@ -1129,7 +1127,7 @@ END;
 					// come from a query string.
 					// (Unless it's called from #formredlink.)
 					if ( !$is_autocreate ) {
-						$tif->setFieldValuesFromSubmit();
+						$tif->setFieldValuesFromSubmit( $request );
 					}
 
 					$tif->checkIfAllInstancesPrinted( $form_submitted, $source_is_page, $is_autoedit );
@@ -1164,13 +1162,13 @@ END;
 					if ( $tif == null ) {
 						$template = new PFTemplate( null, [] );
 						// Get free text from the query string, if it was set.
-						if ( $wgRequest->getCheck( 'free_text' ) ) {
-							$standard_input = $wgRequest->getArray( 'standard_input', [] );
-							$standard_input['#freetext#'] = $wgRequest->getVal( 'free_text' );
-							$wgRequest->setVal( 'standard_input', $standard_input );
+						if ( $request->getCheck( 'free_text' ) ) {
+							$standard_input = $request->getArray( 'standard_input', [] );
+							$standard_input['#freetext#'] = $request->getVal( 'free_text' );
+							$request->setVal( 'standard_input', $standard_input );
 						}
 						$tif = PFTemplateInForm::create( 'standard_input', null, null, null, [] );
-						$tif->setFieldValuesFromSubmit();
+						$tif->setFieldValuesFromSubmit( $request );
 					}
 					// We get the field name both here
 					// and in the PFFormField constructor,
@@ -1280,7 +1278,7 @@ END;
 							} else {
 								$default_value = $cur_value;
 							}
-							$freeTextInput = new PFTextAreaInput( $input_number = null, $default_value, 'pf_free_text', ( $form_is_disabled || $form_field->isRestricted() ), $form_field->getFieldArgs() );
+							$freeTextInput = new PFTextAreaInput( $out, $input_number = null, $default_value, 'pf_free_text', ( $form_is_disabled || $form_field->isRestricted() ), $form_field->getFieldArgs() );
 							$freeTextInput->addJavaScript();
 							$new_text = $freeTextInput->getHtmlText();
 							if ( $form_field->hasFieldArg( 'edittools' ) ) {
@@ -1454,7 +1452,7 @@ END;
 							$cur_value = null;
 						}
 
-						$new_text = $this->formFieldHTML( $form_field, $cur_value );
+						$new_text = $this->formFieldHTML( $out, $form_field, $cur_value );
 						$new_text .= $form_field->additionalHTMLForInput( $cur_value, $field_name, $tif->getTemplateName() );
 
 						if ( $new_text ) {
@@ -1522,14 +1520,14 @@ END;
 						}
 					}
 					if ( $input_name == 'summary' ) {
-						$value = $wgRequest->getVal( 'wpSummary' );
+						$value = $request->getVal( 'wpSummary' );
 						$new_text = PFFormUtils::summaryInputHTML( $form_is_disabled, $input_label, $attr, $value );
 					} elseif ( $input_name == 'minor edit' ) {
-						$is_checked = $wgRequest->getCheck( 'wpMinoredit' );
+						$is_checked = $request->getCheck( 'wpMinoredit' );
 						$new_text = PFFormUtils::minorEditInputHTML( $form_submitted, $form_is_disabled, $is_checked, $input_label, $attr );
 					} elseif ( $input_name == 'watch' ) {
-						$is_checked = $wgRequest->getCheck( 'wpWatchthis' );
-						$new_text = PFFormUtils::watchInputHTML( $form_submitted, $form_is_disabled, $is_checked, $input_label, $attr );
+						$is_checked = $request->getCheck( 'wpWatchthis' );
+						$new_text = PFFormUtils::watchInputHTML( $context, $form_submitted, $form_is_disabled, $is_checked, $input_label, $attr );
 					} elseif ( $input_name == 'save' ) {
 						$new_text = PFFormUtils::saveButtonHTML( $form_is_disabled, $input_label, $attr );
 					} elseif ( $input_name == 'save and continue' ) {
@@ -1632,8 +1630,8 @@ END;
 					}
 
 					// If input is from the form.
-					if ( ( !$source_is_page ) && $wgRequest ) {
-						$text_per_section = $wgRequest->getArray( '_section' );
+					if ( ( !$source_is_page ) && $request ) {
+						$text_per_section = $request->getArray( '_section' );
 
 						if ( is_array( $text_per_section ) && array_key_exists( $section_name, $text_per_section ) ) {
 							$section_text = $text_per_section[$section_name];
@@ -1658,7 +1656,7 @@ END;
 					if ( $page_section_in_form->isHidden() ) {
 						$form_section_text = Html::hidden( $input_name, $section_text );
 					} else {
-						$sectionInput = new PFTextAreaInput( $wgPageFormsFieldNum, $section_text, $input_name, ( $form_is_disabled || $page_section_in_form->isRestricted() ), $other_args );
+						$sectionInput = new PFTextAreaInput( $out, $wgPageFormsFieldNum, $section_text, $input_name, ( $form_is_disabled || $page_section_in_form->isRestricted() ), $other_args );
 						$sectionInput->addJavaScript();
 						$form_section_text = $sectionInput->getHtmlText();
 					}
@@ -1757,7 +1755,7 @@ END;
 			if ( $tif && $tif->allowsMultiple() ) {
 				if ( $tif->getDisplay() == 'spreadsheet' ) {
 					if ( $tif->allInstancesPrinted() ) {
-						$multipleTemplateHTML .= $this->spreadsheetHTML( $tif );
+						$multipleTemplateHTML .= $this->spreadsheetHTML( $tif, $out );
 						// For spreadsheets, this needs
 						// to be specially inserted.
 						if ( $tif->getLabel() != null ) {
@@ -1834,7 +1832,7 @@ END;
 					}
 				} else {
 					if ( $tif->getDisplay() == 'table' ) {
-						$section = $this->tableHTML( $tif, $tif->getInstanceNum() );
+						$section = $this->tableHTML( $out, $tif, $tif->getInstanceNum() );
 					}
 					if ( $tif->getInstanceNum() == 0 ) {
 						$multipleTemplateHTML .= $this->multipleTemplateStartHTML( $tif );
@@ -1875,7 +1873,7 @@ END;
 					$tif->incrementInstanceNum();
 				}
 			} elseif ( $tif && $tif->getDisplay() == 'table' ) {
-				$form_text .= $this->tableHTML( $tif, 0 );
+				$form_text .= $this->tableHTML( $out, $tif, 0 );
 			} elseif ( $tif && !$tif->allowsMultiple() && $tif->getLabel() != null ) {
 				$form_text .= $section . "\n</fieldset>";
 			} else {
@@ -1907,8 +1905,8 @@ END;
 			// into the form.
 			$free_text = trim( $existing_page_content );
 		// ...or get it from the form submission, if it's not called from #formredlink
-		} elseif ( !$is_autocreate && $wgRequest->getCheck( 'pf_free_text' ) ) {
-			$free_text = $wgRequest->getVal( 'pf_free_text' );
+		} elseif ( !$is_autocreate && $request->getCheck( 'pf_free_text' ) ) {
+			$free_text = $request->getVal( 'pf_free_text' );
 			if ( !$free_text_was_included ) {
 				$wiki_page->addFreeTextSection();
 			}
@@ -1956,7 +1954,7 @@ END;
 			if ( $is_query ) {
 				$form_text .= PFFormUtils::queryFormBottom();
 			} else {
-				$form_text .= PFFormUtils::formBottom( $form_submitted, $form_is_disabled );
+				$form_text .= PFFormUtils::formBottom( $context, $form_submitted, $form_is_disabled );
 			}
 		}
 
@@ -2019,11 +2017,12 @@ END;
 
 	/**
 	 * Create the HTML to display this field within a form.
+	 * @param OutputPage $out
 	 * @param PFFormField $form_field
 	 * @param string $cur_value
 	 * @return string
 	 */
-	function formFieldHTML( $form_field, $cur_value ) {
+	function formFieldHTML( OutputPage $out, $form_field, $cur_value ) {
 		global $wgPageFormsFieldNum;
 
 		// Also get the actual field, with all the semantic information
@@ -2078,7 +2077,7 @@ END;
 		}
 
 		if ( $class_name !== null ) {
-			$form_input = new $class_name( $wgPageFormsFieldNum, $cur_value, $form_field->getInputName(), $form_field->isDisabled(), $other_args );
+			$form_input = new $class_name( $out, $wgPageFormsFieldNum, $cur_value, $form_field->getInputName(), $form_field->isDisabled(), $other_args );
 
 			// If a regex was defined, make this a "regexp" input that wraps
 			// around the real one.

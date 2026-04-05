@@ -41,7 +41,6 @@ class PFRunQuery extends IncludableSpecialPage {
 		global $wgPageFormsFormPrinter, $wgPageFormsRunQueryFormAtTop;
 
 		$out = $this->getOutput();
-		$req = $this->getRequest();
 		$user = $this->getUser();
 
 		if ( PFUtils::ignoreFormName( $form_name ) ) {
@@ -64,14 +63,14 @@ class PFRunQuery extends IncludableSpecialPage {
 		// Initialize variables.
 		$form_definition = PFUtils::getPageText( $form_title );
 		if ( $embedded ) {
+			// @HACK - set request so that FormPrinter::formHTML()
+			// can have the right data.
+			// TODO Is this still neessary?
 			$req = $this->getUser()->getRequest();
-			// @HACK - set $wgRequest so that FormPrinter::formHTML()
-			// can have the right data. Much better would be to
-			// pass this in as a parameter to formHTML().
-			global $wgRequest;
-			$wgRequest = $req;
+			$context = new DerivativeContext( $this->getContext() );
+			$context->setRequest( $req );
 		} else {
-			$req = $this->getRequest();
+			$context = $this->getContext();
 		}
 
 		// We check that the form name is the same, in case
@@ -92,7 +91,7 @@ class PFRunQuery extends IncludableSpecialPage {
 		$form_context = $embedded ? PFFormPrinter::CONTEXT_EMBEDDED_QUERY : PFFormPrinter::CONTEXT_QUERY;
 		[ $form_text, $data_text, $form_page_title ] =
 			$wgPageFormsFormPrinter->formHTML(
-				$form_definition, $form_submitted, false, $form_title->getArticleID(),
+				$context, $form_definition, $form_submitted, false, $form_title->getArticleID(),
 				$content, null, null, $form_context, [], $user
 			);
 		$text = "";
@@ -195,7 +194,7 @@ END;
 
 		// Now write everything to the screen.
 		$out->addHTML( $text );
-		PFUtils::addFormRLModules( $embedded ? PFUtils::getParser() : null );
+		PFUtils::addFormRLModules( $out, $embedded );
 		if ( !$embedded ) {
 			$po = PFUtils::getParser()->getOutput();
 			// Not-null check needed for MW < 1.43

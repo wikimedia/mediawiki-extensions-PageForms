@@ -109,7 +109,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 
 		// If this call is lower down, it doesn't take effect in
 		// "show changes" mode for some MW versions, for some reason.
-		PFUtils::addFormRLModules();
+		PFUtils::addFormRLModules( $out );
 
 		$module = new PFAutoeditAPI( new ApiMain(), 'pfautoedit' );
 		$module->setOption( 'form', $form_name );

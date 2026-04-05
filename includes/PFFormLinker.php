@@ -37,9 +37,7 @@ class PFFormLinker {
 
 	public static function createPageWithForm( $title, $formName, $inQueryArr ) {
 		/** @var PFFormPrinter $wgPageFormsFormPrinter */
-		global $wgPageFormsFormPrinter, $wgOut;
-
-		$wgOut->enableOOUI();
+		global $wgPageFormsFormPrinter;
 
 		$formTitle = Title::makeTitleSafe( PF_NS_FORM, $formName );
 		$formDefinition = PFUtils::getPageText( $formTitle );
@@ -50,7 +48,7 @@ class PFFormLinker {
 
 		[ $formText, $pageText, $formPageTitle, $generatedPageName ] =
 			$wgPageFormsFormPrinter->formHTML(
-				$formDefinition, false, false, null, $preloadContent,
+				RequestContext::getMain(), $formDefinition, false, false, null, $preloadContent,
 				'Some very long page name that will hopefully never get created ABCDEF123',
 				null, PFFormPrinter::CONTEXT_AUTOCREATE, $inQueryArr
 			);

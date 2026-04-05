@@ -157,6 +157,7 @@ class PFFormLink {
 			// Skip if we're not looking at the current revision of this page.
 			$parser->getRevisionRecordObject()->isCurrent() ) {
 			$targetTitle = Title::newFromText( $inTargetName );
+			$parser->getOutput()->setOutputFlag( ParserOutputFlags::ENABLE_OOUI );
 			PFFormLinker::createPageWithForm( $targetTitle, $inFormName, $inQueryArr );
 		}
 

@@ -7,6 +7,7 @@
  */
 
 use MediaWiki\Html\Html;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Title\Title;
 
 /**
@@ -26,9 +27,7 @@ class PFLeafletInput extends PFOpenLayersInput {
 		return [ 'Coordinates' ];
 	}
 
-	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
-		global $wgOut;
-
+	public static function getHTML( OutputPage $out, $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
 		$scripts = [
 			"https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"
 		];
@@ -43,9 +42,9 @@ class PFLeafletInput extends PFOpenLayersInput {
 		foreach ( $styles as $style ) {
 			$stylesHTML .= Html::linkedStyle( $style );
 		}
-		$wgOut->addHeadItem( $scriptsHTML, $scriptsHTML );
-		$wgOut->addHeadItem( $stylesHTML, $stylesHTML );
-		$wgOut->addModules( 'ext.pageforms.maps' );
+		$out->addHeadItem( $scriptsHTML, $scriptsHTML );
+		$out->addHeadItem( $stylesHTML, $stylesHTML );
+		$out->addModules( 'ext.pageforms.maps' );
 
 		if ( array_key_exists( 'image', $other_args ) ) {
 			$fileName = $other_args['image'];
@@ -103,6 +102,7 @@ class PFLeafletInput extends PFOpenLayersInput {
 	 */
 	public function getHtmlText(): string {
 		return self::getHTML(
+			$this->mOut,
 			$this->mCurrentValue,
 			$this->mInputName,
 			$this->mIsMandatory,

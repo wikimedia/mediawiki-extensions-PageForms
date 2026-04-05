@@ -14,12 +14,15 @@
  * @ingroup PF
  */
 
+use MediaWiki\Output\OutputPage;
+
 /**
  * Parent class for all form input classes.
  * @ingroup PFFormInput
  */
 abstract class PFFormInput {
 
+	protected $mOut;
 	protected $mInputNumber;
 	protected $mCurrentValue;
 	protected $mInputName;
@@ -34,6 +37,7 @@ abstract class PFFormInput {
 	protected $mJsValidationFunctionData = [];
 
 	/**
+	 * @param OutputPage $out The output page this input will ultimately be added to.
 	 * @param string $input_number The number of the input in the form. For a simple HTML input
 	 *  element this should end up in the id attribute in the format 'input_<number>'.
 	 * @param string $cur_value The current value of the input field. For a simple HTML input
@@ -44,7 +48,8 @@ abstract class PFFormInput {
 	 * @param array $other_args An associative array of other parameters that were present in the
 	 *  input definition.
 	 */
-	public function __construct( $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
+	public function __construct( OutputPage $out, $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
+		$this->mOut = $out;
 		$this->mInputNumber = $input_number;
 		$this->mCurrentValue = $cur_value;
 		$this->mInputName = $input_name;
@@ -314,28 +319,25 @@ abstract class PFFormInput {
 	 * Add the necessary JavaScript for this input.
 	 */
 	public function addJavaScript() {
-		global $wgOut;
-
 		// @TODO - the first works better for Special:RunQuery, and the
 		// second better for Special:FormEdit? Try to find some solution
 		// that always works correctly.
 		// $output = $wgParser->getOutput();
-		$output = $wgOut;
 		$modules = $this->getResourceModuleNames();
 
 		// Register modules for the input.
 		if ( $modules !== null ) {
-			$output->addModules( $modules );
+			$this->mOut->addModules( $modules );
 		}
 
 		if ( $this->getJsInitFunctionData() || $this->getJsValidationFunctionData() ) {
 			$input_id = $this->mInputName == 'pf_free_text' ? 'pf_free_text' : 'input_' . $this->mInputNumber;
-			$configVars = $output->getJsConfigVars();
+			$configVars = $this->mOut->getJsConfigVars();
 
 			$initFunctionData = self::updateFormInputJsFunctionData( 'ext.pf.initFunctionData', $configVars, $this->getJsInitFunctionData(), $input_id );
 			$validationFunctionData = self::updateFormInputJsFunctionData( 'ext.pf.validationFunctionData', $configVars, $this->getJsValidationFunctionData(), $input_id );
 
-			$output->addJsConfigVars( [
+			$this->mOut->addJsConfigVars( [
 				'ext.pf.initFunctionData' => $initFunctionData,
 				'ext.pf.validationFunctionData' => $validationFunctionData
 			] );

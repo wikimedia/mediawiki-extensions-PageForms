@@ -12,6 +12,7 @@ use MediaWiki\Linker\Linker;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Title\Title;
 use Wikimedia\Rdbms\DBConnRef;
@@ -167,6 +168,7 @@ class PFUtils {
 	 * @param string $edit_summary
 	 * @param bool $is_save
 	 * @param User $user
+	 * @param OutputPage $out
 	 * @return string
 	 */
 	public static function printRedirectForm(
@@ -174,7 +176,8 @@ class PFUtils {
 		$page_contents,
 		$edit_summary,
 		$is_save,
-		$user
+		$user,
+		OutputPage $out
 	) {
 		global $wgPageFormsScriptPath;
 
@@ -223,7 +226,7 @@ END;
 
 END;
 
-		$nonce = RequestContext::getMain()->getOutput()->getCSP()->getNonce();
+		$nonce = $out->getCSP()->getNonce();
 		$text .= Html::inlineScript( $script, $nonce );
 
 		// @TODO - remove this hook? It seems useless.
@@ -235,19 +238,14 @@ END;
 	 * Includes the necessary ResourceLoader modules for the form
 	 * to display and work correctly.
 	 *
-	 * Accepts an optional Parser instance, or uses $wgOut if omitted.
-	 * @param Parser|null $parser
+	 * @param OutputPage $out The output page where this form will be displayed.
+	 * @param bool $embedded whether or not this form is embedded in another page.
 	 */
-	public static function addFormRLModules( $parser = null ) {
-		global $wgOut, $wgPageFormsSimpleUpload;
+	public static function addFormRLModules( OutputPage $out, $embedded = false ) {
+		global $wgPageFormsSimpleUpload;
 
-		// Handling depends on whether or not this form is embedded
-		// in another page.
-		if ( !$parser ) {
-			$wgOut->addMeta( 'robots', 'noindex,nofollow' );
-			$output = $wgOut;
-		} else {
-			$output = $parser->getOutput();
+		if ( !$embedded ) {
+			$out->addMeta( 'robots', 'noindex,nofollow' );
 		}
 
 		$mainModules = [
@@ -285,14 +283,14 @@ END;
 			$mainModules[] = 'ext.pageforms.simpleupload';
 		}
 
-		$output->addModules( $mainModules );
-		$output->addModuleStyles( $mainModuleStyles );
+		$out->addModules( $mainModules );
+		$out->addModuleStyles( $mainModuleStyles );
 
 		$otherModules = [];
 		MediaWikiServices::getInstance()->getHookContainer()->run( 'PageForms::AddRLModules', [ &$otherModules ] );
 		// @phan-suppress-next-line PhanEmptyForeach
 		foreach ( $otherModules as $rlModule ) {
-			$output->addModules( $rlModule );
+			$out->addModules( $rlModule );
 		}
 	}
 

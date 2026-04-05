@@ -33,6 +33,7 @@ class PFTextAreaInput extends PFFormInput {
 	}
 
 	/**
+	 * @param OutputPage $out The output page where this form will be rendered.
 	 * @param string $input_number The number of the input in the form. For a simple HTML input
 	 *  element this should end up in the id attribute in the format 'input_<number>'.
 	 * @param string $cur_value The current value of the input field. For a simple HTML input
@@ -43,10 +44,8 @@ class PFTextAreaInput extends PFFormInput {
 	 * @param array $other_args An associative array of other parameters that were present in the
 	 *  input definition.
 	 */
-	public function __construct( $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
-		global $wgOut;
-
-		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
+	public function __construct( OutputPage $out, $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
+		parent::__construct( $out, $input_number, $cur_value, $input_name, $disabled, $other_args );
 
 		$newClasses = null;
 
@@ -54,7 +53,7 @@ class PFTextAreaInput extends PFFormInput {
 		if (
 			array_key_exists( 'editor', $this->mOtherArgs ) &&
 			$this->mOtherArgs['editor'] == 'wikieditor' &&
-			in_array( 'ext.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() )
+			in_array( 'ext.wikiEditor', $out->getResourceLoader()->getModuleNames() )
 		) {
 			$this->mEditor = 'wikieditor';
 			$this->addJsInitFunctionData( 'window.ext.wikieditor.init' );
@@ -156,9 +155,8 @@ class PFTextAreaInput extends PFFormInput {
 		$input_id = $this->mInputName == 'pf_free_text' ? 'pf_free_text' : "input_$wgPageFormsFieldNum";
 
 		if ( $this->mEditor == 'wikieditor' ) {
-			global $wgOut;
-			$wgOut->addModuleStyles( 'ext.wikiEditor.styles' );
-			$wgOut->addModules( 'ext.wikiEditor' );
+			$this->mOut->addModuleStyles( 'ext.wikiEditor.styles' );
+			$this->mOut->addModules( 'ext.wikiEditor' );
 			$className = 'wikieditor ';
 		} elseif ( $this->mEditor == 'visualeditor' ) {
 			$className = 'visualeditor ';

@@ -21,6 +21,7 @@ class PFRegExpInput extends PFFormInput {
 	}
 
 	/**
+	 * @param OutputPage $out The output page this input will ultimately be added to.
 	 * @param string $input_number The number of the input in the form.
 	 * @param string $cur_value The current value of the input field.
 	 * @param string $input_name The name of the input.
@@ -28,10 +29,10 @@ class PFRegExpInput extends PFFormInput {
 	 * @param array $other_args An associative array of other parameters that were present in the
 	 *  input definition.
 	 */
-	public function __construct( $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
+	public function __construct( OutputPage $out, $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
 		global $wgPageFormsFormPrinter;
 
-		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
+		parent::__construct( $out, $input_number, $cur_value, $input_name, $disabled, $other_args );
 
 		// set OR character
 		if ( array_key_exists( 'or char', $this->mOtherArgs ) ) {
@@ -116,7 +117,12 @@ class PFRegExpInput extends PFFormInput {
 		// Create base input.
 		$baseInputClass = $wgPageFormsFormPrinter->getInputType( $baseType );
 		$this->mBaseInput = new $baseInputClass(
-			$this->mInputNumber, $this->mCurrentValue, $this->mInputName, $this->mIsDisabled, $newOtherArgs
+			$this->mOut,
+			$this->mInputNumber,
+			$this->mCurrentValue,
+			$this->mInputName,
+			$this->mIsDisabled,
+			$newOtherArgs,
 		);
 	}
 
@@ -128,6 +134,7 @@ class PFRegExpInput extends PFFormInput {
 	 */
 	public static function newFromInput( $formInput ) {
 		return new PFRegExpInput(
+			$formInput->mOut,
 			$formInput->mInputNumber,
 			$formInput->mCurrentValue,
 			$formInput->mInputName,

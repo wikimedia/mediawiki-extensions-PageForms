@@ -342,7 +342,7 @@ class PFHooks {
 	 * @param WebRequest $request
 	 */
 	public static function showFormPreview( EditPage $editpage, WebRequest $request ) {
-		global $wgOut, $wgPageFormsFormPrinter;
+		global $wgPageFormsFormPrinter;
 
 		wfDebug( __METHOD__ . ": enter.\n" );
 
@@ -356,21 +356,23 @@ class PFHooks {
 		}
 
 		// Needed in case there are any OOUI-based input types in the form.
-		$wgOut->enableOOUI();
+		$out = $editpage->getContext()->getOutput();
+		$out->enableOOUI();
 
-		$previewNote = $wgOut->parseAsInterface( wfMessage( 'pf-preview-note' )->text() );
+		$previewNote = $out->parseAsInterface( wfMessage( 'pf-preview-note' )->text() );
 		// The "pfForm" ID is there so the form JS will be activated.
 		$editpage->previewTextAfterContent .= Html::element( 'h2', null, wfMessage( 'pf-preview-header' )->text() ) . "\n" .
 			'<div id="pfForm" class="previewnote" style="font-weight: bold">' . $previewNote . "</div>\n<hr />\n";
 
 		$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $editpage->textbox1 );
 		[ $form_text, $data_text, $form_page_title, $generated_page_name ] =
-			$wgPageFormsFormPrinter->formHTML( $form_definition, null, false, null, null, "Page Forms form preview dummy title", null );
+			$wgPageFormsFormPrinter->formHTML(
+				$editpage->getContext(), $form_definition, null, false, null, null, "Page Forms form preview dummy title", null );
 
 		$parserOutput = PFUtils::getParser()->getOutput();
-		$wgOut->addParserOutputMetadata( $parserOutput );
+		$out->addParserOutputMetadata( $parserOutput );
 
-		PFUtils::addFormRLModules();
+		PFUtils::addFormRLModules( $out );
 		$editpage->previewTextAfterContent .=
 			'<div style="margin-top: 15px">' . $form_text . "</div>";
 	}
@@ -423,9 +425,9 @@ class PFHooks {
 	 * @param Skin $skin
 	 */
 	public static function handleForceReload( $out, Skin $skin ) {
-		global $wgRequest, $wgPageFormsScriptPath;
+		global $wgPageFormsScriptPath;
 
-		if ( $wgRequest->getVal( 'forceReload' ) !== 'true' ) {
+		if ( $out->getRequest()->getVal( 'forceReload' ) !== 'true' ) {
 			return;
 		}
 
