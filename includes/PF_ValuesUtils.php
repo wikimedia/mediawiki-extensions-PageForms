@@ -784,7 +784,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 
 		if ( $autocompleteFieldType == 'external_url'
 			|| $autocompleteFieldType == 'wikidata'
-			|| array_key_exists( 'reverselookup', $field_args )
+			|| ( array_key_exists( 'reverselookup', $field_args ) && $autocompleteFieldType !== 'values' )
 		) {
 			// Autocompletion from URL is always done remotely.
 			return $autocompleteFieldType;

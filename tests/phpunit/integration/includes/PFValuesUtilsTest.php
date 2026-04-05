@@ -2611,6 +2611,39 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
+	 * @covers \PFValuesUtils::getRemoteDataTypeAndPossiblySetAutocompleteValues
+	 */
+	public function testGetRemoteDataTypeKeepsMappedValuesAutocompleteLocalEvenWithReverseLookup(): void {
+		global $wgPageFormsAutocompleteValues;
+		$this->setMwGlobals( [
+			'wgPageFormsMaxLocalAutocompleteValues' => 2,
+			'wgPageFormsAutocompleteValues' => [],
+		] );
+
+		$fieldArgs = [
+			'possible_values' => [
+				'Page A' => 'Label A',
+				'Page B' => 'Label B',
+				'Page C' => 'Label C',
+			],
+			'values' => 'Page A,Page B,Page C',
+			'mapping template' => 'Paikka-l10n',
+			'reverselookup' => true,
+		];
+
+		$result = \PFValuesUtils::getRemoteDataTypeAndPossiblySetAutocompleteValues(
+			'values',
+			'values-1',
+			$fieldArgs,
+			'values-1'
+		);
+
+		$this->assertNull( $result );
+		$this->assertArrayHasKey( 'values-1', $wgPageFormsAutocompleteValues );
+		$this->assertSame( $fieldArgs['possible_values'], $wgPageFormsAutocompleteValues['values-1'] );
+	}
+
+	/**
 	 * @covers \PFValuesUtils::setAutocompleteValues
 	 */
 	public function testSetAutocompleteValuesForNonListReturnsNullDelimiter(): void {
