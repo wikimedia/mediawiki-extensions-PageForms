@@ -1253,7 +1253,7 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 	const wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' );
 	const wgPageFormsHeightForMinimizingInstances = mw.config.get( 'wgPageFormsHeightForMinimizingInstances' );
 	const $wrapper = this.closest(".multipleTemplateWrapper");
-	const $multipleTemplateList = $wrapper.find('.multipleTemplateList');
+	const $multipleTemplateList = $wrapper.children('.multipleTemplateList');
 
 	// If the nubmer of instances is already at the maximum allowed,
 	// exit here.
@@ -1277,8 +1277,8 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 	num_elements++;
 
 	// Create the new instance
-	const $new_div = $wrapper
-		.find(".multipleTemplateStarter")
+	const $new_div = $multipleTemplateList
+		.children(".multipleTemplateStarter")
 		.clone()
 		.removeClass('multipleTemplateStarter')
 		.addClass('multipleTemplateInstance')
@@ -1404,7 +1404,7 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 			.hide().fadeIn();
 	} else {
 		this.closest(".multipleTemplateWrapper")
-			.find(".multipleTemplateList")
+			.children(".multipleTemplateList")
 			.append($new_div.hide().fadeIn());
 	}
 
@@ -1858,8 +1858,8 @@ $( () => {
 		$('.multipleTemplateInstance').each( function() {
 			$(this).initializeJSElements(true);
 		});
-		$('.multipleTemplateAdder')
-		.on( 'click', function() {
+		$( document )
+		.on( 'click', '.multipleTemplateAdder', function() {
 			$( this ).addInstance( false );
 		})
 		.on( 'keydown', function( e ) {
