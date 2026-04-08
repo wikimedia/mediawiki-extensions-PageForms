@@ -384,6 +384,53 @@
 			return string;
 		}
 
+		function calendarDialogBox(htmlContent) {
+			const $dialogbox = $('<dialog>')
+				.attr('id', 'pf-calendar-dialog')
+				.css({
+					'padding': '30px 20px 20px 20px',
+					'border': '1px solid #c8ccd1',
+					'border-radius': '2px',
+					'overflow': 'auto',
+					'min-width': '300px',
+					'box-shadow': '0 2px 2px 0 rgba(0,0,0,0.25)',
+					'z-index': '1000',
+					'max-width': '90%',
+					'max-height': '90%',
+				})
+				.html(htmlContent)
+				.appendTo('body');
+
+			$('<button>')
+				.addClass('calendarbox-close-small')
+				.attr('type', 'button')
+				.css({
+					'position': 'absolute',
+					'background': 'none',
+					'text-align': 'center',
+					'border': 'none',
+					'font-size': '20px',
+					'top': '10px',
+					'right': '10px',
+					'cursor': 'pointer'
+				})
+				.html('&times;')
+				.appendTo($dialogbox)
+				.on('click', () => {
+					$dialogbox[0].close();
+					$dialogbox.remove();
+				});
+
+			$dialogbox.on('click', (e) => {
+				if (e.target === e.currentTarget) {
+					$dialogbox[0].close();
+					$dialogbox.remove();
+				}
+			});
+
+			$dialogbox[0].showModal();
+		}
+
 		$( calendarIdSelector ).fullCalendar({
 
 			editable: true,
@@ -615,8 +662,7 @@
 			// one or more dates
 			select: function( start, end ) {
 				// Open the popup form to allow the user to create the event
-				$.fancybox.open( createEventPopup + '</form>' );
-				$("[class|='fancybox-close-small']").attr("type", "button");
+				calendarDialogBox(createEventPopup + '</form>');
 				// Handle token input type
 				$(':input').each( function() {
 					tokensProto = new pf.select2.tokens();
@@ -674,7 +720,7 @@
 						};
 
 						counter++;
-						$( '.fancybox-close-small' ).click();
+						$( '.calendarbox-close-small' ).click();
 						$( calendarIdSelector ).fullCalendar( 'renderEvent', eventData, true );
 					});
 				} else {
@@ -725,7 +771,7 @@
 							id:idForm
 						};
 						counter++;
-						$( '.fancybox-close-small' ).click();
+						$( '.calendarbox-close-small' ).click();
 						$( calendarIdSelector ).fullCalendar( 'renderEvent', eventData, true );
 					});
 				}
@@ -739,8 +785,7 @@
 				checkboxesValues = [];
 				let paramName, rateSample = 0;
 				// Open the popup form and populate it with the values to allow editing
-				$.fancybox.open( updateEventPopup + deleteButton + '</form>' );
-				$("[class|='fancybox-close-small']").attr("type", "button");
+				calendarDialogBox(updateEventPopup + deleteButton + '</form>');
 
 				$('#popupForm').find(".pfTreeInput").each( function() {
 					$(this).applyFancytree();
@@ -838,7 +883,7 @@
 				// Delete button for the existing event
 				$( "#event_delete" ).click(( event ) => {
 					$( calendarIdSelector ).fullCalendar('removeEvents',info.id);
-					$( '.fancybox-close-small' ).click();
+					$( '.calendarbox-close-small' ).click();
 				});
 
 				if ( flagOneDayEvent === true ) {
@@ -854,7 +899,7 @@
 						info.title = data[titleIndex].value;
 						info.contents = data;
 						info.start = eventDate;
-						$('.fancybox-close-small').click();
+						$('.calendarbox-close-small').click();
 						$( calendarIdSelector ).fullCalendar( 'updateEvent' , info , true );
 					});
 				} else {
@@ -883,7 +928,7 @@
 						info.contents = data;
 						info.start = eventStartDate;
 						info.end = eventEndDate;
-						$( '.fancybox-close-small') .click();
+						$( '.calendarbox-close-small') .click();
 						$( calendarIdSelector ).fullCalendar( 'updateEvent', info, true );
 
 					});
