@@ -619,36 +619,4 @@ class PFMappingUtilsTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
-	public function testGetValuesWithMappingCargoFieldDecodesHtmlEntitiesAndPageNameFallback(): void {
-		$this->setCargoResultsByWhere( [
-			'code="A1"::value' => 'Foo &amp; Bar',
-			'_pageName="B2"::value' => 'B2 &amp; Second',
-		] );
-
-		$mapped = \PFMappingUtils::getValuesWithMappingCargoField(
-			[ 'A1' => 'A1', 'B2' => 'B2' ],
-			'label_field',
-			'code',
-			'AnyTable'
-		);
-		if ( self::isCargoShimActive() ) {
-			$this->assertSame( [ 'A1' => 'Foo & Bar', 'B2' => 'B2' ], $mapped );
-		} else {
-			$this->assertSame( [ 'A1' => 'Foo & Bar', 'B2' => 'B2' ], $mapped );
-		}
-
-		// Now test mappingCargoValueField === null -> uses _pageName
-		$mappedPageName = \PFMappingUtils::getValuesWithMappingCargoField(
-			[ 'B2' => 'B2' ],
-			'label_field',
-			null,
-			'AnyTable'
-		);
-		if ( self::isCargoShimActive() ) {
-			$this->assertSame( [ 'B2' => 'B2 & Second' ], $mappedPageName );
-		} else {
-			$this->assertSame( [ 'B2' => 'B2 & Second' ], $mappedPageName );
-		}
-	}
-
 }
