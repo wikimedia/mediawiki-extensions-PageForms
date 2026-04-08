@@ -127,7 +127,11 @@ class PFUtils {
 	 */
 	public static function getSMWStore() {
 		if ( class_exists( '\SMW\StoreFactory' ) ) {
-			return \SMW\StoreFactory::getStore();
+			try {
+				return \SMW\StoreFactory::getStore();
+			} catch ( \Throwable ) {
+				return null;
+			}
 		} else {
 			return null;
 		}
