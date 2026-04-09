@@ -19,7 +19,8 @@
 			"Whym",
 			"カッパ鳥",
 			"青子守歌",
-			"아라"
+			"아라",
+			"Tensama0415"
 		]
 	},
 	"pageforms-desc": "ウィキのページを作成および編集するフォーム",
@@ -176,6 +177,7 @@
 	"pf_bad_number_error": "有効な数値にする必要があります",
 	"pf_bad_integer_error": "整数でなくてはならない",
 	"pf_bad_date_error": "正しい日付にする必要があります",
+	"pf-simpleupload": "アップロード",
 	"pf_deletionlog": "削除記録",
 	"pf-preview-header": "フォーム プレビュー",
 	"pf-preview-note": "フォームが使用される際、このように表示されます:",
