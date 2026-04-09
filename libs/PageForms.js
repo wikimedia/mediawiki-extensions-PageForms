@@ -1862,7 +1862,7 @@ $( () => {
 		.on( 'click', '.multipleTemplateAdder', function() {
 			$( this ).addInstance( false );
 		})
-		.on( 'keydown', function( e ) {
+		.on( 'keydown', '.multipleTemplateAdder', function( e ) {
 			if ( e.key === 'Enter' || e.key === ' ' ) {
 				e.preventDefault();
 				$( this ).addInstance( false );
