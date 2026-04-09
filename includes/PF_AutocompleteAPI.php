@@ -380,6 +380,9 @@ class PFAutocompleteAPI extends ApiBase {
 		}
 
 		if ( $substring !== null ) {
+			// Handle apostrophes.
+			$substring = str_replace( "'", "\'", $substring );
+
 			if ( $whereStr != '' ) {
 				$whereStr .= " AND ";
 			}
@@ -468,9 +471,8 @@ class PFAutocompleteAPI extends ApiBase {
 			if ( $value == '' ) {
 				continue;
 			}
-			// Cargo HTML-encodes everything - let's decode double
-			// quotes, at least.
-			$values[] = str_replace( '&quot;', '"', $value );
+			// Cargo HTML-encodes everything - decode it all.
+			$values[] = html_entity_decode( $value );
 		}
 		return $values;
 	}
