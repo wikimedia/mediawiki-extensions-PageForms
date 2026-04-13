@@ -564,8 +564,7 @@
 	};
 
 	pf.ComboBoxInput.prototype.getConditionForAutocompleteOnAllChars = function(str, curStr) {
-		const containsSubstr = str.toLowerCase().includes(curStr.toLowerCase());
-		return containsSubstr;
+		return str.toString().toLowerCase().includes(curStr.toLowerCase());
 	};
 
 	pf.ComboBoxInput.prototype.setInputAttribute = function(attr, value) {
