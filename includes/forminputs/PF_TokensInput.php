@@ -152,6 +152,18 @@ class PFTokensInput extends PFFormInput {
 		if ( array_key_exists( 'max values', $other_args ) ) {
 			$inputAttrs['maxvalues'] = $other_args['max values'];
 		}
+		if ( array_key_exists( 'mapping property', $other_args ) ) {
+			$inputAttrs['mappingproperty'] = $other_args['mapping property'];
+		}
+		if ( array_key_exists( 'mapping template', $other_args ) ) {
+			$inputAttrs['mappingtemplate'] = $other_args['mapping template'];
+		}
+		if ( array_key_exists( 'mapping cargo table', $other_args ) ) {
+			$inputAttrs['mappingcargotable'] = $other_args['mapping cargo table'];
+		}
+		if ( array_key_exists( 'mapping cargo field', $other_args ) ) {
+			$inputAttrs['mappingcargofield'] = $other_args['mapping cargo field'];
+		}
 
 		// This code adds predefined tokens in the form of <options>
 
