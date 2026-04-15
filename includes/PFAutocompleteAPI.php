@@ -87,6 +87,33 @@ class PFAutocompleteAPI extends ApiBase {
 			$data = [];
 		}
 
+		$mappingArgs = [];
+		if ( $params['mappingproperty'] !== null ) {
+			$mappingArgs['mapping property'] = $params['mappingproperty'];
+		}
+		if ( $params['mappingtemplate'] !== null ) {
+			$mappingArgs['mapping template'] = $params['mappingtemplate'];
+		}
+		if ( $params['mappingcargotable'] !== null ) {
+			$mappingArgs['mapping cargo table'] = $params['mappingcargotable'];
+		}
+		if ( $params['mappingcargofield'] !== null ) {
+			$mappingArgs['mapping cargo field'] = $params['mappingcargofield'];
+		}
+
+		$mappingType = PFMappingUtils::getMappingType( $mappingArgs );
+		if ( $mappingType !== null ) {
+			try {
+				$data = PFMappingUtils::getMappedValuesForInput( $data, $mappingArgs );
+				// Mapped arrays are associative, so we need $map = true.
+				$map = true;
+			} catch ( \Throwable $e ) {
+				// Ignore mapping errors such as uninitialized parser or SMW errors
+				// The unmapped data will be used.
+				wfDebugLog( 'PageForms', 'Mapping failed during autocomplete API. Exception: ' . $e->getMessage() );
+			}
+		}
+
 		// If we got back an error message, exit with that message.
 		if ( !is_array( $data ) ) {
 			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
@@ -157,6 +184,10 @@ class PFAutocompleteAPI extends ApiBase {
 			'base_cargo_table' => null,
 			'base_cargo_field' => null,
 			'basevalue' => null,
+			'mappingproperty' => null,
+			'mappingtemplate' => null,
+			'mappingcargotable' => null,
+			'mappingcargofield' => null,
 		];
 	}
 

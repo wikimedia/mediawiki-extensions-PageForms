@@ -5,7 +5,10 @@
  * @ingroup PF
  */
 
+use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Title\Title;
 
 class PFMappingUtils {
@@ -172,12 +175,26 @@ class PFMappingUtils {
 		$title = Title::makeTitleSafe( NS_TEMPLATE, $mappingTemplate );
 		$templateExists = $title->exists();
 		$res = [];
+
+		if ( $templateExists ) {
+			$parser = PFUtils::getParser();
+			// If the form employs mapping templates to translate values to labels, PFMappingUtils
+			// fundamentally relies on the parser to render them. Since we might be outside a standard
+			// page rendering context (e.g. pfautocomplete API), we explicitly initialize an external
+			// parse sequence so that the template parsing succeeds without crashing.
+			if ( $parser->getOptions() === null ) {
+				wfDebugLog( 'PageForms', 'Parser uninitialized before mapping template. Initializing now.' );
+				$parserOptions = ParserOptions::newFromContext( RequestContext::getMain() );
+				$parser->startExternalParse( Title::newMainPage(), $parserOptions, Parser::OT_HTML, true );
+			}
+		}
+
 		foreach ( $values as $index => $value ) {
 			// if ( $useDisplayTitle ) {
 			// $value = $index;
 			// }
 			if ( $templateExists ) {
-				$label = trim( PFUtils::getParser()->recursiveTagParse( '{{' . $mappingTemplate .
+				$label = trim( $parser->recursiveTagParse( '{{' . $mappingTemplate .
 					'|' . $value . '}}' ) );
 				if ( $label == '' ) {
 					$res[$value] = $value;
@@ -246,8 +263,14 @@ class PFMappingUtils {
 		string $translateMapping
 	) {
 		$res = [];
+		$parser = PFUtils::getParser();
+		if ( $parser->getOptions() === null ) {
+			$parserOptions = ParserOptions::newFromContext( RequestContext::getMain() );
+			$parser->startExternalParse( Title::newMainPage(), $parserOptions, Parser::OT_HTML, true );
+		}
+
 		foreach ( $values as $key ) {
-			$res[$key] = PFUtils::getParser()->recursiveTagParse( '{{int:' . $translateMapping . $key . '}}' );
+			$res[$key] = $parser->recursiveTagParse( '{{int:' . $translateMapping . $key . '}}' );
 		}
 		return $res;
 	}
