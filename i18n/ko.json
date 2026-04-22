@@ -11,7 +11,8 @@
 			"Revi",
 			"YeBoy371",
 			"Ykhwong",
-			"아라"
+			"아라",
+			"Tensama0415"
 		]
 	},
 	"pageforms-name": "문서 폼",
@@ -213,6 +214,7 @@
 	"pf_deletionlog": "삭제 기록",
 	"pf-preview-header": "양식 미리 보기",
 	"pf-preview-note": "양식을 사용할 때 이것 같이 보입니다:",
+	"pf-pageschemas-header": "형태",
 	"pf-pageschemas-pagenameformula": "문서 이름 공식:",
 	"pf-pageschemas-createtitle": "새 문서에 대한 양식 제목:",
 	"pf-pageschemas-edittitle": "기존 문서에 대한 양식 제목:",
