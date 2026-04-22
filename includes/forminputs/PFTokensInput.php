@@ -168,13 +168,24 @@ class PFTokensInput extends PFFormInput {
 		// This code adds predefined tokens in the form of <options>
 
 		$cur_values = PFValuesUtils::getValuesArray( $cur_value, $delimiter );
+
+		if ( PFMappingUtils::getMappingType( $other_args ) !== null ) {
+			try {
+				$mapped_values_assoc = PFMappingUtils::getMappedValuesForInput( $cur_values, $other_args );
+			} catch ( \Throwable $e ) {
+				$mapped_values_assoc = array_combine( $cur_values, $cur_values );
+				wfDebugLog( 'PageForms', 'Mapping failed in tokens input HTML renderer. Exception: ' . $e->getMessage() );
+			}
+		} else {
+			$mapped_values_assoc = array_combine( $cur_values, $cur_values );
+		}
+
 		$optionsText = '';
 
-		foreach ( $cur_values as $current_value ) {
-			if ( $current_value !== '' ) {
-				$optionAttrs = [ 'value' => $current_value, 'selected' => 'selected' ];
-				$optionLabel = $current_value;
-				$optionsText .= Html::element( 'option', $optionAttrs, $optionLabel );
+		foreach ( $mapped_values_assoc as $val => $label ) {
+			if ( $val !== '' ) {
+				$optionAttrs = [ 'value' => $val, 'selected' => 'selected' ];
+				$optionsText .= Html::element( 'option', $optionAttrs, $label );
 			}
 		}
 

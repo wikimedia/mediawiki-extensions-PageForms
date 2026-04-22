@@ -347,7 +347,7 @@ const Sortable = require( 'ext.pageforms.sortable' );
 					value.pfautocomplete.forEach( (item) => {
 						if (item.displaytitle !== undefined) {
 							values.push({
-								id: item.displaytitle, text: item.displaytitle
+								id: item.title, text: item.displaytitle
 							});
 						} else {
 							values.push({
@@ -428,7 +428,7 @@ const Sortable = require( 'ext.pageforms.sortable' );
 									: item.displaytitle + " (" + item.title + ")";
 							}
 							item.text = displayTitle;
-							item.id = displayTitle
+							item.id = item.title;
 						} else {
 							item.text = item.title;
 							item.id = item.title;
