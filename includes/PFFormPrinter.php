@@ -2037,7 +2037,7 @@ END;
 				$attribs['class'] = $form_field->getFieldArg( 'class' );
 			}
 			$text = Html::hidden( $form_field->getInputName(), $cur_value, $attribs );
-		} elseif ( $form_field->getInputType() !== '' &&
+		} elseif ( $form_field->getInputType() != '' &&
 				array_key_exists( $form_field->getInputType(), $this->mInputTypeHooks ) &&
 				$this->mInputTypeHooks[$form_field->getInputType()] != null ) {
 			// Last argument to constructor should be a hash,
@@ -2052,13 +2052,13 @@ END;
 			$cargo_field_type = $template_field->getFieldType();
 			$property_type = $template_field->getPropertyType();
 			$is_list = ( $form_field->isList() || $template_field->isList() );
-			if ( $cargo_field_type !== '' &&
+			if ( $cargo_field_type != '' &&
 				array_key_exists( $cargo_field_type, $this->mCargoTypeHooks ) &&
 				isset( $this->mCargoTypeHooks[$cargo_field_type][$is_list] ) ) {
 				$hook_values = $this->mCargoTypeHooks[$cargo_field_type][$is_list];
 				$class_name = $hook_values[0];
 				$other_args = $form_field->getArgumentsForInputCall( $hook_values[1] );
-			} elseif ( $property_type !== '' &&
+			} elseif ( $property_type != '' &&
 				array_key_exists( $property_type, $this->mSemanticTypeHooks ) &&
 				isset( $this->mSemanticTypeHooks[$property_type][$is_list] ) ) {
 				$hook_values = $this->mSemanticTypeHooks[$property_type][$is_list];

@@ -685,7 +685,6 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			} );
 
 		$method = new \ReflectionMethod( PFFormPrinter::class, 'addTranslatableInput' );
-		$method->setAccessible( true );
 
 		$text = '<input type="text" name="MyTemplate[MyField]" value="value">';
 		$method->invokeArgs( $pfFormPrinter, [ &$bracketedFormField, &$text ] );
@@ -749,7 +748,6 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$template = $this->getMockBuilder( 'PFTemplate' )->disableOriginalConstructor()->getMock();
 		$tif = $this->getMockBuilder( 'PFTemplateInForm' )->disableOriginalConstructor()->getMock();
 		$method = new \ReflectionMethod( PFFormPrinter::class, 'createFormFieldTranslateTag' );
-		$method->setAccessible( true );
 
 		$nullFormField = $this->getMockBuilder( 'PFFormField' )
 			->disableOriginalConstructor()
@@ -813,7 +811,6 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	 */
 	public function testGenerateUUID() {
 		$method = new \ReflectionMethod( PFFormPrinter::class, 'generateUUID' );
-		$method->setAccessible( true );
 
 		$first = $method->invoke( null );
 		$second = $method->invoke( null );
@@ -852,7 +849,6 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 			->willReturn( $setup['is_list'] );
 
 		$reflectionMethod = new ReflectionMethod( PFFormPrinter::class, 'getCargoBasedMapping' );
-		$reflectionMethod->setAccessible( true );
 		$result = $reflectionMethod->invoke(
 			$pfFormPrinter,
 			$setup['current_value'],
@@ -899,7 +895,6 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 		$mockFormField->method( 'isList' )->willReturn( true );
 
 		$reflectionMethod = new ReflectionMethod( PFFormPrinter::class, 'getCargoBasedMapping' );
-		$reflectionMethod->setAccessible( true );
 		$result = $reflectionMethod->invoke(
 			$pfFormPrinter,
 			'P001|P999|P002',
@@ -3328,7 +3323,6 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	private function setPrivateProperty( \PFFormPrinter $pfFormPrinter, string $propertyName, $value ): void {
 		$reflection = new \ReflectionClass( get_class( $pfFormPrinter ) );
 		$property = $reflection->getProperty( $propertyName );
-		$property->setAccessible( true );
 		$property->setValue( $pfFormPrinter, $value );
 	}
 }

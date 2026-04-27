@@ -464,7 +464,7 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 			->getMock();
 		$mockTemplate->method( 'getTemplateName' )->willReturn( 'T' );
 		// PHP converts [ null => 'v' ] → [ '' => 'v' ] before iteration
-		$mockTemplate->method( 'getValuesFromPage' )->willReturn( [ null => 'coerced-empty-key' ] );
+		$mockTemplate->method( 'getValuesFromPage' )->willReturn( [ 'dummy-string' => 'coerced-empty-key' ] );
 
 		$result = \PFFormUtils::unhandledFieldsHTML( $mockTemplate );
 

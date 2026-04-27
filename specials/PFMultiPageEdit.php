@@ -27,7 +27,7 @@ class PFMultiPageEdit extends QueryPage {
 	private $mTemplatesUsed = [];
 
 	function __construct() {
-		parent::__construct( 'MultiPageEdit', 'multipageedit' );
+		parent::__construct( 'MultiPageEdit' );
 	}
 
 	function execute( $query ) {

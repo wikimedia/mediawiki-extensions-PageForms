@@ -26,7 +26,7 @@ class PFCreateClass extends SpecialPage {
 		JobQueueGroup $jobQueueGroup,
 		WikiPageFactory $wikiPageFactory
 	) {
-		parent::__construct( 'CreateClass', 'createclass' );
+		parent::__construct( 'CreateClass' );
 		$this->jobQueueGroup = $jobQueueGroup;
 		$this->wikiPageFactory = $wikiPageFactory;
 	}

@@ -88,7 +88,6 @@ class PFFormLinkerTest extends MediaWikiIntegrationTestCase {
 	private function getFormPerNamespaceProperty(): ReflectionProperty {
 		if ( self::$formPerNamespaceProperty === null ) {
 			self::$formPerNamespaceProperty = new ReflectionProperty( \PFFormLinker::class, 'formPerNamespace' );
-			self::$formPerNamespaceProperty->setAccessible( true );
 		}
 		return self::$formPerNamespaceProperty;
 	}
