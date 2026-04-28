@@ -29,7 +29,7 @@
 	"pf_createtemplate_semanticproperty": "Сэмантычная ўласьцівасьць:",
 	"pf_createtemplate_fieldislist": "Поле ўтрымлівае сьпіс значэньняў",
 	"pf_createtemplate_aggregation": "Злучэньне",
-	"pf_createtemplate_aggregationdesc": "Каб выводзіць на любую старонку, якая выкарыстоўвае гэты шаблён, усе старонкі, у якіх гэтая ўласьцівасьць спасылаецца на гэтую старонку, пазначце адпаведную ўласьцівасьць ніжэй:",
+	"pf_createtemplate_aggregationdesc": "Каб вывесьці на будзь-якую старонку, якая ўжывае гэты шаблён, усе старонкі, у якіх гэтая ўласьцівасьць спасылаецца на гэтую старонку, пазначце адпаведную ўласьцівасьць ніжэй:",
 	"pf_createtemplate_aggregationlabel": "Назва сьпісу:",
 	"pf_createtemplate_outputformat": "Фармат вываду:",
 	"pf_createtemplate_standardformat": "Табліца",
