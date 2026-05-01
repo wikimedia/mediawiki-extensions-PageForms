@@ -245,7 +245,7 @@ class PFMappingUtils {
 				$mappingCargoField,
 				$valueField . '="' . $value . '"'
 			);
-			if ( count( $vals ) > 0 ) {
+			if ( count( $vals ) > 0 && trim( $vals[0] ) != '' ) {
 				$labels[$value] = html_entity_decode( trim( $vals[0] ) );
 			}
 		}
