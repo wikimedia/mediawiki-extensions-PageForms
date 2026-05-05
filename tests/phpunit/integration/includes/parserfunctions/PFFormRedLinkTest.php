@@ -38,7 +38,7 @@ class PFFormRedLinkTest extends MediaWikiIntegrationTestCase {
 			ParserOptions::newFromAnon()
 		);
 
-		$html = $result->getRawText();
+		$html = $result->getContentHolderText();
 
 		// The link should have the "new" class, indicating a red/broken link
 		$this->assertStringContainsString( 'class=', $html );
@@ -66,7 +66,7 @@ class PFFormRedLinkTest extends MediaWikiIntegrationTestCase {
 			ParserOptions::newFromAnon()
 		);
 
-		$html = $result->getRawText();
+		$html = $result->getContentHolderText();
 
 		// Confirm we're in the "existing page" branch (i.e. not a red link).
 		$this->assertStringNotContainsString( 'class="new"', $html );
