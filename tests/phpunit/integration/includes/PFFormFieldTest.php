@@ -1,6 +1,10 @@
 <?php
 
+use MediaWiki\Content\ContentHandler;
+use MediaWiki\Title\Title;
+
 /**
+ * @group Database
  * @covers \PFFormField
  * @author Collins Wandji <collinschuwa@gmail.com>
  */
@@ -19,8 +23,14 @@ class PFFormFieldTest extends MediaWikiIntegrationTestCase {
 		$this->setMwGlobals( [
 			'wgPageFormsDependentFields' => [],
 			'wgPageFormsEmbeddedTemplates' => [],
+			'wgPageFormsFieldProperties' => [],
+			'wgPageFormsCargoFields' => [],
 			'wgPageFormsUseDisplayTitle' => false,
+			'wgCapitalLinks' => false,
+			'wgTitle' => Title::newFromText( 'PFFormFieldTestPage' ),
+			'wgPageFormsMaxAutocompleteValues' => 1000,
 		] );
+		\PFFormField::$mappedValuesCache = [];
 	}
 
 	/**
@@ -77,6 +87,33 @@ class PFFormFieldTest extends MediaWikiIntegrationTestCase {
 				return $right === 'editrestrictedfields' ? $canEditRestrictedFields : true;
 			} );
 		return $user;
+	}
+
+	private function createPage( string $prefixedText, string $content = 'Page content' ): Title {
+		$title = Title::newFromText( $prefixedText );
+		$this->assertInstanceOf( Title::class, $title );
+
+		$wikiPage = $this->getServiceContainer()->getWikiPageFactory()->newFromTitle( $title );
+		$wikiPage->doUserEditContent(
+			ContentHandler::makeContent( $content, $title ),
+			self::getTestUser()->getUser(),
+			'Create page for PFFormField integration test',
+			0,
+			false
+		);
+
+		return $title;
+	}
+
+	public static function provideValueSourceParams() {
+		return [
+			'property' => [ 'values from property=Has status', false ],
+			'wikidata' => [ 'values from wikidata=P31=Q5', false ],
+			'query' => [ 'values from query=[[Category:Tracked]]', false ],
+			'category' => [ 'values from category=tracked pages', true ],
+			'concept' => [ 'values from concept=Tracked concept', true ],
+			'namespace' => [ 'values from namespace=Help', true ],
+		];
 	}
 
 	/**
@@ -399,6 +436,340 @@ class PFFormFieldTest extends MediaWikiIntegrationTestCase {
 
 		$this->assertFalse( $formField->isRestricted() );
 		$this->assertFalse( $formField->isDisabled() );
+	}
+
+	/*
+	 *@covers \PFFormField::newFromFormFieldTag
+	 */
+	public function testNewFromFormFieldTagCreatesFallbackFieldWhenUnknownAndNotStrict() {
+		$knownTemplateField = \PFTemplateField::create( 'Known field', null );
+
+		$formField = $this->newFormFieldFromTags(
+			'Flexible template',
+			[ $knownTemplateField ],
+			[ 'field', 'Unknown field' ]
+		);
+
+		$this->assertSame( 'Unknown field', $formField->getTemplateField()->getFieldName() );
+		$this->assertSame( 'Flexible template[Unknown field]', $formField->getInputName() );
+		$this->assertSame( ',', $formField->getFieldArg( 'delimiter' ) );
+		$this->assertFalse( $formField->isDisabled() );
+	}
+
+	/*
+	 *@covers \PFFormField::newFromFormFieldTag
+	 */
+	public function testNewFromFormFieldTagHandlesSingleValueParams() {
+		$templateField = \PFTemplateField::create( 'Body', null );
+
+		$formField = $this->newFormFieldFromTags(
+			'Article',
+			[ $templateField ],
+			[ 'field', 'Body', 'edittools', 'holds template', 'translatable' ]
+		);
+
+		$fieldArgs = $formField->getFieldArgs();
+		$this->assertTrue( $fieldArgs['edittools'] );
+		$this->assertTrue( $fieldArgs['holds template'] );
+		$this->assertTrue( $fieldArgs['translatable'] );
+		$this->assertTrue( $formField->isHidden() );
+		$this->assertTrue( $formField->holdsTemplate() );
+	}
+
+	/*
+	 *@covers \PFFormField::newFromFormFieldTag
+	 */
+	public function testNewFromFormFieldTagHandlesPreloadFallback() {
+		$this->createPage( 'PFFormFieldPreloadPage', 'Preloaded text<noinclude>hidden</noinclude><includeonly> shown</includeonly>' );
+		$templateField = \PFTemplateField::create( 'Description', null );
+
+		$formField = $this->newFormFieldFromTags(
+			'Article',
+			[ $templateField ],
+			[ 'field', 'Description', 'preload=PFFormFieldPreloadPage' ]
+		);
+
+		$this->assertSame( 'PFFormFieldPreloadPage', $formField->getFieldArg( 'preload' ) );
+		$this->assertSame(
+			'Preloaded text shown',
+			$formField->getCurrentValue( [], false, false, false )
+		);
+	}
+
+	/*
+	 *@covers \PFFormField::newFromFormFieldTag
+	 */
+	public function testNewFromFormFieldTagParsesShowOnSelect() {
+		$templateField = \PFTemplateField::create( 'Status', null );
+
+		$formField = $this->newFormFieldFromTags(
+			'Issue',
+			[ $templateField ],
+			[
+				'field',
+				'Status',
+				'show on select=Open=>status-open; Closed=&gt;status-closed; Other; ; Reopened=>status-open'
+			]
+		);
+
+		$this->assertSame(
+			[
+				'status-open' => [ 'Open', 'Reopened' ],
+				'status-closed' => [ 'Closed' ],
+				'Other' => [],
+			],
+			$formField->getFieldArg( 'show on select' )
+		);
+	}
+
+	/**
+	 * @dataProvider provideValueSourceParams
+	 * @covers \PFFormField::newFromFormFieldTag
+	 */
+	public function testNewFromFormFieldTagHandlesValueSourceParams( string $sourceParam, bool $usesDisplayTitle ) {
+		$this->setMwGlobals( [ 'wgPageFormsUseDisplayTitle' => true ] );
+		$templateField = \PFTemplateField::create( 'Status', null );
+		[ $sourceKey, $sourceValue ] = array_map( 'trim', explode( '=', $sourceParam, 2 ) );
+		if ( $usesDisplayTitle ) {
+			$fieldArgs = [
+				'input type' => 'combobox',
+				$sourceKey => $sourceValue,
+				'values' => 'Open,Closed',
+				'delimiter' => ',',
+			];
+			\PFFormField::$mappedValuesCache[json_encode( $fieldArgs ) . 'displaytitle'] = [ 'Open', 'Closed' ];
+		}
+
+		$formField = $this->newFormFieldFromTags(
+			'Issue',
+			[ $templateField ],
+			[ 'field', 'Status', 'input type=combobox', $sourceParam, 'values=Open,Closed' ]
+		);
+
+		$this->assertSame( $sourceValue, $formField->getFieldArg( $sourceKey ) );
+		$this->assertSame( [ 'Open', 'Closed' ], $formField->getPossibleValues() );
+		$this->assertSame( $usesDisplayTitle, $formField->getUseDisplayTitle() );
+	}
+
+	/*
+	 *@covers \PFFormField::newFromFormFieldTag
+	 */
+	public function testNewFromFormFieldTagCapitalizesCategoryValueSource() {
+		$this->setMwGlobals( [
+			'wgCapitalLinks' => true,
+			'wgPageFormsUseDisplayTitle' => true,
+		] );
+		$this->createPage( 'PFFormFieldCategoryPage', '[[Category:Lowercase category]]' );
+		$templateField = \PFTemplateField::create( 'Related page', null );
+
+		$formField = $this->newFormFieldFromTags(
+			'Article',
+			[ $templateField ],
+			[ 'field', 'Related page', 'values from category=lowercase category' ]
+		);
+
+		$this->assertSame( 'lowercase category', $formField->getFieldArg( 'values from category' ) );
+		$this->assertContains( 'PFFormFieldCategoryPage', $formField->getPossibleValues() );
+		$this->assertTrue( $formField->getUseDisplayTitle() );
+	}
+
+	/*
+	 *@covers \PFFormField::newFromFormFieldTag
+	 */
+	public function testNewFromFormFieldTagHandlesDependencyAndUniqueScopeParams() {
+		global $wgPageFormsDependentFields;
+		$templateField = \PFTemplateField::create( 'Status', null );
+
+		$formField = $this->newFormFieldFromTags(
+			'Issue',
+			[ $templateField ],
+			[
+				'field',
+				'Status',
+				'values dependent on=ParentField',
+				'unique for category=Tracked',
+				'unique for namespace=Help',
+				'unique for concept=KnownConcept'
+			]
+		);
+
+		$fieldArgs = $formField->getFieldArgs();
+		$this->assertSame( [ [ 'ParentField', 'Issue[Status]' ] ], $wgPageFormsDependentFields );
+		$this->assertTrue( $fieldArgs['unique'] );
+		$this->assertSame( 'Tracked', $fieldArgs['unique_for_category'] );
+		$this->assertSame( 'Help', $fieldArgs['unique_for_namespace'] );
+		$this->assertSame( 'KnownConcept', $fieldArgs['unique_for_concept'] );
+	}
+
+	/*
+	 *@covers \PFFormField::newFromFormFieldTag
+	 */
+	public function testNewFromFormFieldTagSubstitutesDefaultFilenameForRegularPage() {
+		$this->setMwGlobals( [ 'wgTitle' => Title::newFromText( 'Upload target' ) ] );
+		$templateField = \PFTemplateField::create( 'File', null );
+
+		$formField = $this->newFormFieldFromTags(
+			'Image',
+			[ $templateField ],
+			[ 'field', 'File', 'default filename=File:<page name>.jpg' ]
+		);
+
+		$this->assertSame( 'File:Upload target.jpg', $formField->getFieldArg( 'default filename' ) );
+	}
+
+	/*
+	 *@covers \PFFormField::newFromFormFieldTag
+	 */
+	public function testNewFromFormFieldTagSubstitutesDefaultFilenameForSpecialFormEditTarget() {
+		$this->setMwGlobals( [ 'wgTitle' => Title::newFromText( 'FormEdit/Image form/Target Page', NS_SPECIAL ) ] );
+		$templateField = \PFTemplateField::create( 'File', null );
+
+		$formField = $this->newFormFieldFromTags(
+			'Image',
+			[ $templateField ],
+			[ 'field', 'File', 'default filename=File:<page name>.jpg' ]
+		);
+
+		$this->assertSame( 'File:Target Page.jpg', $formField->getFieldArg( 'default filename' ) );
+	}
+
+	/*
+	 *@covers \PFFormField::newFromFormFieldTag
+	 */
+	public function testNewFromFormFieldTagRegistersFormLevelSemanticPropertyWhenSMWIsAvailable() {
+		if ( !defined( 'SMW_VERSION' ) ) {
+			$this->markTestSkipped( 'Semantic MediaWiki is not installed.' );
+		}
+		global $wgPageFormsFieldProperties;
+		$templateField = \PFTemplateField::newFromParams( 'Status', [ 'property' => 'Original status' ] );
+
+		$formField = $this->newFormFieldFromTags(
+			'Issue',
+			[ $templateField ],
+			[ 'field', 'Status', 'property=Has status' ]
+		);
+
+		$this->assertSame( 'Has status', $formField->getTemplateField()->getSemanticProperty() );
+		$this->assertSame( 'Has status', $wgPageFormsFieldProperties['Issue[Status]' ] );
+	}
+
+	/*
+	 *@covers \PFFormField::newFromFormFieldTag
+	 */
+	public function testNewFromFormFieldTagRegistersTemplateSemanticPropertyWhenSMWIsAvailable() {
+		if ( !defined( 'SMW_VERSION' ) ) {
+			$this->markTestSkipped( 'Semantic MediaWiki is not installed.' );
+		}
+		global $wgPageFormsFieldProperties;
+		$templateField = \PFTemplateField::newFromParams( 'Status', [ 'property' => 'Has status' ] );
+
+		$this->newFormFieldFromTags(
+			'Issue',
+			[ $templateField ],
+			[ 'field', 'Status' ]
+		);
+
+		$this->assertSame( 'Has status', $wgPageFormsFieldProperties['Issue[Status]' ] );
+	}
+
+	/*
+	 *@covers \PFFormField::newFromFormFieldTag
+	 */
+	public function testNewFromFormFieldTagRegistersFormLevelCargoFieldWhenCargoIsAvailable() {
+		if ( !defined( 'CARGO_VERSION' ) ) {
+			$this->markTestSkipped( 'Cargo is not installed.' );
+		}
+		global $wgPageFormsCargoFields;
+		$templateField = \PFTemplateField::create( 'Status', null );
+
+		$formField = $this->newFormFieldFromTags(
+			'Issue',
+			[ $templateField ],
+			[
+				'field',
+				'Status',
+				'cargo table=Tasks',
+				'cargo field=Status',
+				'cargo where=Status="Open"',
+				'values=Open,Closed'
+			]
+		);
+
+		$this->assertSame( 'Status="Open"', $formField->getFieldArg( 'cargo where' ) );
+		$this->assertSame( 'Tasks|Status', $formField->getTemplateField()->getFullCargoField() );
+		$this->assertSame( 'Tasks|Status', $wgPageFormsCargoFields['Issue[Status]' ] );
+	}
+
+	/*
+	 *@covers \PFFormField::newFromFormFieldTag
+	 */
+	public function testNewFromFormFieldTagRegistersTemplateCargoFieldWhenCargoIsAvailable() {
+		if ( !defined( 'CARGO_VERSION' ) ) {
+			$this->markTestSkipped( 'Cargo is not installed.' );
+		}
+		global $wgPageFormsCargoFields;
+		$templateField = \PFTemplateField::create( 'Status', null );
+		$templateField->setCargoFieldData( 'Tasks', 'Status' );
+
+		$this->newFormFieldFromTags(
+			'Issue',
+			[ $templateField ],
+			[ 'field', 'Status', 'values=Open,Closed' ]
+		);
+
+		$this->assertSame( 'Tasks|Status', $wgPageFormsCargoFields['Issue[Status]' ] );
+	}
+
+	/*
+	 *@covers \PFFormField::newFromFormFieldTag
+	 */
+	public function testNewFromFormFieldTagPrefixesNamespaceValuesBeforeMappingAndUsesCache() {
+		$this->setMwGlobals( [ 'wgPageFormsMaxAutocompleteValues' => 1 ] );
+		$this->createPage( 'Help:PFFormFieldMappedHelpPage' );
+		$templateField = \PFTemplateField::create( 'Related page', null );
+		$fieldArgs = [
+			'input type' => 'tokens',
+			'values from namespace' => 'Help',
+			'mapping using translate' => 'pf-form-field-test-',
+			'delimiter' => ',',
+		];
+		$mappedValuesKey = json_encode( $fieldArgs ) . 'mapping using translate';
+		\PFFormField::$mappedValuesCache[$mappedValuesKey] = [
+			'Help:PFFormFieldMappedHelpPage' => 'Cached label',
+		];
+
+		$formField = $this->newFormFieldFromTags(
+			'Article',
+			[ $templateField ],
+			[
+				'field',
+				'Related page',
+				'input type=tokens',
+				'values from namespace=Help',
+				'mapping using translate=pf-form-field-test-'
+			]
+		);
+
+		$this->assertSame(
+			[ 'Help:PFFormFieldMappedHelpPage' => 'Cached label' ],
+			$formField->getPossibleValues()
+		);
+		$this->assertTrue( $formField->getFieldArg( 'reverselookup' ) );
+	}
+
+	/*
+	 *@covers \PFFormField::newFromFormFieldTag
+	 */
+	public function testNewFromFormFieldTagUsesFieldNameAsInputNameWhenTemplateNameIsEmpty() {
+		$templateField = \PFTemplateField::create( 'Free text', null );
+
+		$formField = $this->newFormFieldFromTags(
+			'',
+			[ $templateField ],
+			[ 'field', 'Free text' ]
+		);
+
+		$this->assertSame( 'Free text', $formField->getInputName() );
 	}
 
 	public function testCleanupTranslateTags() {
