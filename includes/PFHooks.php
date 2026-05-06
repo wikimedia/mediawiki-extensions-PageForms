@@ -39,7 +39,7 @@ class PFHooks {
 
 		if ( defined( 'SMW_VERSION' ) || ExtensionRegistry::getInstance()->isLoaded( 'SemanticMediaWiki' ) ) {
 			$GLOBALS['wgSpecialPages']['CreateProperty'] = 'PFCreateProperty';
-			$GLOBALS['wgAutoloadClasses']['PFCreateProperty'] = __DIR__ . '/../specials/PF_CreateProperty.php';
+			$GLOBALS['wgAutoloadClasses']['PFCreateProperty'] = __DIR__ . '/../specials/PFCreateProperty.php';
 			$GLOBALS['smwgEnabledSpecialPage'][] = 'RunQuery';
 		}
 
