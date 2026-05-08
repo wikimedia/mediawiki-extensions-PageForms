@@ -68,7 +68,7 @@
 	"pf_createtemplate_hierarchystructureplaceholder": "*계층식\n**값을\n***입력\n***할 \n**경우\n***이런\n*식으로\n**입력하세요",
 	"pf_createproperty_allowedvalsforhierarchy": "계층식에 허용된 값:",
 	"pf_createtemplate_delimiter": "구분자:",
-	"pf_createtemplate_aggregation": "집합",
+	"pf_createtemplate_aggregation": "집계",
 	"pf_createtemplate_aggregationdesc": "이 틀을 사용하여 모든 문서에 나타내려면 해당 문서를 가리키는 특정 속성을 가진 모든 문서를 다음 해당 속성을 지정하세요:",
 	"pf_createtemplate_aggregationlabel": "목록 제목:",
 	"pf_createtemplate_outputformat": "출력 형식:",
