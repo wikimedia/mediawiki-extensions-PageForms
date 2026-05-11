@@ -144,7 +144,11 @@ class PFTemplateDisplay {
 			} elseif ( $fieldType == 'Rating' ) {
 				$formattedFieldValue = self::ratingText( $fieldValue );
 			} elseif ( $fieldType == 'File' ) {
-				$formattedFieldValue = self::fileText( $fieldValue );
+				if ( $templateField->isList() ) {
+					$formattedFieldValue = self::fileListText( $fieldValue, $templateField );
+				} else {
+					$formattedFieldValue = self::fileText( $fieldValue );
+				}
 			} elseif ( $templateField->isList() ) {
 				$formattedFieldValue = self::stringListText( $fieldValue, $templateField );
 			} else {
@@ -270,4 +274,16 @@ class PFTemplateDisplay {
 		);
 	}
 
+	private static function fileListText( $value, $templateField ) {
+		$text = '';
+		$delimiter = $templateField->getDelimiter();
+		$fieldValues = explode( $delimiter, $value );
+		foreach ( $fieldValues as $i => $fieldValue ) {
+			if ( trim( $fieldValue ) == '' ) {
+				continue;
+			}
+			$text .= self::fileText( $fieldValue );
+		}
+		return $text;
+	}
 }
