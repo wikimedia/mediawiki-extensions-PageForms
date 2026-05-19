@@ -86,8 +86,10 @@ class PFHelperFormActionTest extends MediaWikiIntegrationTestCase {
 		}
 		$executions = new ArrayObject();
 		$action = $this->newHelperFormActionForNamespace( SMW_NS_PROPERTY, 'PFHelperPropertyPage', $executions );
+
 		$this->assertFalse( $action->show() );
-		$this->assertSame( [ [ PFCreateProperty::class, 'PFHelperPropertyPage' ] ], $executions->getArrayCopy() );
+		$this->assertSame( [ [ \PFCreateProperty::class, 'PFHelperPropertyPage' ] ], $executions->getArrayCopy() );
+		$this->assertInstanceOf( \PFHelperFormAction::class, $action );
 	}
 
 	/**
@@ -97,7 +99,7 @@ class PFHelperFormActionTest extends MediaWikiIntegrationTestCase {
 		$executions = new ArrayObject();
 		$action = $this->newHelperFormActionForNamespace( NS_TEMPLATE, 'PFHelperTemplatePage', $executions );
 		$this->assertFalse( $action->show() );
-		$this->assertSame( [ [ PFCreateTemplate::class, 'PFHelperTemplatePage' ] ], $executions->getArrayCopy() );
+		$this->assertSame( [ [ \PFCreateTemplate::class, 'PFHelperTemplatePage' ] ], $executions->getArrayCopy() );
 	}
 
 	/**
@@ -107,7 +109,7 @@ class PFHelperFormActionTest extends MediaWikiIntegrationTestCase {
 		$executions = new ArrayObject();
 		$action = $this->newHelperFormActionForNamespace( PF_NS_FORM, 'PFHelperFormPage', $executions );
 		$this->assertFalse( $action->show() );
-		$this->assertSame( [ [ PFCreateForm::class, 'PFHelperFormPage' ] ], $executions->getArrayCopy() );
+		$this->assertSame( [ [ \PFCreateForm::class, 'PFHelperFormPage' ] ], $executions->getArrayCopy() );
 	}
 
 	/**
@@ -118,6 +120,20 @@ class PFHelperFormActionTest extends MediaWikiIntegrationTestCase {
 		$action = $this->newHelperFormActionForNamespace( NS_CATEGORY, 'PFHelperCategoryPage', $executions );
 		$this->assertFalse( $action->show() );
 		$this->assertSame( [ [ PFCreateCategory::class, 'PFHelperCategoryPage' ] ], $executions->getArrayCopy() );
+	}
+
+	/**
+	 * @covers \PFHelperFormAction::newHelperPage
+	 */
+	public function testNewHelperPageInstantiatesClassWhenNoFactoryIsSet(): void {
+		\PFHelperFormAction::setHelperPageFactory( null );
+
+		$newHelperPage = new ReflectionMethod( \PFHelperFormAction::class, 'newHelperPage' );
+
+		$this->assertInstanceOf(
+			stdClass::class,
+			$newHelperPage->invoke( null, stdClass::class )
+		);
 	}
 
 	/**

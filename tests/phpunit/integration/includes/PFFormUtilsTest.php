@@ -552,6 +552,13 @@ class PFFormUtilsTest extends MediaWikiIntegrationTestCase {
 		\RequestContext::getMain()->setUser( $user );
 		$this->overrideUserPermissions( $user, [] );
 
+		$permissionManager = $this->createMock( \MediaWiki\Permissions\PermissionManager::class );
+		$permissionManager->expects( $this->once() )
+			->method( 'userCan' )
+			->with( 'read', $user, $this->isInstanceOf( Title::class ) )
+			->willReturn( false );
+		$this->setService( 'PermissionManager', $permissionManager );
+
 		$this->assertSame( '', \PFFormUtils::getPreloadedText( 'PFPreloadNoReadPage' ) );
 	}
 
