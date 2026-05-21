@@ -10,6 +10,8 @@
 	"pf_createclass_create": "Abuur",
 	"pf_formedit_createtitle": "Abuur $1: $2",
 	"pf_formedit_createtitlenotarget": "Abuur $1",
+	"pf_viewform": "Eeg foomka",
 	"right-viewedittab": "Muuji \"{{int:edit}}\" bogagga ay suurtowdo wax ka bedelkooda adigoo adeegsanaya qaabka",
-	"action-viewedittab": "Eegista \"{{int:edit}}\" bogagga ay suurtowdo wax ka bedelkooda adigoo adeegsanaya qaabka"
+	"action-viewedittab": "Eegista \"{{int:edit}}\" bogagga ay suurtowdo wax ka bedelkooda adigoo adeegsanaya qaabka",
+	"tooltip-ca-formedit": "Ku tafatir boggan foom"
 }

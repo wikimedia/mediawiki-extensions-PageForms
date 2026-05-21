@@ -324,5 +324,6 @@
 	"pf-invalidexturl": "외부 URL 값이 잘못되었습니다.",
 	"pf-blankexturl": "외부 URL 값이 비어있습니다.",
 	"pf-externalpageempty": "외부 페이지에 내용이 없습니다.",
-	"pf-externalpagebadjson": "외부 페이지의 JSON을 구문 분석할 수 없습니다."
+	"pf-externalpagebadjson": "외부 페이지의 JSON을 구문 분석할 수 없습니다.",
+	"pf-automatic-rename": "문서 이름 공식에 따른 이름 자동 변경"
 }

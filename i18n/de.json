@@ -333,5 +333,6 @@
 	"pf-invalidexturl": "Ungültiger Externe-URL-Wert.",
 	"pf-blankexturl": "Leerer Externe-URL-Wert.",
 	"pf-externalpageempty": "Die externe Seite enthält keine Inhalte.",
-	"pf-externalpagebadjson": "JSON in der externen Seite konnte nicht geparst werden."
+	"pf-externalpagebadjson": "JSON in der externen Seite konnte nicht geparst werden.",
+	"pf-automatic-rename": "Automatische Umbenennung anhand einer Formel für den Seitennamen"
 }
