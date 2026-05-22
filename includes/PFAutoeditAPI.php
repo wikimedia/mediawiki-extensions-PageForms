@@ -680,11 +680,7 @@ class PFAutoeditAPI extends ApiBase {
 	protected function finalizeResults() {
 		// set response text depending on the status and the requested action
 		if ( $this->mStatus === 200 ) {
-			if ( array_key_exists( 'ok text', $this->mOptions ) ) {
-				$targetTitle = Title::newFromText( $this->mOptions['target'] );
-				$messageCache = MediaWikiServices::getInstance()->getMessageCache();
-				$responseText = $messageCache->parse( $this->mOptions['ok text'], $targetTitle )->getText();
-			} elseif ( $this->mAction === self::ACTION_SAVE ) {
+			if ( $this->mAction === self::ACTION_SAVE ) {
 				// We turn this into a link of the form [[:A|A]]
 				// so that pages in the File: namespace won't
 				// cause the actual image to be displayed.
@@ -699,12 +695,8 @@ class PFAutoeditAPI extends ApiBase {
 				$responseText = null;
 			}
 		} else {
-			// get errortext (or use default)
-			if ( array_key_exists( 'error text', $this->mOptions ) ) {
-				$targetTitle = Title::newFromText( $this->mOptions['target'] );
-				$messageCache = MediaWikiServices::getInstance()->getMessageCache();
-				$responseText = $messageCache->parse( $this->mOptions['error text'], $targetTitle )->getText();
-			} elseif ( $this->mAction === self::ACTION_SAVE ) {
+			// Display error.
+			if ( $this->mAction === self::ACTION_SAVE ) {
 				$targetText = ':' . $this->mOptions['target'] . '|' . $this->mOptions['target'];
 				$responseText = $this->msg( 'pf_autoedit_fail', $targetText )->parse();
 			} else {

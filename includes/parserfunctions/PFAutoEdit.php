@@ -85,13 +85,6 @@ class PFAutoEdit {
 				case 'query string':
 					$inQueryArr = self::convertQueryString( $value, $inQueryArr );
 					break;
-
-				case 'ok text':
-				case 'error text':
-					// do not parse ok text or error text yet. Will be parsed on api call
-					$arr = [ $key => $value ];
-					$inQueryArr = PFUtils::arrayMergeRecursiveDistinct( $inQueryArr, $arr );
-					break;
 				case 'tooltip':
 					$inTooltip = Sanitizer::decodeCharReferences( $value );
 					break;
