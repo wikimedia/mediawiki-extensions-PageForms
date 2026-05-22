@@ -100,8 +100,8 @@ class PFMappingUtils {
 				$mappedValues = self::getValuesWithMappingTemplate( $values, $mappingTemplate );
 				break;
 			case 'mapping cargo field':
-				$mappingCargoField = isset( $args['mapping cargo field'] ) ? $args['mapping cargo field'] : null;
-				$mappingCargoValueField = isset( $args['mapping cargo value field'] ) ? $args['mapping cargo value field'] : null;
+				$mappingCargoField = $args['mapping cargo field'] ?? null;
+				$mappingCargoValueField = $args['mapping cargo value field'] ?? null;
 				$mappingCargoTable = $args['mapping cargo table'];
 				$mappedValues = self::getValuesWithMappingCargoField( $values, $mappingCargoField, $mappingCargoValueField, $mappingCargoTable, $useDisplayTitle );
 				break;

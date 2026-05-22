@@ -35,9 +35,6 @@ $cfg['suppress_issue_types'] = array_merge(
 	// NOTE: New issues should NOT be added here, but suppressed inline instead
 	// (unless there's a valid reason not to)
 	[
-		// PHP < 7 support...
-		'PhanPluginDuplicateConditionalNullCoalescing',
-
 		// Cannot properly install SMW in CI, so suppress possibly-related issues. This should also help
 		// with method that were added/removed in different MW versions, but may hide some genuine issues.
 		'PhanUndeclaredClassReference',

@@ -39,8 +39,8 @@ class PFFormEdit extends UnlistedSpecialPage {
 		// if query string did not contain these variables, try the URL
 		if ( !$this->mForm && !$this->mTarget ) {
 			$queryparts = explode( '/', $query ?? '', 2 );
-			$this->mForm = isset( $queryparts[ 0 ] ) ? $queryparts[ 0 ] : '';
-			$this->mTarget = isset( $queryparts[ 1 ] ) ? $queryparts[ 1 ] : '';
+			$this->mForm = $queryparts[ 0 ] ?? '';
+			$this->mTarget = $queryparts[ 1 ] ?? '';
 			$this->mTarget = str_replace( '_', ' ', $this->mTarget );
 		}
 

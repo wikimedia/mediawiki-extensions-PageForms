@@ -336,7 +336,7 @@ class PFAutoeditAPI extends ApiBase {
 				'wpUnicodeCheck' => 'ℳ𝒲♥𝓊𝓃𝒾𝒸ℴ𝒹ℯ',
 				'wpSummary' => '',
 				'wpStarttime' => wfTimestampNow(),
-				'wpEditToken' => isset( $this->mOptions[ 'token' ] ) ? $this->mOptions[ 'token' ] : $this->getUser()->getEditToken(),
+				'wpEditToken' => $this->mOptions[ 'token' ] ?? $this->getUser()->getEditToken(),
 				'action' => 'submit',
 			],
 			$this->mOptions
@@ -537,7 +537,7 @@ class PFAutoeditAPI extends ApiBase {
 			case EditPage::AS_SUCCESS_NEW_ARTICLE:
 				// Article successfully created
 				$query = $resultDetails['redirect'] ? 'redirect=no' : '';
-				$anchor = isset( $resultDetails['sectionanchor'] ) ? $resultDetails['sectionanchor'] : '';
+				$anchor = $resultDetails['sectionanchor'] ?? '';
 
 				// Give extensions a chance to modify URL query on create
 				$sectionanchor = '';

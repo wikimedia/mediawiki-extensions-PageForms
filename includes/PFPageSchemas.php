@@ -279,7 +279,7 @@ class PFPageSchemas extends PSExtensionHandler {
 		// Inputs
 		if ( $pageSchemaObj !== null ) {
 			$standardInputs = $pageSchemaObj->getObject( 'standardInputs' );
-			$includeFreeText = isset( $standardInputs['inputFreeText'] ) ? $standardInputs['inputFreeText'] : false;
+			$includeFreeText = $standardInputs['inputFreeText'] ?? false;
 		} else {
 			$includeFreeText = true;
 		}
