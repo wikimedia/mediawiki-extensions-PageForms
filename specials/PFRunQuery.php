@@ -41,6 +41,7 @@ class PFRunQuery extends IncludableSpecialPage {
 		global $wgPageFormsFormPrinter, $wgPageFormsRunQueryFormAtTop;
 
 		$out = $this->getOutput();
+		$req = $this->getRequest();
 		$user = $this->getUser();
 
 		if ( PFUtils::ignoreFormName( $form_name ) ) {
