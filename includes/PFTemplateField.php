@@ -1,6 +1,9 @@
 <?php
 
 use MediaWiki\Title\Title;
+use SMW\DataTypeRegistry;
+use SMW\DataValueFactory;
+use SMW\DIProperty;
 
 /**
  * Defines a class, PFTemplateField, that represents a field in a template,
@@ -166,8 +169,8 @@ class PFTemplateField {
 			$allowed_values = PFValuesUtils::getSMWPropertyValues( $store, $proptitle, "Allows value list" );
 		}
 		$label_formats = PFValuesUtils::getSMWPropertyValues( $store, $proptitle, "Has field label format" );
-		$propValue = \SMW\DIProperty::newFromUserLabel( $this->mSemanticProperty );
-		$this->mPropertyType = $propValue->findPropertyTypeID();
+		$propValue = DIProperty::newFromUserLabel( $this->mSemanticProperty );
+		$this->mPropertyType = $propValue->findPropertyValueType();
 
 		foreach ( $allowed_values as $allowed_value ) {
 			// HTML-unencode each value
@@ -175,8 +178,8 @@ class PFTemplateField {
 			$this->mPossibleValues[] = $wiki_value;
 			if ( count( $label_formats ) > 0 ) {
 				$label_format = $label_formats[0];
-				$prop_instance = \SMW\DataValueFactory::findTypeID( $this->mPropertyType );
-				$label_value = \SMW\DataValueFactory::newTypeIDValue( $prop_instance, $wiki_value );
+				$prop_instance = DataTypeRegistry::getInstance()->findTypeByLabel( $this->mPropertyType );
+				$label_value = DataValueFactory::newDataValueByType( $prop_instance, $wiki_value );
 				$label_value->setOutputFormat( $label_format );
 				$this->mValueLabels[$wiki_value] = html_entity_decode( $label_value->getWikiValue() );
 			}
