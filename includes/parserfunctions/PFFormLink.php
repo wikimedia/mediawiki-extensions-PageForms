@@ -2,6 +2,7 @@
 
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Parser\ParserOutputFlags;
 use MediaWiki\Title\Title;
 
 /**
