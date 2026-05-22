@@ -141,15 +141,11 @@ class PFFormEdit extends UnlistedSpecialPage {
 				return;
 			}
 		} else {
-			if ( defined( 'ApiResult::META_CONTENT' ) ) {
-				$resultData = $module->getResult()->getResultData( null, [
-					'BC' => [],
-					'Types' => [],
-					'Strip' => 'all',
-				] );
-			} else {
-				$resultData = $module->getResultData();
-			}
+			$resultData = $module->getResult()->getResultData( null, [
+				'BC' => [],
+				'Types' => [],
+				'Strip' => 'all',
+			] );
 
 			if ( array_key_exists( 'errors', $resultData ) ) {
 				foreach ( $resultData['errors'] as $error ) {

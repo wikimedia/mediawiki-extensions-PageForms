@@ -99,15 +99,11 @@ class PFTextInput extends PFFormInput {
 		], true ), true );
 
 		$api->execute();
-		if ( defined( 'ApiResult::META_CONTENT' ) ) {
-			$result = $api->getResult()->getResultData( null, [
-				'BC' => [],
-				'Types' => [],
-				'Strip' => 'all',
-			] );
-		} else {
-			$result = $api->getResultData();
-		}
+		$result = $api->getResult()->getResultData( null, [
+			'BC' => [],
+			'Types' => [],
+			'Strip' => 'all',
+		] );
 
 		$url = false;
 
