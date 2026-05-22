@@ -331,5 +331,6 @@
 	"pf-invalidexturl": "Ongeldige externe URL-waarde.",
 	"pf-blankexturl": "Lege externe URL-waarde.",
 	"pf-externalpageempty": "Externe pagina bevat geen inhoud.",
-	"pf-externalpagebadjson": "Kan JSON op externe pagina niet verwerken."
+	"pf-externalpagebadjson": "Kan JSON op externe pagina niet verwerken.",
+	"pf-automatic-rename": "Automatische hernoemen op basis van paginanaamformule"
 }

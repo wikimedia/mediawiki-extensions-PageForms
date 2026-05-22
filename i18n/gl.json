@@ -322,5 +322,6 @@
 	"pf-invalidexturl": "Valor de enderezo URL externo non válido.",
 	"pf-blankexturl": "Valor de enderezo URL externo en branco.",
 	"pf-externalpageempty": "A páxina externa non ten ningún contido.",
-	"pf-externalpagebadjson": "Non se puido analizar o JSON na páxina externa."
+	"pf-externalpagebadjson": "Non se puido analizar o JSON na páxina externa.",
+	"pf-automatic-rename": "Renomeamento automático en base a unha fórmula de nomes de páxinas"
 }

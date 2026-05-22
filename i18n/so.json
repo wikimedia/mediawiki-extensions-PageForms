@@ -13,5 +13,6 @@
 	"pf_viewform": "Eeg foomka",
 	"right-viewedittab": "Muuji \"{{int:edit}}\" bogagga ay suurtowdo wax ka bedelkooda adigoo adeegsanaya qaabka",
 	"action-viewedittab": "Eegista \"{{int:edit}}\" bogagga ay suurtowdo wax ka bedelkooda adigoo adeegsanaya qaabka",
-	"tooltip-ca-formedit": "Ku tafatir boggan foom"
+	"tooltip-ca-formedit": "Ku tafatir boggan foom",
+	"pf-automatic-rename": "Magaca si toos ah loogu beddelo iyadoo lagu saleynayo qaacidada magaca bogga"
 }
