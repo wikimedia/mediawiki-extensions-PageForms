@@ -221,7 +221,7 @@ class PFHooks {
 	/**
 	 * Called by the CargoTablesSetAllowedActions hook.
 	 *
-	 * @param SpecialPage $cargoTablesPage
+	 * @param CargoTables $cargoTablesPage
 	 * @param array &$allowedActions
 	 */
 	public static function addToCargoTablesColumns( $cargoTablesPage, &$allowedActions ) {
@@ -308,7 +308,7 @@ class PFHooks {
 	 *
 	 * Adds an "Edit" link to Special:CargoTables, pointing to Special:MultiPageEdit.
 	 *
-	 * @param SpecialPage $cargoTablesPage
+	 * @param CargoTables $cargoTablesPage
 	 * @param array &$actionLinks Action links
 	 * @param string $tableName Cargo table name
 	 * @param bool $isReplacementTable Whether this table iss a replacement table
