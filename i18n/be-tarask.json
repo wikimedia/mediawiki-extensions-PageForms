@@ -59,7 +59,7 @@
 	"pf_forminputs_values": "Набор значэньняў для гэтага ўводу, падзеленых коскамі",
 	"pf_forminputs_list": "Пазначыць гэты ўвод, як утрымліваючы сьпіс значэньняў",
 	"pf_forminputs_delimiter": "Разьдзяляльнік паміж значэньнямі ў палі, калі гэты ўвод утрымлівае іх сьпіс",
-	"pf_forminputs_existingvaluesonly": "Дазваляе толькі значэньні існуючыя у сьпісе",
+	"pf_forminputs_existingvaluesonly": "Дазваляе толькі значэньні існыя ў сьпісе",
 	"pf_forminputs_showonselect": "Элемэнты старонкі для паказу, толькі ў выпадку калі выбраныя некаторыя значэньні (напрыклад: \"value1=>div1;value2=>div2\")",
 	"pf_forminputs_listboxsize": "Вышыня гэтага сьпісу, у радках",
 	"pf_forminputs_includetimezone": "Уключае ўвод для часовага пасу",

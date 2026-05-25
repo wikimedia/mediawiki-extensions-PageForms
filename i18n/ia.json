@@ -312,5 +312,6 @@
 	"pf-invalidexturl": "Valor de URL externe non valide.",
 	"pf-blankexturl": "Valor de URL externe vacue.",
 	"pf-externalpageempty": "Pagina externe non ha contento.",
-	"pf-externalpagebadjson": "Non poteva analysar JSON in pagina externe."
+	"pf-externalpagebadjson": "Non poteva analysar JSON in pagina externe.",
+	"pf-automatic-rename": "Renomination automatic basate sur formula de nomine de pagina"
 }
