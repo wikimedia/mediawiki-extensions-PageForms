@@ -2,10 +2,17 @@
 	"@metadata": {
 		"authors": [
 			"Abdullahi",
-			"Abshirdheere"
+			"Abshirdheere",
+			"AhmedG612"
 		]
 	},
 	"pf-createcategory-with-name": "Abuur qaybta: $1",
+	"pf_createclass_create": "Abuur",
+	"pf_formedit_createtitle": "Abuur $1: $2",
+	"pf_formedit_createtitlenotarget": "Abuur $1",
+	"pf_viewform": "Eeg foomka",
+	"pf_deletionlog": "Diiwaanka tirtirka",
 	"right-viewedittab": "Muuji \"{{int:edit}}\" bogagga ay suurtowdo wax ka bedelkooda adigoo adeegsanaya qaabka",
-	"action-viewedittab": "Eegista \"{{int:edit}}\" bogagga ay suurtowdo wax ka bedelkooda adigoo adeegsanaya qaabka"
+	"action-viewedittab": "Eegista \"{{int:edit}}\" bogagga ay suurtowdo wax ka bedelkooda adigoo adeegsanaya qaabka",
+	"tooltip-ca-formedit": "Ku tafatir boggan foom"
 }
