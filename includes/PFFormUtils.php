@@ -128,7 +128,7 @@ class PFFormUtils {
 		] );
 		$text = Html::rawElement(
 			'label',
-			[ 'title' => wfMessage( 'tooltip-minoredit' )->parse() ],
+			[ 'title' => wfMessage( 'tooltip-minoredit' )->text() ],
 			new OOUI\CheckboxInputWidget( $attrs ) . $labelWidget
 		);
 		$text = Html::rawElement( 'div', [ 'style' => 'display: inline-block; padding: 12px 16px 12px 0;' ], $text );
@@ -184,7 +184,7 @@ class PFFormUtils {
 		] );
 		$text = Html::rawElement(
 			'label',
-			[ 'title' => wfMessage( 'tooltip-watch' )->parse() ],
+			[ 'title' => wfMessage( 'tooltip-watch' )->text() ],
 			new OOUI\CheckboxInputWidget( $attrs ) . $labelWidget
 		);
 		$text = Html::rawElement( 'div', [ 'style' => 'display: inline-block; padding: 12px 16px 12px 0;' ], $text );
@@ -461,8 +461,8 @@ END;
 	/**
 	 * Parse the form definition and return it
 	 * @param Parser $parser
-	 * @param string|null $form_def
-	 * @param string|null $form_id
+	 * @param ?string $form_def
+	 * @param ?int $form_id
 	 * @return string
 	 */
 	public static function getFormDefinition( Parser $parser, $form_def = null, $form_id = null ) {
@@ -485,7 +485,7 @@ END;
 		}
 
 		// Remove <noinclude> sections and <includeonly> tags from form definition
-		$form_def = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $form_def );
+		$form_def = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $form_def ?? '' );
 		$form_def = strtr( $form_def, [ '<includeonly>' => '', '</includeonly>' => '' ] );
 
 		// We need to replace all PF tags in the form definition by strip items. But we can not just use
@@ -538,7 +538,7 @@ END;
 			self::purgeCache( $wikiPage );
 			wfDebug( "Caching disabled for form definition $form_id\n" );
 		} elseif ( $form_id !== null ) {
-			self::cacheFormDefinition( $form_id, $form_def, $parser );
+			self::cacheFormDefinition( (string)$form_id, $form_def, $parser );
 		}
 
 		return $form_def;

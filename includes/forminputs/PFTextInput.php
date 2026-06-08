@@ -133,7 +133,7 @@ class PFTextInput extends PFFormInput {
 
 		if ( $wgPageFormsSimpleUpload ) {
 			$text = "\n" . '<img class="loading" style="display:none;" src="' . $wgPageFormsScriptPath . '/skins/loading.gif"/>' . "\n";
-			$text .= Html::rawElement( 'span', [ 'class' => 'simpleUploadInterface' ], null );
+			$text .= Html::rawElement( 'span', [ 'class' => 'simpleUploadInterface' ], '' );
 
 			return $text;
 		}

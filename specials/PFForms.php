@@ -28,7 +28,7 @@ class PFForms extends QueryPage {
 	}
 
 	function getPageHeader() {
-		return Html::element( 'p', null, $this->msg( 'pf_forms_docu' )->text() );
+		return Html::element( 'p', [], $this->msg( 'pf_forms_docu' )->text() );
 	}
 
 	function getPageFooter() {
@@ -50,11 +50,11 @@ class PFForms extends QueryPage {
 		$pageName = $result->value;
 
 		if ( PFUtils::ignoreFormName( $pageName ) ) {
-			return null;
+			return '';
 		}
 
 		$title = Title::makeTitle( PF_NS_FORM, $pageName );
-		return $this->getLinkRenderer()->makeKnownLink( $title, htmlspecialchars( $title->getText() ) );
+		return $this->getLinkRenderer()->makeKnownLink( $title, $title->getText() );
 	}
 
 	protected function getGroupName() {

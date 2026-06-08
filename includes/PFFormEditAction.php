@@ -27,7 +27,7 @@ class PFFormEditAction extends Action {
 	 * output. Do not use globals $wgOut, $wgRequest, etc, in implementations; use
 	 * $this->getOutput(), etc.
 	 * @throws ErrorPageError
-	 * @return false
+	 * @return bool
 	 */
 	public function show() {
 		return self::displayForm( $this, $this->getArticle() );
@@ -157,7 +157,7 @@ class PFFormEditAction extends Action {
 			return;
 		}
 
-		$output->addHTML( Html::element( 'p', null, wfMessage( 'pf-formedit-selectform' )->text() ) );
+		$output->addHTML( Html::element( 'p', [], wfMessage( 'pf-formedit-selectform' )->text() ) );
 		$pagesPerForm = self::getNumPagesPerForm();
 		$totalPages = 0;
 		foreach ( $pagesPerForm as $formName => $numPages ) {
@@ -209,7 +209,7 @@ class PFFormEditAction extends Action {
 		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
 		$linkParams = [ 'action' => 'edit', 'redlink' => true ];
 		$noFormLink = $linkRenderer->makeKnownLink( $title, wfMessage( 'pf-formedit-donotuseform' )->escaped(), [], $linkParams );
-		$output->addHTML( Html::rawElement( 'p', null, $noFormLink ) );
+		$output->addHTML( Html::rawElement( 'p', [], $noFormLink ) );
 	}
 
 	/**
@@ -278,7 +278,7 @@ class PFFormEditAction extends Action {
 	 * special pages)
 	 * @param Action $action
 	 * @param Article $article
-	 * @return true
+	 * @return bool
 	 */
 	static function displayForm( $action, $article ) {
 		$output = $action->getOutput();

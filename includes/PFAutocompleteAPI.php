@@ -258,7 +258,7 @@ class PFAutocompleteAPI extends ApiBase {
 
 	/**
 	 * @param string $property_name
-	 * @param string $substring
+	 * @param ?string $substring
 	 * @param string|null $basePropertyName
 	 * @param mixed $baseValue
 	 * @return array

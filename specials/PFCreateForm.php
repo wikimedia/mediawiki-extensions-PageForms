@@ -87,7 +87,7 @@ class PFCreateForm extends SpecialPage {
 					// this template, just don't add it to
 					// the array.
 					if ( $req->getVal( "del_$id" ) != null ) {
-						$deleted_template_loc = $id;
+						$deleted_template_loc = (int)$id;
 					} else {
 						$form_template = PFTemplateInForm::create(
 							$val,
@@ -102,7 +102,7 @@ class PFCreateForm extends SpecialPage {
 					}
 				} elseif ( $action == "section" ) {
 					if ( $req->getVal( "delsection_$id" ) != null ) {
-						$deleted_section_loc = $id;
+						$deleted_section_loc = (int)$id;
 					} else {
 						$form_section = PFPageSection::create( $val );
 						$form_items[] = [ 'type' => 'section',
@@ -475,7 +475,7 @@ END;
 		// Explanatory message if buttons are disabled because no
 		// templates have been added.
 		if ( count( $form_items ) == 0 ) {
-			$text .= "\t" . Html::element( 'p', null, "(" . $this->msg( 'pf_createform_additembeforesave' )->text() . ")" );
+			$text .= "\t" . Html::element( 'p', [], "(" . $this->msg( 'pf_createform_additembeforesave' )->text() . ")" );
 		}
 		$text .= <<<END
 	</form>
@@ -527,9 +527,9 @@ END;
 		$text .= '<label>' . $this->msg( 'pf_createform_sectionlevel' )->text() . "\n";
 		for ( $i = 1; $i < 7; $i++ ) {
 			if ( $section_level == $i ) {
-				$header_options .= " " . Html::element( 'option', [ 'value' => $i, 'selected' ], $i ) . "\n";
+				$header_options .= " " . Html::element( 'option', [ 'value' => $i, 'selected' ], (string)$i ) . "\n";
 			} else {
-				$header_options .= " " . Html::element( 'option', [ 'value' => $i ], $i ) . "\n";
+				$header_options .= " " . Html::element( 'option', [ 'value' => $i ], (string)$i ) . "\n";
 			}
 		}
 		$text .= Html::rawElement( 'select', [ 'name' => "level_section_" . $section_count ], $header_options ) . "</label>\n";
@@ -605,7 +605,7 @@ END;
 	function fieldCreationHTML( $field, $field_num, $template_num ) {
 		$field_form_text = $template_num . "_" . $field_num;
 		$template_field = $field->getTemplateField();
-		$text = Html::element( 'h3', null, $this->msg( 'pf_createform_field' )->text() . " " . $template_field->getFieldName() ) . "\n";
+		$text = Html::element( 'h3', [], $this->msg( 'pf_createform_field' )->text() . " " . $template_field->getFieldName() ) . "\n";
 
 		if ( !defined( 'SMW_VERSION' ) || $template_field->getSemanticProperty() == "" ) {
 			// Print nothing if there's no semantic property.
@@ -628,7 +628,7 @@ END;
 				$propTypeID = $template_field->getPropertyType();
 				$propertyTypeStr = $datatypeLabels[$propTypeID];
 			}
-			$text .= Html::rawElement( 'p', null, $this->msg( $propDisplayMsg, $prop_link_text, $propertyTypeStr )->parse() ) . "\n";
+			$text .= Html::rawElement( 'p', [], $this->msg( $propDisplayMsg, $prop_link_text, $propertyTypeStr )->parse() ) . "\n";
 		}
 		// If it's not a semantic field - don't add any text.
 		$form_label_text = $this->msg( 'pf_createform_formlabel' )->escaped();
@@ -851,7 +851,7 @@ END;
 
 			$text .= "<div style=\"width: 30%; padding: 5px; float: left;\">\n<label>$paramName:\n";
 			$text .= self::inputTypeParamInput( $type, $paramName, $cur_value, $param, [], $fieldFormText );
-			$text .= "\n</label>\n<br />" . Html::rawElement( 'em', null, $desc ) . "\n</div>\n";
+			$text .= "\n</label>\n<br />" . Html::rawElement( 'em', [], $desc ) . "\n</div>\n";
 
 			if ( $i % 3 == 2 || $i == count( $params ) - 1 ) {
 				$text .= "<div style=\"clear: both;\"></div></div>\n";
@@ -901,7 +901,7 @@ END;
 			$text .= "<div style=\"width: 30%; padding: 5px; float: left;\">\n<label>$paramName:\n";
 
 			$text .= self::inputTypeParamInput( $type, $paramName, $cur_value, $param, [], $section_text );
-			$text .= "\n</label>\n<br />" . Html::rawElement( 'em', null, $desc ) . "\n</div>\n";
+			$text .= "\n</label>\n<br />" . Html::rawElement( 'em', [], $desc ) . "\n</div>\n";
 			if ( $i % 3 == 2 || $i == count( $params ) - 1 ) {
 				$text .= "<div style=\"clear: both\";></div></div>\n";
 			}

@@ -203,7 +203,7 @@ class PFAutoEdit {
 
 		$output = Html::rawElement( 'div', [ 'class' => 'autoedit' ],
 				$linkElement .
-				Html::rawElement( 'span', [ 'class' => "autoedit-result" ], null ) .
+				Html::rawElement( 'span', [ 'class' => "autoedit-result" ], '' ) .
 				$form
 		);
 

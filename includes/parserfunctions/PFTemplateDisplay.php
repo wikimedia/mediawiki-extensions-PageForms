@@ -255,10 +255,10 @@ class PFTemplateDisplay {
 	private static function ratingText( $value ) {
 		global $wgServer, $wgScriptPath;
 
-		$rate = $value * 20;
+		$rate = (int)$value * 20;
 		$url = $wgServer . $wgScriptPath . '/' . 'extensions/Cargo/resources/images/star-rating-sprite-1.png';
 		$text = '<span style="display: block; width: 65px; height: 13px; background: url(\'' . $url . '\') 0 0;">
-			<span style="display: block; width: ' . $rate . '%; height: 13px; background: url(\'' . $url . '\') 0 -13px;"></span>';
+			<span style="display: block; width: ' . (string)$rate . '%; height: 13px; background: url(\'' . $url . '\') 0 -13px;"></span>';
 		return $text;
 	}
 

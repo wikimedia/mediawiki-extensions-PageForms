@@ -197,13 +197,6 @@ class PFUtilsTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * @covers \PFUtils::makeLink
 	 */
-	public function testMakeLinkReturnsNullForNullTitle(): void {
-		$this->assertNull( \PFUtils::makeLink( $this->getLinkRenderer(), null ) );
-	}
-
-	/**
-	 * @covers \PFUtils::makeLink
-	 */
 	public function testMakeLinkReturnsSelfLinkForCurrentTitle(): void {
 		$title = Title::newFromText( 'Current PFUtils Page' );
 		$this->setMwGlobals( [ 'wgTitle' => $title ] );

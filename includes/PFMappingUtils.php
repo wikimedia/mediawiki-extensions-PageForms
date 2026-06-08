@@ -64,7 +64,7 @@ class PFMappingUtils {
 	/**
 	 * Check if array is indexed/sequential (true), else named/associative (false)
 	 * @param array $arr
-	 * @return string
+	 * @return bool
 	 */
 	private static function isIndexedArray( $arr ) {
 		if ( array_keys( $arr ) == range( 0, count( $arr ) - 1 ) ) {

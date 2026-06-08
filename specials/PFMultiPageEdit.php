@@ -157,7 +157,7 @@ class PFMultiPageEdit extends QueryPage {
 			'height' => '500px',
 			'editMultiplePages' => true
 		];
-		$text .= Html::element( 'p', null, $this->msg( 'pf-spreadsheet-addrowinstructions' )->parse() );
+		$text .= Html::element( 'p', [], $this->msg( 'pf-spreadsheet-addrowinstructions' )->text() );
 		$loadingImage = Html::element( 'img', [ 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ] );
 		$loadingImageDiv = '<div class="loadingImage">' . $loadingImage . '</div>';
 		$text .= Html::rawElement( 'div', $templateDivAttrs, $loadingImageDiv );
@@ -200,7 +200,7 @@ class PFMultiPageEdit extends QueryPage {
 	}
 
 	function getPageHeader() {
-		$header = Html::element( 'p', null, $this->msg( 'pf_multipageedit_docu' )->text() );
+		$header = Html::element( 'p', [], $this->msg( 'pf_multipageedit_docu' )->text() );
 		return $header;
 	}
 

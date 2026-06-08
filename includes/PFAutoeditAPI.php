@@ -710,9 +710,9 @@ class PFAutoeditAPI extends ApiBase {
 			$result->addValue( null, 'responseText', $responseText );
 		}
 
-		$result->addValue( null, 'status', $this->mStatus, true );
+		$result->addValue( null, 'status', $this->mStatus, ApiResult::OVERRIDE );
 		$result->addValue( [ 'form' ], 'title', $this->mOptions['form'] );
-		$result->addValue( null, 'target', $this->mOptions['target'], true );
+		$result->addValue( null, 'target', $this->mOptions['target'], ApiResult::OVERRIDE );
 	}
 
 	/**
@@ -835,7 +835,7 @@ class PFAutoeditAPI extends ApiBase {
 					// pad it with leading 0s as well.
 					$titleNumber = 2;
 				} else {
-					$titleNumber = str_pad( $titleNumber + 1, strlen( $titleNumber ), '0', STR_PAD_LEFT );
+					$titleNumber = str_pad( strval( $titleNumber + 1 ), strlen( $titleNumber ), '0', STR_PAD_LEFT );
 				}
 
 				$targetTitle = Title::newFromText( preg_replace( '/{num.*}/', $titleNumber, $targetName ) );

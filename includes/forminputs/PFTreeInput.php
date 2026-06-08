@@ -125,7 +125,7 @@ class PFTreeInput extends PFFormInput {
 			'params' => json_encode( $params )
 		];
 
-		$text = Html::element( 'div', $treeInputAttrs, null );
+		$text = Html::element( 'div', $treeInputAttrs, '' );
 		$text .= "<input type='hidden' class='PFTree_data' name='" . $input_name . "'>";
 
 		$wrapperClass = 'pfTreeInputWrapper';

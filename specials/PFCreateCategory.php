@@ -20,7 +20,7 @@ class PFCreateCategory extends SpecialPage {
 		parent::__construct( 'CreateCategory' );
 	}
 
-	static function createCategoryText( $default_form, $category_name, $parent_category ) {
+	static function createCategoryText( string $default_form, string $category_name, $parent_category ) {
 		if ( $default_form === '' ) {
 			$text = wfMessage( 'pf_category_desc', $category_name )->inContentLanguage()->text();
 		} else {

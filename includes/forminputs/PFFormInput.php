@@ -75,7 +75,7 @@ abstract class PFFormInput {
 	 * @return string[]
 	 */
 	public static function getHandledPropertyTypes() {
-		return null;
+		return [];
 	}
 
 	/**
@@ -138,7 +138,7 @@ abstract class PFFormInput {
 	 * @return string[]
 	 */
 	public function getDefaultParameters() {
-		return null;
+		return [];
 	}
 
 	/**

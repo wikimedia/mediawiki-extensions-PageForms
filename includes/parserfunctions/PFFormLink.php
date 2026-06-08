@@ -56,7 +56,7 @@ class PFFormLink {
 		$hasPopup = $hasReturnTo = false;
 		$className = static::class;
 		if ( $className == 'PFQueryFormLink' ) {
-			$inLinkStr = wfMessage( 'runquery' )->parse();
+			$inLinkStr = wfMessage( 'runquery' )->text();
 		}
 		$inCreatePage = false;
 		$classStr = '';

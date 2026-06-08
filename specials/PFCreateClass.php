@@ -243,13 +243,13 @@ class PFCreateClass extends SpecialPage {
 		$creation_links[] = PFUtils::linkForSpecialPage( $linkRenderer, 'CreateCategory' );
 
 		$text = '<form id="createClassForm" action="" method="post">' . "\n";
-		$text .= "\t" . Html::rawElement( 'p', null,
+		$text .= "\t" . Html::rawElement( 'p', [],
 				$this->msg( 'pf_createclass_docu' )
 					->rawParams( $lang->listToText( $creation_links ) )
 					->escaped() ) . "\n";
 		$templateNameLabel = $this->msg( 'pf_createtemplate_namelabel' )->escaped();
-		$templateNameInput = Html::input( 'template_name', null, 'text', [ 'size' => 30 ] );
-		$text .= "\t" . Html::rawElement( 'p', null, $templateNameLabel . ' ' . $templateNameInput ) . "\n";
+		$templateNameInput = Html::input( 'template_name', '', 'text', [ 'size' => 30 ] );
+		$text .= "\t" . Html::rawElement( 'p', [], $templateNameLabel . ' ' . $templateNameInput ) . "\n";
 
 		$templateInfo = '';
 		if ( defined( 'CARGO_VERSION' ) && !defined( 'SMW_VERSION' ) ) {
@@ -257,10 +257,10 @@ class PFCreateClass extends SpecialPage {
 				Html::hidden( 'use_cargo', true ) .
 				$this->msg( 'pf_createtemplate_usecargo' )->escaped() .
 				"</label></p>\n";
-			$cargo_table_label = $this->msg( 'pf_createtemplate_cargotablelabel' )->escaped();
+			$cargo_table_label = $this->msg( 'pf_createtemplate_cargotablelabel' )->text();
 			$templateInfo .= "\t" . Html::rawElement( 'p', [ 'id' => 'cargo_table_input' ],
 				Html::element( 'label', [ 'for' => 'cargo_table' ], $cargo_table_label ) . ' ' .
-				Html::element( 'input', [ 'size' => '30', 'name' => 'cargo_table', 'id' => 'cargo_table' ], null )
+				Html::element( 'input', [ 'size' => '30', 'name' => 'cargo_table', 'id' => 'cargo_table' ], '' )
 			) . "\n";
 		}
 		$createTemplatePage = new PFCreateTemplate( true );
@@ -287,16 +287,16 @@ class PFCreateClass extends SpecialPage {
 					'name' => 'connecting_property',
 				] ) ) . "\n";
 		}
-		$text .= Html::rawElement( 'blockquote', null, $templateInfo );
+		$text .= Html::rawElement( 'blockquote', [], $templateInfo );
 
-		$form_name_input = Html::element( 'input', [ 'size' => '30', 'name' => 'form_name', 'id' => 'form_name' ], null );
+		$form_name_input = Html::element( 'input', [ 'size' => '30', 'name' => 'form_name', 'id' => 'form_name' ], '' );
 		$text .= "\t<p><label>" . $this->msg( 'pf_createclass_nameinput' )->escaped() . " $form_name_input</label></p>\n";
-		$category_name_input = Html::element( 'input', [ 'size' => '30', 'name' => 'category_name', 'id' => 'category_name' ], null );
+		$category_name_input = Html::element( 'input', [ 'size' => '30', 'name' => 'category_name', 'id' => 'category_name' ], '' );
 		$text .= "\t<p><label>" . $this->msg( 'pf_createcategory_name' )->escaped() . " $category_name_input</label></p>\n";
 
 		$text .= "\t<fieldset>\n";
-		$text .= "\t" . Html::element( 'legend', null, $this->msg( 'pf_createtemplate_templatefields' )->text() ) . "\n";
-		$text .= "\t" . Html::element( 'p', null, $this->msg( 'pf_createtemplate_fieldsdesc' )->text() ) . "\n";
+		$text .= "\t" . Html::element( 'legend', [], $this->msg( 'pf_createtemplate_templatefields' )->text() ) . "\n";
+		$text .= "\t" . Html::element( 'p', [], $this->msg( 'pf_createtemplate_fieldsdesc' )->text() ) . "\n";
 
 		if ( defined( 'SMW_VERSION' ) ) {
 			$all_properties = PFCreateTemplate::getAllPropertyNames();
@@ -318,12 +318,12 @@ class PFCreateClass extends SpecialPage {
 
 		if ( defined( 'SMW_VERSION' ) ) {
 			$text .= "\t<fieldset>\n";
-			$text .= "\t" . Html::element( 'legend', null, $this->msg( 'pf_createtemplate_aggregation' )->text() ) . "\n";
-			$text .= "\t" . Html::element( 'p', null, $this->msg( 'pf_createtemplate_aggregationdesc' )->text() ) . "\n";
+			$text .= "\t" . Html::element( 'legend', [], $this->msg( 'pf_createtemplate_aggregation' )->text() ) . "\n";
+			$text .= "\t" . Html::element( 'p', [], $this->msg( 'pf_createtemplate_aggregationdesc' )->text() ) . "\n";
 			$text .= "\t<p>" . $this->msg( 'pf_createtemplate_semanticproperty' )->escaped() . ' ' .
 				PFCreateTemplate::printPropertiesComboBox( $all_properties, "aggregation" ) . "</p>\n";
 			$text .= "\t<p>" . $this->msg( 'pf_createtemplate_aggregationlabel' )->escaped() . ' ' .
-				Html::input( 'aggregation_label', null, 'text',
+				Html::input( 'aggregation_label', '', 'text',
 					[ 'size' => '25' ] ) .
 				"</p>\n";
 			$text .= "\t</fieldset>\n";

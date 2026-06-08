@@ -138,7 +138,7 @@ class PFAutoEditRating {
 		$text = Html::element( 'div', $ratingAttrs );
 		$output = Html::rawElement( 'div', [ 'class' => 'autoedit' ],
 			$text .
-			Html::rawElement( 'span', [ 'class' => "autoedit-result" ], null ) .
+			Html::rawElement( 'span', [ 'class' => "autoedit-result" ], '' ) .
 			$form
 		);
 

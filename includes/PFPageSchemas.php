@@ -294,7 +294,7 @@ class PFPageSchemas extends PSExtensionHandler {
 		if ( $pageNameFormula === null ) {
 			$twoStepProcessAttrs['checked'] = true;
 		}
-		$text .= '<p>' . Html::input( 'pf_two_step_process', null, 'checkbox', $twoStepProcessAttrs );
+		$text .= '<p>' . Html::input( 'pf_two_step_process', '', 'checkbox', $twoStepProcessAttrs );
 		$text .= ' Users must enter the page name before getting to the form (default)';
 		$text .= "</p>\n";
 		$text .= '<div class="editSchemaMinorFields">';
@@ -377,7 +377,7 @@ class PFPageSchemas extends PSExtensionHandler {
 
 		global $wgPageFormsFormPrinter;
 		$possibleInputTypes = $wgPageFormsFormPrinter->getAllInputTypes();
-		$inputTypeDropdownHTML = Html::element( 'option', null, null );
+		$inputTypeDropdownHTML = Html::element( 'option', [], '' );
 		foreach ( $possibleInputTypes as $possibleInputType ) {
 			$inputTypeOptionAttrs = [];
 			if ( $possibleInputType == $inputType ) {

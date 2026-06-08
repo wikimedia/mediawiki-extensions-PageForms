@@ -121,12 +121,12 @@ END;
 					return;
 				}
 				$formInputAttrs['data-possible-forms'] = implode( '|', $allForms );
-				$formInputAttrs['data-form-label'] = wfMessage( 'pf-formstart-formlabel' )->escaped();
+				$formInputAttrs['data-form-label'] = wfMessage( 'pf-formstart-formlabel' )->text();
 			} else {
 				$formInputAttrs['data-autofocus'] = true;
 			}
 
-			$text .= "\t" . Html::element( 'div', $formInputAttrs, null ) . "\n";
+			$text .= "\t" . Html::element( 'div', $formInputAttrs, '' ) . "\n";
 			$text .= "\t</form>\n";
 		}
 		$out->addHTML( $text );

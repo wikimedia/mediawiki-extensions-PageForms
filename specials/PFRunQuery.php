@@ -129,7 +129,7 @@ class PFRunQuery extends IncludableSpecialPage {
 			// the query form is at the top or bottom) is displayed
 			// if the form has already been submitted.
 			if ( $form_submitted ) {
-				$additionalQueryHeader = "\n" . Html::element( 'h2', null, $this->msg( 'pf_runquery_additionalquery' )->text() ) . "\n";
+				$additionalQueryHeader = "\n" . Html::element( 'h2', [], $this->msg( 'pf_runquery_additionalquery' )->text() ) . "\n";
 				$dividerText = "\n<hr style=\"margin: 15px 0;\" />\n";
 			}
 

@@ -267,7 +267,7 @@ END;
 		$radioButton = new OOUI\RadioInputWidget(
 			$attrs
 		);
-		return $radioButton . Html::element( 'label', [ 'for' => $formatStr ], wfMessage( $formatMsg )->escaped() ) . "&nbsp;&nbsp;&nbsp;\n";
+		return $radioButton . Html::element( 'label', [ 'for' => $formatStr ], wfMessage( $formatMsg )->text() ) . "&nbsp;&nbsp;&nbsp;\n";
 	}
 
 	static function printTemplateStyleInput( $htmlFieldName, $curSelection = null ) {
@@ -441,8 +441,8 @@ END;
 			"</label></p>";
 
 		$text .= "\t<fieldset>\n";
-		$text .= "\t" . Html::element( 'legend', null, $this->msg( 'pf_createtemplate_templatefields' )->text() ) . "\n";
-		$text .= "\t" . Html::element( 'p', null, $this->msg( 'pf_createtemplate_fieldsdesc' )->text() ) . "\n";
+		$text .= "\t" . Html::element( 'legend', [], $this->msg( 'pf_createtemplate_templatefields' )->text() ) . "\n";
+		$text .= "\t" . Html::element( 'p', [], $this->msg( 'pf_createtemplate_fieldsdesc' )->text() ) . "\n";
 
 		if ( defined( 'SMW_VERSION' ) ) {
 			$all_properties = self::getAllPropertyNames();
@@ -464,8 +464,8 @@ END;
 
 		if ( defined( 'SMW_VERSION' ) ) {
 			$text .= "\t<fieldset>\n";
-			$text .= "\t" . Html::element( 'legend', null, $this->msg( 'pf_createtemplate_aggregation' )->text() ) . "\n";
-			$text .= "\t" . Html::element( 'p', null, $this->msg( 'pf_createtemplate_aggregationdesc' )->text() ) . "\n";
+			$text .= "\t" . Html::element( 'legend', [], $this->msg( 'pf_createtemplate_aggregation' )->text() ) . "\n";
+			$text .= "\t" . Html::element( 'p', [], $this->msg( 'pf_createtemplate_aggregationdesc' )->text() ) . "\n";
 			$dropdownHtml = $this->printPropertiesComboBox( $all_properties, "aggregation" );
 			$text .= new OOUI\HorizontalLayout( [
 				'items' => [
@@ -497,14 +497,14 @@ END;
 			'type' => 'submit',
 			'name' => 'wpSave',
 			'id' => 'wpSave',
-			'label' => $this->msg( 'savearticle' )->escaped(),
+			'label' => $this->msg( 'savearticle' )->text(),
 			'flags' => [ 'primary', 'progressive' ]
 		] );
 		$preview_button = new OOUI\ButtonInputWidget( [
 			'type' => 'submit',
 			'name' => 'wpPreview',
 			'id' => 'wpPreview',
-			'label' => $this->msg( 'preview' )->escaped(),
+			'label' => $this->msg( 'preview' )->text(),
 			'flags' => [ 'progressive' ]
 		] );
 		$text .= Html::rawElement( 'div', [ 'class' => 'editButtons' ], $save_button . "\n" . $preview_button );

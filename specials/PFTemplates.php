@@ -28,7 +28,7 @@ class PFTemplates extends QueryPage {
 	}
 
 	function getPageHeader() {
-		$header = Html::element( 'p', null, $this->msg( 'pf_templates_docu' )->text() );
+		$header = Html::element( 'p', [], $this->msg( 'pf_templates_docu' )->text() );
 		return $header;
 	}
 
@@ -71,7 +71,7 @@ class PFTemplates extends QueryPage {
 	function formatResult( $skin, $result ) {
 		$title = Title::makeTitle( NS_TEMPLATE, $result->value );
 		$linkRenderer = $this->getLinkRenderer();
-		$text = $linkRenderer->makeKnownLink( $title, htmlspecialchars( $title->getText() ) );
+		$text = $linkRenderer->makeKnownLink( $title, $title->getText() );
 		$category = $this->getCategoryDefinedByTemplate( $title );
 		if ( $category !== '' ) {
 			$text .= ' ' . $this->msg(

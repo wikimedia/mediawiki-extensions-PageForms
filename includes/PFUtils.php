@@ -71,7 +71,7 @@ class PFUtils {
 		global $wgTitle;
 
 		if ( $title === null ) {
-			return null;
+			return '';
 		} elseif ( $wgTitle !== null && $title->equals( $wgTitle ) ) {
 			// Display bolded text instead of a link.
 			return Linker::makeSelfLinkObj( $title, $msg );

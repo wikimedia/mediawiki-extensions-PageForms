@@ -362,7 +362,7 @@ class PFHooks {
 
 		$previewNote = $out->parseAsInterface( wfMessage( 'pf-preview-note' )->text() );
 		// The "pfForm" ID is there so the form JS will be activated.
-		$editpage->previewTextAfterContent .= Html::element( 'h2', null, wfMessage( 'pf-preview-header' )->text() ) . "\n" .
+		$editpage->previewTextAfterContent .= Html::element( 'h2', [], wfMessage( 'pf-preview-header' )->text() ) . "\n" .
 			'<div id="pfForm" class="previewnote" style="font-weight: bold">' . $previewNote . "</div>\n<hr />\n";
 
 		$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $editpage->textbox1 );
@@ -550,7 +550,7 @@ class PFHooks {
 						} elseif ( $titleNumber == "" ) {
 							$titleNumber = 2;
 						} else {
-							$titleNumber = str_pad( $titleNumber + 1, strlen( $titleNumber ), '0', STR_PAD_LEFT );
+							$titleNumber = str_pad( strval( $titleNumber + 1 ), strlen( $titleNumber ), '0', STR_PAD_LEFT );
 						}
 
 						$targetTitle = \MediaWiki\Title\Title::newFromText( preg_replace( '/{num.*}/', $titleNumber, $targetName ) );

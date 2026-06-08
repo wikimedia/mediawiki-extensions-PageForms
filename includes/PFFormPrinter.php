@@ -535,10 +535,10 @@ END;
 			}
 
 			$labelCell = Html::rawElement( 'th', $labelCellAttrs, $label );
-			$inputHTML = $this->formFieldHTML( $out, $formField, $curValue );
-			$inputHTML .= $formField->additionalHTMLForInput( $curValue, $fieldName, $tif->getTemplateName() );
-			$inputCell = Html::rawElement( 'td', null, $inputHTML );
-			$html .= Html::rawElement( 'tr', null, $labelCell . $inputCell ) . "\n";
+			$inputHTML = $this->formFieldHTML( $out, $formField, $curValue ?? '' );
+			$inputHTML .= $formField->additionalHTMLForInput( $curValue ?? '', $fieldName, $tif->getTemplateName() );
+			$inputCell = Html::rawElement( 'td', [], $inputHTML );
+			$html .= Html::rawElement( 'tr', [], $labelCell . $inputCell ) . "\n";
 		}
 
 		$html = Html::rawElement( 'table', [ 'class' => 'formtable' ], $html );
@@ -690,12 +690,12 @@ END;
 		}
 
 		if ( $wgPageForms24HourTime ) {
-			$hour = str_pad( intval( substr( date( "G", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
+			$hour = str_pad( (string)intval( substr( date( "G", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
 		} else {
-			$hour = str_pad( intval( substr( date( "g", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
+			$hour = str_pad( (string)intval( substr( date( "g", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
 		}
-		$minute = str_pad( intval( substr( date( "i", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
-		$second = str_pad( intval( substr( date( "s", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
+		$minute = str_pad( (string)intval( substr( date( "i", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
+		$second = str_pad( (string)intval( substr( date( "s", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
 		if ( $wgPageForms24HourTime ) {
 			$curTimeString .= " $hour:$minute:$second";
 		} else {
@@ -804,10 +804,10 @@ END;
 					// If there's a day, include whatever
 					// time information we have.
 					if ( $hour !== null ) {
-						$new_value .= " " . str_pad( intval( substr( $hour, 0, 2 ) ), 2, '0', STR_PAD_LEFT ) . ":" . str_pad( intval( substr( $minute, 0, 2 ) ), 2, '0', STR_PAD_LEFT );
+						$new_value .= " " . str_pad( (string)intval( substr( $hour, 0, 2 ) ), 2, '0', STR_PAD_LEFT ) . ":" . str_pad( (string)intval( substr( $minute, 0, 2 ) ), 2, '0', STR_PAD_LEFT );
 					}
 					if ( $second !== null ) {
-						$new_value .= ":" . str_pad( intval( substr( $second, 0, 2 ) ), 2, '0', STR_PAD_LEFT );
+						$new_value .= ":" . str_pad( (string)intval( substr( $second, 0, 2 ) ), 2, '0', STR_PAD_LEFT );
 					}
 					if ( $ampm24h !== null ) {
 						$new_value .= " $ampm24h";
@@ -1278,7 +1278,7 @@ END;
 							} else {
 								$default_value = $cur_value;
 							}
-							$freeTextInput = new PFTextAreaInput( $out, $input_number = null, $default_value, 'pf_free_text', ( $form_is_disabled || $form_field->isRestricted() ), $form_field->getFieldArgs() );
+							$freeTextInput = new PFTextAreaInput( $out, $input_number = '', $default_value, 'pf_free_text', ( $form_is_disabled || $form_field->isRestricted() ), $form_field->getFieldArgs() );
 							$freeTextInput->addJavaScript();
 							$new_text = $freeTextInput->getHtmlText();
 							if ( $form_field->hasFieldArg( 'edittools' ) ) {
@@ -1736,7 +1736,7 @@ END;
 			$multipleTemplateHTML = '';
 			if ( $tif ) {
 				if ( $tif->getLabel() != null ) {
-					$fieldsetStartHTML = "<fieldset>\n" . Html::element( 'legend', null, $tif->getLabel() ) . "\n";
+					$fieldsetStartHTML = "<fieldset>\n" . Html::element( 'legend', [], $tif->getLabel() ) . "\n";
 					$fieldsetStartHTML .= $tif->getIntro();
 					if ( !$tif->allowsMultiple() ) {
 						$form_text .= $fieldsetStartHTML;
@@ -2029,6 +2029,7 @@ END;
 		// (type is PFTemplateField, instead of PFFormField)
 		$template_field = $form_field->getTemplateField();
 		$class_name = null;
+		$text = '';
 
 		if ( $form_field->isHidden() ) {
 			$attribs = [];
@@ -2077,7 +2078,8 @@ END;
 		}
 
 		if ( $class_name !== null ) {
-			$form_input = new $class_name( $out, $wgPageFormsFieldNum, $cur_value, $form_field->getInputName(), $form_field->isDisabled(), $other_args );
+			$form_input = new $class_name( $out, (string)$wgPageFormsFieldNum, $cur_value,
+				$form_field->getInputName(), $form_field->isDisabled(), $other_args );
 
 			// If a regex was defined, make this a "regexp" input that wraps
 			// around the real one.
