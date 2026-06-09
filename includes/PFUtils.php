@@ -50,8 +50,10 @@ class PFUtils {
 	 */
 	public static function linkForSpecialPage( $linkRenderer, $specialPageName ) {
 		$specialPage = self::getSpecialPage( $specialPageName );
+		// SpecialPage::getDescription() returns Message since 1.45 and string before.
+		$desc = $specialPage->getDescription();
 		return $linkRenderer->makeKnownLink( $specialPage->getPageTitle(),
-			htmlspecialchars( $specialPage->getDescription() ) );
+			$desc instanceof Message ? $desc->text() : $desc );
 	}
 
 	/**
