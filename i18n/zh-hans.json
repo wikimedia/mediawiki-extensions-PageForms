@@ -50,6 +50,10 @@
 	"apihelp-pfautocomplete-param-base_cargo_table": "表单内要检查的上个字段的Cargo表格",
 	"apihelp-pfautocomplete-param-base_cargo_field": "表单内要检查的上个字段的Cargo字段",
 	"apihelp-pfautocomplete-param-basevalue": "上个属性或字段要检查的值",
+	"apihelp-pfautocomplete-param-mappingproperty": "用于将值映射到标签的语义MediaWiki属性",
+	"apihelp-pfautocomplete-param-mappingtemplate": "用于将值映射到标签的模板",
+	"apihelp-pfautocomplete-param-mappingcargotable": "用于将值映射到标签的Cargo表",
+	"apihelp-pfautocomplete-param-mappingcargofield": "用于将值映射到标签的Cargo字段",
 	"apihelp-pfautoedit-summary": "使用页面表单扩展定义的表单创建或编辑页面。",
 	"apihelp-pfautoedit-param-form": "要使用的页面表单扩展表单",
 	"apihelp-pfautoedit-param-target": "要创建或编辑的页面名称",
@@ -336,5 +340,6 @@
 	"pf-invalidexturl": "无效的外部URL值。",
 	"pf-blankexturl": "空白的外部URL值。",
 	"pf-externalpageempty": "外部页面不含有内容。",
-	"pf-externalpagebadjson": "无法解析外部页面内的JSON。"
+	"pf-externalpagebadjson": "无法解析外部页面内的JSON。",
+	"pf-automatic-rename": "根据页面名称公式自动重命名"
 }
