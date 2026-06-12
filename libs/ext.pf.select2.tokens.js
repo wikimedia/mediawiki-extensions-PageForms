@@ -227,7 +227,10 @@ const Sortable = require( 'ext.pageforms.sortable' );
 				const htmlElements = inputData.$selection[0].children[0].children;
 				term = htmlElements[htmlElements.length - 1].children[0].value;
 			}
-			return pf.select2.base.prototype.textHighlight( result.id, term );
+			// Show the display label (result.text), not the internal value
+			// (result.id) - they differ when values are mapped (e.g. display
+			// titles). (T427758)
+			return pf.select2.base.prototype.textHighlight( result.text, term );
 		};
 		opts.language.searching = function() {
 			return mw.msg( "pf-autocomplete-searching" );
@@ -326,9 +329,17 @@ const Sortable = require( 'ext.pageforms.sortable' );
 				data = wgPageFormsAutocompleteValues[autocompletesettings];
 				//Convert data into the format accepted by Select2
 				if ( data !== undefined && data !== null ) {
+					// When values are mapped (e.g. display titles), "data" is an
+					// associative object of { internalValue: displayLabel }. The id
+					// must be the internal value (the key) so it matches the <option>
+					// values rendered by PFTokensInput and is what gets persisted on
+					// submit; the label is only shown as text. For a plain list of
+					// values, "data" is an indexed array, so id and text are equal.
+					// (T427758)
+					const isMapped = !Array.isArray( data );
 					for (const key in data) {
 						values.push({
-							id: data[key], text: data[key]
+							id: isMapped ? key : data[key], text: data[key]
 						});
 					}
 				}

@@ -638,6 +638,21 @@ class PFMappingUtilsTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
+	public function testGetLabelsForTitlesReverseLookupPreservesPageWithParenthesesInName(): void {
+		// A page whose actual title contains parentheses must not have the
+		// parenthesised part extracted as a "real" page name. (T427758)
+		$parenPage = $this->createPage( 'Pagename (foobar)' );
+		$this->setDisplayTitle( $parenPage, 'Pagename (foobar)' );
+
+		$labels = \PFMappingUtils::getLabelsForTitles( [
+			'Pagename (foobar)',
+		], true );
+
+		// The value should be kept as-is — NOT reduced to "foobar".
+		$this->assertArrayHasKey( 'Pagename (foobar)', $labels );
+		$this->assertArrayNotHasKey( 'foobar', $labels );
+	}
+
 	public function testGetValuesWithMappingCargoFieldDecodesHtmlEntitiesAndPageNameFallback(): void {
 		$this->setCargoResultsByWhere( [
 			'code="A1"::value' => 'A1',

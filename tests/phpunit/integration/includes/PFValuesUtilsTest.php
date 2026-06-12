@@ -2305,9 +2305,15 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
+	 * getValuesArray() always returns the raw internal values (page names),
+	 * even when display titles are enabled. Mapping internal values to their
+	 * display labels is the responsibility of the individual input (see
+	 * getValueLabelMap()), so that the value/label association is preserved
+	 * and labels containing the delimiter are not split. (T427758)
+	 *
 	 * @covers \PFValuesUtils::getValuesArray
 	 */
-	public function testGetValuesArrayAppliesDisplayTitleMappingWhenConfigured(): void {
+	public function testGetValuesArrayReturnsRawValuesEvenWithDisplayTitle(): void {
 		$this->setMwGlobals( [ 'wgPageFormsUseDisplayTitle' => true ] );
 
 		$page1 = $this->createPage( 'PFValuesDisplayPage One' );
@@ -2320,11 +2326,56 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 			','
 		);
 
-		$this->assertIsArray( $result );
-		$this->assertCount( 2, $result );
+		$this->assertSame(
+			[ 'PFValuesDisplayPage One', 'PFValuesDisplayPage Two' ],
+			$result
+		);
+	}
 
-		$this->assertStringContainsString( 'Display One', $result[0] );
-		$this->assertStringContainsString( 'Display Two', $result[1] );
+	/**
+	 * @covers \PFValuesUtils::getValueLabelMap
+	 */
+	public function testGetValueLabelMapKeepsAssociativeMapAsIs(): void {
+		// Mapped fields (e.g. display titles) already provide
+		// [ internalValue => label ]; it should be returned unchanged, even
+		// when a label contains the delimiter.
+		$result = \PFValuesUtils::getValueLabelMap( [
+			'Bar' => 'Hoi, Hoi (Bar)',
+			'Baz' => 'Doei, Doei (Baz)',
+		] );
+
+		$this->assertSame( [
+			'Bar' => 'Hoi, Hoi (Bar)',
+			'Baz' => 'Doei, Doei (Baz)',
+		], $result );
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getValueLabelMap
+	 */
+	public function testGetValueLabelMapUsesValueLabelsForIndexedList(): void {
+		$result = \PFValuesUtils::getValueLabelMap(
+			[ 'A', 'B', 'C' ],
+			[ 'A' => 'Apple', 'B' => 'Banana' ]
+		);
+
+		// Values with a label use it; values without fall back to themselves.
+		$this->assertSame(
+			[ 'A' => 'Apple', 'B' => 'Banana', 'C' => 'C' ],
+			$result
+		);
+	}
+
+	/**
+	 * @covers \PFValuesUtils::getValueLabelMap
+	 */
+	public function testGetValueLabelMapIndexedWithoutLabelsMapsToSelf(): void {
+		$result = \PFValuesUtils::getValueLabelMap( [ 'Red', 'Green', 'Blue' ] );
+
+		$this->assertSame(
+			[ 'Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue' ],
+			$result
+		);
 	}
 
 	/**

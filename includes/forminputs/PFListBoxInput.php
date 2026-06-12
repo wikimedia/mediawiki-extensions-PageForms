@@ -43,25 +43,20 @@ class PFListBoxInput extends PFMultiEnumInput {
 		} else {
 			$delimiter = ',';
 		}
+		// $cur_values are the raw internal values (e.g. page names); the
+		// <option> value is the internal value and only the (possibly mapped)
+		// label is shown to the user. (T427758)
 		$cur_values = PFValuesUtils::getValuesArray( $this->mCurrentValue, $delimiter );
 
-		$possible_values = $this->mOtherArgs['possible_values'];
-		if ( $possible_values == null ) {
-			$possible_values = [];
-		}
+		$value_label_map = PFValuesUtils::getValueLabelMap(
+			$this->mOtherArgs['possible_values'] ?? [],
+			( array_key_exists( 'value_labels', $this->mOtherArgs ) && is_array( $this->mOtherArgs['value_labels'] ) )
+				? $this->mOtherArgs['value_labels'] : null
+		);
 		$optionsText = '';
-		foreach ( $possible_values as $possible_value ) {
-			if (
-				array_key_exists( 'value_labels', $this->mOtherArgs ) &&
-				is_array( $this->mOtherArgs['value_labels'] ) &&
-				array_key_exists( $possible_value, $this->mOtherArgs['value_labels'] )
-			) {
-				$optionLabel = $this->mOtherArgs['value_labels'][$possible_value];
-			} else {
-				$optionLabel = $possible_value;
-			}
-			$optionAttrs = [ 'value' => $possible_value ];
-			if ( in_array( $possible_value, $cur_values ) ) {
+		foreach ( $value_label_map as $value => $optionLabel ) {
+			$optionAttrs = [ 'value' => $value ];
+			if ( in_array( $value, $cur_values ) ) {
 				$optionAttrs['selected'] = 'selected';
 			}
 			$optionsText .= Html::element( 'option', $optionAttrs, $optionLabel );

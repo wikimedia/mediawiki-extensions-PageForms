@@ -49,34 +49,30 @@ class PFCheckboxesInput extends PFMultiEnumInput {
 		} else {
 			$delimiter = ',';
 		}
+		// $cur_values are the raw internal values (e.g. page names); the
+		// checkbox value is the internal value and only the (possibly mapped)
+		// label is shown to the user. (T427758)
 		$cur_values = PFValuesUtils::getValuesArray( $cur_value, $delimiter );
 
-		$possible_values = $other_args['possible_values'];
-		if ( $possible_values == null ) {
-			$possible_values = [];
-		}
+		$value_label_map = PFValuesUtils::getValueLabelMap(
+			$other_args['possible_values'] ?? [],
+			( array_key_exists( 'value_labels', $other_args ) && is_array( $other_args['value_labels'] ) )
+				? $other_args['value_labels'] : null
+		);
 		$text = '';
-		foreach ( $possible_values as $key => $possible_value ) {
-			$cur_input_name = $input_name . '[' . $key . ']';
-
-			if (
-				array_key_exists( 'value_labels', $other_args ) &&
-				is_array( $other_args['value_labels'] ) &&
-				array_key_exists( $possible_value, $other_args['value_labels'] )
-			) {
-				$label = $other_args['value_labels'][$possible_value];
-			} else {
-				$label = $possible_value;
-			}
+		$optionNum = 0;
+		foreach ( $value_label_map as $value => $label ) {
+			$cur_input_name = $input_name . '[' . $optionNum . ']';
+			$optionNum++;
 
 			$checkbox_attrs = [
 				'name' => $cur_input_name,
-				'value' => $possible_value,
+				'value' => $value,
 				'id' => $input_id,
 				'tabIndex' => $wgPageFormsTabIndex,
 				'label' => 'checkbox'
 			];
-			if ( in_array( $possible_value, $cur_values ) ) {
+			if ( in_array( $value, $cur_values ) ) {
 				$checkbox_attrs['checked'] = 'checked';
 				$checkbox_attrs['selected'] = true;
 			}
@@ -114,7 +110,7 @@ class PFCheckboxesInput extends PFMultiEnumInput {
 		if ( strpos( $input_name, '[num][' ) !== false ) {
 			// Multiple-instance template; do nothing.
 		} elseif ( array_key_exists( 'show select all', $other_args ) ||
-			( count( $possible_values ) >= $GLOBALS[ 'wgPageFormsCheckboxesSelectAllMinimum' ] && !array_key_exists( 'hide select all', $other_args ) ) ) {
+			( count( $value_label_map ) >= $GLOBALS[ 'wgPageFormsCheckboxesSelectAllMinimum' ] && !array_key_exists( 'hide select all', $other_args ) ) ) {
 			$outerSpanClass .= ' select-all';
 		}
 

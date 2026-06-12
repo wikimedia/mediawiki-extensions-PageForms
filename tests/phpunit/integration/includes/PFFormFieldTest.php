@@ -791,6 +791,31 @@ class PFFormFieldTest extends MediaWikiIntegrationTestCase {
 		$this->assertSame( '', $actual );
 	}
 
+	/**
+	 * List inputs (tokens, checkboxes, listbox, tree) must receive the raw
+	 * internal value string, not mapped labels, so they can do their own
+	 * value→label resolution via possible_values. (T427758)
+	 *
+	 * @covers \PFFormField::valueStringToLabels
+	 * @dataProvider provideListInputTypes
+	 */
+	public function testValueStringToLabelsReturnsRawValueForListInputTypes( string $inputType ): void {
+		$field = \PFFormField::create( $this->pfTemplateField );
+		$field->setInputType( $inputType );
+
+		$actual = $field->valueStringToLabels( 'Foo,Bar', ',', false );
+		$this->assertSame( 'Foo,Bar', $actual );
+	}
+
+	public static function provideListInputTypes(): array {
+		return [
+			'tokens' => [ 'tokens' ],
+			'checkboxes' => [ 'checkboxes' ],
+			'listbox' => [ 'listbox' ],
+			'tree' => [ 'tree' ],
+		];
+	}
+
 	public function testAdditionalHTMLForInput() {
 		$actual = $this->pfFormField->additionalHTMLForInput( 'test_value', 'TestField', 'TestTemplate' );
 		$this->assertIsString( $actual );

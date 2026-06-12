@@ -306,17 +306,24 @@ class PFMappingUtils {
 			}
 
 			if ( $doReverseLookup ) {
+				// Before attempting to extract a page name from parentheses,
+				// check whether the entire value is itself an existing page.
+				// Pages like "Pagename (foobar)" have parentheses in their
+				// actual title; without this check the regex below would
+				// incorrectly extract "foobar" as the page name.
+				$titleDirect = Title::newFromText( $value );
+				if ( $titleDirect instanceof Title && $titleDirect->exists() ) {
+					$pageNamesForValues[$value] = $titleDirect->getPrefixedText();
+					$allTitles[] = $titleDirect;
+					continue;
+				}
+
 				// The regex matches every 'real' page inside the last brackets; for example
 				//  'Privacy (doel) (Privacy (doel)concept)',
 				//  'Pagina (doel) (Pagina)',
 				// will match on (Privacy (doel)concept), (Pagina), ect
 				if ( !preg_match_all( '/\((?:[^)(]*(?R)?)*+\)/', $value, $matches ) ) {
-					$title = Title::newFromText( $value );
-					// @todo : maybe $title instanceof Title && ...?
-					if ( $title && $title->exists() ) {
-						$labels[ $value ] = $value;
-					}
-					// If no matches where found, just leave the value as is
+					// If no matches were found, just leave the value as is
 					continue;
 				} else {
 					$firstMatch = reset( $matches );

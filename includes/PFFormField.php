@@ -740,6 +740,15 @@ class PFFormField {
 			$this->mPossibleValues === null ) {
 			return $valueString;
 		}
+		// List inputs that map internal values to display labels themselves at
+		// render time (using "possible_values") must receive the raw internal
+		// values (e.g. page names), not labels. Converting here would lose the
+		// internal value and corrupt any value whose label contains the
+		// delimiter (e.g. a display title "Hoi, Hoi" with a "," delimiter). See
+		// PFTokensInput / PFCheckboxesInput / PFListBoxInput / PFTreeInput. (T427758)
+		if ( in_array( $this->mInputType, [ 'tokens', 'checkboxes', 'listbox', 'tree' ], true ) ) {
+			return $valueString;
+		}
 		if ( $delimiter !== null ) {
 			$values = array_map( 'trim', explode( $delimiter, $valueString ) );
 		} else {
