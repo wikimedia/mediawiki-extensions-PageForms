@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Helix84",
-			"Luky001"
+			"Luky001",
+			"Wizzard"
 		]
 	},
 	"pageforms-desc": "Formuláre na pridávanie a úpravu sémantických údajov",
@@ -30,7 +31,7 @@
 	"pf_createtemplate_standardformat": "Tabuľka",
 	"pf_createtemplate_infoboxformat": "Postranný infobox",
 	"pf_createtemplate_addfield": "Pridať pole",
-	"pf_createtemplate_deletefield": "Zmazať",
+	"pf_createtemplate_deletefield": "Zmazať toto pole",
 	"forms": "Formuláre",
 	"pf_forms_docu": "Na wiki existujú nasledové formuláre.",
 	"pf_forminputs_mandatory": "Povinné",
@@ -48,7 +49,7 @@
 	"pf_createform_inputtype": "Typ vstupu:",
 	"pf_createform_inputtypedefault": "(štandard)",
 	"pf_createform_formlabel": "Označenie formulára:",
-	"pf_createform_hidden": "Skrytý",
+	"pf_createform_hidden": "(Skryté)",
 	"pf_createform_removetemplate": "Odstrániť šablónu",
 	"pf_createform_addtemplate": "Pridať šablónu:",
 	"pf_createform_atend": "Na konci",
@@ -85,7 +86,7 @@
 	"pf_formedit_formwarning": "Upozornenie: Táto stránka [[$1|už existuje]], ale nepoužíva tento formulár.",
 	"pf_formedit_remove": "Odstrániť",
 	"pf_formedit_addanother": "Pridať ďalšiu",
-	"pf_formedit_none": "Žiadne",
+	"pf_formedit_none": "Žiadne/neznáme",
 	"runquery": "Spustiť požiadavku",
 	"pf_runquery_badurl": "Musíte v URL uviesť názov formulára;\nURL by malo byť v tvare „Special:RunQuery/<názov formulára>“",
 	"pf_runquery_title": "Spustiť požiadavku: $1",
