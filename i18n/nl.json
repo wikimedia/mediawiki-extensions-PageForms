@@ -325,8 +325,8 @@
 	"pf-missingnamespace": "Kon naamruimte $1 niet vinden",
 	"pf-nocompletionurls": "Er zijn geen externe URL’s gespecificeerd voor automatisch aanvullen op deze wiki.",
 	"pf-resultstoshow": "Resultaten om weer te geven",
-	"pf-invalidexturl": "Ongeldige externe URL-waarde.",
-	"pf-blankexturl": "Lege externe URL-waarde.",
+	"pf-invalidexturl": "Incorrecte externe url-waarde.",
+	"pf-blankexturl": "Lege externe url-waarde.",
 	"pf-externalpageempty": "Externe pagina bevat geen inhoud.",
 	"pf-externalpagebadjson": "Kan JSON op externe pagina niet verwerken."
 }
