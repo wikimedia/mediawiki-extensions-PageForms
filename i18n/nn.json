@@ -6,7 +6,8 @@
 			"Jon Harald Søby",
 			"Nghtwlkr",
 			"Njardarlogar",
-			"Olve Utne"
+			"Olve Utne",
+			"Ranveig"
 		]
 	},
 	"pageforms-desc": "Skjema for å leggja til og endra semantiske data",
@@ -39,6 +40,7 @@
 	"pf_forms_docu": "Følgjande skjema finst på wikien.",
 	"pf_forminputs_mandatory": "Obligatorisk",
 	"pf_forminputs_restricted": "Avgrensa (berre administratorar kan endra det)",
+	"pf_forminputs_showonselect": "Sideelement som berre vert viste om visse verdiar er valde (døme: «verdi1=>div1;verdi2=>div2»)",
 	"pf_forminputs_checkboxes_select_all": "Vel alle",
 	"createform": "Opprett eit skjema",
 	"pf_createform_nameinput": "Skjemanamn",
@@ -59,6 +61,7 @@
 	"pf_createform_add": "Legg til",
 	"pf_createform_choosefield": "Vel eit felt til å leggja til",
 	"pf_createform_before": "Før mal:",
+	"pf_createform_addelements": "Legg til element",
 	"pf_createform_additembeforesave": "Du må leggja til minst ein mal til skjemaet før du kan lagra det.",
 	"createcategory": "Opprett ein kategori",
 	"pf_createcategory_name": "Kategorinamn:",
