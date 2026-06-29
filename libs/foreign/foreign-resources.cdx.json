@@ -2,7 +2,7 @@
     "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
     "bomFormat": "CycloneDX",
     "specVersion": "1.6",
-    "serialNumber": "urn:uuid:b0ac51c2-4d33-4b8c-8ccb-17236a16479c",
+    "serialNumber": "urn:uuid:c6c484bd-30ac-45fe-bedb-ec0f6e13d27b",
     "version": 1,
     "components": [
         {
@@ -48,33 +48,6 @@
             "externalReferences": [
                 {
                     "url": "https://jstree.com",
-                    "type": "website"
-                }
-            ]
-        },
-        {
-            "type": "library",
-            "name": "jquery.browser",
-            "version": "0.1.0",
-            "licenses": [
-                {
-                    "license": {
-                        "id": "MIT"
-                    }
-                }
-            ],
-            "purl": "pkg:github/gabceb/jquery-browser-plugin@0.1.0",
-            "authors": [
-                {
-                    "name": "Gabriel Cebrian"
-                },
-                {
-                    "name": "jQuery Team"
-                }
-            ],
-            "externalReferences": [
-                {
-                    "url": "https://github.com/gabceb/jquery-browser-plugin",
                     "type": "website"
                 }
             ]
@@ -184,7 +157,7 @@
         {
             "type": "library",
             "name": "jsuites",
-            "version": "3.5.4",
+            "version": "4.17.7",
             "licenses": [
                 {
                     "license": {
@@ -192,7 +165,7 @@
                     }
                 }
             ],
-            "purl": "pkg:npm/jsuites@3.5.4",
+            "purl": "pkg:npm/jsuites@4.17.7",
             "authors": [
                 {
                     "name": "jSuites Team"

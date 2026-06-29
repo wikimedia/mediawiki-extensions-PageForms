@@ -32,20 +32,6 @@ jstree:
     package/LICENSE-MIT:
     package/README.md:
 
-jquery.browser:
-  license: MIT
-  homepage: https://github.com/gabceb/jquery-browser-plugin
-  authors: Gabriel Cebrian, jQuery Team
-  version: 0.1.0
-  purl: pkg:github/gabceb/jquery-browser-plugin@0.1.0
-  type: tar
-  src: https://registry.npmjs.org/jquery.browser/-/jquery.browser-0.1.0.tgz
-  integrity: sha512-5GjtLzzEBzxs/nwSVpCbSdk0acssfKsP7Upp43zmdHVV1Vb6E9VayyqPAQlfLrTeZL3YSWocCbkOvKdAc2CN4g==
-  dest:
-    package/dist/jquery.browser.js:
-    package/MIT-LICENSE.txt:
-    package/README.md:
-
 jquery.rateyo:
   license: MIT
   homepage: https://rateyo.fundoocode.ninja/
@@ -109,11 +95,11 @@ jsuites:
   license: MIT
   homepage: https://github.com/jsuites/jsuites
   authors: jSuites Team
-  version: 3.5.4
-  purl: pkg:npm/jsuites@3.5.4
+  version: 4.17.7
+  purl: pkg:npm/jsuites@4.17.7
   type: tar
-  src: https://registry.npmjs.org/jsuites/-/jsuites-3.5.4.tgz
-  integrity: sha512-shpox1+Q//3m0PNzGAHeiOH8GYCAB5gEj5PUjSXxfDaQtQgbygV4nPlCFkyH39RHZ4smIlriR3A3o+b9IFVc4A==
+  src: https://registry.npmjs.org/jsuites/-/jsuites-4.17.7.tgz
+  integrity: sha512-qxR9bXsrN2a5nz1hhJjBwKafIg/dFVJY3AZbm1Idvo6rI98t8tlH9oIZVr6nNMGisVbD44HNtLr1juYHlsXpmg==
   dest:
     package/dist/jsuites.js:
     package/dist/jsuites.css:
