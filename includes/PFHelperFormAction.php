@@ -98,8 +98,18 @@ class PFHelperFormAction extends Action {
 			'class' => $class_name,
 			'text' => wfMessage( $form_create_tab_text )->text(),
 			'href' => $title->getLocalURL( 'action=formcreate' ),
-			'icon' => 'edit',
 		];
+
+		// For more recent MediaWiki versions, adding this icon adds
+		// this action to the MinervaNeue skin, while having no impact
+		// on the Vector 2022 skin; for earlier versions, it has no
+		// impact on MinervaNeue, while replacing the tab in Vector 2022
+		// with an icon (which is not good).
+		// @todo - find the ideal check for this addition, because it's
+		// probably not exactly this.
+		if ( version_compare( MW_VERSION, '1.44', '>=' ) ) {
+			$form_create_tab['icon'] = 'edit';
+		}
 
 		// Find the location of the 'create' tab, and add 'create
 		// with form' right before it.
