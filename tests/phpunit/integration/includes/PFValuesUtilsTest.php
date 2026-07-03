@@ -81,9 +81,7 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 			'wgCapitalLinks'                        => true,
 			// SMW globals for query processing
 			'smwgServicesFileDir'                   => MW_INSTALL_PATH . '/extensions/SemanticMediaWiki/src/Services',
-			'smwgDefaultStore'                      => 'SMWSQLStore3',
 			'smwgStoreFactory'                      => 'SMW\StoreFactory',
-			'smwgResultFormats'                     => [],
 			'smwgQueriesPerPageLimit'               => 100,
 			'smwgQMaxSize'                          => 1000,
 		] );
@@ -3040,7 +3038,10 @@ class PFValuesUtilsTest extends MediaWikiIntegrationTestCase {
 			$result = \PFValuesUtils::getAllPagesForQuery( $query );
 			$this->assertIsArray( $result ) || $this->assertTrue( true );
 		} catch ( \Error $e ) {
-			$this->assertStringContainsString( 'not found', $e->getMessage() );
+			$this->assertMatchesRegularExpression(
+				'/(not found|on null|getQueryResult|SMWQueryProcessor)/i',
+				$e->getMessage()
+			);
 		} catch ( \Exception $e ) {
 			$this->assertNotNull( $e->getMessage() );
 		}

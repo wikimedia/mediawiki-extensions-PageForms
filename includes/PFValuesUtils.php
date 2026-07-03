@@ -9,7 +9,6 @@
 
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
-use SMW\SMWQueryProcessor;
 
 class PFValuesUtils {
 
