@@ -34,6 +34,10 @@
 	"apihelp-pfautocomplete-param-base_cargo_table": "جدول Cargo لحقل سابق في النموذج للتحقق منه",
 	"apihelp-pfautocomplete-param-base_cargo_field": "جدول Cargo لحقل سابق في النموذج للتحقق منه",
 	"apihelp-pfautocomplete-param-basevalue": "القيمة للتحقق من الخاصية أو الحقل السابق",
+	"apihelp-pfautocomplete-param-mappingproperty": "خاصية في موقع سيمانتيك ميدياويكي تُستخدم لربط القيم بالتصنيفات",
+	"apihelp-pfautocomplete-param-mappingtemplate": "قالب يُستخدم لربط القيم بالتصنيفات",
+	"apihelp-pfautocomplete-param-mappingcargotable": "جدول الشحنات المستخدم لربط القيم بالملصقات",
+	"apihelp-pfautocomplete-param-mappingcargofield": "حقل الشحنة المستخدم لربط القيم بالتسميات",
 	"apihelp-pfautoedit-summary": "قم بإنشاء أو تحرير صفحة باستخدام نموذج محدد بواسطة ملحق نماذج الصفحة.",
 	"apihelp-pfautoedit-param-form": "نموذج نماذج الصفحة للاستخدام",
 	"apihelp-pfautoedit-param-target": "اسم الصفحة المراد إنشاؤها أو تحريرها",
@@ -317,5 +321,6 @@
 	"pf-invalidexturl": "قيمة مسار خارجي غير صالحة.",
 	"pf-blankexturl": "قيمة مسار خارجي فارغة.",
 	"pf-externalpageempty": "لا تتضمن الصفحة الخارجية محتوى",
-	"pf-externalpagebadjson": "لا يمكن تحليل جسون في صفحة خارجية."
+	"pf-externalpagebadjson": "لا يمكن تحليل جسون في صفحة خارجية.",
+	"pf-automatic-rename": "إعادة تسمية تلقائية بناءً على صيغة اسم الصفحة"
 }
