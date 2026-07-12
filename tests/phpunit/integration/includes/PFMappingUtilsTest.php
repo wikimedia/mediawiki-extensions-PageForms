@@ -303,6 +303,13 @@ class PFMappingUtilsTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
+	public function testGetValuesWithMappingPropertyReturnsEmptyForNoValues(): void {
+		$this->assertSame(
+			[],
+			\PFMappingUtils::getValuesWithMappingProperty( [], 'Has Label' )
+		);
+	}
+
 	public function testGetMappedValuesForInputUsesDisplayTitleWhenConfigured(): void {
 		$this->setMwGlobals( [ 'wgPageFormsUseDisplayTitle' => true ] );
 		$title = $this->createPage( 'PF Display Input Page' );
@@ -456,6 +463,20 @@ class PFMappingUtilsTest extends MediaWikiIntegrationTestCase {
 		$this->assertStringContainsString( 'Mapped-Value A', $mapped['Value A'] );
 	}
 
+	public function testGetValuesWithMappingTemplateInitializesParserOptionsAndUsesEmptyTemplateFallback(): void {
+		$this->createPage( 'Template:PFMappingTemplateBlank', '' );
+		$services = $this->getServiceContainer();
+		$services->resetServiceForTesting( 'ParserFactory' );
+		$services->resetServiceForTesting( 'Parser' );
+
+		$mapped = \PFMappingUtils::getValuesWithMappingTemplate(
+			[ '' ],
+			'PFMappingTemplateBlank'
+		);
+
+		$this->assertSame( [ '' => '' ], $mapped );
+	}
+
 	public function testGetValuesWithMappingTemplateUsesValueFallbackWhenTemplateReturnsEmpty(): void {
 		$this->createPage(
 			'Template:PFMappingTemplateEmpty',
@@ -502,6 +523,25 @@ class PFMappingUtilsTest extends MediaWikiIntegrationTestCase {
 			$this->assertSame( [ 'Real Page' => 'Real Page' ], $displayModeMapped );
 		} else {
 			$this->assertSame( [ 'Real Page' => 'Real Page' ], $displayModeMapped );
+		}
+	}
+
+	public function testGetValuesWithMappingCargoFieldDecodesHtmlEntities(): void {
+		$this->setCargoResultsByWhere( [
+			'code="A1"::value' => 'A1',
+		] );
+
+		$mapped = \PFMappingUtils::getValuesWithMappingCargoField(
+			[ 'A1' => 'A1' ],
+			'label_field',
+			'code',
+			'AnyTable'
+		);
+
+		if ( self::isCargoShimActive() ) {
+			$this->assertSame( [ 'A1' => 'A1' ], $mapped );
+		} else {
+			$this->assertSame( [ 'A1' => 'A1' ], $mapped );
 		}
 	}
 
