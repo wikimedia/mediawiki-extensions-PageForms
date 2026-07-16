@@ -333,13 +333,13 @@ class PFFormLinkerTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * @covers \PFFormLinker::getDefaultFormsForPage
 	 */
-	public function testGetDefaultFormsForPageReturnsEmptyWhenCategoryDefaultsCannotBeResolved(): void {
+	public function testGetDefaultFormsForPageReturnsSingleValueForDuplicateCategoryForms(): void {
 		$this->editPage( Title::newFromText( 'Category:PFCategoryA' ), '{{#default_form:CategoryForm}}' );
 		$this->editPage( Title::newFromText( 'Category:PFCategoryB' ), '{{#default_form:CategoryForm}}' );
 		$page = $this->getNonexistingTestPage();
 		$this->editPage( $page, '[[Category:PFCategoryA]][[Category:PFCategoryB]]' );
 
-		$this->assertSame( [], \PFFormLinker::getDefaultFormsForPage( $page->getTitle() ) );
+		$this->assertSame( [ 'CategoryForm' ], \PFFormLinker::getDefaultFormsForPage( $page->getTitle() ) );
 	}
 
 	/**
@@ -417,11 +417,7 @@ class PFFormLinkerTest extends MediaWikiIntegrationTestCase {
 
 		$page = $this->getNonexistingTestPage();
 		$this->editPage( $page, '[[Category:CatA]][[Category:CatB]]' );
-		// this test is primarily to check that both forms are returned,
-		// but if the cache isn't properly bypassed after the direct DB edits,
-		// then neither will be returned and the result will be an empty array,
-		// so this also serves as a check that the test setup is correct.
-		$this->assertSame( [], \PFFormLinker::getDefaultFormsForPage( $page->getTitle() ) );
+		$this->assertSame( [ 'FormA', 'FormB' ], \PFFormLinker::getDefaultFormsForPage( $page->getTitle() ) );
 	}
 
 	/**
