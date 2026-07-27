@@ -8,6 +8,7 @@
 			"Volvox"
 		]
 	},
+	"pageforms-desc": "Formulairë fir Wikisäiten unzeleeën an z'änneren",
 	"specialpages-group-pf_group": "Säiteformulairen",
 	"apihelp-pfautocomplete-param-limit": "Eng Limite fir d'Zuel vun de Resultater déi zeréckgi gëtt",
 	"apihelp-pfautoedit-param-target": "Den Numm vun der Säit déi ugeluecht oder geännert gi soll",
@@ -29,6 +30,7 @@
 	"pf_createtemplate_delimiter": "Trennzeechen:",
 	"pf_createtemplate_aggregation": "Resümmee",
 	"pf_createtemplate_aggregationlabel": "Titel fir d'Lëscht:",
+	"pf_createtemplate_outputformat": "Outputformat:",
 	"pf_createtemplate_standardformat": "Tabell",
 	"pf_createtemplate_sectionsformat": "Abschnitter",
 	"pf_createtemplate_addfield": "Feld derbäisetzen",
@@ -54,6 +56,7 @@
 	"pf_createform_template": "Schabloun:",
 	"pf_createform_templatelabelinput": "Etikett vun der Schabloun (fakultativ)",
 	"pf_createform_field": "Feld:",
+	"pf_createform_inputtype": "Inputtyp:",
 	"pf_createform_inputtypedefault": "(Standardwert)",
 	"pf_createform_formlabel": "Etikett vum Formulaire:",
 	"pf_createform_hidden": "(Verstoppt)",
