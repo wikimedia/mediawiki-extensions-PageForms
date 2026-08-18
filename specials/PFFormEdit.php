@@ -47,22 +47,25 @@ class PFFormEdit extends UnlistedSpecialPage {
 		$this->mForm = trim( $this->mForm );
 		$this->mTarget = trim( $this->mTarget );
 
+		$targetTitle = null;
+		if ( $this->mTarget !== '' ) {
+			$targetTitle = Title::newFromText( $this->mTarget );
 		// This enables a @hack where the $wgUploadMissingFileUrl
 		// setting can be used to point red links to files to a form
 		// (which otherwise can't be done).
-		if ( $this->mTarget == '' && $req->getCheck( 'wpDestFile' ) ) {
+		} elseif ( $req->getCheck( 'wpDestFile' ) ) {
 			$destFile = $req->getText( 'wpDestFile' );
 			$targetTitle = Title::makeTitleSafe( NS_FILE, $destFile );
 			$this->mTarget = $targetTitle->getFullText();
 		}
 
-		if ( $this->mTarget !== '' ) {
+		if ( $targetTitle ) {
 			$userCanRead = MediaWikiServices::getInstance()
 				->getPermissionManager()
 				->userCan(
 					'read',
 					$this->getUser(),
-					Title::newFromText( $this->mTarget )
+					$targetTitle
 				);
 			if ( !$userCanRead ) {
 				throw new PermissionsError( 'read' );
