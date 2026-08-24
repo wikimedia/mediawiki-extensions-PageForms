@@ -430,7 +430,11 @@ const Sortable = require( 'ext.pageforms.sortable' );
 					data.pfautocomplete.forEach( (item) => {
 						if (item.displaytitle !== undefined) {
 							let displayTitle;
-							if (item.title === item.displaytitle) {
+							// Compared case-insensitively: MediaWiki capitalises the
+							// first letter of a page title, so a display title that
+							// differs from the title only in that letter is not a
+							// distinct label and must not be appended to itself.
+							if (item.title.toLowerCase() === item.displaytitle.toLowerCase()) {
 								displayTitle = item.title;
 							} else {
 								const containsTitleInParentheses = item.displaytitle.includes("(" + item.title + ")");
