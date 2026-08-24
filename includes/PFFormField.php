@@ -670,6 +670,8 @@ class PFFormField {
 						// The form is submitted with "displaytitle (title)" format, so we need to map it back.
 						if ( $this->hasFieldArg( 'remote autocompletion' ) ) {
 							$hasList = $cur_values['is_list'] ?? false;
+							// Don't map 'is_list' because it's not an actual value, of course.
+							unset( $cur_values['is_list'] );
 							// The key containing the actual title of the page
 							$cur_values = array_keys( PFMappingUtils::getLabelsForTitles( $cur_values, true ) );
 							if ( $hasList ) {

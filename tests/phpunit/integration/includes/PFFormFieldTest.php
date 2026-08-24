@@ -784,6 +784,65 @@ class PFFormFieldTest extends MediaWikiIntegrationTestCase {
 		$this->assertNull( $actual );
 	}
 
+	/**
+	 * 'is_list' travels inside the submitted values array as a marker, but it
+	 * is not a value: handing it to getLabelsForTitles() means the marker's
+	 * value is looked up as though it were a page name, and on any wiki that
+	 * has a page called "1" it comes back as one of the mapped titles and is
+	 * written into the saved wikitext.
+	 *
+	 * @covers \PFFormField::getCurrentValue
+	 */
+	public function testGetCurrentValueDoesNotMapTheIsListMarkerIntoTheValues(): void {
+		// The page the marker's value resolves to if it reaches the mapping.
+		$this->createPage( '1' );
+		$this->createPage( 'Help:PFFormFieldRemotePage' );
+
+		// Remote autocompletion always has an associative value => label map;
+		// prime the mapping cache so the test does not depend on Translate.
+		$fieldArgs = [
+			'input type' => 'tokens',
+			'values from namespace' => 'Help',
+			'mapping using translate' => 'pf-form-field-test-',
+			'delimiter' => ',',
+		];
+		$mappedValuesKey = json_encode( $fieldArgs ) . 'mapping using translate';
+		\PFFormField::$mappedValuesCache[$mappedValuesKey] = [
+			'Help:PFFormFieldRemotePage' => 'Remote label',
+		];
+
+		$templateField = \PFTemplateField::create( 'Related page', null );
+		$formField = $this->newFormFieldFromTags(
+			'Article',
+			[ $templateField ],
+			[
+				'field',
+				'Related page',
+				'input type=tokens',
+				'values from namespace=Help',
+				'mapping using translate=pf-form-field-test-'
+			]
+		);
+		$this->assertSame(
+			[ 'Help:PFFormFieldRemotePage' => 'Remote label' ],
+			$formField->getPossibleValues(),
+			'Precondition: the field has an associative value => label map'
+		);
+		$formField->setFieldArg( 'remote autocompletion', true );
+
+		$actual = $formField->getCurrentValue(
+			[
+				'Related page' => [ 'Remote label', 'is_list' => '1' ],
+				'map_field' => [ 'Related page' => true ],
+			],
+			true,
+			false,
+			false
+		);
+
+		$this->assertSame( 'Help:PFFormFieldRemotePage', $actual );
+	}
+
 	public function testValueStringToLabels() {
 		$actual = $this->pfFormField->valueStringToLabels( 'test_value', ',', false );
 		$this->assertEquals( 'test_value', $actual );
