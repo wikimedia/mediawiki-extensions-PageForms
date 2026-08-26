@@ -139,7 +139,7 @@ class PFAutoEdit {
 		}
 
 		if ( $redirect != '' ) {
-			$linkToPage = $redirect;
+			$linkToPage = Skin::makeInternalOrExternalUrl( $redirect );
 		} elseif ( $bringToPage ) {
 			$linkToPage = $targetTitle->getFullURL();
 		}
