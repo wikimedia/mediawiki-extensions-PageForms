@@ -94,7 +94,7 @@
 	"pf_blank_namespace": "Коьрта",
 	"pf-autocomplete-no-matches": "Терниш цакарий",
 	"pf-autocomplete-searching": "Лахар…",
-	"pf-autocomplete-input-too-short": "Дехар до, йазъе $1 йа дукха хьаьркаш",
+	"pf-autocomplete-input-too-short": "Дехар до, $1 йа цул сов символаш йазйе.",
 	"pf-autocomplete-selection-too-big": "ХӀокху меттигехь $1 дукъа маьӀнаш хилийла дац.",
 	"pf-maps-enteraddress": "Йазде адрес кхуза",
 	"pf-maps-lookupcoordinates": "Билгалдаха координаташ адресан гӀоьнца",
