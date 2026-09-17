@@ -99,38 +99,41 @@ class PFPageSchemas extends PSExtensionHandler {
 		$formName = null;
 		$xml = '';
 		$includeFreeText = false;
+		$freeTextLabel = null;
 		foreach ( $wgRequest->getValues() as $var => $val ) {
-			$val = str_replace( [ '<', '>' ], [ '&lt;', '&gt;' ], $val );
 			if ( $var == 'pf_form_name' ) {
 				$formName = $val;
 			} elseif ( $var == 'pf_page_name_formula' ) {
 				if ( !empty( $val ) ) {
-					$val = Xml::escapeTagsOnly( $val );
-					$xml .= '<PageNameFormula>' . $val . '</PageNameFormula>';
+					$xml .= Xml::element( 'PageNameFormula', null, $val );
 				}
 			} elseif ( $var == 'pf_create_title' ) {
 				if ( !empty( $val ) ) {
-					$xml .= '<CreateTitle>' . $val . '</CreateTitle>';
+					$xml .= Xml::element( 'CreateTitle', null, $val );
 				}
 			} elseif ( $var == 'pf_edit_title' ) {
 				if ( !empty( $val ) ) {
-					$xml .= '<EditTitle>' . $val . '</EditTitle>';
+					$xml .= Xml::element( 'EditTitle', null, $val );
 				}
 			} elseif ( $var == 'pf_fi_free_text' && !empty( $val ) ) {
 				$includeFreeText = true;
-				$xml .= '<standardInputs inputFreeText="1" ';
-			} elseif ( $includeFreeText && $var == 'pf_fi_free_text_label' ) {
+			} elseif ( $var == 'pf_fi_free_text_label' ) {
 				if ( !empty( $val ) ) {
-					$xml .= 'freeTextLabel="' . Xml::escapeTagsOnly( $val ) . '" ';
+					$freeTextLabel = $val;
 				}
 			}
 		}
+
 		if ( $includeFreeText ) {
-			$xml .= ' />';
+			$standardInputsAttrs = [ 'inputFreeText' => '1' ];
+			if ( !empty( $freeTextLabel ) ) {
+				$standardInputsAttrs['freeTextLabel'] = $freeTextLabel;
+			}
+			$xml .= Xml::element( 'standardInputs', $standardInputsAttrs );
 		}
-		$xml = '<pageforms_Form name="' . $formName . '" >' . $xml;
-		$xml .= '</pageforms_Form>';
-		return $xml;
+
+		$formXml = Xml::openElement( 'pageforms_Form', [ 'name' => $formName ] ) . $xml . Xml::closeElement( 'pageforms_Form' );
+		return $formXml;
 	}
 
 	/**
@@ -144,18 +147,17 @@ class PFPageSchemas extends PSExtensionHandler {
 		$templateNum = -1;
 		$xml = '';
 		foreach ( $wgRequest->getValues() as $var => $val ) {
-			$val = str_replace( [ '<', '>' ], [ '&lt;', '&gt;' ], $val );
 			if ( substr( $var, 0, 18 ) === 'pf_template_label_' ) {
 				$templateNum = substr( $var, 18 );
-				$xml = '<pageforms_TemplateDetails>';
+				$xml = Xml::openElement( 'pageforms_TemplateDetails' );
 				if ( !empty( $val ) ) {
-					$xml .= "<Label>$val</Label>";
+					$xml .= Xml::element( 'Label', null, $val );
 				}
 			} elseif ( substr( $var, 0, 23 ) === 'pf_template_addanother_' ) {
 				if ( !empty( $val ) ) {
-					$xml .= "<AddAnotherText>$val</AddAnotherText>";
+					$xml .= Xml::element( 'AddAnotherText', null, $val );
 				}
-				$xml .= '</pageforms_TemplateDetails>';
+				$xml .= Xml::closeElement( 'pageforms_TemplateDetails' );
 				$xmlPerTemplate[$templateNum] = $xml;
 			}
 		}
@@ -173,30 +175,29 @@ class PFPageSchemas extends PSExtensionHandler {
 		$fieldNum = -1;
 		$xml = '';
 		foreach ( $wgRequest->getValues() as $var => $val ) {
-			$val = str_replace( [ '<', '>' ], [ '&lt;', '&gt;' ], $val );
 			if ( substr( $var, 0, 14 ) === 'pf_input_type_' ) {
 				$fieldNum = substr( $var, 14 );
-				$xml = '<pageforms_FormInput>';
+				$xml = Xml::openElement( 'pageforms_FormInput' );
 				if ( !empty( $val ) ) {
-					$xml .= '<InputType>' . $val . '</InputType>';
+					$xml .= Xml::element( 'InputType', null, $val );
 				}
 			} elseif ( substr( $var, 0, 14 ) === 'pf_key_values_' ) {
 				$xml .= self::createFormInputXMLFromForm( $val );
 			} elseif ( substr( $var, 0, 14 ) === 'pf_input_befo_' ) {
 				if ( $val !== '' ) {
-					$xml .= '<TextBeforeField>' . $val . '</TextBeforeField>';
+					$xml .= Xml::element( 'TextBeforeField', null, $val );
 				}
 			} elseif ( substr( $var, 0, 14 ) === 'pf_input_desc_' ) {
 				if ( $val !== '' ) {
-					$xml .= '<Description>' . $val . '</Description>';
+					$xml .= Xml::element( 'Description', null, $val );
 				}
 			} elseif ( substr( $var, 0, 18 ) === 'pf_input_desctool_' ) {
 				if ( $val !== '' ) {
-					$xml .= '<DescriptionTooltipMode>' . $val . '</DescriptionTooltipMode>';
+					$xml .= Xml::element( 'DescriptionTooltipMode', null, $val );
 				}
 			} elseif ( substr( $var, 0, 16 ) === 'pf_input_finish_' ) {
 				// This is a hack.
-				$xml .= '</pageforms_FormInput>';
+				$xml .= Xml::closeElement( 'pageforms_FormInput' );
 				$xmlPerField[$fieldNum] = $xml;
 			}
 		}
@@ -213,14 +214,15 @@ class PFPageSchemas extends PSExtensionHandler {
 		$pageSectionNum = -1;
 
 		foreach ( $wgRequest->getValues() as $var => $val ) {
-			$val = str_replace( [ '<', '>' ], [ '&lt;', '&gt;' ], $val );
 			if ( substr( $var, 0, 26 ) == 'pf_pagesection_key_values_' ) {
 				$pageSectionNum = substr( $var, 26 );
 				$xml = "";
 				if ( $val != '' ) {
-					$xml = '<pageforms_PageSection>';
-					$xml .= self::createFormInputXMLFromForm( $val );
-					$xml .= '</pageforms_PageSection>';
+					$xml = Xml::tags(
+						'pageforms_PageSection',
+						[],
+						self::createFormInputXMLFromForm( $val )
+					);
 				}
 				$xmlPerPageSection[$pageSectionNum] = $xml;
 			}
@@ -237,15 +239,15 @@ class PFPageSchemas extends PSExtensionHandler {
 			$key_values_str = str_replace( "\\$listSeparator", "\a", $valueFromForm );
 			$key_values_array = explode( $listSeparator, $key_values_str );
 			foreach ( $key_values_array as $value ) {
-			// replace beep back with comma, trim
+				// replace beep back with comma, trim
 				$value = str_replace( "\a", $listSeparator, trim( $value ) );
 				$param_value = explode( "=", $value, 2 );
-				if ( count( $param_value ) == 2 && $param_value[1] != null ) {
+				if ( count( $param_value ) == 2 && $param_value[1] !== null && $param_value[1] !== '' ) {
 					// Handles <Parameter name="size">20</Parameter>
-					$xml .= '<Parameter name="' . $param_value[0] . '">' . $param_value[1] . '</Parameter>';
+					$xml .= Xml::element( 'Parameter', [ 'name' => $param_value[0] ], $param_value[1] );
 				} else {
-					// Handles <Parameter name="mandatory" />
-					$xml .= '<Parameter name="' . $param_value[0] . '"/>';
+					// Handles <Parameter name="mandatory"/>
+					$xml .= Xml::element( 'Parameter', [ 'name' => $param_value[0] ] );
 				}
 			}
 		}
