@@ -32,7 +32,12 @@ class PFPageNameFormulaTest extends MediaWikiIntegrationTestCase {
 		$oldTitle = \MediaWiki\Title\Title::newFromText( $oldTitleText );
 		$oldPage = $this->getServiceContainer()->getWikiPageFactory()->newFromTitle( $oldTitle );
 		$this->assertTrue( $oldPage->isRedirect(), 'The old page should be a redirect.' );
-		$this->assertEquals( $newTitle->getPrefixedText(), $oldPage->getRedirectTarget()->getPrefixedText(), 'The redirect should point to the new title.' );
+		$redirectTarget = $this->getServiceContainer()->getRedirectLookup()->getRedirectTarget( $oldPage );
+		$this->assertEquals(
+			$newTitle->getPrefixedText(),
+			$this->getServiceContainer()->getTitleFormatter()->getPrefixedText( $redirectTarget ),
+			'The redirect should point to the new title.'
+		);
 	}
 
 	/**

@@ -6,6 +6,7 @@
  * @ingroup PageForms
  */
 
+use MediaWiki\Context\DerivativeContext;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
@@ -322,12 +323,6 @@ class PFAutoeditAPI extends ApiBase {
 			throw new MWException( $this->msg( 'pf_autoedit_invalidtargetspecified', $this->mOptions['target'] )->parse() );
 		}
 
-		$article = new Article( $targetTitle );
-
-		// set up a normal edit page
-		// we'll feed it our data to simulate a normal edit
-		$editor = new EditPage( $article );
-
 		// set up form data:
 		// merge data coming from the web request on top of some defaults
 		$data = array_merge(
@@ -359,8 +354,23 @@ class PFAutoeditAPI extends ApiBase {
 		// set up a faux request with the simulated data
 		$request = new FauxRequest( $data, true );
 
+		$context = new DerivativeContext( $this->getContext() );
+		$context->setRequest( $request );
+
+		$article = new Article( $targetTitle );
+		$article->setContext( $context );
+
+		// set up a normal edit page
+		// we'll feed it our data to simulate a normal edit
+		$editor = new EditPage( $article );
+
 		// and import it into the edit page
-		$editor->importFormData( $request );
+		// SimpleAntiSpamConstraint was removed in MW 1.47, close to the importFormData() change
+		if ( class_exists( 'MediaWiki\EditPage\Constraint\SimpleAntiSpamConstraint' ) ) {
+			$editor->importFormData( $request );
+		} else {
+			$editor->importFormData();
+		}
 		$editor->pfFauxRequest = $request;
 
 		return $editor;
