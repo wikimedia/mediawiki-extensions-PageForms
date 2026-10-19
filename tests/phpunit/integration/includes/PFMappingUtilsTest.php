@@ -1,8 +1,11 @@
 <?php
 
 use MediaWiki\Content\ContentHandler;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Title\Title;
 use OOUI\BlankTheme;
+use Wikimedia\TestingAccessWrapper;
 
 /**
  * @group PageForms
@@ -460,7 +463,8 @@ class PFMappingUtilsTest extends MediaWikiIntegrationTestCase {
 		$this->createPage( 'Template:PFMappingTemplateTwo', 'Mapped-{{{1|}}}' );
 		$mapped = \PFMappingUtils::getValuesWithMappingTemplate( [ 'Value A' ], 'PFMappingTemplateTwo' );
 		$this->assertArrayHasKey( 'Value A', $mapped );
-		// $this->assertStringContainsString( 'Mapped-Value A', $mapped['Value A'] );
+		$this->assertSame( 'Mapped-Value A', $mapped['Value A'] );
+		$this->assertStringContainsString( 'Mapped-Value A', $mapped['Value A'] );
 	}
 
 	public function testGetValuesWithMappingTemplateInitializesParserOptionsAndUsesEmptyTemplateFallback(): void {
@@ -488,9 +492,46 @@ class PFMappingUtilsTest extends MediaWikiIntegrationTestCase {
 			'PFMappingTemplateEmpty'
 		);
 
-		// $this->assertSame( '{{#ifeq:|MappedCase|Mapped Label|}}', $mapped[''],
-		// 	'When the template with empty parameter is parsed in the test environment, it returns the literal template string' );
-		// $this->assertSame( '{{#ifeq:MappedCase|MappedCase|Mapped Label|}}', $mapped['MappedCase'] );
+		// #ifeq is provided by the ParserFunctions extension, which is not part of
+		// core. Parameter substitution still runs, so the label is the parser-function
+		// wikitext. An empty expansion would instead fall back to the original value.
+		$this->assertSame( '{{#ifeq:|MappedCase|Mapped Label|}}', $mapped[''] );
+		$this->assertSame( '{{#ifeq:MappedCase|MappedCase|Mapped Label|}}', $mapped['MappedCase'] );
+	}
+
+	/**
+	 * The shared parser is often left in OT_WIKI by pre-save transform. Mapping
+	 * must use a separate HTML parser so templates still expand.
+	 */
+	public function testCreateMappingParserUsesFreshHtmlParser(): void {
+		$this->createPage( 'Template:PFMappingParserMode', 'Label-{{{1|}}}' );
+
+		$shared = $this->getServiceContainer()->getParser();
+		$shared->startExternalParse(
+			Title::newMainPage(),
+			ParserOptions::newFromAnon(),
+			Parser::OT_WIKI,
+			true
+		);
+		$this->assertSame( Parser::OT_WIKI, $shared->getOutputType() );
+
+		$mappingParser = TestingAccessWrapper::newFromClass( \PFMappingUtils::class )
+			->createMappingParser();
+
+		$this->assertInstanceOf( Parser::class, $mappingParser );
+		$this->assertNotSame( $shared, $mappingParser );
+		$this->assertSame( Parser::OT_HTML, $mappingParser->getOutputType() );
+		$this->assertNotNull( $mappingParser->getOptions() );
+		$this->assertSame(
+			'Label-Mode Check',
+			trim( $mappingParser->recursiveTagParse( '{{PFMappingParserMode|Mode Check}}' ) )
+		);
+
+		$this->assertSame( Parser::OT_WIKI, $shared->getOutputType() );
+		$this->assertSame(
+			'{{PFMappingParserMode|Mode Check}}',
+			trim( $shared->recursiveTagParse( '{{PFMappingParserMode|Mode Check}}' ) )
+		);
 	}
 
 	public function testGetValuesWithMappingCargoFieldCoversValueFieldFallbackAndDisplayTitleMode(): void {

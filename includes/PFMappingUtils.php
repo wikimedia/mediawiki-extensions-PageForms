@@ -177,16 +177,7 @@ class PFMappingUtils {
 		$res = [];
 
 		if ( $templateExists ) {
-			$parser = PFUtils::getParser();
-			// If the form employs mapping templates to translate values to labels, PFMappingUtils
-			// fundamentally relies on the parser to render them. Since we might be outside a standard
-			// page rendering context (e.g. pfautocomplete API), we explicitly initialize an external
-			// parse sequence so that the template parsing succeeds without crashing.
-			if ( $parser->getOptions() === null ) {
-				wfDebugLog( 'PageForms', 'Parser uninitialized before mapping template. Initializing now.' );
-				$parserOptions = ParserOptions::newFromContext( RequestContext::getMain() );
-				$parser->startExternalParse( Title::newMainPage(), $parserOptions, Parser::OT_HTML, true );
-			}
+			$parser = self::createMappingParser();
 		}
 
 		foreach ( $values as $index => $value ) {
@@ -263,11 +254,7 @@ class PFMappingUtils {
 		string $translateMapping
 	) {
 		$res = [];
-		$parser = PFUtils::getParser();
-		if ( $parser->getOptions() === null ) {
-			$parserOptions = ParserOptions::newFromContext( RequestContext::getMain() );
-			$parser->startExternalParse( Title::newMainPage(), $parserOptions, Parser::OT_HTML, true );
-		}
+		$parser = self::createMappingParser();
 
 		foreach ( $values as $key ) {
 			$res[$key] = $parser->recursiveTagParse( '{{int:' . $translateMapping . $key . '}}' );
@@ -390,6 +377,20 @@ class PFMappingUtils {
 			}
 		}
 		return $pages;
+	}
+
+	/**
+	 * Fresh parser in HTML mode for expanding mapping templates and {{int:}} labels.
+	 *
+	 * Callers such as pre-save transform leave the shared Parser service in OT_WIKI.
+	 * With Parsoid as the default page parser, a later legacy parse no longer resets
+	 * that instance to OT_HTML, so reusing it skips template expansion.
+	 */
+	private static function createMappingParser(): Parser {
+		$parser = MediaWikiServices::getInstance()->getParserFactory()->create();
+		$parserOptions = ParserOptions::newFromContext( RequestContext::getMain() );
+		$parser->startExternalParse( Title::newMainPage(), $parserOptions, Parser::OT_HTML, true );
+		return $parser;
 	}
 
 	/**
