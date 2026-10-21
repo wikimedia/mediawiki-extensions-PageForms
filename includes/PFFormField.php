@@ -105,7 +105,7 @@ class PFFormField {
 	}
 
 	public function getFieldArg( $key ) {
-		return $this->mFieldArgs[$key];
+		return $this->mFieldArgs[$key] ?? null;
 	}
 
 	public function setFieldArg( $key, $value ) {
@@ -597,7 +597,10 @@ class PFFormField {
 		// Get the value from the request, if
 		// it's there, and if it's not an array.
 		$field_name = $this->template_field->getFieldName();
-		$delimiter = $this->mFieldArgs['delimiter'];
+		if ( $field_name === null ) {
+			return null;
+		}
+		$delimiter = $this->mFieldArgs['delimiter'] ?? ',';
 		$escaped_field_name = str_replace( "'", "\'", $field_name );
 
 		if ( PFUtils::isTranslateEnabled() && $this->hasFieldArg( 'translatable' ) && $this->getFieldArg( 'translatable' ) ) {

@@ -379,6 +379,8 @@ class PFFormFieldTest extends MediaWikiIntegrationTestCase {
 		$this->assertFalse( $formField->isList() );
 		$this->assertNull( $formField->isMandatory() );
 		$this->assertNull( $formField->getInputName() );
+		$this->assertNull( $formField->getFieldArg( 'delimiter' ) );
+		$this->assertNull( $formField->getCurrentValue( [], false, false, false ) );
 	}
 
 	/*
