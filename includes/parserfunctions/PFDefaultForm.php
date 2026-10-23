@@ -31,7 +31,7 @@ class PFDefaultForm {
 			}
 			$defaultFormPageText = $defaultFormPage->getPrefixedText();
 			$defaultFormPageLink = "[[$defaultFormPageText|$defaultForm]]";
-			$text = wfMessage( 'pf_category_hasdefaultform', $defaultFormPageLink )->text();
+			$text = $parser->msg( 'pf_category_hasdefaultform', $defaultFormPageLink )->text();
 			return $text;
 		}
 
