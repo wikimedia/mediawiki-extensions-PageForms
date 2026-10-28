@@ -217,7 +217,7 @@
 	"action-editrestrictedfields": "ویرایش محدود شده از زمینه‌ها",
 	"action-viewedittab": "مشاهده تب \"{{int:edit}}\" برای صفحات قابل ویرایش توسط فرم",
 	"pf-autocomplete-searching": "در حال جستجو...",
-	"pf-maps-enteraddress": "آدرس را اینجا وارد کنید",
+	"pf-maps-enteraddress": "نشانی را اینجا وارد کنید",
 	"pf-maps-lookupcoordinates": "محاسبهٔ مختصات با استفاده از نشانی",
 	"pf-adminlinks-datastructure": "ساختار داده‌ها",
 	"pf-datepicker-close": "بستن",
