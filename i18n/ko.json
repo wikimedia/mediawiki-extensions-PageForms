@@ -19,7 +19,7 @@
 	"pageforms-desc": "위키 문서를 만들고 편집하기 위한 양식",
 	"specialpages-group-pf_group": "페이지 폼",
 	"apihelp-pfautocomplete-summary": "Page Forms 확장 기능에 의해 사용되는 자동 완성입니다.",
-	"apihelp-pfautocomplete-param-limit": "반환되는 결과 갯수 제한",
+	"apihelp-pfautocomplete-param-limit": "반환되는 결과 개수 제한",
 	"apihelp-pfautocomplete-param-substr": "자동 완성될 하위 문자열",
 	"apihelp-pfautocomplete-param-wikidata": "위키데이터에서 값을 가져오기 위한 검색 문자열",
 	"apihelp-pfautocomplete-param-property": "값이 자동 완성될 시맨틱 미디어위키 속성",
