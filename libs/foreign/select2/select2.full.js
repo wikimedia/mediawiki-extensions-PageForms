@@ -9,24 +9,24 @@
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
     define(['jquery'], factory);
-  // } else if (typeof module === 'object' && module.exports) {
-  //   // Node/CommonJS
-  //   module.exports = function (root, jQuery) {
-  //     if (jQuery === undefined) {
-  //       // require('jQuery') returns a factory that requires window to
-  //       // build a jQuery instance, we normalize how we use modules
-  //       // that require this pattern but the window provided is a noop
-  //       // if it's defined (how jquery works)
-  //       if (typeof window !== 'undefined') {
-  //         jQuery = require('jquery');
-  //       }
-  //       else {
-  //         jQuery = require('jquery')(root);
-  //       }
-  //     }
-  //     factory(jQuery);
-  //     return jQuery;
-  //   };
+  } else if (typeof module === 'object' && module.exports) {
+    // Node/CommonJS
+    module.exports = function (root, jQuery) {
+      if (jQuery === undefined) {
+        // require('jQuery') returns a factory that requires window to
+        // build a jQuery instance, we normalize how we use modules
+        // that require this pattern but the window provided is a noop
+        // if it's defined (how jquery works)
+        if (typeof window !== 'undefined') {
+          jQuery = require('jquery');
+        }
+        else {
+          jQuery = require('jquery')(root);
+        }
+      }
+      factory(jQuery);
+      return jQuery;
+    };
   } else {
     // Browser globals
     factory(jQuery);
@@ -2190,17 +2190,14 @@ S2.define('select2/selection/search',[
   Search.prototype.resizeSearch = function () {
     this.$search.css('width', '25px');
 
-    var el = this.$selection.find('.select2-selection__rendered');
-    var search = this.$search;
     var width = '';
 
-    if (search.attr('placeholder') !== '' && el.is(":visible")) {
-      width = el.width();
+    if (this.$search.attr('placeholder') !== '') {
+      width = this.$selection.find('.select2-selection__rendered').width();
     } else {
-      var minimumWidth = search.val().length + 1;
-      var placeholderWidth = search.attr('placeholder').length + 1;
+      var minimumWidth = this.$search.val().length + 1;
 
-      width = (Math.max( minimumWidth, placeholderWidth) * 0.75) + 'em';
+      width = (minimumWidth * 0.75) + 'em';
     }
 
     this.$search.css('width', width);
@@ -4531,10 +4528,7 @@ S2.define('select2/dropdown/attachBody',[
 
     css.top -= parentOffset.top;
     css.left -= parentOffset.left;
-    //fix for rtl forms
-    if( 'rtl' == $('html').attr('dir') ){
-      css.left += this.$element.next().width();
-    }
+
     if (!isCurrentlyAbove && !isCurrentlyBelow) {
       newDirection = 'below';
     }
@@ -5238,14 +5232,14 @@ S2.define('select2/options',[
 
     this.options = Defaults.apply(this.options);
 
-    // if ($element && $element.is('input')) {
-    //   var InputCompat = require(this.get('amdBase') + 'compat/inputData');
+    if ($element && $element.is('input')) {
+      var InputCompat = require(this.get('amdBase') + 'compat/inputData');
 
-    //   this.options.dataAdapter = Utils.Decorate(
-    //     this.options.dataAdapter,
-    //     InputCompat
-    //   );
-    // }
+      this.options.dataAdapter = Utils.Decorate(
+        this.options.dataAdapter,
+        InputCompat
+      );
+    }
   }
 
   Options.prototype.fromElement = function ($e) {

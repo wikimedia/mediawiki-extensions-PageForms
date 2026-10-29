@@ -445,7 +445,8 @@
 		},
 		"ext.pageforms.select2": {
 			"scripts": [
-				"libs/foreign/select2/select2.js",
+				"libs/PF_select2.js",
+				"libs/foreign/select2/select2.full.js",
 				"libs/foreign/jquery.mousewheel/jquery.mousewheel.js",
 				"libs/ext.pf.select2.base.js",
 				"libs/ext.pf.select2.tokens.js"

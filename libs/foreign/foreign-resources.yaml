@@ -67,15 +67,12 @@ select2:
   authors: Kevin Brown and other contributors
   version: 4.0.13
   purl: pkg:npm/select2@4.0.13
-  type: doc-only
+  type: tar
   src: https://registry.npmjs.org/select2/-/select2-4.0.13.tgz
   integrity: sha512-1JeB87s6oN/TDxQQYCvS5EFoQyvV6eYMZZ0AeA4tdFDYWN3BAGZ8npr17UBFddU0lgAt3H0yjX3X6/ekOj1yjw==
   dest:
-    # package/dist/js/select2.js:
+    package/dist/js/select2.full.js:
     package/dist/css/select2.css:
-    package/LICENSE.md:
-    package/README.md:
-    package/CHANGELOG.md:
 
 jspreadsheet:
   license: MIT

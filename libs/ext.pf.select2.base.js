@@ -14,6 +14,50 @@
 
 ( function ( $, mw, pf ) {
 	'use strict';
+
+	// =====================================
+	// Changes made for Page Forms
+	// =====================================
+	// Hidden token inputs have no visible selection, so size the search
+	// field from the placeholder instead of the rendered selection.
+	const Search = $.fn.select2.amd.require( 'select2/selection/search' );
+	Search.prototype.resizeSearch = function () {
+		this.$search.css( 'width', '25px' );
+
+		const $el = this.$selection.find( '.select2-selection__rendered' );
+		const $search = this.$search;
+		let width = '';
+
+		const rendered = $el[ 0 ];
+		const renderedIsVisible = rendered && (
+			rendered.offsetWidth || rendered.offsetHeight || rendered.getClientRects().length
+		);
+		if ( $search.attr( 'placeholder' ) !== '' && renderedIsVisible ) {
+			width = $el.width();
+		} else {
+			const minimumWidth = $search.val().length + 1;
+			const placeholder = $search.attr( 'placeholder' ) || '';
+			const placeholderWidth = placeholder.length + 1;
+
+			width = ( Math.max( minimumWidth, placeholderWidth ) * 0.75 ) + 'em';
+		}
+
+		this.$search.css( 'width', width );
+	};
+
+	// fix for rtl forms
+	const AttachBody = $.fn.select2.amd.require( 'select2/dropdown/attachBody' );
+	const originalPositionDropdown = AttachBody.prototype._positionDropdown;
+	AttachBody.prototype._positionDropdown = function () {
+		originalPositionDropdown.call( this );
+		if ( $( 'html' ).attr( 'dir' ) == 'rtl' ) {
+			const left = parseFloat( this.$dropdownContainer.css( 'left' ) ) || 0;
+			this.$dropdownContainer.css( 'left', left + this.$element.next().width() );
+		}
+	};
+	// =====================================
+	// =====================================
+
 	/**
 	 * Inheritance class for the pf.select2 constructor
 	 *
