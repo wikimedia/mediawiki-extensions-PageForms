@@ -51,6 +51,7 @@
 	"pf_forminputs_rows": "د دې ورکړېينې لپاره د کتارونو شمېر",
 	"pf_forminputs_cols": "د دې ورکړېينې لپاره د ستونونو شمېر",
 	"pf_forminputs_autogrow": "دا ورکړېينه د کچې زياتوالي لپاره واوڼئ؛ که چېرې ليک د هغې له بريد واوړي",
+	"pf_forminputs_hideroot": "مورنۍ وېشنيزه پټول",
 	"pf_forminputs_checkboxes_select_all": "ټول ټاکل",
 	"pf_forminputs_checkboxes_select_none": "هېڅ يو نه غوره کول",
 	"createform": "يوه فورمه جوړول",
@@ -133,5 +134,12 @@
 	"pf-datepicker-dateformatlong": "و م‌م ک‌ک",
 	"pf-datepicker-dateformatshort": "ورځ/مياشت/کال",
 	"pf-datepicker-firstdayofweek": "۰",
-	"pf-resultstoshow": "د ښودلو لپاره پايلې"
+	"pf-missingconcept": "مفهوم نشي موندل کېدی: $1",
+	"pf-missingnamespace": "نوم‌تشيال نشي موندل کېدی: $1",
+	"pf-nocompletionurls": "دې ويکي کې د خپلکاري بشپړاوي لپاره هېڅ باندنی وېبتړ ځانگړی شوی نه دی.",
+	"pf-resultstoshow": "د ښودلو لپاره پايلې",
+	"pf-invalidexturl": "د باندني وېبتړ ارزښت ناسم دی.",
+	"pf-blankexturl": "د باندني وېبتړ ارزښت تش دی.",
+	"pf-externalpageempty": "باندنی مخ هېڅ منځپانگه نلري.",
+	"pf-externalpagebadjson": "باندني مخ کې جی‌اېس‌او‌اېن نشي ټوټه کېدی."
 }
