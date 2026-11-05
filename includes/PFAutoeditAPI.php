@@ -367,6 +367,7 @@ class PFAutoeditAPI extends ApiBase {
 		// and import it into the edit page
 		// SimpleAntiSpamConstraint was removed in MW 1.47, close to the importFormData() change
 		if ( class_exists( 'MediaWiki\EditPage\Constraint\SimpleAntiSpamConstraint' ) ) {
+			// @phan-suppress-next-line PhanParamTooMany
 			$editor->importFormData( $request );
 		} else {
 			$editor->importFormData();
