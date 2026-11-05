@@ -719,6 +719,25 @@ class PFMappingUtilsTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
+	public function testGetMappedValuesForInputLooksUpValuesFromNamespaceInThatNamespace(): void {
+		// "values from namespace" saves page names without the namespace
+		// prefix. With reverse lookup on, which a namespace with more pages
+		// than the form loads turns on, a saved value must still be found
+		// in that namespace rather than dropped.
+		$this->setMwGlobals( [ 'wgPageFormsUseDisplayTitle' => true ] );
+		$title = $this->createPage( 'Help:PF Namespace Value' );
+		$this->setDisplayTitle( $title, 'Namespace Value Label' );
+
+		$mapped = \PFMappingUtils::getMappedValuesForInput(
+			[ 'PF Namespace Value' ],
+			[ 'values from namespace' => 'Help', 'reverselookup' => 'true' ]
+		);
+		$this->assertSame(
+			[ 'PF Namespace Value' => 'Namespace Value Label (PF Namespace Value)' ],
+			$mapped
+		);
+	}
+
 	public function testGetLabelsForTitlesReverseLookupPreservesPageWithParenthesesInName(): void {
 		// A page whose actual title contains parentheses must not have the
 		// parenthesised part extracted as a "real" page name. (T427758)

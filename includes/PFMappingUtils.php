@@ -111,7 +111,11 @@ class PFMappingUtils {
 				break;
 			case 'displaytitle':
 				$isReverseLookup = ( array_key_exists( 'reverselookup', $args ) && ( $args['reverselookup'] == 'true' ) );
-				$mappedValues = self::getLabelsForTitles( $values, $isReverseLookup );
+				$mappedValues = self::getLabelsForTitles(
+					$values,
+					$isReverseLookup,
+					self::getNamespaceForValues( $args )
+				);
 				// @todo - why just array_values ?
 				break;
 		}
@@ -263,15 +267,36 @@ class PFMappingUtils {
 	}
 
 	/**
+	 * The namespace that "values from namespace" saves its values in.
+	 * Those values are page names without the namespace prefix, so they
+	 * must be looked up in that namespace. A field with several namespaces
+	 * saves prefixed page names, which need no default.
+	 *
+	 * @param array $args
+	 * @return int
+	 */
+	private static function getNamespaceForValues( array $args ): int {
+		$namespace = $args['values from namespace'] ?? '';
+		if ( $namespace === '' || $namespace === 'Main' || str_contains( $namespace, ',' ) ) {
+			return NS_MAIN;
+		}
+		$index = MediaWikiServices::getInstance()->getContentLanguage()
+			->getNsIndex( str_replace( ' ', '_', $namespace ) );
+		return $index === false ? NS_MAIN : $index;
+	}
+
+	/**
 	 * Get a named array of display titles
 	 *
 	 * @param array $values = pagenames
 	 * @param bool $doReverseLookup
+	 * @param int $defaultNamespace Namespace for values without a prefix
 	 * @return array
 	 */
 	public static function getLabelsForTitles(
 		array $values,
-		bool $doReverseLookup = false
+		bool $doReverseLookup = false,
+		int $defaultNamespace = NS_MAIN
 	) {
 		$labels = [];
 		$pageNamesForValues = [];
@@ -284,7 +309,7 @@ class PFMappingUtils {
 			// In some (rare) cases the provided key is the actual page name, resulting
 			// in errors when saving the form (since the display title was only shown).
 			if ( is_string( $k ) ) {
-				$titleFromKey = Title::newFromText( $k );
+				$titleFromKey = Title::newFromText( $k, $defaultNamespace );
 				if ( $titleFromKey instanceof Title && $titleFromKey->exists() ) {
 					$allTitles[] = $titleFromKey;
 					$pageNamesForValues[$k] = $titleFromKey->getPrefixedText();
@@ -298,7 +323,7 @@ class PFMappingUtils {
 				// Pages like "Pagename (foobar)" have parentheses in their
 				// actual title; without this check the regex below would
 				// incorrectly extract "foobar" as the page name.
-				$titleDirect = Title::newFromText( $value );
+				$titleDirect = Title::newFromText( $value, $defaultNamespace );
 				if ( $titleDirect instanceof Title && $titleDirect->exists() ) {
 					$pageNamesForValues[$value] = $titleDirect->getPrefixedText();
 					$allTitles[] = $titleDirect;
@@ -322,7 +347,7 @@ class PFMappingUtils {
 					$value = substr( $realPage, 0, -1 );
 				}
 			}
-			$titleInstance = Title::newFromText( $value );
+			$titleInstance = Title::newFromText( $value, $defaultNamespace );
 			// If the title is invalid, just leave the value as is
 			if ( $titleInstance === null ) {
 				continue;
