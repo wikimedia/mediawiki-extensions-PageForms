@@ -893,6 +893,16 @@ END;
 		$is_autoedit = $form_context == self::CONTEXT_AUTOEDIT;
 		$is_autocreate = $form_context == self::CONTEXT_AUTOCREATE;
 
+		// Inputs below construct OOUI PHP widgets. A form that is shown also
+		// needs the style modules. Autocreate only turns a form definition
+		// into page text while another page is rendering, so it configures
+		// the PHP theme and does not add those modules to that page.
+		if ( $is_autocreate ) {
+			OutputPage::setupOOUI();
+		} else {
+			$out->enableOOUI();
+		}
+
 		// Disable all form elements if user doesn't have edit
 		// permission - two different checks are needed, because
 		// editing permissions can be set in different ways.

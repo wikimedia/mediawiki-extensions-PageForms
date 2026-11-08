@@ -163,8 +163,7 @@ class PFAutoEdit {
 			if ( $inTooltip != null ) {
 				$attrs['title'] = $inTooltip;
 			}
-			$parser->getOutput()->setEnableOOUI( true );
-			OutputPage::setupOOUI();
+			PFFormUtils::enableOOUIForParser( $parser );
 			$linkElement = new OOUI\ButtonWidget( $attrs );
 		} elseif ( $linkType == 'link' ) {
 			$attrs = [ 'class' => $classString, 'href' => $linkToPage ];

@@ -3,6 +3,8 @@
 use MediaWiki\CommentStore\CommentStore;
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Output\OutputPage;
+use MediaWiki\Parser\ParserOutputFlags;
 use MediaWiki\Revision\RenderedRevision;
 use MediaWiki\Title\Title;
 use OOUI\ButtonInputWidget;
@@ -55,6 +57,18 @@ class PFFormUtils {
 			$text .= Html::hidden( '_unhandled_' . $templateName . '_' . $key, $value );
 		}
 		return $text;
+	}
+
+	/**
+	 * Mark this parser output as needing OOUI, and configure PHP OOUI for
+	 * the current request so widgets can render while the page is parsed.
+	 * The flag is what loads the styles when the output is later added to a page.
+	 *
+	 * @param Parser $parser
+	 */
+	static function enableOOUIForParser( Parser $parser ) {
+		$parser->getOutput()->setOutputFlag( ParserOutputFlags::ENABLE_OOUI );
+		OutputPage::setupOOUI();
 	}
 
 	static function summaryInputHTML( $is_disabled, $label = null, $attr = [], $value = '' ) {
