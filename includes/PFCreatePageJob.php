@@ -41,11 +41,7 @@ class PFCreatePageJob extends Job {
 		}
 
 		$pageText = $this->params['page_text'];
-		if ( array_key_exists( 'edit_summary', $this->params ) ) {
-			$editSummary = $this->params['edit_summary'];
-		} else {
-			$editSummary = '';
-		}
+		$editSummary = $this->params['edit_summary'] ?? '';
 		$user = MediaWikiServices::getInstance()->getUserFactory()->newFromId( $this->params['user_id'] );
 
 		self::createOrModifyPage( $wikiPage, $pageText, $editSummary, $user );

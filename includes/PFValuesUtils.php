@@ -478,12 +478,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 				$titles, [ 'displaytitle', 'defaultsort' ]
 			);
 			foreach ( $titles as $title ) {
-				if ( array_key_exists( $title->getArticleID(), $properties ) ) {
-					$titleprops = $properties[$title->getArticleID()];
-				} else {
-					$titleprops = [];
-				}
-
+				$titleprops = $properties[$title->getArticleID()] ?? [];
 				$titleText = $title->getPrefixedText();
 				if ( array_key_exists( 'displaytitle', $titleprops ) &&
 					trim( str_replace( '&#160;', '', strip_tags( $titleprops['displaytitle'] ) ) ) !== '' ) {
@@ -491,11 +486,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 				} else {
 					$pages[$titleText] = $titleText;
 				}
-				if ( array_key_exists( 'defaultsort', $titleprops ) ) {
-					$sortkeys[$titleText] = $titleprops['defaultsort'];
-				} else {
-					$sortkeys[$titleText] = $titleText;
-				}
+				$sortkeys[$titleText] = $titleprops['defaultsort'] ?? $titleText;
 			}
 		}
 
