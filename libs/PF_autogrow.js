@@ -1,52 +1,72 @@
 /**
  * PF_autogrow.js
  *
- * Allows for 'autogrow' textareas. Based heavily on the 'Autogrow Textarea
- * Plugin' by Jevin O. Sewaruth:
- * http://www.technoreply.com/autogrow-textarea-plugin/
+ * Allows for 'autogrow' textareas.
  *
- * Some modifications were made for the code to better work with Page
- * Forms.
- *
- * @author Jevin O. Sewaruth
- * @author Yaron Koren
+ * @author Mklyle
  */
 
-const autoGrowColsDefault = [];
-const autoGrowRowsDefault = [];
+( function ( $, mw ) {
+	var io = window.IntersectionObserver ? new IntersectionObserver( ( entries ) => {
+		entries.forEach( ( e ) => {
+			if ( e.target.offsetParent ) {
+				io.unobserve( e.target );
+				autoGrow( e.target );
+			}
+		} );
+	} ) : null;
 
-function autoGrowSetDefaultValues(textArea) {
-	const id = textArea.id;
-	autoGrowColsDefault[id] = textArea.cols;
-	autoGrowRowsDefault[id] = textArea.rows;
-}
-
-function autoGrow(textArea) {
-	let linesCount = 0;
-	const lines = textArea.value.split('\n');
-
-	for (let i = lines.length-1; i >= 0; --i) {
-		linesCount += Math.floor((lines[i].length / autoGrowColsDefault[textArea.id]) + 1);
+	function minHeight( ta ) {
+		var rows = parseInt( $( ta ).data( 'pfAutogrowRows' ), 10 ) || 5;
+		var lh = parseFloat( window.getComputedStyle( ta ).lineHeight ) || 20;
+		return rows * lh;
 	}
 
-	if (linesCount >= autoGrowRowsDefault[textArea.id]) {
-		textArea.rows = linesCount + 1;
-	} else {
-		textArea.rows = autoGrowRowsDefault[textArea.id];
+	function autoGrow( ta ) {
+		if ( !ta.offsetParent ) { // hidden: measure once visible
+			if ( io ) {
+				io.observe( ta );
+			}
+			return;
+		}
+		// With Realtime Preview on, the pinned height lives on the
+		// two-pane layout and .wikiEditor-ui-text is 100% inside it.
+		var frame = $( ta ).closest( '.ext-WikiEditor-twopanes-TwoPaneLayout' )[ 0 ] ||
+			$( ta ).closest( '.wikiEditor-ui-text' )[ 0 ];
+		ta.style.height = 'auto';
+		var h = Math.max( ta.scrollHeight + 4, minHeight( ta ) );
+		if ( frame ) {
+			// WikiEditor pins this wrapper's height; grow it and let
+			// the textarea fill it so the drag bar keeps working.
+			frame.style.height = h + 'px';
+			ta.style.height = '100%';
+		} else {
+			ta.style.height = h + 'px';
+		}
 	}
-}
 
-function autoGrowBindEvents(textArea) {
-	textArea.onkeyup = function() {
-		autoGrow(textArea);
+	$.fn.autoGrow = function () {
+		return this.each( function () {
+			var $ta = $( this );
+			if ( $ta.closest( '.multipleTemplateStarter' ).length ) {
+				return;
+			}
+			if ( $ta.data( 'pfAutogrowRows' ) === undefined ) {
+				$ta.data( 'pfAutogrowRows', this.rows || 5 ); // before WikiEditor strips it
+			}
+			$ta.off( '.pfAutogrow' ).on( 'input.pfAutogrow focus.pfAutogrow', function () {
+				autoGrow( this );
+			} );
+			autoGrow( this );
+		} );
 	};
-}
 
-// jQuery method
-jQuery.fn.autoGrow = function() {
-	return this.each(function() {
-		autoGrowSetDefaultValues(this);
-		autoGrowBindEvents(this);
-		autoGrow(this);
-	});
-};
+	// WikiEditor may attach (and pin the frame) after autoGrow() ran.
+	mw.hook( 'wikiEditor.toolbarReady' ).add( ( $ta ) => {
+		if ( $ta.hasClass( 'autoGrow' ) ) {
+			setTimeout( () => {
+				autoGrow( $ta[ 0 ] );
+			}, 0 );
+		}
+	} );
+}( jQuery, mediaWiki ) );
