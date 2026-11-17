@@ -264,6 +264,9 @@ class PFTemplateDisplay {
 
 	private static function fileText( $value ) {
 		$title = Title::newFromText( $value, NS_FILE );
+		if ( $title === null ) {
+			return $value;
+		}
 		$file = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title );
 		return Linker::makeThumbLinkObj(
 			$title,
