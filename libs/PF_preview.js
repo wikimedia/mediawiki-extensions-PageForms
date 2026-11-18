@@ -101,7 +101,7 @@
 				'border': 'none',
 				'overflow': 'hidden'
 			} )
-			.load( loadFrameHandler )
+			.on( 'load', loadFrameHandler )
 			.appendTo( $previewpane );
 
 		}
