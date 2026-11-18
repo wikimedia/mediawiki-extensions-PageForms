@@ -118,7 +118,12 @@
 	/**
 	 * Called when the preview button was clicked
 	 */
-	const previewButtonClickedHandler = function handlePreviewButtonClicked() {
+	const previewButtonClickedHandler = function handlePreviewButtonClicked( event ) {
+
+		if ( event ) {
+			// Avoid a browser reload - possibly only needed for MW 1.43
+			event.preventDefault();
+		}
 
 		if ( !validateAll() ) {
 			return;
