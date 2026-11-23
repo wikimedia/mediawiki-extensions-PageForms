@@ -5,7 +5,7 @@
 }
 
 .pf-select2-dropdown .select2-results__options .select2-results__option--highlighted {
-	background-color: #2A4B8D;
+	background-color: #36c; /* --background-color-progressive */
 }
 
 .pf-select2-dropdown .select2-search input {
